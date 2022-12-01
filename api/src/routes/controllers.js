@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { User, Coins } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -21,6 +22,56 @@ async function getTrendingCoins() {
   return trendingCoinsApi;
 }
 
+async function createUser (username, password, name, lastname, email, telephone, dni, nationality){
+  if(!username || !password || !name || !lastname || !email || !telephone || !dni || !nationality){
+    return "misign data"
+  }
+
+  let userDB = await User.findOne({
+      where:{
+          username: username.toLowerCase().trim()
+      }
+  })
+  if(userDB){
+    return "username is not available"
+  }
+
+  let emailDB = await User.findOne({
+    where:{
+        email: email.toLowerCase().trim()
+    }
+  })
+  if(emailDB){
+    return `there is already a user with the email ${email}`
+  }
+
+  let dniDB = await User.findOne({
+    where:{
+        dni: dni
+    }
+  })
+  if(dniDB){
+    return `there is already a user with the DNI ${dni}`
+  }
+
+  let newUser = await User.create({
+    username: username,
+    password: password,
+    name: name,
+    lastname: lastname,
+    email: email,
+    telephone: telephone,
+    dni: dni,
+    nationality: nationality,
+    coins: []
+  })
+
+  return newUser
+
+}
+
+
 module.exports = {
   getTrendingCoins,
+  createUser
 };
