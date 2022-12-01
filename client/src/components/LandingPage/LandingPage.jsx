@@ -15,7 +15,11 @@ const LandingPage = () => {
   
   return (
     <div>
-      <div>LandingPage</div>
+      <div>
+        <h1>LandingPage</h1>
+        <h2>Trending Coins</h2>
+      </div>
+
       <div>
         {trendingCoins &&
           trendingCoins.map((e) => {
