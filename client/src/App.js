@@ -13,7 +13,6 @@ function App() {
         <Route exact path={"/FAQ"} component={FAQ} />
         <Route exact path={["/", "/FAQ"]} component={Footer} />
       </BrowserRouter>
-      
     </div>
   );
 }
