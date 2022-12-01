@@ -1,0 +1,1 @@
+export const GET_TRENDING_COINS = "GET_TRENDING_COINS";
