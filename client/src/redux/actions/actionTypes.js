@@ -1,1 +1,2 @@
 export const GET_TRENDING_COINS = "GET_TRENDING_COINS";
+export const GET_ALL_COINS = "GET_ALL_COINS";

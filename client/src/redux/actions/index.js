@@ -10,3 +10,12 @@ export function getTrendingCoins() {
     });
   };
 }
+export function getAllCoins() {
+  return async function (dispatch) {
+    let json = await axios.get("http://localhost:3001/coins/allcoins");
+    return dispatch({
+      type: GET_ALL_COINS,
+      payload: json.data,
+    });
+  };
+}
