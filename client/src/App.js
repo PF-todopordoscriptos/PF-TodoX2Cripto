@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Footer from "./components/Footer/Footer.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
+import Chart from "./components/Chart/Chart";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route exact path={"/"} component={LandingPage} />
         <Route exact path={"/FAQ"} component={FAQ} />
         <Route exact path={["/", "/FAQ"]} component={Footer} />
+        <Route path={"/chart/:id"} component={Chart} />
       </BrowserRouter>
     </div>
   );

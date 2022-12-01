@@ -26,15 +26,19 @@ async function getHistoryChart(id) {
   //se puede definir dias y moneda
 
   const historyChart = await axios.get(
-    `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7`
+    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`
   );
   console.log(historyChart);
+  let coinChartDataObj = {};
   const coinChartData = historyChart.data.prices.map((value) => ({
     x: value[0],
     y: value[0].toFixed(2),
   }));
-
-  return coinChartData;
+  coinChartDataObj = {
+    id,
+    coinChartData,
+  };
+  return coinChartDataObj;
 }
 
 async function createUser(

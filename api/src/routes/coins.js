@@ -15,8 +15,8 @@ router.get("/trending", async (req, res) => {
   }
 });
 
-router.get("/chart", async (req, res) => {
-  const { id } = req.body;
+router.get("/chart/:id", async (req, res) => {
+  const { id } = req.params;
   try {
     let chart = await getHistoryChart(id);
     res.status(200).json(chart);

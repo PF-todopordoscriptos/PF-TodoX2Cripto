@@ -10,9 +10,9 @@ export function getTrendingCoins() {
     });
   };
 }
-export function getHistoryChart() {
+export function getHistoryChart(id) {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/coins/trending");
+    let json = await axios.get(`http://localhost:3001/coins/chart/${id}`);
     return dispatch({
       type: GET_HISTORY_CHART,
       payload: json.data,
