@@ -7,7 +7,11 @@ function App() {
     <div className="App">
       <h1>Cripto Bros</h1>
       <h1>Prueba 3</h1>
-      
+
+
+      <h1> richard rey de reyes</h1>
+      <h1> rami puto</h1>
+
       <BrowserRouter>
         <Route exact path={"/"} component={LandingPage} />
       </BrowserRouter>

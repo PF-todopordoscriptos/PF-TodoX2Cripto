@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTrendingCoins } from "../../redux/actions";
 
 const LandingPage = () => {
+
   const dispatch = useDispatch();
   const trendingCoins = useSelector((state) => state.trendingCoins);
   console.log(trendingCoins);
+
   useEffect(() => {
     dispatch(getTrendingCoins());
   }, [dispatch]);
+  
   return (
     <div>
       <div>LandingPage</div>
