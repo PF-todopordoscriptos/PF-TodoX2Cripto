@@ -12,6 +12,8 @@ function App() {
       <h1> richard rey de reyes</h1>
       <h1> rami puto</h1>
 
+      <h1> facu maquinaaa</h1>
+
       <BrowserRouter>
         <Route exact path={"/"} component={LandingPage} />
       </BrowserRouter>
