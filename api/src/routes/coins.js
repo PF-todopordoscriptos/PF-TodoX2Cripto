@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { getTrendingCoins, getAllCoins } = require("./controllers");
 const {
   getTrendingCoins,
   getHistoryChart,
+  getAllCoins
 } = require("../controllers/controllers.js");
 
 const router = Router();
