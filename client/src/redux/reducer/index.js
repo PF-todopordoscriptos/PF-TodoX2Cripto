@@ -1,6 +1,10 @@
-
-import { GET_TRENDING_COINS, GET_ALL_COINS, GET_HISTORY_CHART, GET_COIN_DETAIL, GET_COIN_BY_NAME } from "../actions/actionTypes";
-
+import {
+  GET_TRENDING_COINS,
+  GET_ALL_COINS,
+  GET_HISTORY_CHART,
+  GET_COIN_DETAIL,
+  GET_COIN_BY_NAME,
+} from "../actions/actionTypes";
 
 const initialState = {
   allCoins: [],
@@ -29,21 +33,20 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_COIN_BY_NAME:
-      console.log('payload '+action.payload)
-      console.log(state.coin)
+      console.log("payload " + action.payload);
+      console.log(state.coin);
       return {
         ...state,
-        coin: state.allCoins.filter((c) => c.name.toLowerCase() === action.payload.toLowerCase())
+        coin: state.allCoins.filter(
+          (c) => c.name.toLowerCase() === action.payload.toLowerCase()
+        ),
       };
-      
-
 
     case GET_COIN_DETAIL:
       return {
         ...state,
-        coinDetails: action.payload
-      }
-
+        coinDetails: action.payload,
+      };
 
     default:
       return state;

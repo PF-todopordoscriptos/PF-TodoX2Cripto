@@ -1,23 +1,24 @@
-import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActions } from '@mui/material';
+import React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActions } from "@mui/material";
 
 //id, symbol, image, current_price, market_cap, price_change_percentage_24h, name
 export default function coinCard(props) {
   return (
-    <Card sx={{ maxWidth: 415, borderRadius: 3 , boxShadow: 4  }}>
+    <Card sx={{ maxWidth: 415, borderRadius: 3, boxShadow: 4 }}>
       <CardMedia
         component="img"
         height="340px"
-        width='415px'
+        width="415px"
         image={props.image}
-        alt="logoCoin"
+        alt={props.id}
       />
+
       <CardContent>
-      <Typography gutterBottom variant="h1" component="div">
+        <Typography gutterBottom variant="h1" component="div">
           {props.name}
         </Typography>
         <Typography gutterBottom variant="h1" component="div">
@@ -39,7 +40,7 @@ export default function coinCard(props) {
         </Button>
       </CardActions>
     </Card>
-  )
+  );
 }
 
 //     <div>

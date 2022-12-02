@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
 import Chart from "./components/Chart/Chart";
 import Home from "./components/Home/Home";
+import Details from "./components/Details/Details";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path={"/FAQ"} component={FAQ} />
         <Route exact path={["/", "/FAQ"]} component={Footer} />
         <Route path={"/chart/:id"} component={Chart} />
+        <Route path={"/details/:id"} component={Details} />
         <Route path={"/home"} component={Home} />
       </BrowserRouter>
     </div>
