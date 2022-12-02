@@ -3,4 +3,4 @@ export const GET_ALL_COINS = "GET_ALL_COINS";
 export const GET_HISTORY_CHART = "GET_HISTORY_CHART";
 export const GET_COIN_BY_NAME = "GET_COIN_BY_NAME";
 export const GET_COIN_DETAIL = 'GET_COIN_DETAIL'
-
+export const ADD_FAVORITE = 'ADD_FAVORITE'

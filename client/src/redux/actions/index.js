@@ -5,6 +5,7 @@ import {
   GET_ALL_COINS,
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
+  ADD_FAVORITE
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -51,4 +52,11 @@ export function getCoinDetail(id) {
       payload: json.data,
     });
   };
+}
+
+export function addFavorite(coin){
+  return({
+      type: ADD_FAVORITE,
+      payload: coin
+  })
 }
