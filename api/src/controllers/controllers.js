@@ -144,9 +144,29 @@ async function getAllCoins() {
   return allCoinsApi;
 }
 
+async function getCoinDetail(id){
+  try {
+    const detailApi = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}`)
+
+    const coinDetail = {
+      id: detailApi.data.id,
+      symbol: detailApi.data.symbol,
+      image: detailApi.data.image.large,
+      current_price: detailApi.data.market_data.current_price.usd,
+      market_cap: detailApi.data.market_data.market_cap.usd,
+      price_change_percentage_24h: detailApi.data.market_data.price_change_percentage_24h
+    }
+    return coinDetail
+
+  } catch (error) {
+    return `Couldn't find a Coin named ${id}`
+  }
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
   createUser,
   getAllCoins,
+  getCoinDetail
 };
