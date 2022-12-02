@@ -1,4 +1,4 @@
-import { GET_HISTORY_CHART, GET_TRENDING_COINS } from "../actions/actionTypes";
+import { GET_TRENDING_COINS, GET_ALL_COINS, GET_HISTORY_CHART } from "../actions/actionTypes";
 
 const initialState = {
   allCoins: [],
@@ -13,6 +13,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         trendingCoins: action.payload,
+      };
+    case GET_ALL_COINS:
+      return {
+        ...state,
+        allCoins: action.payload,
       };
     case GET_HISTORY_CHART:
       return {
