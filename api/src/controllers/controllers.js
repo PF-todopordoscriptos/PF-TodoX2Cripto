@@ -32,7 +32,7 @@ async function getHistoryChart(id) {
   let coinChartDataObj = {};
   const coinChartData = historyChart.data.prices.map((value) => ({
     x: value[0],
-    y: value[0].toFixed(2),
+    y: value[1].toFixed(2),
   }));
   coinChartDataObj = {
     id,
