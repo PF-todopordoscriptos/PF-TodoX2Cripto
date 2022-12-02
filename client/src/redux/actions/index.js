@@ -37,10 +37,10 @@ export function getHistoryChart(id) {
   };
 }
 
-export function getCoinByName(coin) {
+export function getCoinByName(payload) {
   return {
     type: GET_COIN_BY_NAME,
-    payload: coin,
+    payload,
   };
 }
 export function getCoinDetail(id) {

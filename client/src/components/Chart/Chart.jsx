@@ -28,15 +28,14 @@ ChartJS.register(
   Filler,
   Legend
 );
-
-const Chart = (props) => {
+const HistoryChart = (id) => {
   const dispatch = useDispatch();
   const historyChart = useSelector((state) => state.historyChart);
-  console.log(historyChart);
+  console.log(id);
 
   useEffect(() => {
-    dispatch(getHistoryChart(props.match.params.id));
-  }, [dispatch, props]);
+    dispatch(getHistoryChart(id.id));
+  }, [dispatch, id]);
 
   const options = { ...historyOptions };
 
@@ -54,7 +53,7 @@ const Chart = (props) => {
               datasets: [
                 {
                   fill: true,
-                  label: props.match.params.id,
+                  label: id,
                   data: historyChart.coinChartData.map((value) => value.y),
                   borderColor: "rgb(53, 162, 235)",
                 },
@@ -69,4 +68,4 @@ const Chart = (props) => {
   );
 };
 
-export default Chart;
+export default HistoryChart;
