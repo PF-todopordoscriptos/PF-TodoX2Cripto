@@ -16,6 +16,7 @@ import {
 import { getHistoryChart } from "../../redux/actions";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
+import { historyOptions } from "./ChartOptions";
 
 ChartJS.register(
   CategoryScale,
@@ -37,24 +38,7 @@ const Chart = (props) => {
     dispatch(getHistoryChart(props.match.params.id));
   }, [dispatch, props]);
 
-  const options = {
-    responsive: true,
-  };
-
-  // const data = {
-
-  //   labels: historyChart.coinChartData.map((value) =>
-  //     moment(value.x).format("DDMM")
-  //   ),
-  //   datasets: [
-  //     {
-  //       fill: true,
-  //       label: props.match.params.id,
-  //       data: historyChart.coinChartData.map((value) => value.y),
-  //       borderColor: "rgb(53, 162, 235)",
-  //     },
-  //   ],
-  // };
+  const options = { ...historyOptions };
 
   return (
     <div>
