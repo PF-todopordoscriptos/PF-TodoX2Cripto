@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins } from "../../redux/actions";
-import Card from "../Card/Card";
+import CoinCard from "../CoinCard/CoinCard";
+import Grid from '@mui/system/Unstable_Grid';
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Home() {
 
@@ -9,27 +11,30 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getAllCoins())
-  }, [])
+  }, [dispatch])
 
   const allCoins = useSelector((state) => state.allCoins)
 
   return (
-    <div>
-        {allCoins && 
-        allCoins.map((c) => {
-          return <Card
-                  key={c.id}
-                  id= {c.id}
-                  name= {c.name}
-                  symbol= {c.symbol}
-                  current_price= {c.current_price}
-                  image= {c.image}
-                  market_cap= {c.market_cap}
-                  price_change_percentage_24h= {c.price_change_percentage_24h}
-                  />
-        })
-        }
-    </div>
+    <>
+      <SearchBar />
+      <Grid sx={{ gap: 2}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {allCoins && 
+            allCoins.map((c) => (
+              <CoinCard
+                      key={c.id}
+                      id= {c.id}
+                      name= {c.name}
+                      symbol= {c.symbol}
+                      current_price= {c.current_price}
+                      image= {c.image}
+                      market_cap= {c.market_cap}
+                      price_change_percentage_24h= {c.price_change_percentage_24h}
+                      />
+            ))
+            }
+
+      </Grid>
+    </>
   )
 }
-

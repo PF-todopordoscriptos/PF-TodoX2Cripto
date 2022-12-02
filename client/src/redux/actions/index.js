@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_TRENDING_COINS, GET_HISTORY_CHART, GET_ALL_COINS } from "./actionTypes";
+import { GET_TRENDING_COINS, GET_HISTORY_CHART, GET_ALL_COINS, GET_COIN_BY_NAME } from "./actionTypes";
 
 export function getTrendingCoins() {
   return async function (dispatch) {
@@ -29,4 +29,11 @@ export function getHistoryChart(id) {
       payload: json.data
     });
   };
+}
+
+export function getCoinByName(coin) {
+  return{
+    type: GET_COIN_BY_NAME,
+    payload: coin
+  }
 }

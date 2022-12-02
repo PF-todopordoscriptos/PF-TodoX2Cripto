@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrendingCoins } from "../../redux/actions";
+import CoinCard from "../CoinCard/CoinCard";
+import Grid from '@mui/system/Unstable_Grid';
 
 const LandingPage = () => {
 
@@ -20,12 +22,22 @@ const LandingPage = () => {
         <h2>Trending Coins</h2>
       </div>
 
-      <div>
+      <Grid sx={{ gap: 2}} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {trendingCoins &&
-          trendingCoins.map((e) => {
-            return <h1>{e.name}</h1>;
-          })}
-      </div>
+          trendingCoins.map((e) => (
+            <CoinCard
+            key={e.id}
+            name={e.name}
+            image={e.large}
+            market_cap={e.market_cap_rank}
+            current_price={e.price_btc}
+            />
+          )
+        )}
+      </Grid>
+      
+
+    
     </div>
   );
 };
