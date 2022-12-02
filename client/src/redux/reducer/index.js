@@ -4,6 +4,7 @@ import {
   GET_HISTORY_CHART,
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
+  ADD_FAVORITE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -47,6 +48,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         coinDetails: action.payload,
       };
+
+    case ADD_FAVORITE:
+      return{
+        ...state,
+        favoriteCoins: state.favoriteCoins.concat(action.payload)
+      }
 
     default:
       return state;
