@@ -12,13 +12,13 @@ export default function Home() {
   }, [])
 
   const allCoins = useSelector((state) => state.allCoins)
-  console.log(allCoins)
 
   return (
     <div>
         {allCoins && 
         allCoins.map((c) => {
           return <Card
+                  key={c.id}
                   id= {c.id}
                   name= {c.name}
                   symbol= {c.symbol}
