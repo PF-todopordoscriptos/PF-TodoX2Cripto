@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_TRENDING_COINS, GET_HISTORY_CHART, GET_ALL_COINS } from "./actionTypes";
+import { GET_TRENDING_COINS, GET_HISTORY_CHART, GET_ALL_COINS, GET_COIN_DETAIL } from "./actionTypes";
 
 export function getTrendingCoins() {
   return async function (dispatch) {
@@ -29,4 +29,14 @@ export function getHistoryChart(id) {
       payload: json.data
     });
   };
+}
+
+export function getCoinDetail(id){
+  return async function(dispatch){
+    let json = await axios.get(`http://localhost:3001/coins/details/${id}`);
+    return dispatch({
+      type: GET_COIN_DETAIL,
+      payload: json.data
+    })
+  }
 }
