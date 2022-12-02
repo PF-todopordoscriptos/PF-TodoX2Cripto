@@ -106,8 +106,47 @@ async function createUser(
   return newUser;
 }
 
+async function getAllCoins() {
+  const allCoins = await axios.get(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+  );
+  console.log(allCoins);
+  let allCoinsApi = allCoins.data.map((e) => {
+    return {
+      id: e.id,
+      symbol: e.symbol,
+      name: e.name,
+      image: e.image,
+      current_price: e.current_price,
+      market_cap: e.market_cap,
+      market_cap_rank: e.market_cap_rank,
+      fully_diluted_valuation: e.fully_diluted_valuation,
+      total_volume: e.total_volume,
+      high_24h: e.high_24h,
+      low_24h: e.low_24h,
+      price_change_24h: e.price_change_24h,
+      price_change_percentage_24h: e.price_change_percentage_24h,
+      market_cap_change_24h: e.market_cap_change_24h,
+      market_cap_change_percentage_24h: e.market_cap_change_percentage_24h,
+      circulating_supply: e.circulating_supply,
+      total_supply: e.total_supply,
+      max_supply: e.max_supply,
+      ath: e.ath,
+      ath_change_percentage: e.ath_change_percentage,
+      ath_date: e.ath_date,
+      atl: e.atl,
+      atl_change_percentage: e.atl_change_percentage,
+      atl_date: e.atl_date,
+      roi: e.roi,
+      last_updated: e.last_updated,
+    };
+  });
+  return allCoinsApi;
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
   createUser,
+  getAllCoins,
 };
