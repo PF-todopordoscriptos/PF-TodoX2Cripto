@@ -35,7 +35,7 @@ const LandingPage = () => {
       >
         {trendingCoins &&
           trendingCoins.map((e) => (
-            <NavLink to={"/details/" + e.id}>
+            <NavLink to={"/details/" + e.id} key={e.id}>
               <CoinCard
                 key={e.id}
                 name={e.name}

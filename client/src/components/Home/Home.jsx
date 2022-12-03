@@ -38,7 +38,7 @@ export default function Home() {
       >
         {currentCoins &&
           currentCoins.map((c) => (
-            <NavLink to={"/details/" + c.id}>
+            <NavLink to={"/details/" + c.id} key={c.id}>
               <CoinCard
                 key={c.id}
                 id={c.id}
