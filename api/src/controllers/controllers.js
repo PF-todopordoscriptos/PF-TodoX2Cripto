@@ -150,6 +150,7 @@ async function getCoinDetail(id){
 
     const coinDetail = {
       id: detailApi.data.id,
+      name: detailApi.data.name,
       symbol: detailApi.data.symbol,
       image: detailApi.data.image.large,
       current_price: detailApi.data.market_data.current_price.usd,

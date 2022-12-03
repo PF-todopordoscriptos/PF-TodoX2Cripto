@@ -29,7 +29,9 @@ export default function Home() {
 
   return (
     <>
-      <SearchBar />
+      <SearchBar 
+      setCurrentPage={setCurrentPage}
+      />
       <Grid
         sx={{ gap: 2 }}
         container

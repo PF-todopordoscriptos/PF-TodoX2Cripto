@@ -19,6 +19,16 @@ router.get("/trending", async (req, res) => {
 router.get("/allcoins", async (req, res) => {
   try {
     let allCoins = await getAllCoins();
+    const {name} = req.query
+    if(name){
+      let coinName = allCoins.filter((c) => 
+      c.name.toLowerCase().includes(name.toLowerCase()))
+      if(coinName.length === 0){
+        return res.status(200).send(null)
+      }else{
+        return res.status(200).send(coinName)
+      }
+    }
     res.status(200).json(allCoins);
   } catch (err) {
     res.status(400).json(err.message);
