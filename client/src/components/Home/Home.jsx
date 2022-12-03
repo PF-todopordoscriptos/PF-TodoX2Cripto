@@ -38,18 +38,18 @@ export default function Home() {
       >
         {currentCoins &&
           currentCoins.map((c) => (
-            <NavLink to={"/details/" + c.id} key={c.id}>
-              <CoinCard
-                key={c.id}
-                id={c.id}
-                name={c.name}
-                symbol={c.symbol}
-                current_price={c.current_price}
-                image={c.image}
-                market_cap={c.market_cap}
-                price_change_percentage_24h={c.price_change_percentage_24h}
-              />
-            </NavLink>
+            // <NavLink to={"/details/" + c.id} key={c.id}>
+            <CoinCard
+              key={c.id}
+              id={c.id}
+              name={c.name}
+              symbol={c.symbol}
+              current_price={c.current_price}
+              image={c.image}
+              market_cap={c.market_cap}
+              price_change_percentage_24h={c.price_change_percentage_24h}
+            />
+            // </NavLink>
           ))}
       </Grid>
       <Pagination

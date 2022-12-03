@@ -35,15 +35,14 @@ const LandingPage = () => {
       >
         {trendingCoins &&
           trendingCoins.map((e) => (
-            <NavLink to={"/details/" + e.id} key={e.id}>
-              <CoinCard
-                key={e.id}
-                name={e.name}
-                image={e.large}
-                market_cap={e.market_cap_rank}
-                current_price={e.price_btc}
-              />
-            </NavLink>
+            <CoinCard
+              id={e.id}
+              key={e.id}
+              name={e.name}
+              image={e.large}
+              market_cap={e.market_cap_rank}
+              current_price={e.price_btc}
+            />
           ))}
       </Grid>
     </div>
