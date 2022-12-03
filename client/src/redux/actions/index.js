@@ -5,7 +5,10 @@ import {
   GET_ALL_COINS,
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
-  ADD_FAVORITE
+  ADD_FAVORITE,
+  ORDER_QUOTES,
+  ORDER_RANKS,
+  ORDER_CHANGE_PERCENTAGE
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -59,4 +62,25 @@ export function addFavorite(coin){
       type: ADD_FAVORITE,
       payload: coin
   })
+}
+
+export function orderQUOTES(payload){
+  return{
+      type: ORDER_QUOTES,
+      payload: payload
+  }
+}
+
+export function orderRANKS(payload){
+  return{
+      type: ORDER_RANKS,
+      payload: payload
+  }
+}
+
+export function orderChangePercentage(payload){
+  return{
+      type: ORDER_CHANGE_PERCENTAGE,
+      payload: payload
+  }
 }
