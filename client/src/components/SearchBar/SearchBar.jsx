@@ -14,17 +14,13 @@ const SearchBar = ({setCurrentPage}) => {
     setCoin(e.target.value);
   };
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    // if (coin.length !== 0) {
-      setCurrentPage(1)
-      dispatch(getCoinByName(coin));
-      // history.push(`/details/${coin}`);
-    // } else {
-      // alert("You must enter a name!");
-    // }
-    setCoin("");
-  }
+  
+
+  React.useEffect(() => {
+    dispatch(getCoinByName(coin));
+    setCurrentPage(1);
+    //setCoin("");
+  }, [coin, setCurrentPage, dispatch])
 
   return (
     <Stack
@@ -34,7 +30,7 @@ const SearchBar = ({setCurrentPage}) => {
         width: "80%",
       }}
     >
-      <form onSubmit={(e) => handleSubmit(e)}>
+      
         <TextField
           id="outlined-basic"
           label="Buscar"
@@ -47,7 +43,7 @@ const SearchBar = ({setCurrentPage}) => {
             width: "90%",
           }}
         />
-      </form>
+    
     </Stack>
   );
 };

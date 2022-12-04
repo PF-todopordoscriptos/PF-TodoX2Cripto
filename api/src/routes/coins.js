@@ -24,7 +24,7 @@ router.get("/allcoins", async (req, res) => {
       let coinName = allCoins.filter((c) => 
       c.name.toLowerCase().includes(name.toLowerCase()))
       if(coinName.length === 0){
-        return res.status(200).send(null)
+        return res.status(200).json(['Ninguna moneda coincide'])
       }else{
         return res.status(200).send(coinName)
       }

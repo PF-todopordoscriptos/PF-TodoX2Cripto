@@ -34,10 +34,10 @@ function App() {
         <BrowserRouter>
           <Route exact path={"/"} component={LandingPage} />
           <Route exact path={"/FAQ"} component={FAQ} />
-          <Route exact path={["/", "/FAQ"]} component={Footer} />
+          <Route path={"/home"} component={Home} />
           <Route path={"/chart/:id"} component={Chart} />
           <Route path={"/details/:id"} component={Details} />
-          <Route path={"/home"} component={Home} />
+          <Route exact path={["/", "/FAQ", "/home"]} component={Footer} />
         </BrowserRouter>
       </div>
     </ThemeProvider>
