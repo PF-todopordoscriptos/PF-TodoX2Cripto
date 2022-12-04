@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User, Coins } = require("../db");
+const { User, Coins, Review } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -141,6 +141,9 @@ async function getAllCoins() {
       last_updated: e.last_updated,
     };
   });
+  allCoinsApi.map( async (e) => Coins.create({
+    name: e.name
+  }))
   return allCoinsApi;
 }
 
@@ -164,10 +167,32 @@ async function getCoinDetail(id){
   }
 }
 
+
+async function createReview(stars, text, coinName, username) {
+  let review = await Review.create({
+    stars,
+    text
+  })
+    let coin = await Coins.findOne({
+      where: {
+        name: coinName
+      }
+    })
+  await coin.addReview(review)
+  let user = await User.findOne({
+    where: {
+      username: username
+    },
+  });
+  await user.addReview(review)
+  return review
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
   createUser,
   getAllCoins,
-  getCoinDetail
+  getCoinDetail,
+  createReview
 };
