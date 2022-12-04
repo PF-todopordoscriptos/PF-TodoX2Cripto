@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite } from "../../redux/actions";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,13 +10,21 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-
+import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
 
 //id, symbol, image, current_price, market_cap, price_change_percentage_24h, name
 export default function CoinCard(props) {
   let dispatch = useDispatch();
   let favoriteCoins = useSelector((state) => state.favoriteCoins);
+
+  const [favoriteClicked, setFavoriteClicked] = useState(false);
+
+  const toggleFavoriteClick = () => {
+    setFavoriteClicked(!favoriteClicked);
+  };
 
   const Favorite = () => {
     if (!favoriteCoins.find((c) => c.name === props.name)) {
@@ -90,7 +98,17 @@ export default function CoinCard(props) {
           <Button size="large" color="primary">
             Comprar
           </Button>
-          <Button>Prueba</Button>
+
+          {favoriteClicked ? (
+            <IconButton aria-label="" onClick={toggleFavoriteClick}>
+              <StarOutlinedIcon color="primary" />
+            </IconButton>
+          ) : (
+            <IconButton aria-label="" onClick={toggleFavoriteClick}>
+              <StarOutlineOutlinedIcon color="primary" />
+            </IconButton>
+          )}
+
           <Button onClick={Favorite} size="large" color="primary">
             FAVORITOS
           </Button>
