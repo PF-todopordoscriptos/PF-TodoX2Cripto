@@ -5,7 +5,6 @@ import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 
-import { NavLink } from "react-router-dom";
 import { Link, Pagination, Stack, Typography } from "@mui/material";
 
 import Filter from "../Filter/Filter";
@@ -33,12 +32,17 @@ export default function Home() {
     setCurrentPage(p);
   };
 
+  const [coin, setCoin] = useState("");
+
   return (
     <>
 
 
       <SearchBar 
-      setCurrentPage={setCurrentPage}/>
+      setCurrentPage={setCurrentPage}
+      coin={coin}
+      setCoin={setCoin}
+      />
 
       <Typography variant="subtitle1" color="primary.dark"
           sx={{
@@ -51,6 +55,7 @@ export default function Home() {
       <Filter
       setCurrentPage={setCurrentPage}
       setOrder={setOrder}
+      setCoin={setCoin}
       />
 
       {

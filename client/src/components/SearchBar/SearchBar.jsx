@@ -1,19 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { Stack, TextField } from "@mui/material";
 
 import { getCoinByName } from "../../redux/actions";
 
-const SearchBar = ({setCurrentPage}) => {
+const SearchBar = ({setCurrentPage, coin, setCoin}) => {
   const dispatch = useDispatch();
-  const [coin, setCoin] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
     setCoin(e.target.value);
   };
-
   
 
   React.useEffect(() => {
