@@ -5,7 +5,8 @@ import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 import { NavLink } from "react-router-dom";
-import { Pagination, Container } from "@mui/material";
+import { Pagination } from "@mui/material";
+import Filter from "../Filter/Filter";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,6 +16,9 @@ export default function Home() {
   }, [dispatch]);
 
   const allCoins = useSelector((state) => state.allCoins);
+
+  const [order, setOrder] = useState(" ")
+  console.log(order)
 
   const [currentPage, setCurrentPage] = useState(1);
   const coinsPerPage = 10;
@@ -30,6 +34,10 @@ export default function Home() {
   return (
     <>
       <SearchBar />
+      <Filter
+      setCurrentPage={setCurrentPage}
+      setOrder={setOrder}
+      />
       <Grid
         sx={{ gap: 2 }}
         container
