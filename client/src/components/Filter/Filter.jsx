@@ -16,23 +16,29 @@ import { Button } from "@mui/material";
 const Filter = ({ setCurrentPage, setOrder }) => {
   let dispatch = useDispatch();
 
-  const handleReset = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    dispatch(getAllCoins());
-    setQuote(null);
-    setRank(null);
-    setPercentage(null);
-  };
 
-  const handleOrderQuotes = (e) => {
-    setCurrentPage(1);
-    dispatch(orderQUOTES(e.target.value));
-    setOrder(`Order by ${e.target.value}`);
-    setQuote(e.target.value);
-    setRank(null);
-    setPercentage(null);
-  };
+const Filter = ({setCurrentPage, setOrder, setCoin}) => {
+    let dispatch = useDispatch()
+
+    const handleReset = (e) => {
+      e.preventDefault()
+      setCurrentPage(1)
+      dispatch(getAllCoins())
+      setQuote(null)
+      setRank(null)
+      setPercentage(null)
+      setCoin("")
+  }
+
+    const handleOrderQuotes = (e) => {
+      setCurrentPage(1)
+      dispatch(orderQUOTES(e.target.value))
+      setOrder(`Order by ${e.target.value}`)
+      setQuote(e.target.value)
+      setRank(null)
+      setPercentage(null)
+  }
+
 
   const handleOrderRanks = (e) => {
     setCurrentPage(1);
