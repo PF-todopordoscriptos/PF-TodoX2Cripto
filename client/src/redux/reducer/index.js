@@ -15,6 +15,7 @@ const initialState = {
   trendingCoins: [],
   historyChart: [],
   coin: [],
+  favoriteCoins: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -40,9 +41,7 @@ function rootReducer(state = initialState, action) {
       console.log(state.coin);
       return {
         ...state,
-        coin: state.allCoins.filter(
-          (c) => c.name.toLowerCase() === action.payload.toLowerCase()
-        ),
+        allCoins: action.payload
       };
 
     case GET_COIN_DETAIL:

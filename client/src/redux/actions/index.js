@@ -41,12 +41,16 @@ export function getHistoryChart(id) {
   };
 }
 
-export function getCoinByName(payload) {
-  return {
-    type: GET_COIN_BY_NAME,
-    payload,
+export function getCoinByName(id) {
+  return async function (dispatch) {
+    let json = await axios.get(`http://localhost:3001/coins/allcoins?name=${id}`);
+    return dispatch({
+      type: GET_COIN_BY_NAME,
+      payload: json.data,
+    });
   };
 }
+
 export function getCoinDetail(id) {
   return async function (dispatch) {
     let json = await axios.get(`http://localhost:3001/coins/details/${id}`);

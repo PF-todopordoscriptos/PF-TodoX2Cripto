@@ -5,7 +5,7 @@ import { Stack, TextField } from "@mui/material";
 
 import { getCoinByName } from "../../redux/actions";
 
-const SearchBar = () => {
+const SearchBar = ({setCurrentPage}) => {
   const dispatch = useDispatch();
   const [coin, setCoin] = useState("");
 
@@ -14,18 +14,15 @@ const SearchBar = () => {
     setCoin(e.target.value);
   };
 
-  // React.useEffect(() => {
-  //   dispatch(getCoinByName(coin));
-  // }, [coin, dispatch]);
-
   function handleSubmit(e) {
     e.preventDefault();
-    if (coin.length !== 0) {
-      dispatch(getCoinByName(e.target.value));
+    // if (coin.length !== 0) {
+      setCurrentPage(1)
+      dispatch(getCoinByName(coin));
       // history.push(`/details/${coin}`);
-    } else {
-      alert("You must enter a name!");
-    }
+    // } else {
+      // alert("You must enter a name!");
+    // }
     setCoin("");
   }
 
@@ -37,7 +34,7 @@ const SearchBar = () => {
         width: "80%",
       }}
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <TextField
           id="outlined-basic"
           label="Buscar"

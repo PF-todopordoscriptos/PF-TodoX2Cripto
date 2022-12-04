@@ -33,10 +33,13 @@ export default function Home() {
 
   return (
     <>
-      <SearchBar />
+
+      <SearchBar 
+      setCurrentPage={setCurrentPage}
       <Filter
       setCurrentPage={setCurrentPage}
       setOrder={setOrder}
+
       />
       <Grid
         sx={{ gap: 2 }}
