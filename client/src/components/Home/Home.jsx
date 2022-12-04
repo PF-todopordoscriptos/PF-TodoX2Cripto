@@ -5,7 +5,7 @@ import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 import { NavLink } from "react-router-dom";
-import { Pagination } from "@mui/material";
+import { Link, Pagination, Stack, Typography } from "@mui/material";
 import Filter from "../Filter/Filter";
 
 export default function Home() {
@@ -35,12 +35,31 @@ export default function Home() {
     <>
 
       <SearchBar 
-      setCurrentPage={setCurrentPage}
+      setCurrentPage={setCurrentPage}/>
+
+      <Typography variant="subtitle1" color="primary.dark"
+          sx={{
+            marginLeft: "60px"
+          }}
+        >
+        <Link href="/form">Register</Link>
+      </Typography>
+      
       <Filter
       setCurrentPage={setCurrentPage}
       setOrder={setOrder}
-
       />
+
+      {
+        allCoins[0] === 'Ninguna moneda coincide' ?
+        (<Stack>
+          <Typography variant="h3" color="primary.dark">Not coin found</Typography>
+          <Typography variant="h5" color="primary.dark">Por favor refresca la pagina</Typography>
+          {/*<h3 onClick={() => window.location.reload()}>Por favor refresca la pagina</h3>
+          <button onClick={() => window.location.reload()}>refresca la pagina</button>
+           */}           
+        </Stack>)
+      :(
       <Grid
         sx={{ gap: 2 }}
         container
@@ -63,6 +82,9 @@ export default function Home() {
             // </NavLink>
           ))}
       </Grid>
+      )
+      }
+      
       <Pagination
         count={Math.ceil(allCoins.length / 10)}
         variant="outlined"
