@@ -38,7 +38,7 @@ function Metamask() {
                 window.web3 = new Web3(ethereum);
                 try {
                   await ethereum.enable();
-                  //InitPayButton() // DUPLICA MOVIMIENTOS
+                  //InitPayButton() // DUPLICA MOVIMIENTOS //
                 } catch (err) {
                   document.getElementById('status').innerHTML = 'User denied account access'
                 }
