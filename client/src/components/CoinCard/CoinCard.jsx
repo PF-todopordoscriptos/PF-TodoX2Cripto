@@ -90,6 +90,7 @@ export default function CoinCard(props) {
           <Button size="large" color="primary">
             Comprar
           </Button>
+          <Button>Prueba</Button>
           <Button onClick={Favorite} size="large" color="primary">
             FAVORITOS
           </Button>
