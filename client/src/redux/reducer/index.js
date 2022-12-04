@@ -4,7 +4,9 @@ import {
   GET_HISTORY_CHART,
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
-  ADD_FAVORITE
+  ORDER_QUOTES,
+  ORDER_RANKS,
+  ORDER_CHANGE_PERCENTAGE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -48,11 +50,67 @@ function rootReducer(state = initialState, action) {
         coinDetails: action.payload,
       };
 
-    case ADD_FAVORITE:
-      return{
-        ...state,
-        favoriteCoins: state.favoriteCoins.concat(action.payload)
-      }
+    case ORDER_QUOTES:
+      let orderQuotes
+            // if(action.payload === "All"){
+            //   orderQuotes = state.allCoins
+           if(action.payload === "best"){
+            orderQuotes = state.allCoins.sort(function(a,b){
+                  if(a.current_price < b.current_price) {return 1;}
+                  if(a.current_price > b.current_price) {return -1;}
+                  return 0
+              })
+          }else if(action.payload === "worst"){
+              orderQuotes = state.allCoins.sort(function(a,b){
+                    if(a.current_price < b.current_price) {return -1;}
+                    if(a.current_price > b.current_price) {return 1;}
+                    return 0;
+                })
+              }
+            return{
+                ...state,
+                allCoins:orderQuotes
+            }    
+
+    case ORDER_RANKS:
+      let orderRank
+        if(action.payload === "+rank"){
+          orderRank = state.allCoins.sort(function(a,b){
+                if(a.market_cap_rank < b.market_cap_rank) {return 1;}
+                if(a.market_cap_rank > b.market_cap_rank) {return -1;}
+                return 0
+            })
+        }else if(action.payload === "-rank"){
+            orderRank = state.allCoins.sort(function(a,b){
+                  if(a.market_cap_rank < b.market_cap_rank) {return -1;}
+                  if(a.market_cap_rank > b.market_cap_rank) {return 1;}
+                  return 0;
+              })
+            }
+          return{
+              ...state,
+              allCoins:orderRank  
+        }
+        
+    case ORDER_CHANGE_PERCENTAGE:
+      let orderChange
+        if(action.payload === "more"){
+          orderChange = state.allCoins.sort(function(a,b){
+                if(a.price_change_percentage_24h < b.price_change_percentage_24h) {return 1;}
+                if(a.price_change_percentage_24h > b.price_change_percentage_24h) {return -1;}
+                return 0
+            })
+        }else if(action.payload === "less"){
+            orderChange = state.allCoins.sort(function(a,b){
+                  if(a.price_change_percentage_24h < b.price_change_percentage_24h) {return -1;}
+                  if(a.price_change_percentage_24h > b.price_change_percentage_24h) {return 1;}
+                  return 0;
+              })
+            }
+          return{
+              ...state,
+              allCoins:orderChange  
+        }
 
     default:
       return state;
