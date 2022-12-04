@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Button } from '@mui/material';
 
-const Filter = ({setCurrentPage, setOrder}) => {
+const Filter = ({setCurrentPage, setOrder, setCoin}) => {
     let dispatch = useDispatch()
 
     const handleReset = (e) => {
@@ -20,6 +20,7 @@ const Filter = ({setCurrentPage, setOrder}) => {
       setQuote(null)
       setRank(null)
       setPercentage(null)
+      setCoin("")
   }
 
     const handleOrderQuotes = (e) => {
