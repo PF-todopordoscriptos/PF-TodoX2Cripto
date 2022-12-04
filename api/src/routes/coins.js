@@ -4,7 +4,8 @@ const {
   getHistoryChart,
   getAllCoins,
   getCoinDetail,
-  createReview
+  createReview,
+  loadCoinsDb
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -57,8 +58,8 @@ router.get("/details/:id", async (req, res) => {
 })
 
 
-router.post('/reviews/:name', async (req, res) => {
-  const { name } = req.params
+router.post('/reviews/:coinName', async (req, res) => {
+  const { coinName } = req.params
   const { stars, text, username } = req.body
   try {
     let coinReview = await createReview(stars, text, name, username)
@@ -67,5 +68,15 @@ router.post('/reviews/:name', async (req, res) => {
     res.send(error)
   }
 })
+
+router.get('/loadDb', async (req, res) => {
+  try {
+    let coinsDb = await loadCoinsDb()
+    res.send(coinsDb)
+  } catch (error) {
+    res.send(error)
+  }
+})
+
 
 module.exports = router;
