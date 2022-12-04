@@ -36,8 +36,11 @@ export default function Home() {
 
   return (
     <>
-      <SearchBar setCurrentPage={setCurrentPage} />
-
+      <SearchBar
+        setCurrentPage={setCurrentPage}
+        coin={coin}
+        setCoin={setCoin}
+      />
 
       <Typography
         variant="subtitle1"
@@ -49,29 +52,11 @@ export default function Home() {
         <Link href="/form">Register</Link>
       </Typography>
 
-
-      <SearchBar 
-      setCurrentPage={setCurrentPage}
-      coin={coin}
-      setCoin={setCoin}
-      />
-
-      <Typography variant="subtitle1" color="primary.dark"
-          sx={{
-            marginLeft: "60px"
-          }}
-        >
-        <Link href="/form">Register</Link>
-      </Typography>
-      
       <Filter
-      setCurrentPage={setCurrentPage}
-      setOrder={setOrder}
-      setCoin={setCoin}
+        setCurrentPage={setCurrentPage}
+        setOrder={setOrder}
+        setCoin={setCoin}
       />
-
-
-      <Filter setCurrentPage={setCurrentPage} setOrder={setOrder} />
 
       {allCoins[0] === "Ninguna moneda coincide" ? (
         <Stack>
