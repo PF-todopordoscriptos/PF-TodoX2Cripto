@@ -10,20 +10,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
-    fontFamily: [
-      "Zen Dots"
-    ].join(",")
+    fontFamily: ["Montserrat"].join(","),
   },
-  palette:{
+  palette: {
     primary: {
       main: "#0052cc",
       sub: "#F5E024",
       dark: "#1E1E1E",
     },
     secondary: {
-      main: '#edf2ff',
+      main: "#edf2ff",
     },
-  }
+  },
 });
 
 function App() {
