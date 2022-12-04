@@ -1,14 +1,21 @@
-import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
-import { getAllCoins } from '../../redux/actions';
-import { orderQUOTES, orderRANKS, orderChangePercentage } from '../../redux/actions';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getAllCoins } from "../../redux/actions";
+import {
+  orderQUOTES,
+  orderRANKS,
+  orderChangePercentage,
+} from "../../redux/actions";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Button } from "@mui/material";
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { Button } from '@mui/material';
+const Filter = ({ setCurrentPage, setOrder }) => {
+  let dispatch = useDispatch();
+
 
 const Filter = ({setCurrentPage, setOrder, setCoin}) => {
     let dispatch = useDispatch()
@@ -32,39 +39,37 @@ const Filter = ({setCurrentPage, setOrder, setCoin}) => {
       setPercentage(null)
   }
 
+
   const handleOrderRanks = (e) => {
-    setCurrentPage(1)
-    dispatch(orderRANKS(e.target.value))
-    setOrder(`Order by ${e.target.value}`)
-    setRank(e.target.value)
-    setQuote(null)
-    setPercentage(null)
-}
+    setCurrentPage(1);
+    dispatch(orderRANKS(e.target.value));
+    setOrder(`Order by ${e.target.value}`);
+    setRank(e.target.value);
+    setQuote(null);
+    setPercentage(null);
+  };
 
   const handleOrderChangePercentage = (e) => {
-    setCurrentPage(1)
-    dispatch(orderChangePercentage(e.target.value))
-    setOrder(`Order by ${e.target.value}`)
-    setPercentage(e.target.value)
-    setQuote(null)
-    setRank(null)
-}
-  
-const [quote, setQuote] = useState('');
-const [rank, setRank] = useState('');
-const [percentage, setPercentage] = useState('');
+    setCurrentPage(1);
+    dispatch(orderChangePercentage(e.target.value));
+    setOrder(`Order by ${e.target.value}`);
+    setPercentage(e.target.value);
+    setQuote(null);
+    setRank(null);
+  };
+
+  const [quote, setQuote] = useState("");
+  const [rank, setRank] = useState("");
+  const [percentage, setPercentage] = useState("");
 
   return (
     <div>
-
-      <Button variant="contained" onClick={handleReset}>REFRESH</Button>
-
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Quotes</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value= {quote}
+          value={quote}
           onChange={handleOrderQuotes}
         >
           {/* <MenuItem value="All" disabled>Quotes</MenuItem> */}
@@ -87,7 +92,9 @@ const [percentage, setPercentage] = useState('');
       </FormControl>
 
       <FormControl variant="standard" sx={{ m: 1, minWidth: 140 }}>
-        <InputLabel id="demo-simple-select-standard-label">Price Change %</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">
+          Price Change %
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -98,10 +105,11 @@ const [percentage, setPercentage] = useState('');
           <MenuItem value="less">Less</MenuItem>
         </Select>
       </FormControl>
-
-      
+      <Button variant="contained" onClick={handleReset}>
+        REFRESH
+      </Button>
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

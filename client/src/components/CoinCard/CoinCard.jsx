@@ -49,18 +49,20 @@ export default function CoinCard(props) {
     setOpen(!open);
   };
 
-  function conditionalColour() {
-    if (props.price_change_percentage_24h < 0) return "red";
-    return "green";
-  }
+  // function conditionalColour() {
+  //   if (props.price_change_percentage_24h < 0) return "green";
+  //   else {
+  //     return "red";
+  //   }
+  // }
 
   return (
-    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-      <ListItem sx={{ bgcolor: "#342034", borderRadius: "50px" }}>
+    <List sx={{ width: "100%" }}>
+      <ListItem sx={{ bgcolor: "#3B2A43", borderRadius: "50px" }}>
         <Link href={`/details/${props.id}`} underline="none">
           <CardMedia
             component="img"
-            sx={{ width: 50 }}
+            sx={{ width: 50, marginX: 3 }}
             image={props.image}
             alt={props.id}
           />
@@ -71,7 +73,13 @@ export default function CoinCard(props) {
           </Typography>
         </Link>
         <Link href={`/details/${props.id}`} underline="none">
-          <Typography color={"white"} gutterBottom variant="h6" component="div">
+          <Typography
+            color={"white"}
+            sx={{ marginX: 3 }}
+            gutterBottom
+            variant="h6"
+            component="div"
+          >
             {props.symbol}
           </Typography>
         </Link>
@@ -82,11 +90,15 @@ export default function CoinCard(props) {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <Typography variant="h6" color="white">
+            <Typography sx={{ marginX: 3 }} variant="h6" color="white">
               Market cap: {props.market_cap}
             </Typography>
-            <Typography variant="h6" color={conditionalColour()}>
-              Price change: {props.price_change_percentage_24h}%
+            <Typography
+              sx={{ marginX: 3 }}
+              variant="h6"
+              // color={conditionalColour()}
+            >
+              {props.price_change_percentage_24h}
             </Typography>
           </List>
         </Collapse>
