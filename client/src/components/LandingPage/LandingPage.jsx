@@ -6,6 +6,7 @@ import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import Box from "@mui/material/Box";
 import { Link, NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,9 @@ const LandingPage = () => {
       <div>
         <h1>LandingPage</h1>
         <Link to="/home">
-          <button>Mercados</button>
+          <Button variant="contained" color="secondary">
+            Home
+          </Button>
         </Link>
       </div>
       <Box sx={{ flexGrow: 1 }}>
