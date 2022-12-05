@@ -61,7 +61,10 @@ export default function CoinCard(props) {
           </Typography>
         </Link>
         <Link href={`/details/${props.id}`} underline="none">
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography 
+            gutterBottom variant="h6" component="div"
+            sx={{ margin:'15px'}}
+           >
             {props.symbol}
           </Typography>
         </Link>

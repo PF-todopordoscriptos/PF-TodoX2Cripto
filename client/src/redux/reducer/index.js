@@ -6,7 +6,8 @@ import {
   GET_COIN_BY_NAME,
   ORDER_QUOTES,
   ORDER_RANKS,
-  ORDER_CHANGE_PERCENTAGE
+  ORDER_CHANGE_PERCENTAGE,
+  POST_USER
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -111,6 +112,13 @@ function rootReducer(state = initialState, action) {
               ...state,
               allCoins:orderChange  
         }
+    
+      case POST_USER:
+          console.log('payload post:' + action.payload)
+          return {
+            ...state,
+          }
+    
 
     default:
       return state;

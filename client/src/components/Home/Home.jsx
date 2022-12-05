@@ -36,29 +36,30 @@ export default function Home() {
   return (
     <>
 
-
-      <SearchBar 
-      setCurrentPage={setCurrentPage}/>
-
       <Typography variant="subtitle1" color="primary.dark"
           sx={{
-            marginLeft: "60px"
+            marginLeft: "1200px"
           }}
         >
         <Link href="/form">Register</Link>
       </Typography>
       
+
+      <SearchBar 
+        setCurrentPage={setCurrentPage}
+      />
+
       <Filter
-      setCurrentPage={setCurrentPage}
-      setOrder={setOrder}
+        setCurrentPage={setCurrentPage}
+        setOrder={setOrder}
       />
 
       {
         allCoins[0] === 'Ninguna moneda coincide' ?
         (<Stack>
           <Typography variant="h3" color="primary.dark">Not coin found</Typography>
-          <Typography variant="h5" color="primary.dark">Por favor refresca la pagina</Typography>
-          {/*<h3 onClick={() => window.location.reload()}>Por favor refresca la pagina</h3>
+          {/*<Typography variant="h5" color="primary.dark">Por favor refresca la pagina</Typography>
+          <h3 onClick={() => window.location.reload()}>Por favor refresca la pagina</h3>
           <button onClick={() => window.location.reload()}>refresca la pagina</button>
            */}           
         </Stack>)
