@@ -42,20 +42,25 @@ export default function Home() {
         setCoin={setCoin}
       />
 
-      <Typography
-        variant="subtitle1"
-        color="primary.dark"
-        sx={{
-          marginLeft: "60px",
-        }}
-      >
+
+      <Typography variant="subtitle1" color="primary.dark"
+          sx={{
+            marginLeft: "1200px"
+          }}
+        >
         <Link href="/form">Register</Link>
       </Typography>
+      
+
+      <SearchBar 
+        setCurrentPage={setCurrentPage}
+      />
+
 
       <Filter
         setCurrentPage={setCurrentPage}
         setOrder={setOrder}
-        setCoin={setCoin}
+
       />
 
       {allCoins[0] === "Ninguna moneda coincide" ? (
@@ -66,9 +71,6 @@ export default function Home() {
           <Typography variant="h5" color="primary.dark">
             Por favor refresca la pagina
           </Typography>
-          {/*<h3 onClick={() => window.location.reload()}>Por favor refresca la pagina</h3>
-          <button onClick={() => window.location.reload()}>refresca la pagina</button>
-           */}
         </Stack>
       ) : (
         <Grid

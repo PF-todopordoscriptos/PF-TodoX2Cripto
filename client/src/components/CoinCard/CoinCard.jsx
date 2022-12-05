@@ -73,6 +73,7 @@ export default function CoinCard(props) {
           </Typography>
         </Link>
         <Link href={`/details/${props.id}`} underline="none">
+
           <Typography
             color={"white"}
             sx={{ marginX: 3 }}

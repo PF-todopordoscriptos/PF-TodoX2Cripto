@@ -31,18 +31,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
-  try {
-    res.send("hola");
-  } catch (e) {
-    res.status(400).send(e.message);
-  }
-});
-
 router.get("/allUsers", async (req, res) => {
   try {
     const allUsers = await getAllUsers()
-    res.send(allUsers);
+    res.status(200).send(allUsers);
   } catch (e) {
     res.status(400).send(e.message);
   }

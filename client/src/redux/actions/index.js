@@ -8,7 +8,8 @@ import {
   ADD_FAVORITE,
   ORDER_QUOTES,
   ORDER_RANKS,
-  ORDER_CHANGE_PERCENTAGE
+  ORDER_CHANGE_PERCENTAGE,
+  POST_USER
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -88,3 +89,11 @@ export function orderChangePercentage(payload){
       payload: payload
   }
 }
+
+export const postUser = (user) => {
+  return async function (dispatch){
+      const response = await axios.post(`http://localhost:3001/users/`, user)
+      console.log(response)
+      return response
+  }
+};
