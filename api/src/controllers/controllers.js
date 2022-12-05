@@ -106,6 +106,11 @@ async function createUser(
   return newUser;
 }
 
+async function getAllUsers() {
+  let allUsers = await User.findAll();
+  return allUsers;
+}
+
 async function getAllCoins() {
   const allCoins = await axios.get(
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -169,5 +174,6 @@ module.exports = {
   getHistoryChart,
   createUser,
   getAllCoins,
-  getCoinDetail
+  getCoinDetail,
+  getAllUsers
 };
