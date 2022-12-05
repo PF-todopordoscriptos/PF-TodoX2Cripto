@@ -3,7 +3,8 @@ const {
   getTrendingCoins,
   getHistoryChart,
   getAllCoins,
-  getCoinDetail
+  getCoinDetail,
+  createReview
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -52,6 +53,18 @@ router.get("/details/:id", async (req, res) => {
     res.status(200).send(coinDetail)
   } catch (error) {
     res.status(404).send(error)
+  }
+})
+
+
+router.post('/reviews/:name', async (req, res) => {
+  const { name } = req.params
+  const { stars, text, username } = req.body
+  try {
+    let coinReview = await createReview(stars, text, name, username)
+    res.send(coinReview)
+  } catch (error) {
+    res.send(error)
   }
 })
 
