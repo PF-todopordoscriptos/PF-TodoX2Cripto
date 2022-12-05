@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User, Coins } = require("../db");
+const { User, Coins, Review } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -164,10 +164,51 @@ async function getCoinDetail(id){
   }
 }
 
+
+async function createReview(stars, text, coinName, username) {
+  let review = await Review.create({
+    stars,
+    text
+  })
+    let coin = await Coins.findOne({
+      where: {
+        name: coinName
+      }
+    })
+  await coin.addReview(review)
+  let user = await User.findOne({
+    where: {
+      username: username
+    },
+  });
+  await user.addReview(review)
+  return review
+}
+
+async function loadCoinsDb(){
+  let coinsDb = await Coins.findAll()
+  if(coinsDb.length > 0) {
+    return coinsDb
+  } else {
+    const allCoins = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+    );
+    let allCoinsApi = allCoins.data.map((e) => {
+      return {
+        name: e.id,
+      };
+    });
+    let allCoinsDb = await Coins.bulkCreate(allCoinsApi)
+    return allCoinsDb;
+  }
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
   createUser,
   getAllCoins,
-  getCoinDetail
+  getCoinDetail,
+  createReview,
+  loadCoinsDb
 };
