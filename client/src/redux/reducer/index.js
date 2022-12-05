@@ -4,18 +4,21 @@ import {
   GET_HISTORY_CHART,
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
   ORDER_QUOTES,
   ORDER_RANKS,
   ORDER_CHANGE_PERCENTAGE,
-  POST_USER
+  POST_USER,
+  FILTER_FAVORITE
 } from "../actions/actionTypes";
 
 const initialState = {
   allCoins: [],
+  noFilter: [],
   coinDetails: {},
   trendingCoins: [],
   historyChart: [],
-  coin: [],
   favoriteCoins: [],
 };
 
@@ -30,6 +33,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allCoins: action.payload,
+        noFilter: action.payload,
       };
     case GET_HISTORY_CHART:
       return {
@@ -118,7 +122,25 @@ function rootReducer(state = initialState, action) {
           return {
             ...state,
           }
+
+      case ADD_FAVORITE:
+        return{
+          ...state,
+          favoriteCoins: state.favoriteCoins.concat(action.payload)
+        }
+
+     case REMOVE_FAVORITE:
+       return{
+        ...state,
+        favoriteCoins: state.favoriteCoins.filter((e) => e.id !== action.payload)
+       }
     
+    case FILTER_FAVORITE:
+      const allCoinsFavorites = state.favoriteCoins
+      return{
+        ...state,
+        allCoins: allCoinsFavorites
+      }
 
     default:
       return state;

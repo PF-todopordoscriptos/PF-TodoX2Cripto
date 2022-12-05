@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllCoins } from "../../redux/actions";
+import { getAllCoins, filterFavorites } from "../../redux/actions";
 import {
   orderQUOTES,
   orderRANKS,
@@ -15,6 +15,7 @@ import { Button } from "@mui/material";
 
 const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
   let dispatch = useDispatch();
+  const [favoriteFilter, setFavoriteFilter] = useState(true);
 
   const handleReset = (e) => {
     e.preventDefault();
@@ -53,12 +54,41 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
     setRank(null);
   };
 
+  const filterFavoritesCoins = (e) => {
+    e.preventDefault();
+    setFavoriteFilter(!favoriteFilter);
+    setCurrentPage(1);
+    dispatch(filterFavorites(e));
+    setQuote(null);
+    setRank(null);
+    setPercentage(null);
+  }
+
+  const removeFilterFavoritesCoins = (e) => {
+    e.preventDefault();
+    setFavoriteFilter(!favoriteFilter);
+    setCurrentPage(1);
+    dispatch(getAllCoins());
+    setQuote(null);
+    setRank(null);
+    setPercentage(null);
+  };
+
   const [quote, setQuote] = useState("");
   const [rank, setRank] = useState("");
   const [percentage, setPercentage] = useState("");
 
   return (
     <div>
+      {favoriteFilter ? (
+      <Button variant="contained" color="success" onClick={filterFavoritesCoins}>Favorites</Button>
+      ) : (
+      <Button variant="contained" color="error" onClick={removeFilterFavoritesCoins}>
+        Favorites
+      </Button>
+      )
+      }
+
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Quotes</InputLabel>
         <Select
@@ -100,7 +130,7 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
           <MenuItem value="less">Less</MenuItem>
         </Select>
       </FormControl>
-      <Button variant="contained" onClick={handleReset}>
+      <Button variant="contained" color="secondary" onClick={handleReset}>
         REFRESH
       </Button>
     </div>

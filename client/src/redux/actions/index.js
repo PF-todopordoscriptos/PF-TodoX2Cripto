@@ -6,10 +6,12 @@ import {
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
   ADD_FAVORITE,
+  REMOVE_FAVORITE,
   ORDER_QUOTES,
   ORDER_RANKS,
   ORDER_CHANGE_PERCENTAGE,
-  POST_USER
+  POST_USER,
+  FILTER_FAVORITE
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -66,6 +68,20 @@ export function addFavorite(coin){
   return({
       type: ADD_FAVORITE,
       payload: coin
+  })
+}
+
+export function removeFavorite(coin){
+  return({
+      type: REMOVE_FAVORITE,
+      payload: coin
+  })
+}
+
+export function filterFavorites(payload){
+  return({
+    type: FILTER_FAVORITE,
+    payload: payload
   })
 }
 

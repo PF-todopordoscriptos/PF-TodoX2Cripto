@@ -50,17 +50,12 @@ export default function Home() {
         >
         <Link href="/form">Register</Link>
       </Typography>
-      
-
-      <SearchBar 
-        setCurrentPage={setCurrentPage}
-      />
 
 
       <Filter
         setCurrentPage={setCurrentPage}
         setOrder={setOrder}
-
+        setCoin={setCoin}
       />
 
       {allCoins[0] === "Ninguna moneda coincide" ? (
