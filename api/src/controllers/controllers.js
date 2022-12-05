@@ -141,9 +141,6 @@ async function getAllCoins() {
       last_updated: e.last_updated,
     };
   });
-  allCoinsApi.map( async (e) => Coins.create({
-    name: e.name
-  }))
   return allCoinsApi;
 }
 
@@ -188,11 +185,30 @@ async function createReview(stars, text, coinName, username) {
   return review
 }
 
+async function loadCoinsDb(){
+  let coinsDb = await Coins.findAll()
+  if(coinsDb.length > 0) {
+    return coinsDb
+  } else {
+    const allCoins = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+    );
+    let allCoinsApi = allCoins.data.map((e) => {
+      return {
+        name: e.id,
+      };
+    });
+    let allCoinsDb = await Coins.bulkCreate(allCoinsApi)
+    return allCoinsDb;
+  }
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
   createUser,
   getAllCoins,
   getCoinDetail,
-  createReview
+  createReview,
+  loadCoinsDb
 };
