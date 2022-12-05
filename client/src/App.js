@@ -7,6 +7,7 @@ import Chart from "./components/Chart/Chart";
 import Home from "./components/Home/Home";
 import Details from "./components/Details/Details";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Form from "./components/Form/Form";
 
 const theme = createTheme({
   typography: {
@@ -35,6 +36,7 @@ function App() {
           <Route path={"/home"} component={Home} />
           <Route path={"/chart/:id"} component={Chart} />
           <Route path={"/details/:id"} component={Details} />
+          <Route path={"/form"} component={Form} />
           <Route exact path={["/", "/FAQ", "/home"]} component={Footer} />
         </BrowserRouter>
       </div>

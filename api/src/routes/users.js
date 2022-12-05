@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { createUser } = require("../controllers/controllers.js");
+const { User } = require ('../db.js');
 
 const router = Router();
 
@@ -32,8 +33,10 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  let user = await User.findAll();
+  console.log(user);
   try {
-    res.send("hola");
+    res.status(200).send(user);
   } catch (e) {
     res.status(400).send(e.message);
   }
