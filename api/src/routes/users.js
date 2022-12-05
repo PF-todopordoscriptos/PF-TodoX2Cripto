@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/allUsers", async (req, res) => {
   try {
     const allUsers = await getAllUsers()
     res.send(allUsers);
