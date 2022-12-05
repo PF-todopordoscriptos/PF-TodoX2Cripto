@@ -10,6 +10,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import Logout from "./components/Logout/Logout";
+import Form from "./components/Form/Form";
+
 
 const theme = createTheme({
   typography: {
@@ -38,6 +40,7 @@ function App() {
           <Route path={"/home"} component={Home} />
           <Route path={"/chart/:id"} component={Chart} />
           <Route path={"/details/:id"} component={Details} />
+          <Route path={"/form"} component={Form} />
           <Route exact path={["/", "/FAQ", "/home"]} component={Footer} />
           <Route exact path={"/login"} component={Profile} />
           <Route exact path={"/login"} component={Login} />

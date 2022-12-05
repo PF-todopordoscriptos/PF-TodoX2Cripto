@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavorite } from "../../redux/actions";
+import { addFavorite, removeFavorite } from "../../redux/actions";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActions, Link } from "@mui/material";
@@ -26,8 +26,9 @@ export default function CoinCard(props) {
     setFavoriteClicked(!favoriteClicked);
   };
 
-  const Favorite = () => {
+  const addFavoriteCoin = () => {
     if (!favoriteCoins.find((c) => c.name === props.name)) {
+      setFavoriteClicked(!favoriteClicked);
       dispatch(
         addFavorite({
           id: props.id,
@@ -39,9 +40,15 @@ export default function CoinCard(props) {
           price_change_percentage_24h: props.price_change_percentage_24h,
           current_price: props.current_price,
         })
-      );
+        );
+        console.log("favoritooo")
     }
   };
+
+  const removeFavoriteCoin = () => {
+    setFavoriteClicked(!favoriteClicked);
+    dispatch(removeFavorite(props.id))
+  }
 
   const [open, setOpen] = React.useState(false);
 
@@ -73,6 +80,7 @@ export default function CoinCard(props) {
           </Typography>
         </Link>
         <Link href={`/details/${props.id}`} underline="none">
+
           <Typography
             color={"white"}
             sx={{ marginX: 3 }}
@@ -112,18 +120,18 @@ export default function CoinCard(props) {
           </Button>
 
           {favoriteClicked ? (
-            <IconButton aria-label="" onClick={toggleFavoriteClick}>
+            <IconButton aria-label="" onClick={removeFavoriteCoin}>
               <StarOutlinedIcon color="primary" />
             </IconButton>
           ) : (
-            <IconButton aria-label="" onClick={toggleFavoriteClick}>
+            <IconButton aria-label="" onClick={addFavoriteCoin}>
               <StarOutlineOutlinedIcon color="primary" />
             </IconButton>
           )}
 
-          <Button onClick={Favorite} size="large" color="primary">
+          {/* <Button onClick={Favorite} size="large" color="primary">
             FAVORITOS
-          </Button>
+          </Button> */}
         </CardActions>
       </ListItem>
     </List>

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { createUser } = require("../controllers/controllers.js");
+const { createUser , getAllUsers } = require("../controllers/controllers.js");
 
 const router = Router();
 
@@ -31,9 +31,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/allUsers", async (req, res) => {
   try {
-    res.send("hola");
+    const allUsers = await getAllUsers()
+    res.status(200).send(allUsers);
   } catch (e) {
     res.status(400).send(e.message);
   }

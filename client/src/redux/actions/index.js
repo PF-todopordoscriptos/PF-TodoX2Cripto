@@ -6,9 +6,12 @@ import {
   GET_COIN_DETAIL,
   GET_COIN_BY_NAME,
   ADD_FAVORITE,
+  REMOVE_FAVORITE,
   ORDER_QUOTES,
   ORDER_RANKS,
-  ORDER_CHANGE_PERCENTAGE
+  ORDER_CHANGE_PERCENTAGE,
+  POST_USER,
+  FILTER_FAVORITE
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -68,6 +71,20 @@ export function addFavorite(coin){
   })
 }
 
+export function removeFavorite(coin){
+  return({
+      type: REMOVE_FAVORITE,
+      payload: coin
+  })
+}
+
+export function filterFavorites(payload){
+  return({
+    type: FILTER_FAVORITE,
+    payload: payload
+  })
+}
+
 export function orderQUOTES(payload){
   return{
       type: ORDER_QUOTES,
@@ -88,3 +105,11 @@ export function orderChangePercentage(payload){
       payload: payload
   }
 }
+
+export const postUser = (user) => {
+  return async function (dispatch){
+      const response = await axios.post(`http://localhost:3001/users/`, user)
+      console.log(response)
+      return response
+  }
+};
