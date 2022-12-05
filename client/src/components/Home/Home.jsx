@@ -42,15 +42,15 @@ export default function Home() {
         setCoin={setCoin}
       />
 
-
-      <Typography variant="subtitle1" color="primary.dark"
-          sx={{
-            marginLeft: "1200px"
-          }}
-        >
+      <Typography
+        variant="subtitle1"
+        color="primary.dark"
+        sx={{
+          marginLeft: "1200px",
+        }}
+      >
         <Link href="/form">Register</Link>
       </Typography>
-
 
       <Filter
         setCurrentPage={setCurrentPage}

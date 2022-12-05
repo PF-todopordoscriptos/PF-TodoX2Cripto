@@ -10,7 +10,7 @@ import {
   ORDER_RANKS,
   ORDER_CHANGE_PERCENTAGE,
   POST_USER,
-  FILTER_FAVORITE
+  FILTER_FAVORITE,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -42,11 +42,9 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_COIN_BY_NAME:
-      console.log("payload " + action.payload);
-      console.log(state.coin);
       return {
         ...state,
-        allCoins: action.payload
+        allCoins: action.payload,
       };
 
     case GET_COIN_DETAIL:
@@ -56,91 +54,116 @@ function rootReducer(state = initialState, action) {
       };
 
     case ORDER_QUOTES:
-      let orderQuotes
-            // if(action.payload === "All"){
-            //   orderQuotes = state.allCoins
-           if(action.payload === "best"){
-            orderQuotes = state.allCoins.sort(function(a,b){
-                  if(a.current_price < b.current_price) {return 1;}
-                  if(a.current_price > b.current_price) {return -1;}
-                  return 0
-              })
-          }else if(action.payload === "worst"){
-              orderQuotes = state.allCoins.sort(function(a,b){
-                    if(a.current_price < b.current_price) {return -1;}
-                    if(a.current_price > b.current_price) {return 1;}
-                    return 0;
-                })
-              }
-            return{
-                ...state,
-                allCoins:orderQuotes
-            }    
+      let orderQuotes;
+      // if(action.payload === "All"){
+      //   orderQuotes = state.allCoins
+      if (action.payload === "best") {
+        orderQuotes = state.allCoins.sort(function (a, b) {
+          if (a.current_price < b.current_price) {
+            return 1;
+          }
+          if (a.current_price > b.current_price) {
+            return -1;
+          }
+          return 0;
+        });
+      } else if (action.payload === "worst") {
+        orderQuotes = state.allCoins.sort(function (a, b) {
+          if (a.current_price < b.current_price) {
+            return -1;
+          }
+          if (a.current_price > b.current_price) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+      return {
+        ...state,
+        allCoins: orderQuotes,
+      };
 
     case ORDER_RANKS:
-      let orderRank
-        if(action.payload === "+rank"){
-          orderRank = state.allCoins.sort(function(a,b){
-                if(a.market_cap_rank < b.market_cap_rank) {return 1;}
-                if(a.market_cap_rank > b.market_cap_rank) {return -1;}
-                return 0
-            })
-        }else if(action.payload === "-rank"){
-            orderRank = state.allCoins.sort(function(a,b){
-                  if(a.market_cap_rank < b.market_cap_rank) {return -1;}
-                  if(a.market_cap_rank > b.market_cap_rank) {return 1;}
-                  return 0;
-              })
-            }
-          return{
-              ...state,
-              allCoins:orderRank  
-        }
-        
-    case ORDER_CHANGE_PERCENTAGE:
-      let orderChange
-        if(action.payload === "more"){
-          orderChange = state.allCoins.sort(function(a,b){
-                if(a.price_change_percentage_24h < b.price_change_percentage_24h) {return 1;}
-                if(a.price_change_percentage_24h > b.price_change_percentage_24h) {return -1;}
-                return 0
-            })
-        }else if(action.payload === "less"){
-            orderChange = state.allCoins.sort(function(a,b){
-                  if(a.price_change_percentage_24h < b.price_change_percentage_24h) {return -1;}
-                  if(a.price_change_percentage_24h > b.price_change_percentage_24h) {return 1;}
-                  return 0;
-              })
-            }
-          return{
-              ...state,
-              allCoins:orderChange  
-        }
-    
-      case POST_USER:
-          console.log('payload post:' + action.payload)
-          return {
-            ...state,
+      let orderRank;
+      if (action.payload === "+rank") {
+        orderRank = state.allCoins.sort(function (a, b) {
+          if (a.market_cap_rank < b.market_cap_rank) {
+            return 1;
           }
-
-      case ADD_FAVORITE:
-        return{
-          ...state,
-          favoriteCoins: state.favoriteCoins.concat(action.payload)
-        }
-
-     case REMOVE_FAVORITE:
-       return{
-        ...state,
-        favoriteCoins: state.favoriteCoins.filter((e) => e.id !== action.payload)
-       }
-    
-    case FILTER_FAVORITE:
-      const allCoinsFavorites = state.favoriteCoins
-      return{
-        ...state,
-        allCoins: allCoinsFavorites
+          if (a.market_cap_rank > b.market_cap_rank) {
+            return -1;
+          }
+          return 0;
+        });
+      } else if (action.payload === "-rank") {
+        orderRank = state.allCoins.sort(function (a, b) {
+          if (a.market_cap_rank < b.market_cap_rank) {
+            return -1;
+          }
+          if (a.market_cap_rank > b.market_cap_rank) {
+            return 1;
+          }
+          return 0;
+        });
       }
+      return {
+        ...state,
+        allCoins: orderRank,
+      };
+
+    case ORDER_CHANGE_PERCENTAGE:
+      let orderChange;
+      if (action.payload === "more") {
+        orderChange = state.allCoins.sort(function (a, b) {
+          if (a.price_change_percentage_24h < b.price_change_percentage_24h) {
+            return 1;
+          }
+          if (a.price_change_percentage_24h > b.price_change_percentage_24h) {
+            return -1;
+          }
+          return 0;
+        });
+      } else if (action.payload === "less") {
+        orderChange = state.allCoins.sort(function (a, b) {
+          if (a.price_change_percentage_24h < b.price_change_percentage_24h) {
+            return -1;
+          }
+          if (a.price_change_percentage_24h > b.price_change_percentage_24h) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+      return {
+        ...state,
+        allCoins: orderChange,
+      };
+
+    case POST_USER:
+      return {
+        ...state,
+      };
+
+    case ADD_FAVORITE:
+      return {
+        ...state,
+        favoriteCoins: state.favoriteCoins.concat(action.payload),
+      };
+
+    case REMOVE_FAVORITE:
+      return {
+        ...state,
+        favoriteCoins: state.favoriteCoins.filter(
+          (e) => e.id !== action.payload
+        ),
+      };
+
+    case FILTER_FAVORITE:
+      const allCoinsFavorites = state.favoriteCoins;
+      return {
+        ...state,
+        allCoins: allCoinsFavorites,
+      };
 
     default:
       return state;

@@ -5,7 +5,7 @@ async function getTrendingCoins() {
   const trendingCoins = await axios.get(
     "https://api.coingecko.com/api/v3/search/trending"
   );
-  console.log(trendingCoins);
+
   let trendingCoinsApi = trendingCoins.data.coins.map((c) => {
     return {
       id: c.item.id,
@@ -28,7 +28,7 @@ async function getHistoryChart(id) {
   const historyChart = await axios.get(
     `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`
   );
-  console.log(historyChart);
+
   let coinChartDataObj = {};
   const coinChartData = historyChart.data.prices.map((value) => ({
     x: value[0],
@@ -115,7 +115,7 @@ async function getAllCoins() {
   const allCoins = await axios.get(
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
   );
-  console.log(allCoins);
+
   let allCoinsApi = allCoins.data.map((e) => {
     return {
       id: e.id,
@@ -149,9 +149,11 @@ async function getAllCoins() {
   return allCoinsApi;
 }
 
-async function getCoinDetail(id){
+async function getCoinDetail(id) {
   try {
-    const detailApi = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}`)
+    const detailApi = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/${id}`
+    );
 
     const coinDetail = {
       id: detailApi.data.id,
@@ -160,40 +162,39 @@ async function getCoinDetail(id){
       image: detailApi.data.image.large,
       current_price: detailApi.data.market_data.current_price.usd,
       market_cap: detailApi.data.market_data.market_cap.usd,
-      price_change_percentage_24h: detailApi.data.market_data.price_change_percentage_24h
-    }
-    return coinDetail
-
+      price_change_percentage_24h:
+        detailApi.data.market_data.price_change_percentage_24h,
+    };
+    return coinDetail;
   } catch (error) {
-    return `Couldn't find a Coin named ${id}`
+    return `Couldn't find a Coin named ${id}`;
   }
 }
-
 
 async function createReview(stars, text, coinName, username) {
   let review = await Review.create({
     stars,
-    text
-  })
-    let coin = await Coins.findOne({
-      where: {
-        name: coinName
-      }
-    })
-  await coin.addReview(review)
-  let user = await User.findOne({
+    text,
+  });
+  let coin = await Coins.findOne({
     where: {
-      username: username
+      name: coinName,
     },
   });
-  await user.addReview(review)
-  return review
+  await coin.addReview(review);
+  let user = await User.findOne({
+    where: {
+      username: username,
+    },
+  });
+  await user.addReview(review);
+  return review;
 }
 
-async function loadCoinsDb(){
-  let coinsDb = await Coins.findAll()
-  if(coinsDb.length > 0) {
-    return coinsDb
+async function loadCoinsDb() {
+  let coinsDb = await Coins.findAll();
+  if (coinsDb.length > 0) {
+    return coinsDb;
   } else {
     const allCoins = await axios.get(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -203,7 +204,7 @@ async function loadCoinsDb(){
         name: e.id,
       };
     });
-    let allCoinsDb = await Coins.bulkCreate(allCoinsApi)
+    let allCoinsDb = await Coins.bulkCreate(allCoinsApi);
     return allCoinsDb;
   }
 }
@@ -216,6 +217,5 @@ module.exports = {
   getCoinDetail,
   getAllUsers,
   createReview,
-  loadCoinsDb
-
+  loadCoinsDb,
 };

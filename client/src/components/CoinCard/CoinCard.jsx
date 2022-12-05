@@ -40,15 +40,14 @@ export default function CoinCard(props) {
           price_change_percentage_24h: props.price_change_percentage_24h,
           current_price: props.current_price,
         })
-        );
-        console.log("favoritooo")
+      );
     }
   };
 
   const removeFavoriteCoin = () => {
     setFavoriteClicked(!favoriteClicked);
-    dispatch(removeFavorite(props.id))
-  }
+    dispatch(removeFavorite(props.id));
+  };
 
   const [open, setOpen] = React.useState(false);
 
@@ -57,10 +56,7 @@ export default function CoinCard(props) {
   };
 
   // function conditionalColour() {
-  //   if (props.price_change_percentage_24h < 0) return "green";
-  //   else {
-  //     return "red";
-  //   }
+  //   return Number(props.price_change_percentage_24h) > 0 ? "red" : "green";
   // }
 
   return (
@@ -80,7 +76,6 @@ export default function CoinCard(props) {
           </Typography>
         </Link>
         <Link href={`/details/${props.id}`} underline="none">
-
           <Typography
             color={"white"}
             sx={{ marginX: 3 }}
@@ -105,6 +100,7 @@ export default function CoinCard(props) {
               sx={{ marginX: 3 }}
               variant="h6"
               // color={conditionalColour()}
+              color={"white"}
             >
               {props.price_change_percentage_24h}
             </Typography>
