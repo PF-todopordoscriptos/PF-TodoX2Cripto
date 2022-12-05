@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@fontsource/montserrat": "^4.5.13",
+    "chart.js": "^3.6.0",
+    "react-chartjs-2": "^4.0.0",
+    "react-moment": "^1.1.2",
+    "react-router-dom": "^6.4.4"
+  }
+}
