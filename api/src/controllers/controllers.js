@@ -214,10 +214,7 @@ module.exports = {
   createUser,
   getAllCoins,
   getCoinDetail,
-
-  getAllUsers
-  createReview
-
+  getAllUsers,
   createReview,
   loadCoinsDb
 
