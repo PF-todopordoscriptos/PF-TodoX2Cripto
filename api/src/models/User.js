@@ -40,7 +40,17 @@ module.exports = (sequelize) => {
     },
     nationality: {
       type: DataTypes.STRING,
-       allowNull: false,
+      allowNull: false,
     },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    disabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    }
   });
 };
