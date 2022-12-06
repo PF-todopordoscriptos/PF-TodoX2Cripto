@@ -73,7 +73,7 @@ const Details = (props) => {
       </form>
 
       <div>
-        {reviews.length > 0 ? 
+        {reviews && reviews.length > 0 ?
         reviews.map((r) => (
           <ul>
             <li>{r.stars}</li>
