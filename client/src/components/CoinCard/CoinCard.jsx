@@ -117,11 +117,11 @@ export default function CoinCard(props) {
 
           {favoriteClicked ? (
             <IconButton aria-label="" onClick={removeFavoriteCoin}>
-              <StarOutlinedIcon color="primary" />
+              <StarOutlinedIcon color="warning" />
             </IconButton>
           ) : (
             <IconButton aria-label="" onClick={addFavoriteCoin}>
-              <StarOutlineOutlinedIcon color="primary" />
+              <StarOutlineOutlinedIcon color="warning" />
             </IconButton>
           )}
 
