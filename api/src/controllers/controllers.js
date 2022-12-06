@@ -191,6 +191,22 @@ async function createReview(stars, text, coinName, username) {
   return review;
 }
 
+async function getReviews(name){
+  try {
+    let coinId = await Coins.findOne({
+      where: {
+        name: name
+      },
+      attributes: ['id']
+    })
+
+    return coinId
+  } catch (error) {
+    return error
+  }
+}
+
+
 async function loadCoinsDb() {
   let coinsDb = await Coins.findAll();
   if (coinsDb.length > 0) {
@@ -218,4 +234,5 @@ module.exports = {
   getAllUsers,
   createReview,
   loadCoinsDb,
+  getReviews
 };

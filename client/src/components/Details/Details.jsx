@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getCoinDetail } from "../../redux/actions";
+import { createReview, getCoinDetail } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import style from "./Details.module.css"
@@ -16,6 +16,21 @@ const Details = (props) => {
   }, [dispatch, props]);
 
   const coinDetails = useSelector((state) => state.coinDetails);
+
+  const [review, setReview] = useState({
+    stars: '',
+    text: '',
+    username: 'thiago'
+  })
+  const handleReview = (e) => {
+    setReview({
+      ...review,
+      [e.target.name]: e.target.value
+    })
+  }
+  const handleSubmitReview = (e) => {
+    dispatch(createReview(review, id))
+  }
 
   console.log(coinDetails);
   return (
@@ -36,6 +51,13 @@ const Details = (props) => {
       <div>
         <HistoryChart id={id} />
       </div>
+
+      <form onSubmit={handleSubmitReview} >
+        <input type='text' name='text' value={review.text} onChange={handleReview} placeholder='Text' ></input>
+        <input type='number' name='stars' value={review.stars} onChange={handleReview} placeholder='Stars' ></input>
+        <button onSubmit={handleSubmitReview} >SUBMIT</button>
+      </form>
+
     </div>
   );
 };

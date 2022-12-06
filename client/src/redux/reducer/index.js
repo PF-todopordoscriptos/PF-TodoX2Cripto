@@ -11,6 +11,7 @@ import {
   ORDER_CHANGE_PERCENTAGE,
   POST_USER,
   FILTER_FAVORITE,
+  CREATE_REVIEW,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   trendingCoins: [],
   historyChart: [],
   favoriteCoins: [],
+  reviews: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -164,6 +166,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         allCoins: allCoinsFavorites,
       };
+
+    case CREATE_REVIEW: 
+    return {
+      ...state,
+      reviews: action.payload
+    }
 
     default:
       return state;
