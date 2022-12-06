@@ -20,22 +20,35 @@ const Details = (props) => {
   console.log(coinDetails);
   return (
     <div>
+
       <div className={style.contArrow}>
       <NavLink to="/home">
         <HiArrowUturnLeft className={style.arrow}/>
       </NavLink>
       </div>
-      <div>
-        <h1>{id.charAt(0).toUpperCase() + id.slice(1)}</h1>
+
+      <div className={style.card}>
+
+        <div className={style.contTop}>
         <img src={coinDetails.image} alt={coinDetails.id} className={style.imagen}/>
-        <ul className={style.ul}>
+        <h1 className={style.titulo}>{id.charAt(0).toUpperCase() + id.slice(1)}</h1>
+        </div>
+
+      <div className={style.contMiddle}>
+        <div className={style.contChart}>
+        <HistoryChart id={id} />
+        </div>
+
+        <ul className={style.ul}> 
           <li>Market Cap: {coinDetails.market_cap}</li>
           <li>Variation: {coinDetails.price_change_percentage_24h}</li>
+          <li>Current price:{coinDetails.current_price}</li>
         </ul>
       </div>
-      <div>
-        <HistoryChart id={id} />
+
       </div>
+
+
     </div>
   );
 };

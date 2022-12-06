@@ -42,7 +42,7 @@ const HistoryChart = (id) => {
   const options = { ...historyOptions };
 
   return (
-    <div className={style.cont}>
+    <div>
       <div>
         {Object.keys(historyChart).length > 0 ? (
           <Line
