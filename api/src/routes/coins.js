@@ -5,7 +5,8 @@ const {
   getAllCoins,
   getCoinDetail,
   createReview,
-  loadCoinsDb
+  loadCoinsDb,
+  getReviews
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -64,6 +65,16 @@ router.post('/reviews/:name', async (req, res) => {
   try {
     let coinReview = await createReview(stars, text, name, username)
     res.send(coinReview)
+  } catch (error) {
+    res.send(error)
+  }
+})
+
+router.get('/reviews/:name', async (req, res) => {
+  const { name } = req.params
+  try {
+    let review = await getReviews(name)
+    res.send(review)
   } catch (error) {
     res.send(error)
   }

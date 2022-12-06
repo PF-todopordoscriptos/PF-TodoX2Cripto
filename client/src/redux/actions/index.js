@@ -12,6 +12,7 @@ import {
   ORDER_CHANGE_PERCENTAGE,
   POST_USER,
   FILTER_FAVORITE,
+  CREATE_REVIEW,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -115,3 +116,13 @@ export const postUser = (user) => {
     return response;
   };
 };
+
+export function createReview(input) {
+  return async function(dispatch){
+    let json = axios.post(`http://localhost:3001/coins/${input.id}`, input.review)
+    return dispatch({
+      type: CREATE_REVIEW,
+      payload: json.data
+    })
+  }
+}
