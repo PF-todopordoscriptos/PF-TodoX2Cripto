@@ -175,12 +175,14 @@ async function createReview(stars, text, coinName, username) {
         name: coinName
       }
     })
+  if(!coin) {return 'No se encontro la Coin'}
   await coin.addReview(review)
   let user = await User.findOne({
     where: {
       username: username
     },
   });
+  if(!user) { return 'No se encontro el Usuario'}
   await user.addReview(review)
   return review
 }
