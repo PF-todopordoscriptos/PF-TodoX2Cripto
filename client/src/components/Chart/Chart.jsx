@@ -18,6 +18,8 @@ import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { historyOptions } from "./ChartOptions";
 
+import style from "./Chart.module.css"
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -40,8 +42,7 @@ const HistoryChart = (id) => {
   const options = { ...historyOptions };
 
   return (
-    <div>
-      Chart
+    <div className={style.cont}>
       <div>
         {Object.keys(historyChart).length > 0 ? (
           <Line
@@ -55,7 +56,7 @@ const HistoryChart = (id) => {
                   fill: true,
                   label: id,
                   data: historyChart.coinChartData.map((value) => value.y),
-                  borderColor: "rgb(53, 162, 235)",
+                  borderColor: "purple",
                 },
               ],
             }}

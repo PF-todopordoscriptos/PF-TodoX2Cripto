@@ -23,7 +23,8 @@ const SearchBar = ({setCurrentPage, coin, setCoin}) => {
     <Stack
       direction="row"
       sx={{
-        marginTop: "30px",
+        marginLeft: "7vh",
+        marginTop: "5vh",
         width: "80%",
       }}
     >

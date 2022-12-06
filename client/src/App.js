@@ -35,14 +35,14 @@ function App() {
       <div className="App">
         {/* <h1>TODO POR 2 CRIPTO</h1> */}
         <BrowserRouter>
-          <Route exact path={["/", "/FAQ", "/home"]} component={Navbar} />
+          <Route exact path={["/", "/FAQ", "/home", "/details/:id"]} component={Navbar} />
           <Route exact path={"/"} component={LandingPage} />
           <Route exact path={"/FAQ"} component={FAQ} />
           <Route path={"/home"} component={Home} />
           <Route path={"/chart/:id"} component={Chart} />
           <Route path={"/details/:id"} component={Details} />
           <Route path={"/form"} component={Form} />
-          <Route exact path={["/", "/FAQ", "/home"]} component={Footer} />
+          <Route exact path={["/", "/FAQ", "/home", "/details/:id"]} component={Footer} />
           <Route exact path={"/login"} component={Login} />
           <Route exact path={"/profile"} component={Profile} />
         </BrowserRouter>

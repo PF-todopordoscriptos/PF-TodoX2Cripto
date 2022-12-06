@@ -1,8 +1,11 @@
 import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
 
+import style from "./FAQ.module.css"
+
 const FAQ = () => {
   return (
+    <div className={style.cont}>
     <Box 
       display="flex"
       justifyContent="center"
@@ -65,6 +68,7 @@ const FAQ = () => {
         </Stack>
       </Box>
     </Box>
+    </div>
   );
 };
 

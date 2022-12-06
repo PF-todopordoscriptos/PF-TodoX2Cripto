@@ -1,8 +1,18 @@
 .nav{
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   background-color: #5d3c85;
+  margin-bottom: 4vh;
+}
+
+.contLogo{
+  margin-top: 0.5vh;
+  margin-left: 20vh;
+}
+
+.contSwitch{
+  margin-left: 10vh;
 }
 
 .logo{
@@ -14,10 +24,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 50vw;
 }
 
 .boton {
-  margin: 5px;
   background: #7b27a5;
   border: none;
   border-radius: 6px;
@@ -42,5 +52,34 @@
 }
 
 .boton:active {
+  opacity: .5;
+}
+
+.boton2 {
+  margin-left: 55vw;
+  background: #7b27a5;
+  border: none;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 12px 14px;
+  text-align: center;
+  user-select: none;
+}
+
+.boton2:hover,
+.boton2:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #a142ff;
+}
+
+.boton2:active {
   opacity: .5;
 }

@@ -1,0 +1,19 @@
+.contArrow{
+    display: flex;
+    margin-top: 10vh;
+    margin-left: 10vh;
+}
+
+.arrow{
+    height: 5vh;
+    width:4vw
+}
+
+.imagen{
+    height: 20vh;
+    width: 10vw;
+}
+
+.ul{
+    list-style:none
+}
