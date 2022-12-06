@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getCoinDetail } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
+import { HiArrowUturnLeft } from "react-icons/hi2";
+import style from "./Details.module.css"
 
 const Details = (props) => {
   const dispatch = useDispatch();
@@ -18,14 +20,15 @@ const Details = (props) => {
   console.log(coinDetails);
   return (
     <div>
-      Details
+      <div className={style.contArrow}>
       <NavLink to="/home">
-        <button> Pagina Principal</button>
+        <HiArrowUturnLeft className={style.arrow}/>
       </NavLink>
+      </div>
       <div>
-        <h1>{coinDetails.id}</h1>
-        <img src={coinDetails.image} alt={coinDetails.id} />
-        <ul>
+        <h1>{id.charAt(0).toUpperCase() + id.slice(1)}</h1>
+        <img src={coinDetails.image} alt={coinDetails.id} className={style.imagen}/>
+        <ul className={style.ul}>
           <li>Market Cap: {coinDetails.market_cap}</li>
           <li>Variation: {coinDetails.price_change_percentage_24h}</li>
         </ul>
