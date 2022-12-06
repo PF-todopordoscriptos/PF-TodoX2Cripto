@@ -28,9 +28,10 @@ const Navbar = () => {
         </FormGroup>
         </div>
 
+        <div className={style.butonsAuth}>
         {
         isAuthenticated ? (
-            <div className={style.profile}>
+            <div className={style.flexBoton}>
                 
                 <img src={user.picture} alt="picture" />
                 {
@@ -45,11 +46,12 @@ const Navbar = () => {
             </div>
         ) :
         <Link to="/login">
-            <button className={style.boton2}>
+            <button className={style.boton}>
              Log In
             </button>
         </Link>
         }
+    </div>
 
     </div>
   )
