@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { createReview, getCoinDetail } from "../../redux/actions";
+import { createReview, getCoinDetail, getReview } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import style from "./Details.module.css"
@@ -13,9 +13,11 @@ const Details = (props) => {
   console.log(id);
   useEffect(() => {
     dispatch(getCoinDetail(props.match.params.id));
+    dispatch(getReview(id))
   }, [dispatch, props]);
 
   const coinDetails = useSelector((state) => state.coinDetails);
+  const reviews = useSelector((state) => state.reviews);
 
   const [review, setReview] = useState({
     stars: '',
@@ -70,6 +72,17 @@ const Details = (props) => {
         <button onSubmit={handleSubmitReview} >SUBMIT</button>
       </form>
 
+      <div>
+        {reviews.length > 0 ? 
+        reviews.map((r) => (
+          <ul>
+            <li>{r.stars}</li>
+            <li>{r.text}</li>
+          </ul>
+        )) : 
+        <h1>Todavía no hay comentarios</h1>
+      }
+      </div>
 
     </div>
   );
