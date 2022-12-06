@@ -18,7 +18,7 @@ import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { historyOptions } from "./ChartOptions";
 
-import style from "./Chart.module.css"
+import style from "./Chart.module.css";
 
 ChartJS.register(
   CategoryScale,
@@ -54,7 +54,7 @@ const HistoryChart = (id) => {
               datasets: [
                 {
                   fill: true,
-                  label: id,
+                  label: id.id,
                   data: historyChart.coinChartData.map((value) => value.y),
                   borderColor: "purple",
                 },
