@@ -77,7 +77,7 @@ router.get("/reviews/:name", async (req, res) => {
     let review = await getReviews(name);
     res.send(review);
   } catch (error) {
-    res.send(error);
+    res.send('error');
   }
 });
 

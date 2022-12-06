@@ -13,6 +13,7 @@ import {
   POST_USER,
   FILTER_FAVORITE,
   CREATE_REVIEW,
+  GET_REVIEW,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -119,9 +120,19 @@ export const postUser = (user) => {
 
 export function createReview(input) {
   return async function(dispatch){
-    let json = axios.post(`http://localhost:3001/coins/${input.id}`, input.review)
+    let json = axios.post(`http://localhost:3001/coins/reviews/${input.id}`, input.review)
     return dispatch({
       type: CREATE_REVIEW,
+      payload: json.data
+    })
+  }
+}
+
+export function getReview(coinName){
+  return async function(dispatch){
+    let json = await axios.get(`http://localhost:3001/coins/reviews/${coinName}`)
+    return dispatch({
+      type: GET_REVIEW,
       payload: json.data
     })
   }

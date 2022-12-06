@@ -12,6 +12,7 @@ import {
   POST_USER,
   FILTER_FAVORITE,
   CREATE_REVIEW,
+  GET_REVIEW,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -167,11 +168,17 @@ function rootReducer(state = initialState, action) {
         allCoins: allCoinsFavorites,
       };
 
-    case CREATE_REVIEW: 
-    return {
-      ...state,
-      reviews: action.payload
-    }
+    // case CREATE_REVIEW: 
+    // return {
+    //   ...state,
+    //   reviews: action.payload
+    // }
+
+    case GET_REVIEW:
+      return {
+        ...state,
+        reviews: action.payload
+      }
 
     default:
       return state;
