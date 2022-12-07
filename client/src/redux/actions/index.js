@@ -118,12 +118,14 @@ export const postUser = (user) => {
   };
 };
 
-export function createReview(input) {
+export function createReview(review, id) {
   return async function(dispatch){
-    let json = axios.post(`http://localhost:3001/coins/reviews/${input.id}`, input.review)
-    return dispatch({
-      type: CREATE_REVIEW,
-      payload: json.data
+    await axios.post(`http://localhost:3001/coins/reviews/${id}`, review)
+    .then((json) => {
+      return dispatch({
+        type: CREATE_REVIEW,
+        payload: json.data
+      })
     })
   }
 }
