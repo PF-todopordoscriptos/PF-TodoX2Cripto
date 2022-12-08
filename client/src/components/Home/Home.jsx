@@ -4,6 +4,7 @@ import { getAllCoins } from "../../redux/actions";
 import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
+import style from "./Home.module.css"
 
 import { Link, Pagination, Stack, Typography } from "@mui/material";
 
@@ -36,11 +37,23 @@ export default function Home() {
 
   return (
     <>
+    <div className={style.contButons}>
+
       <SearchBar
         setCurrentPage={setCurrentPage}
         coin={coin}
         setCoin={setCoin}
       />
+
+      <div className={style.contFilter}>
+      <Filter
+        setCurrentPage={setCurrentPage}
+        setOrder={setOrder}
+        setCoin={setCoin}
+      />
+      </div>
+
+      </div>
 
       <Typography
         variant="subtitle1"
@@ -51,12 +64,6 @@ export default function Home() {
       >
         <Link href="/form">Register</Link>
       </Typography>
-
-      <Filter
-        setCurrentPage={setCurrentPage}
-        setOrder={setOrder}
-        setCoin={setCoin}
-      />
 
       {allCoins[0] === "Ninguna moneda coincide" ? (
         <Stack>
@@ -91,13 +98,14 @@ export default function Home() {
             ))}
         </Grid>
       )}
-
+      <div className={style.contPagination}>
       <Pagination
         count={Math.ceil(allCoins.length / 10)}
         variant="outlined"
         color="secondary"
         onChange={paginado}
       />
+      </div>
     </>
   );
 }

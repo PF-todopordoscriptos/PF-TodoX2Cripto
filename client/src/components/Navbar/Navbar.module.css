@@ -1,8 +1,17 @@
 .nav{
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   background-color: #5d3c85;
+}
+
+.contLogo{
+  margin-top: 0.5vh;
+  margin-left: 20vh;
+}
+
+.contSwitch{
+  margin-left: 10vh;
 }
 
 .logo{
@@ -10,14 +19,22 @@
   width: 100px;
 }
 
-.profile{
+.butonsAuth{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 50vw;
+}
+
+.flexBoton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
 }
 
 .boton {
-  margin: 5px;
+  margin-left: 2vh;
   background: #7b27a5;
   border: none;
   border-radius: 6px;

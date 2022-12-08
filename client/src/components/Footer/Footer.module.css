@@ -1,0 +1,9 @@
+.cont{
+    /* margin-top: 10vh; */
+}
+
+hr {
+    height: 0.1vh;
+    width: 80%;
+    background-color: rgb(255, 255, 255);
+  }

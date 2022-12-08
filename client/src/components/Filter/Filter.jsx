@@ -13,6 +13,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Button } from "@mui/material";
 
+import style from "./Filter.module.css"
+
 const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
   let dispatch = useDispatch();
   const [favoriteFilter, setFavoriteFilter] = useState(true);
@@ -20,6 +22,7 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
   const handleReset = (e) => {
     e.preventDefault();
     setCurrentPage(1);
+    setFavoriteFilter(true);
     dispatch(getAllCoins());
     setQuote(null);
     setRank(null);
@@ -79,15 +82,7 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
   const [percentage, setPercentage] = useState("");
 
   return (
-    <div>
-      {favoriteFilter ? (
-      <Button variant="contained" color="success" onClick={filterFavoritesCoins}>Favorites</Button>
-      ) : (
-      <Button variant="contained" color="error" onClick={removeFilterFavoritesCoins}>
-        Favorites
-      </Button>
-      )
-      }
+    <div className={style.cont}>
 
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Quotes</InputLabel>
@@ -116,7 +111,7 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
         </Select>
       </FormControl>
 
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 140 }}>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }}>
         <InputLabel id="demo-simple-select-standard-label">
           Price Change %
         </InputLabel>
@@ -130,9 +125,25 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
           <MenuItem value="less">Less</MenuItem>
         </Select>
       </FormControl>
+
+      <div className={style.contButtons}>
+      {favoriteFilter ? (
+
+      <Button variant="contained" color="success" onClick={filterFavoritesCoins}>Favorites</Button>
+      ) : (
+      <Button variant="contained" color="error" onClick={removeFilterFavoritesCoins}>
+        Favorites
+      </Button>
+      )
+      }
+      </div>
+
+      <div className={style.contButtons}>
       <Button variant="contained" color="secondary" onClick={handleReset}>
         REFRESH
       </Button>
+      </div>
+      
     </div>
   );
 };

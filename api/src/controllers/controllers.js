@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User, Coins, Review } = require("../db");
+const { User, Coins, Review, CoinsReviews } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -220,6 +220,36 @@ async function createReview(stars, text, coinName, username) {
   return review;
 }
 
+async function getReviews(name){
+  try {
+    let coinId = await Coins.findOne({
+      where: {
+        name: name
+      },
+      attributes: ['id']
+    })
+    let coinsReviews = await CoinsReviews.findAll({
+      where: {
+        coinId: coinId.id
+      }, 
+    })
+
+    let reviews = await coinsReviews.map(async (c) => {
+      return await Review.findOne({
+        where: {
+          id: c.dataValues.reviewId
+        }
+      })
+    })
+    let reviewsDone = await Promise.all(reviews)
+
+    return reviewsDone
+  } catch (error) {
+    return error
+  }
+}
+
+
 async function loadCoinsDb() {
   let coinsDb = await Coins.findAll();
   if (coinsDb.length > 0) {
@@ -251,4 +281,6 @@ module.exports = {
   modifyUserDisabled,
   modifyUserPassword,
   getUserById,
+  getReviews
+
 };

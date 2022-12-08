@@ -1,13 +1,14 @@
 import React, { Fragment } from "react";
 //import { Link } from "react-router-dom";
-import IMG from "../../Images/logoPrueba.png";
+import IMG from "../../Images/criptoLOGO.png";
 
 import { Stack, CardMedia, Typography, Link  } from "@mui/material";
 
-
+import style from "./Footer.module.css"
 
 const Footer = () => {
   return (
+    <div className={style.cont}>
     <Fragment>
       <Stack
         direction="column"
@@ -28,8 +29,8 @@ const Footer = () => {
           <Stack>
             <CardMedia
               component="img"
-              // height="20"
-              // width="35"
+              height="110"
+              width="35"
               image={IMG}
               alt="logoPrueba"
               sx={{
@@ -39,7 +40,6 @@ const Footer = () => {
           </Stack>
           <Stack
             sx={{
-              
               fontWeight: 'bold'
             }}
             >
@@ -74,6 +74,7 @@ const Footer = () => {
             </Link>
           </Stack>
         </Stack>
+        <hr></hr>
         <Stack>
           <Typography variant="subtitle1" gutterBottom>
             Todo por 2 criptos©
@@ -84,6 +85,7 @@ const Footer = () => {
         </Stack>
       </Stack>
     </Fragment>
+    </div>
   );
 };
 
