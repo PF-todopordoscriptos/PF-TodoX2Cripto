@@ -14,11 +14,11 @@ ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <Auth0Provider 
-      domain={domain} 
-      clientId={clientId} 
-      redirectUri={window.location.origin} >
+       domain={domain}  
+       clientId={clientId} 
+       redirectUri={window.location.origin} >
         <App />
-      </Auth0Provider>
+       </Auth0Provider>
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")
