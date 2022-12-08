@@ -24,11 +24,34 @@ import SelectNat from '../SelectNat/SelectNat';
 
 
 const FormAuth0 = () => {
-    const {user, isAuthenticated, logout} = useAuth0()
-    console.log(user)
+    // let user = {given_name: '', family_name: '', nickname: '', name: '', picture: '', email: "", email_verified: false, family_name: "", given_name: "", locale: "", sub: "", updated_at: ""}
+    let { user, isAuthenticated, logout} = useAuth0()
+    // console.log(user)
     const {loginWithPopup} = useAuth0()
     const [contador,setContador] = useState(1)
     const [handleChangePassword, sethandleChangePassword] = useState(false)
+
+    let [input,setInput] = useState({
+        email: "",
+        name: "",
+        password: "",
+        repeatPassword: "",
+        nickname: "",
+        lastname: "",
+        telephone: "",
+        dni: 0,
+        nationality: "",
+        showPassword: false,
+        showRepeatPassword: false,
+    })
+
+    // React.useEffect(() => {
+    //     setInput({
+    //         ...input,
+    //         [input.email] : user !== undefined ? user.email : null,
+    //         [input.nickname] : user !== undefined ? user.nickname : null,
+    //     })
+    // }, [user])
 
     const setNext = () => {
         setContador(contador+1)
@@ -44,37 +67,32 @@ const FormAuth0 = () => {
         sethandleChangePassword(!handleChangePassword)
     }
     
-    const [input,setInput] = useState({
-        email: "",
-        name: "",
-        password: "",
-        repeatPassword: "",
-        username: "",
-        lastname: "",
-        telephone: "",
-        dni: 0,
-        nationality: "",
-        showPassword: false,
-        showRepeatPassword: false,
-    })
-
     const handleInput = (e) => {
         setInput({
             ...input,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value,
         })
         console.log(input)
     }
 
-    const handleInput2 = () => {
+    const handleEmail = (e) => {
+        user.email = e.target.value
+        setInput({
+            ...input,
+            [e.target.name] : e.target.value,
+        })
         console.log(input)
-        console.log("cambioo")
-        console.log(user.email)
-        // setInput({
-        //     ...input,
-        //     [input.email] : user.email
-        // })
     }
+
+    const handleNickname = (e) => {
+        user.nickname = e.target.value
+        setInput({
+            ...input,
+            [e.target.name] : e.target.value,
+        })
+        console.log(input)
+    }
+    
 
     const handleClickShowPassword = () => {
         setInput({
@@ -87,6 +105,20 @@ const FormAuth0 = () => {
             ...input,
             showRepeatPassword: !input.showRepeatPassword });
       };
+
+
+    //   const setEmailNickname = () => {
+    //     let emailAUTH0 = user.email
+    //     let nicknameAUTH0 = user.nickname
+    //     console.log(emailAUTH0, nicknameAUTH0)
+    //     console.log(input.email)
+    //     setContador(contador+1)
+    //     setInput({
+    //         ...input,
+    //         [input.email] : emailAUTH0,
+    //         [input.nickname] : nicknameAUTH0,
+    //     })
+    //   }
 
 
   return (
@@ -116,25 +148,30 @@ const FormAuth0 = () => {
         {
             isAuthenticated ?  (
                 
-                <div>
-                    <TextField id="filled-basic" name="email" label={`${user.email}`} variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={console.log("aaa")} disabled/>
+                <div className={style.contInputs}>
+                    <TextField id="filled-basic" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleEmail} value={`${user.email}`}/>
+
+                    <TextField id="filled-basic" name="nickname" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleNickname} value={`${user.nickname}`}/>
                 </div>
             ) 
-            : 
-        <TextField id="filled-basic" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
+            :
+            <div className={style.contInputs}>
+                <TextField id="filled-basic" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.email}`}/>
+
+                <TextField id="filled-basic" name="nickname" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.nickname}`}/>
+        </div>
         }
 
-        <TextField id="filled-basic" name="username" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
 
         <div className={style.divPassword}>
-        <TextField id="standard-adornment-password" type={input.showPassword ? 'text' : 'password'} name="password" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+        <TextField id="standard-adornment-password" type={input.showPassword ? 'text' : 'password'} name="password" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.password}`}/>
         {
-            input.showPassword ? <img className={style.ojo1} src={`${ojoAbierto}`} onClick={handleClickShowPassword}/> : <img className={style.ojo1} src={`${ojoCerrado}`} onClick={handleClickShowPassword}/>
+            input.showPassword ? <img className={style.ojo1} src={`${ojoAbierto}`} onClick={handleClickShowPassword}/> : <img className={style.ojo1} src={`${ojoCerrado}`} onClick={handleClickShowPassword} />
         }
         </div>
 
         <div className={style.divPassword}>
-        <TextField id="standard-adornment-password" type={input.showRepeatPassword ? 'text' : 'password'} name="repeatPassword" label="Repeat password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+        <TextField id="standard-adornment-password" type={input.showRepeatPassword ? 'text' : 'password'} name="repeatPassword" label="Repeat password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.repeatPassword}`}/>
         {
             input.showRepeatPassword ? <img className={style.ojo2} src={`${ojoAbierto}`} onClick={handleClickShowRepeatPassword}/> : <img className={style.ojo2} src={`${ojoCerrado}`} onClick={handleClickShowRepeatPassword}/>
         }
@@ -144,17 +181,17 @@ const FormAuth0 = () => {
         : 
         contador === 2 ?
         <div className={style.contInputs}>
-            <TextField id="filled-basic" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
+            <TextField id="filled-basic" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.name}`}/>
 
-            <TextField id="filled-basic" name="lastname" label="Last name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+            <TextField id="filled-basic" name="lastname" label="Last name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.lastname}`}/>
         </div>
 
         : 
         contador === 3 ?
         <div className={style.contInputs}>
-            <TextField id="filled-basic" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
+            <TextField id="filled-basic" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.telephone}`}/>
 
-            <TextField id="filled-basic" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+            <TextField id="filled-basic" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.dni}`}/>
 
             <SelectNat
             value={input.nationality}

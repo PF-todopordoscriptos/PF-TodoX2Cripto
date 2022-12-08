@@ -42,7 +42,7 @@ async function getHistoryChart(id, days) {
 }
 
 async function createUser(
-  username,
+  nickname,
   password,
   name,
   lastname,
@@ -52,7 +52,7 @@ async function createUser(
   nationality
 ) {
   if (
-    !username ||
+    !nickname ||
     !password ||
     !name ||
     !lastname ||
@@ -66,11 +66,11 @@ async function createUser(
 
   let userDB = await User.findOne({
     where: {
-      username: username.toLowerCase().trim(),
+      nickname: nickname.toLowerCase().trim(),
     },
   });
   if (userDB) {
-    return "username is not available";
+    return "nickname is not available";
   }
 
   let emailDB = await User.findOne({
@@ -92,7 +92,7 @@ async function createUser(
   }
 
   let newUser = await User.create({
-    username: username,
+    nickname: nickname,
     password: password,
     name: name,
     lastname: lastname,
@@ -200,7 +200,7 @@ async function getCoinDetail(id) {
   }
 }
 
-async function createReview(stars, text, coinName, username) {
+async function createReview(stars, text, coinName, nickname) {
   let review = await Review.create({
     stars,
     text,
@@ -213,7 +213,7 @@ async function createReview(stars, text, coinName, username) {
   await coin.addReview(review);
   let user = await User.findOne({
     where: {
-      username: username,
+      nickname: nickname,
     },
   });
   await user.addReview(review);
