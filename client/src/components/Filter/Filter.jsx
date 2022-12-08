@@ -22,6 +22,7 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
   const handleReset = (e) => {
     e.preventDefault();
     setCurrentPage(1);
+    setFavoriteFilter(true);
     dispatch(getAllCoins());
     setQuote(null);
     setRank(null);
