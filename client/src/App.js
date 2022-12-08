@@ -10,7 +10,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
+
 import FormAuth0 from "./components/FormAuth0/FormAuth0";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
+
 
 const theme = createTheme({
   typography: {
