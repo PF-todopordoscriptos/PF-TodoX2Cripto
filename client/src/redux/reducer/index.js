@@ -11,7 +11,7 @@ import {
   ORDER_CHANGE_PERCENTAGE,
   POST_USER,
   FILTER_FAVORITE,
-  CREATE_REVIEW,
+  // CREATE_REVIEW,
   GET_REVIEW,
 } from "../actions/actionTypes";
 
@@ -22,7 +22,7 @@ const initialState = {
   trendingCoins: [],
   historyChart: [],
   favoriteCoins: [],
-  reviews: []
+  reviews: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -168,7 +168,7 @@ function rootReducer(state = initialState, action) {
         allCoins: allCoinsFavorites,
       };
 
-    // case CREATE_REVIEW: 
+    // case CREATE_REVIEW:
     // return {
     //   ...state,
     //   reviews: action.payload
@@ -177,8 +177,8 @@ function rootReducer(state = initialState, action) {
     case GET_REVIEW:
       return {
         ...state,
-        reviews: action.payload
-      }
+        reviews: action.payload,
+      };
 
     default:
       return state;
