@@ -5,10 +5,9 @@ import { getTrendingCoins } from "../../redux/actions";
 import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import Box from "@mui/material/Box";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 // import "./LandingPage.css";
-import style from "./LandingPage.module.css"
 
 const LandingPage = () => {
   const dispatch = useDispatch();

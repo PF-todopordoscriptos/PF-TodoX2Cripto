@@ -10,7 +10,7 @@ import {
   ORDER_QUOTES,
   ORDER_RANKS,
   ORDER_CHANGE_PERCENTAGE,
-  POST_USER,
+  // POST_USER,
   FILTER_FAVORITE,
   CREATE_REVIEW,
   GET_REVIEW,
@@ -36,9 +36,11 @@ export function getAllCoins() {
   };
 }
 
-export function getHistoryChart(id) {
+export function getHistoryChart(id, days) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/coins/chart/${id}`);
+    let json = await axios.get(
+      `http://localhost:3001/coins/chart/${id}?days=${days}`
+    );
     return dispatch({
       type: GET_HISTORY_CHART,
       payload: json.data,
@@ -119,23 +121,26 @@ export const postUser = (user) => {
 };
 
 export function createReview(review, id) {
-  return async function(dispatch){
-    await axios.post(`http://localhost:3001/coins/reviews/${id}`, review)
-    .then((json) => {
-      return dispatch({
-        type: CREATE_REVIEW,
-        payload: json.data
-      })
-    })
-  }
+  return async function (dispatch) {
+    await axios
+      .post(`http://localhost:3001/coins/reviews/${id}`, review)
+      .then((json) => {
+        return dispatch({
+          type: CREATE_REVIEW,
+          payload: json.data,
+        });
+      });
+  };
 }
 
-export function getReview(coinName){
-  return async function(dispatch){
-    let json = await axios.get(`http://localhost:3001/coins/reviews/${coinName}`)
+export function getReview(coinName) {
+  return async function (dispatch) {
+    let json = await axios.get(
+      `http://localhost:3001/coins/reviews/${coinName}`
+    );
     return dispatch({
       type: GET_REVIEW,
-      payload: json.data
-    })
-  }
+      payload: json.data,
+    });
+  };
 }

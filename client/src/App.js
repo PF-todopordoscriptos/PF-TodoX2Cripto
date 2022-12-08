@@ -11,6 +11,7 @@ import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
 
+import Calculator from "./components/Calculator/Calculator";
 import FormAuth0 from "./components/FormAuth0/FormAuth0";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
@@ -46,6 +47,8 @@ function App() {
           <Route path={"/form"} component={Form} />
           <Route exact path={"/login"} component={FormAuth0} />
           <Route exact path={"/profile"} component={Profile} />
+          <Route exact path={"/calculator"} component={Calculator} />
+          <Route path="*" component={ErrorPage} />
           <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login"]} component={Footer} />
         </BrowserRouter>
       </div>

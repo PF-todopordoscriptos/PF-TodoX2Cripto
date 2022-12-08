@@ -42,8 +42,9 @@ router.get("/allcoins", async (req, res) => {
 
 router.get("/chart/:id", async (req, res) => {
   const { id } = req.params;
+  const { days } = req.query;
   try {
-    let chart = await getHistoryChart(id);
+    let chart = await getHistoryChart(id, days);
     res.status(200).json(chart);
   } catch (err) {
     res.status(400).json(err.message);
@@ -77,7 +78,7 @@ router.get("/reviews/:name", async (req, res) => {
     let review = await getReviews(name);
     res.send(review);
   } catch (error) {
-    res.send('error');
+    res.send("error");
   }
 });
 

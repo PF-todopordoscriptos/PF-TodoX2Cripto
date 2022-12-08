@@ -15,7 +15,7 @@ export default function ErrorPage() {
           </Button>
         </NavLink>
       </h1>
-      <img src={DinoError404} />
+      <img src={DinoError404} alt="error" />
     </div>
   );
 }
