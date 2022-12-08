@@ -111,6 +111,35 @@ async function getAllUsers() {
   return allUsers;
 }
 
+async function modifyUserAdmin( id , admin ) {
+  await User.update({ admin: admin }, {
+    where: {
+      id: id
+    }
+  });
+}
+
+async function modifyUserDisabled( id , disabled ) {
+  await User.update({ disabled: disabled }, {
+    where: {
+      id: id
+    }
+  });
+}
+
+async function modifyUserPassword( id , password ) {
+  await User.update({ password: password }, {
+    where: {
+      id: id
+    }
+  });
+}
+
+async function getUserById(id) {
+  const res = await User.findByPk(id);
+  return res
+}
+
 async function getAllCoins() {
   const allCoins = await axios.get(
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -247,5 +276,9 @@ module.exports = {
   getAllUsers,
   createReview,
   loadCoinsDb,
+  modifyUserAdmin,
+  modifyUserDisabled,
+  modifyUserPassword,
+  getUserById,
   getReviews,
 };
