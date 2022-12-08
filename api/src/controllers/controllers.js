@@ -22,11 +22,11 @@ async function getTrendingCoins() {
   return trendingCoinsApi;
 }
 
-async function getHistoryChart(id) {
+async function getHistoryChart(id, days) {
   //se puede definir dias y moneda
 
   const historyChart = await axios.get(
-    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`
+    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`
   );
 
   let coinChartDataObj = {};
@@ -191,35 +191,34 @@ async function createReview(stars, text, coinName, username) {
   return review;
 }
 
-async function getReviews(name){
+async function getReviews(name) {
   try {
     let coinId = await Coins.findOne({
       where: {
-        name: name
+        name: name,
       },
-      attributes: ['id']
-    })
+      attributes: ["id"],
+    });
     let coinsReviews = await CoinsReviews.findAll({
       where: {
-        coinId: coinId.id
-      }, 
-    })
+        coinId: coinId.id,
+      },
+    });
 
     let reviews = await coinsReviews.map(async (c) => {
       return await Review.findOne({
         where: {
-          id: c.dataValues.reviewId
-        }
-      })
-    })
-    let reviewsDone = await Promise.all(reviews)
+          id: c.dataValues.reviewId,
+        },
+      });
+    });
+    let reviewsDone = await Promise.all(reviews);
 
-    return reviewsDone
+    return reviewsDone;
   } catch (error) {
-    return error
+    return error;
   }
 }
-
 
 async function loadCoinsDb() {
   let coinsDb = await Coins.findAll();
@@ -248,5 +247,5 @@ module.exports = {
   getAllUsers,
   createReview,
   loadCoinsDb,
-  getReviews
+  getReviews,
 };

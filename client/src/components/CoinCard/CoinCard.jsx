@@ -22,9 +22,9 @@ export default function CoinCard(props) {
 
   const [favoriteClicked, setFavoriteClicked] = useState(false);
 
-  const toggleFavoriteClick = () => {
-    setFavoriteClicked(!favoriteClicked);
-  };
+  // const toggleFavoriteClick = () => {
+  //   setFavoriteClicked(!favoriteClicked);
+  // };
 
   const addFavoriteCoin = () => {
     if (!favoriteCoins.find((c) => c.name === props.name)) {

@@ -11,6 +11,7 @@ import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
+import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 const theme = createTheme({
@@ -53,6 +54,7 @@ function App() {
           />
           <Route exact path={"/login"} component={Login} />
           <Route exact path={"/profile"} component={Profile} />
+          <Route exact path={"/calculator"} component={Calculator} />
           <Route path="*" component={ErrorPage} />
         </BrowserRouter>
       </div>
