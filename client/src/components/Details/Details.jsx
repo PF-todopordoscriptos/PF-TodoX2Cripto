@@ -15,7 +15,7 @@ const Details = (props) => {
     dispatch(getCoinDetail(props.match.params.id));
     dispatch(getReview(id))
   }, [dispatch, props]);
-
+  
   const coinDetails = useSelector((state) => state.coinDetails);
   const reviews = useSelector((state) => state.reviews);
 
@@ -31,7 +31,13 @@ const Details = (props) => {
     })
   }
   const handleSubmitReview = (e) => {
+    // e.preventDefault()
     dispatch(createReview(review, id))
+    setReview({
+      stars: '',
+      text: '',
+      username: 'thiago'
+    })
   }
 
   console.log(coinDetails);
@@ -75,7 +81,7 @@ const Details = (props) => {
       <div>
         {reviews && reviews.length > 0 ?
         reviews.map((r) => (
-          <ul>
+          <ul className={style.ul}>
             <li>{r.stars}</li>
             <li>{r.text}</li>
           </ul>
