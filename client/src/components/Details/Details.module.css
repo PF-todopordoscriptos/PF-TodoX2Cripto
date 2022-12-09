@@ -54,12 +54,14 @@
 }
 
 .contChart {
+  position: relative;
   margin-left: 5vh;
   height: 30vh;
   width: 35vw;
 }
 
 .contMiddle {
+  position: relative;
   display: flex;
   /* justify-content: center; */
   align-items: center;
