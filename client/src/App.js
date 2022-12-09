@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Footer from "./components/Footer/Footer.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";

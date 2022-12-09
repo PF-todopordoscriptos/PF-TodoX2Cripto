@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
       allowNull: false,
     },
-    nickname: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -51,6 +51,6 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
-    }
+    },
   });
 };

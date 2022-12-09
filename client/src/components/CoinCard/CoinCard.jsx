@@ -111,9 +111,11 @@ export default function CoinCard(props) {
           Current price: ${props.current_price}
         </Typography>
         <CardActions>
-          <Button size="large" color="primary">
-            Comprar
-          </Button>
+          <Link href={`/calculator`}>
+            <Button size="large" color="primary">
+              Comprar
+            </Button>
+          </Link>
 
           {favoriteClicked ? (
             <IconButton aria-label="" onClick={removeFavoriteCoin}>
