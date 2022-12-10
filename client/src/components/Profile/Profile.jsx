@@ -34,6 +34,9 @@ const Profile = () => {
               dispatch(postUser(currentUser));
             }else{
               console.log("SIGNED OUT");
+              setUser({
+                email: "",
+              })
         }
       })
     }, []);

@@ -30,7 +30,7 @@ const Form = () => {
         // if(!input.username || !input.password || !input.name || !input.lastname || !input.email || !input.telephone || !input.dni || !input.nationality) {
         //     return alert ('Complete correctamente el formulario antes de enviarlo')
         //   }
-        dispatch(postUser(input));
+        //dispatch(postUser(input));
         setInput({
             email: '',
             password: '',

@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // import clsx from 'clsx';
-import { useState } from 'react'
 
 import style from "./FormAuth0.module.css"
 import TextField from '@mui/material/TextField';
 
-import { postUser, postUserGoogle } from "../../redux/actions/index.js"
 import { useDispatch } from 'react-redux';
 import { useHistory  } from 'react-router-dom';
 
@@ -37,11 +35,9 @@ import logoGoogle from "../../Images/logoGoogle.png"
 
 
 const FormAuth0 = () => {
-
-    //const {user, isAuthenticated, logout} = useAuth0()
     const history = useHistory ();
     const dispatch = useDispatch();
-    //console.log(user)
+ 
     const [contador,setContador] = useState(1)
     const [handleChangePassword, sethandleChangePassword] = useState(false)
 
@@ -55,7 +51,8 @@ const FormAuth0 = () => {
         password: ""
     })
 
-
+    const [errorsLog, setErrorsLog] = useState();
+    const [errorsSig, setErrorsSig] = useState();
 
     const setNext = () => {
         setContador(contador+1)
@@ -146,19 +143,34 @@ const FormAuth0 = () => {
         });
     };
             
-    const onSubmitedForm = (e) => {
+    const onSubmitedForm = async(e) => {
         e.preventDefault();
-        if(!input.email || !input.password) {
-            return alert ('Complete correctamente el formulario antes de enviarlo')
+        try {
+            if(!input.email || !input.password) {
+                return alert ('Complete correctamente el formulario antes de enviarlo')
+            }
+            await createUserWithEmailAndPassword(auth, input.email, input.password)
+            setInput({
+                email: '',
+                password: '',
+                repeatPassword: '',
+            })
+            console.log(input);
+            console.log(e);
+        }catch (error) {
+            if(error.code === "auth/invalid-email"){
+                setErrorsSig("INVALID EMAIL")
+            }
+            if(error.code === "auth/weak-password"){
+                setErrorsSig("Password should be at least 6 characters")
+            }
+            if(error.code === "auth/email-already-in-use"){
+                setErrorsSig("Email already in use, Please log in.")
+            }
+            console.log(error.code)
+            console.log(errorsSig)
         }
-        createUserWithEmailAndPassword(auth, input.email, input.password)
-        setInput({
-            email: '',
-            password: '',
-            repeatPassword: '',
-        })
-        console.log(input);
-        history.push("/profile");
+        
     }
     
     async function handleSingInGoogle() {
@@ -169,8 +181,21 @@ const FormAuth0 = () => {
     }
 
     const handleLogin =  async () => {
-        await signInWithEmailAndPassword(auth, registered.email, registered.password)
-        history.push("/profile");
+        try {
+            await signInWithEmailAndPassword(auth, registered.email, registered.password)
+            history.push("/profile");            
+        } catch (error) {
+            if(error.code === "auth/invalid-email"){
+                setErrorsLog("INVALID EMAIL")
+            }
+            if(error.code === "auth/user-not-found"){
+                setErrorsLog("NOT REGISTER YET")
+            }
+            if(error.code === "auth/wrong-password"){
+                setErrorsLog("WRONG PASSWORD")
+            }
+            console.log(error.code)
+        }
     }
 
 
@@ -204,7 +229,9 @@ const FormAuth0 = () => {
 
     {       //contador === 1 ? 
     
+    
     <div className={style.contInputs}>
+        {errorsSig && (<p className={style.orH2}>{errorsSig}</p>)}
         {
             // isAuthenticated ?  (
                 
@@ -214,7 +241,9 @@ const FormAuth0 = () => {
             //     </div>
             // ) 
             // : 
+            
         <TextField value={input.email} id="filled-2" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
+        
         }
 
         {/* <TextField id="filled-3" name="username" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/> */}
@@ -275,22 +304,24 @@ const FormAuth0 = () => {
         <button type='button' onClick={onSubmitedForm} className={contador === 3 ? style.butNext : style.butHidden }>Sing Up</button>  */}
 
         <button type='button' onClick={onSubmitedForm} className={style.butNext}>Sign Up</button> 
+        {/* disabled= {errorsSig.length === 0 ? false : true} */}
         </div>
         
         </div>
         
         <div className={style.parteDos}>
         <button type='button' onClick={handleSingInGoogle} className={style.ButSignUp}>
-            Sign in with <img src={`${logoGoogle}`} className={style.google} alt="GoogleLogo"/>
+            Log in with <img src={`${logoGoogle}`} className={style.google} alt="GoogleLogo"/>
         </button>
 
         <h2 className={style.orH2}>Or</h2>
         <h2 className={style.finalH2}>Do you already have an account?</h2>
 
 
+        {errorsLog && (<p className={style.orH2}>{errorsLog}</p>)} 
         <TextField onChange={handleChangeRegistered} name="email" value={registered.email}  id="filled-8" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
-
         <TextField onChange={handleChangeRegistered} name="password"  value={registered.password} id="filled-9" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
+        
 
         <div className={style.contLogin}>
         <button onClick={handleLogin} type='button' className={style.ButLogin}>Log in</button>
