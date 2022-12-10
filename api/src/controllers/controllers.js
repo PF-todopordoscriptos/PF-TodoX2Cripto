@@ -258,7 +258,7 @@ async function getReviews(name) {
   }
 }
 
-async function loadCoinsDb() {
+async function loadCoinsInDb() {
   let coinsDb = await Coins.findAll();
   if (coinsDb.length > 0) {
     return coinsDb;
@@ -268,7 +268,8 @@ async function loadCoinsDb() {
     );
     let allCoinsApi = allCoins.data.map((e) => {
       return {
-        name: e.id,
+        id: e.id,
+        name: e.name,
       };
     });
     let allCoinsDb = await Coins.bulkCreate(allCoinsApi);
@@ -284,7 +285,7 @@ module.exports = {
   getCoinDetail,
   getAllUsers,
   createReview,
-  loadCoinsDb,
+  loadCoinsInDb,
   modifyUserAdmin,
   modifyUserDisabled,
   modifyUserPassword,
