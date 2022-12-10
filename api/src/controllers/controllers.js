@@ -41,70 +41,70 @@ async function getHistoryChart(id, days) {
   return coinChartDataObj;
 }
 
-async function createUser(
-  username,
-  password,
-  name,
-  lastname,
-  email,
-  telephone,
-  dni,
-  nationality
-) {
-  if (
-    !username ||
-    !password ||
-    !name ||
-    !lastname ||
-    !email ||
-    !telephone ||
-    !dni ||
-    !nationality
-  ) {
-    return "misign data";
-  }
+// async function createUser(
+//   username,
+//   password,
+//   name,
+//   lastname,
+//   email,
+//   telephone,
+//   dni,
+//   nationality
+// ) {
+//   if (
+//     !username ||
+//     !password ||
+//     !name ||
+//     !lastname ||
+//     !email ||
+//     !telephone ||
+//     !dni ||
+//     !nationality
+//   ) {
+//     return "misign data";
+//   }
 
-  let userDB = await User.findOne({
-    where: {
-      username: username.toLowerCase().trim(),
-    },
-  });
-  if (userDB) {
-    return "username is not available";
-  }
+//   let userDB = await User.findOne({
+//     where: {
+//       username: username.toLowerCase().trim(),
+//     },
+//   });
+//   if (userDB) {
+//     return "username is not available";
+//   }
 
-  let emailDB = await User.findOne({
-    where: {
-      email: email.toLowerCase().trim(),
-    },
-  });
-  if (emailDB) {
-    return `there is already a user with the email ${email}`;
-  }
+//   let emailDB = await User.findOne({
+//     where: {
+//       email: email.toLowerCase().trim(),
+//     },
+//   });
+//   if (emailDB) {
+//     return `there is already a user with the email ${email}`;
+//   }
 
-  let dniDB = await User.findOne({
-    where: {
-      dni: dni,
-    },
-  });
-  if (dniDB) {
-    return `there is already a user with the DNI ${dni}`;
-  }
+//   let dniDB = await User.findOne({
+//     where: {
+//       dni: dni,
+//     },
+//   });
+//   if (dniDB) {
+//     return `there is already a user with the DNI ${dni}`;
+//   }
 
-  let newUser = await User.create({
-    username: username,
-    password: password,
-    name: name,
-    lastname: lastname,
-    email: email,
-    telephone: telephone,
-    dni: dni,
-    nationality: nationality,
-    coins: [],
-  });
+//   let newUser = await User.create({
+//     username: username,
+//     password: password,
+//     name: name,
+//     lastname: lastname,
+//     email: email,
+//     telephone: telephone,
+//     dni: dni,
+//     nationality: nationality,
+//     coins: [],
+//   });
 
-  return newUser;
-}
+//   return newUser;
+// }
 
 async function getAllUsers() {
   let allUsers = await User.findAll();
@@ -301,7 +301,7 @@ async function getCoinFromDbById(id) {
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
-  createUser,
+  //createUser,
   getAllCoins,
   getCoinDetail,
   getAllUsers,

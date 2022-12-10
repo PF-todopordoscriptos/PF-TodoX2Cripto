@@ -21,33 +21,6 @@ const {
 
 const router = Router();
 
-// router.post("/", async (req, res) => {
-//   try {
-//     let {
-//       username,
-//       password,
-//       name,
-//       lastname,
-//       email,
-//       telephone,
-//       dni,
-//       nationality,
-//     } = req.body;
-//     const newUser = await createUser(
-//       username,
-//       password,
-//       name,
-//       lastname,
-//       email,
-//       telephone,
-//       dni,
-//       nationality
-//     );
-//     res.status(200).send(newUser);
-//   } catch (err) {
-//     res.status(404).send(err.message);
-//   }
-// });
 
 function hashFunction(key) {
   const splittedWord = key.toLowerCase().split('');
@@ -62,8 +35,7 @@ router.post("/", async (req, res) => {
 
     const { email, password } = req.body;
     let found = await User.findOne({ where: { email: email } });
-    if (found) return res.status(400).send('User does not available');
-    
+    if (found) return res.status(400).send('User does not available');    
     try {
       // const { user } = await createUserWithEmailAndPassword(
       //   auth,
@@ -82,7 +54,7 @@ router.post("/", async (req, res) => {
       };
       
       sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      res.status(201).json({ msg: 'User create!' });
+      res.status(200).json({ msg: 'User create!' });
     } catch(e) {
       res.status(400).json(console.log(e));
     }

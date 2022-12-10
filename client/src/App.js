@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import Calculator from "./components/Calculator/Calculator";
 import FormAuth0 from "./components/FormAuth0/FormAuth0";
@@ -46,11 +47,10 @@ function App() {
           <Route path={"/details/:id"} component={Details} />
           <Route path={"/form"} component={Form} />
           <Route exact path={"/login"} component={FormAuth0} />
-          <Route exact path={"/profile"} component={Profile} />
+          <Route exact path={"/profile"} component={ProtectedRoute} />
           <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Footer} />
           <Route exact path={"/calculator"} component={Calculator} />
-          <Route path="*" component={ErrorPage} />
-          />
+          {/* <Route path="*" component={ErrorPage} /> */}
         </BrowserRouter>
       </div>
     </ThemeProvider>

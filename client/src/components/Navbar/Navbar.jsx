@@ -27,9 +27,9 @@ const Navbar = () => {
                   email: currentUser.email,
                   //password: currentUser.password,
                 })
-              }else{
-                console.log("SIGNED OUT");
-                setUser(null)
+          }else{
+              console.log("SIGNED OUT");
+              setUser(null)
           }
         })
       }, []);
@@ -47,7 +47,6 @@ const Navbar = () => {
           <img src={IMG} alt="logo" className={style.logo} />
         </Link>
       </div>
-
       <div className={style.contSwitch}>
         <FormGroup>
           <FormControlLabel
@@ -55,8 +54,7 @@ const Navbar = () => {
           />
         </FormGroup>
       </div>
-
-        <div className={style.butonsAuth}>
+      <div className={style.butonsAuth}>
         {
         user ? (
             <div className={style.flexBoton}>
@@ -74,19 +72,9 @@ const Navbar = () => {
             </button>
         </Link>
         }
-         {/* </div>
-            <Link to="/profile">
-              <button className={style.boton}>My Profile</button>
-            </Link>
-          </div>
-        ) : (
-          <Link to="/login">
-            <button className={style.boton}>Log In</button>
-          </Link>
-        )
-        } */}
       </div>
-    </div>
+            
+      </div>
   );
 };
 
