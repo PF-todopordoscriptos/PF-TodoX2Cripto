@@ -5,7 +5,7 @@ const {
   getAllCoins,
   getCoinDetail,
   createReview,
-  loadCoinsDb,
+  loadCoinsInDb,
   getReviews,
 } = require("../controllers/controllers.js");
 
@@ -82,9 +82,9 @@ router.get("/reviews/:name", async (req, res) => {
   }
 });
 
-router.get("/loadDb", async (req, res) => {
+router.get("/loadCoinsInDb", async (req, res) => {
   try {
-    let coinsDb = await loadCoinsDb();
+    let coinsDb = await loadCoinsInDb();
     res.send(coinsDb);
   } catch (error) {
     res.send(error);
