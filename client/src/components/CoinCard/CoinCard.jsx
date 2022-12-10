@@ -22,9 +22,9 @@ export default function CoinCard(props) {
 
   const [favoriteClicked, setFavoriteClicked] = useState(false);
 
-  const toggleFavoriteClick = () => {
-    setFavoriteClicked(!favoriteClicked);
-  };
+  // const toggleFavoriteClick = () => {
+  //   setFavoriteClicked(!favoriteClicked);
+  // };
 
   const addFavoriteCoin = () => {
     if (!favoriteCoins.find((c) => c.name === props.name)) {
@@ -111,9 +111,11 @@ export default function CoinCard(props) {
           Current price: ${props.current_price}
         </Typography>
         <CardActions>
-          <Button size="large" color="primary">
-            Comprar
-          </Button>
+          <Link href={`/calculator`}>
+            <Button size="large" color="primary">
+              Comprar
+            </Button>
+          </Link>
 
           {favoriteClicked ? (
             <IconButton aria-label="" onClick={removeFavoriteCoin}>

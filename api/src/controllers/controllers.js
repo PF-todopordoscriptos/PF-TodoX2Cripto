@@ -22,11 +22,11 @@ async function getTrendingCoins() {
   return trendingCoinsApi;
 }
 
-async function getHistoryChart(id) {
+async function getHistoryChart(id, days) {
   //se puede definir dias y moneda
 
   const historyChart = await axios.get(
-    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`
+    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`
   );
 
   let coinChartDataObj = {};
@@ -111,6 +111,44 @@ async function getAllUsers() {
   return allUsers;
 }
 
+async function modifyUserAdmin(id, admin) {
+  await User.update(
+    { admin: admin },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+}
+
+async function modifyUserDisabled(id, disabled) {
+  await User.update(
+    { disabled: disabled },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+}
+
+async function modifyUserPassword(id, password) {
+  await User.update(
+    { password: password },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+}
+
+async function getUserById(id) {
+  const res = await User.findByPk(id);
+  return res;
+}
+
 async function getAllCoins() {
   const allCoins = await axios.get(
     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
@@ -171,7 +209,7 @@ async function getCoinDetail(id) {
   }
 }
 
-async function createReview(stars, text, coinName, username) {
+async function createReview(stars, text, coinName, nickname) {
   let review = await Review.create({
     stars,
     text,
@@ -184,42 +222,41 @@ async function createReview(stars, text, coinName, username) {
   await coin.addReview(review);
   let user = await User.findOne({
     where: {
-      username: username,
+      nickname: nickname,
     },
   });
   await user.addReview(review);
   return review;
 }
 
-async function getReviews(name){
+async function getReviews(name) {
   try {
     let coinId = await Coins.findOne({
       where: {
-        name: name
+        name: name,
       },
-      attributes: ['id']
-    })
+      attributes: ["id"],
+    });
     let coinsReviews = await CoinsReviews.findAll({
       where: {
-        coinId: coinId.id
-      }, 
-    })
+        coinId: coinId.id,
+      },
+    });
 
     let reviews = await coinsReviews.map(async (c) => {
       return await Review.findOne({
         where: {
-          id: c.dataValues.reviewId
-        }
-      })
-    })
-    let reviewsDone = await Promise.all(reviews)
+          id: c.dataValues.reviewId,
+        },
+      });
+    });
+    let reviewsDone = await Promise.all(reviews);
 
-    return reviewsDone
+    return reviewsDone;
   } catch (error) {
-    return error
+    return error;
   }
 }
-
 
 async function loadCoinsDb() {
   let coinsDb = await Coins.findAll();
@@ -248,5 +285,9 @@ module.exports = {
   getAllUsers,
   createReview,
   loadCoinsDb,
-  getReviews
+  modifyUserAdmin,
+  modifyUserDisabled,
+  modifyUserPassword,
+  getUserById,
+  getReviews,
 };

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react"
 import { postUser, postUserGoogle } from "../../redux/actions/index.js"
@@ -44,7 +45,7 @@ const Profile = () => {
     <div>
         <h1>hola {user.email}</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

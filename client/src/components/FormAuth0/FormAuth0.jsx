@@ -37,6 +37,7 @@ import logoGoogle from "../../Images/logoGoogle.png"
 
 
 const FormAuth0 = () => {
+
     //const {user, isAuthenticated, logout} = useAuth0()
     const history = useHistory ();
     const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const FormAuth0 = () => {
     })
 
 
+
     const setNext = () => {
         setContador(contador+1)
         console.log(contador)
@@ -69,6 +71,7 @@ const FormAuth0 = () => {
         sethandleChangePassword(!handleChangePassword)
     }
     
+
     const [input,setInput] = useState({
         email: "",
         password: "",
@@ -86,10 +89,20 @@ const FormAuth0 = () => {
     const handleInput = (e) => {
         setInput({
             ...input,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value,
+        })
+        console.log(input)
+    }
+
+    const handleEmail = (e) => {
+        user.email = e.target.value
+        setInput({
+            ...input,
+            [e.target.name] : e.target.value,
         })
         //console.log(input)
     }
+
 
     const handleChangeRegistered = (e) => {
         setRegistered({
@@ -108,6 +121,16 @@ const FormAuth0 = () => {
         //     [input.email] : user.email
         // })
     // }
+
+    const handleNickname = (e) => {
+        user.nickname = e.target.value
+        setInput({
+            ...input,
+            [e.target.name] : e.target.value,
+        })
+        console.log(input)
+    }
+
 
     
     const handleClickShowPassword = () => {
@@ -151,6 +174,20 @@ const FormAuth0 = () => {
     }
 
 
+    //   const setEmailNickname = () => {
+    //     let emailAUTH0 = user.email
+    //     let nicknameAUTH0 = user.nickname
+    //     console.log(emailAUTH0, nicknameAUTH0)
+    //     console.log(input.email)
+    //     setContador(contador+1)
+    //     setInput({
+    //         ...input,
+    //         [input.email] : emailAUTH0,
+    //         [input.nickname] : nicknameAUTH0,
+    //     })
+    //   }
+
+
   return (
     <div >
         <form className={style.all}>
@@ -171,6 +208,7 @@ const FormAuth0 = () => {
         {
             // isAuthenticated ?  (
                 
+
             //     <div>
             //         <TextField id="filled-1" name="email" label={`${user.email}`} variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={console.log("aaa")} disabled/>
             //     </div>
@@ -189,7 +227,9 @@ const FormAuth0 = () => {
         </div>
 
         <div className={style.divPassword}>
+
         <TextField value={input.repeatPassword} id="standard-adornment-password" type={input.showRepeatPassword ? 'text' : 'password'} name="repeatPassword" label="Repeat password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+
         {
             input.showRepeatPassword ? <img className={style.ojo2} src={`${ojoAbierto}`} alt="ojoabierto" onClick={handleClickShowRepeatPassword}/> : <img className={style.ojo2} src={`${ojoCerrado}`} alt="ojocerrado" onClick={handleClickShowRepeatPassword}/>
         }

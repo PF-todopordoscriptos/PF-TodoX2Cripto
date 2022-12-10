@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import IMG from "../../Images/criptoLOGO.png";
@@ -38,21 +39,22 @@ const Navbar = () => {
         history.push("/home")
     }
 
+
   return (
     <div className={style.nav}>
-        <div className={style.contLogo}>
-            <Link to ="/home">
-            <img src={IMG} alt="logo" className={style.logo}/>
-            </Link>
-        </div>
+      <div className={style.contLogo}>
+        <Link to="/home">
+          <img src={IMG} alt="logo" className={style.logo} />
+        </Link>
+      </div>
 
-        <div className={style.contSwitch}>
+      <div className={style.contSwitch}>
         <FormGroup>
-            <FormControlLabel
+          <FormControlLabel
             control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
-            />
+          />
         </FormGroup>
-        </div>
+      </div>
 
         <div className={style.butonsAuth}>
         {
@@ -73,9 +75,18 @@ const Navbar = () => {
         </Link>
         }
     </div>
-
+            <Link to="/profile">
+              <button className={style.boton}>My Profile</button>
+            </Link>
+          </div>
+        ) : (
+          <Link to="/login">
+            <button className={style.boton}>Log In</button>
+          </Link>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

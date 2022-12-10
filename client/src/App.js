@@ -11,9 +11,9 @@ import Profile from "./components/Profile/Profile";
 import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
 
+import Calculator from "./components/Calculator/Calculator";
 import FormAuth0 from "./components/FormAuth0/FormAuth0";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-
 
 const theme = createTheme({
   typography: {
@@ -37,6 +37,7 @@ function App() {
       <div className="App">
         {/* <h1>TODO POR 2 CRIPTO</h1> */}
         <BrowserRouter>
+
           <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Navbar} />
           <Route exact path={"/"} component={LandingPage} />
           <Route exact path={"/FAQ"} component={FAQ} />
@@ -47,6 +48,9 @@ function App() {
           <Route exact path={"/login"} component={FormAuth0} />
           <Route exact path={"/profile"} component={Profile} />
           <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Footer} />
+          <Route exact path={"/calculator"} component={Calculator} />
+          <Route path="*" component={ErrorPage} />
+          />
         </BrowserRouter>
       </div>
     </ThemeProvider>
