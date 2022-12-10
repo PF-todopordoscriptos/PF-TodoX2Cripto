@@ -42,7 +42,7 @@ async function getHistoryChart(id, days) {
 }
 
 async function createUser(
-  nickname,
+  username,
   password,
   name,
   lastname,
@@ -52,7 +52,7 @@ async function createUser(
   nationality
 ) {
   if (
-    !nickname ||
+    !username ||
     !password ||
     !name ||
     !lastname ||
@@ -66,11 +66,11 @@ async function createUser(
 
   let userDB = await User.findOne({
     where: {
-      nickname: nickname.toLowerCase().trim(),
+      username: username.toLowerCase().trim(),
     },
   });
   if (userDB) {
-    return "nickname is not available";
+    return "username is not available";
   }
 
   let emailDB = await User.findOne({
@@ -92,7 +92,7 @@ async function createUser(
   }
 
   let newUser = await User.create({
-    nickname: nickname,
+    username: username,
     password: password,
     name: name,
     lastname: lastname,
@@ -111,33 +111,42 @@ async function getAllUsers() {
   return allUsers;
 }
 
-async function modifyUserAdmin( id , admin ) {
-  await User.update({ admin: admin }, {
-    where: {
-      id: id
+async function modifyUserAdmin(id, admin) {
+  await User.update(
+    { admin: admin },
+    {
+      where: {
+        id: id,
+      },
     }
-  });
+  );
 }
 
-async function modifyUserDisabled( id , disabled ) {
-  await User.update({ disabled: disabled }, {
-    where: {
-      id: id
+async function modifyUserDisabled(id, disabled) {
+  await User.update(
+    { disabled: disabled },
+    {
+      where: {
+        id: id,
+      },
     }
-  });
+  );
 }
 
-async function modifyUserPassword( id , password ) {
-  await User.update({ password: password }, {
-    where: {
-      id: id
+async function modifyUserPassword(id, password) {
+  await User.update(
+    { password: password },
+    {
+      where: {
+        id: id,
+      },
     }
-  });
+  );
 }
 
 async function getUserById(id) {
   const res = await User.findByPk(id);
-  return res
+  return res;
 }
 
 async function getAllCoins() {
