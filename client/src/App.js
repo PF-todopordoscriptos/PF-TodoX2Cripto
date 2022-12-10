@@ -37,7 +37,7 @@ function App() {
       <div className="App">
         {/* <h1>TODO POR 2 CRIPTO</h1> */}
         <BrowserRouter>
-          <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login"]} component={Navbar} />
+          <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Navbar} />
           <Route exact path={"/"} component={LandingPage} />
           <Route exact path={"/FAQ"} component={FAQ} />
           <Route path={"/home"} component={Home} />
@@ -46,7 +46,7 @@ function App() {
           <Route path={"/form"} component={Form} />
           <Route exact path={"/login"} component={FormAuth0} />
           <Route exact path={"/profile"} component={Profile} />
-          <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login"]} component={Footer} />
+          <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Footer} />
         </BrowserRouter>
       </div>
     </ThemeProvider>
