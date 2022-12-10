@@ -19,6 +19,10 @@ import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
+require("dotenv").config();
+
+const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
 
 export default function AdminDashboardUsers() {
 
@@ -35,7 +39,9 @@ export default function AdminDashboardUsers() {
             id: e.id,
             password: e.password,
             admin: e.admin,
-            disabled: e.disabled
+            disabled: e.disabled,
+            email: e.email,
+            name: e.name
           }})
         qq.forEach(e => ww.push(e))
         setRows(ww)
@@ -173,7 +179,6 @@ export default function AdminDashboardUsers() {
     rowCount: PropTypes.number.isRequired,
   };
 
-
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('username');
   const [selected, setSelected] = React.useState([]);
@@ -233,6 +238,48 @@ export default function AdminDashboardUsers() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  function passwordNotifier( user_email , user_name ) {
+    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , {
+      user_email: user_email,
+      user_name: user_name,
+      crypto_team: "The CripTornado Team",
+      message: 'Hello dear user, your password has been reset.. Please login and set a new password !'
+    } , REACT_APP_EMAILJS_PUBLIC_KEY )
+      .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+          console.log('FAILED...', err);
+      }); 
+  }
+
+  function adminNotifier( user_email , user_name , adm ) {
+    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
+      user_email: user_email,
+      user_name: user_name,
+      crypto_team: "The CripTornado Team",
+      message: adm ? 'Hello ! We are grateful to notify you that you are admin now !' : 'Hello.. We notify you that you are not admin anymore..'
+    } , REACT_APP_EMAILJS_PUBLIC_KEY )
+      .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+          console.log('FAILED...', err);
+      }); 
+  }
+
+  function disabledNotifier( user_email , user_name , dis ) {
+    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
+      user_email: user_email,
+      user_name: user_name,
+      crypto_team: "The CripTornado Team",
+      message: dis ? 'Hello ! We notify you that you are able to use our services again !' : 'Hello. We notify you that your account has been disabled for suspicious activity.'
+    } , REACT_APP_EMAILJS_PUBLIC_KEY )
+      .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+      }, (err) => {
+          console.log('FAILED...', err);
+      }); 
+  }
+
   GetAllUsers() // CALL FOR FIRST RENDER
       
   return (
@@ -256,7 +303,9 @@ export default function AdminDashboardUsers() {
                       id: e.id,
                       password: e.password,
                       admin: e.admin,
-                      disabled: e.disabled
+                      disabled: e.disabled,
+                      email: e.email,
+                      name: e.name
                     }})
                   qq.forEach(e => ww.push(e))
                   setRows(ww)
@@ -321,7 +370,7 @@ export default function AdminDashboardUsers() {
                         <Checkbox /* PASSWORD COLUMN */
                           color="primary"
                           checked={!!row.password}
-                          onClick={() => changePassword(rows[rows.indexOf(row)].id).then(function() {
+                          onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
                             axios.get('http://localhost:3001/users/allUsers')
                             .then((response) => {
                               let ww = []
@@ -331,13 +380,16 @@ export default function AdminDashboardUsers() {
                                   id: e.id,
                                   password: e.password,
                                   admin: e.admin,
-                                  disabled: e.disabled
+                                  disabled: e.disabled,
+                                  email: e.email,
+                                  name: e.name
                                 }})
                               qq.forEach(e => ww.push(e))
                               setRows(ww)
                               console.log("DONE FETCH")
+                              passwordNotifier( row.email , row.name )
                             }).catch(e => console.log(e))
-                          })}
+                          }) : null}
                         />
                       </TableCell>
                       <TableCell align="center">
@@ -354,14 +406,17 @@ export default function AdminDashboardUsers() {
                                   id: e.id,
                                   password: e.password,
                                   admin: e.admin,
-                                  disabled: e.disabled
+                                  disabled: e.disabled,
+                                  email: e.email,
+                                  name: e.name
                                 }})
                               qq.forEach(e => ww.push(e))
                               setRows(ww)
                               console.log("DONE FETCH")
+                              adminNotifier( row.email , row.name , !row.admin)
                             }).catch(e => console.log(e))
                           })}
-                        />                        
+                        />
                       </TableCell>
                       <TableCell align="center"> 
                         <Checkbox /* DISABLED COLUMN */
@@ -377,11 +432,14 @@ export default function AdminDashboardUsers() {
                                   id: e.id,
                                   password: e.password,
                                   admin: e.admin,
-                                  disabled: e.disabled
+                                  disabled: e.disabled,
+                                  email: e.email,
+                                  name: e.name
                                 }})
                               qq.forEach(e => ww.push(e))
                               setRows(ww)
                               console.log("DONE FETCH")
+                              disabledNotifier( row.email , row.name , !!row.disabled)
                             }).catch(e => console.log(e))
                           })}
                         />
@@ -411,20 +469,35 @@ export default function AdminDashboardUsers() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <Table >
-        <TableRow >
-          <TableCell sx={{ borderBottom: 0 , width: '0%'}}></TableCell>
-            <FormControlLabel 
-              sx={{ color: "white" }}
+      <Table>
+        <TableRow sx={{ borderBottom: 0 , width: '1%', fontSize: 'large' , backgroundColor: deepPurple[100] }} >
+          <TableCell align='center'>
+            <strong>PASSWORD:     </strong><Checkbox color="primary" checked={true}/>=  User have password     <Checkbox color="primary" checked={false}/>=  User do not have password
+          </TableCell>
+          <TableCell align='center'>
+            <strong>ADMIN:     </strong><Checkbox color="primary" checked={true}/>=  User is admin     <Checkbox color="primary" checked={false}/>=  User is not admin
+          </TableCell>
+          <TableCell align='center'>
+            <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  User is disabled     <Checkbox color="primary" checked={false}/>=  User is not disabled
+          </TableCell>
+        </TableRow>
+      </Table>
+      <Table>
+        <TableRow /* sx={{ borderBottom: 0}} */ >
+          <TableCell sx={{ borderBottom: 1 , width: '0%' }}></TableCell>
+          <TableCell sx={{ borderBottom: 1 , width: '10%' }}>
+            <FormControlLabel  
+              sx={{ color: "white" , borderBottom: 0 }}
               control={<Switch checked={dense} onChange={handleChangeDense} />}
-              label="Shrink Rows"
+              label="Shrink Rows"              
             />
-          <TableCell sx={{ borderBottom: 0 , align: "left", width: '55%', fontSize: 'large' , color: "white" }}>
-            Warning ! Every change you made will automatically impact in database !
+          </TableCell>            
+          <TableCell sx={{ borderBottom: 0 , align: "left", width: '55%', fontSize: 'large' , color: "white" }} align='center'>
+            Warning ! Every change you made will automatically impact in database & send an email to user !
           </TableCell>
           <TableCell sx={{ borderBottom: 0 , align: "left", width: '12%', fontSize: 'large' , color: "white" }}>
             ©  2022  CripTornado
-          </TableCell>
+          </TableCell>          
         </TableRow>
       </Table>
     </Box>
