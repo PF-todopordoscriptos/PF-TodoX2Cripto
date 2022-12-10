@@ -74,7 +74,7 @@ const Navbar = () => {
             </button>
         </Link>
         }
-    </div>
+         {/* </div>
             <Link to="/profile">
               <button className={style.boton}>My Profile</button>
             </Link>
@@ -83,7 +83,8 @@ const Navbar = () => {
           <Link to="/login">
             <button className={style.boton}>Log In</button>
           </Link>
-        )}
+        )
+        } */}
       </div>
     </div>
   );

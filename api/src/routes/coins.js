@@ -7,6 +7,9 @@ const {
   createReview,
   loadCoinsInDb,
   getReviews,
+  getCoinsFromDb,
+  modifyCoinDisabled,
+  getCoinFromDbById
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -88,6 +91,26 @@ router.get("/loadCoinsInDb", async (req, res) => {
     res.send(coinsDb);
   } catch (error) {
     res.send(error);
+  }
+});
+
+router.get("/getCoinsFromDb", async (req, res) => {
+  try {
+    const allCoins = await getCoinsFromDb();
+    res.status(200).send(allCoins);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+
+router.put("/modifyCoinDisabled", async (req, res) => {
+  const { id, disabled } = req.body;
+  try {
+    await modifyCoinDisabled(id, disabled);
+    const findCoinInDb = await getCoinFromDbById(id);
+    res.status(200).send(findUser);
+  } catch (e) {
+    res.status(400).send(e.message);
   }
 });
 

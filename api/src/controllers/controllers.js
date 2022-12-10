@@ -277,6 +277,27 @@ async function loadCoinsInDb() {
   }
 }
 
+async function getCoinsFromDb() {
+  let allCoinsFromDb = await Coins.findAll();
+  return allCoinsFromDb;
+}
+
+async function modifyCoinDisabled(id, disabled) {
+  await Coins.update(
+    { disabled: disabled },
+    {
+      where: {
+        id: id,
+      },
+    }
+  );
+}
+
+async function getCoinFromDbById(id) {
+  const res = await Coins.findByPk(id);
+  return res;
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
@@ -291,4 +312,7 @@ module.exports = {
   modifyUserPassword,
   getUserById,
   getReviews,
+  getCoinsFromDb,
+  modifyCoinDisabled,
+  getCoinFromDbById
 };
