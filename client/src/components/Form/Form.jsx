@@ -27,19 +27,19 @@ const Form = () => {
 
     const onSubmitedForm = (e) => {
         e.preventDefault();
-        if(!input.username || !input.password || !input.name || !input.lastname || !input.email || !input.telephone || !input.dni || !input.nationality) {
-            return alert ('Complete correctamente el formulario antes de enviarlo')
-          }
+        // if(!input.username || !input.password || !input.name || !input.lastname || !input.email || !input.telephone || !input.dni || !input.nationality) {
+        //     return alert ('Complete correctamente el formulario antes de enviarlo')
+        //   }
         dispatch(postUser(input));
         setInput({
-            username: '',
-            password: '',
-            name: '',
-            lastname: '',
             email: '',
-            telephone: '',
-            dni: '',
-            nationality: ''
+            password: '',
+            //username: '',
+            //name: '',
+            //lastname: '',
+            //telephone: '',
+            //dni: '',
+            //nationality: ''
           })
         console.log(input);
     
@@ -59,7 +59,7 @@ const Form = () => {
         alignItems: 'center'
       }}
      >
-      <TextField 
+      {/* <TextField 
         required
         error
         id="outlined-basic" 
@@ -67,6 +67,21 @@ const Form = () => {
         variant="outlined"
         name='username'
         value={input.username}
+        onChange={onValueChange}
+        sx={{
+          marginTop: '20px',
+          width: '90%',
+        }}
+      /> */}
+
+      <TextField 
+        required
+        error
+        id="outlined-basic" 
+        label="Email"
+        variant="outlined"
+        name='email'
+        value={input.email}
         onChange={onValueChange}
         sx={{
           marginTop: '20px',
@@ -89,22 +104,8 @@ const Form = () => {
         }}
       />
 
-      <TextField 
-        required
-        error
-        id="outlined-basic" 
-        label="Email"
-        variant="outlined"
-        name='email'
-        value={input.email}
-        onChange={onValueChange}
-        sx={{
-          marginTop: '20px',
-          width: '90%',
-        }}
-      />
 
-      <TextField 
+      {/* <TextField 
         required
         error
         id="outlined-basic" 
@@ -177,7 +178,7 @@ const Form = () => {
           marginTop: '23px',
           width: '90%',
         }}
-      />
+      /> */}
       <Button 
         //disabled
         variant="outlined" 

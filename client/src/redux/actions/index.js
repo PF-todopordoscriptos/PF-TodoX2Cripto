@@ -120,6 +120,17 @@ export const postUser = (user) => {
   };
 };
 
+export const postUserGoogle = (user) => {
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/users/loginWithGoogle?google=true`, user);
+
+    return response;
+  };
+};
+
+
+
+
 export function createReview(review, id) {
   return async function (dispatch) {
     await axios

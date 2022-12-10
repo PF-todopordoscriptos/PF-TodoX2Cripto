@@ -57,7 +57,7 @@
     font-weight: bold;
     /* font-size: x-large; */
     color: rgb(0, 0, 0);
-    margin-top: 5rem;
+    margin-top: 3.5rem;
 }
 
 
@@ -95,12 +95,18 @@
     text-decoration: none;
     border: 0.2em solid rgb(212, 0, 255);
     padding: 0.5em 1em;
+    margin-top: 1em;
     border-radius: 5px;
     font-family: 'Fira Sans', sans-serif;
     display: flex;
     justify-content: center;
     cursor: pointer;
 }
+.ButSignUp:hover {
+    /*right: 80%;*/
+    cursor: pointer;
+  }
+
 
 .ButSignUp:before {
       content: "";
@@ -151,6 +157,10 @@
     border-radius: 5px;
     font-family: 'Fira Sans', sans-serif;
 }
+.ButLogin:hover {
+    /*right: 80%;*/
+    cursor: pointer;
+  }
 
 .ButLogin:before {
       content: "";
@@ -188,7 +198,9 @@
         left: 80%;
       }
 
-
+    .butHidden{
+        display:none
+    }
     
   .butNext{
         margin-top: 2rem;
@@ -203,6 +215,12 @@
         border-radius: 5px;
         font-family: 'Fira Sans', sans-serif;
     }
+
+    .butNext:hover {
+        /*right: 80%;*/
+        cursor: pointer;
+      }
+    
     
     .butNext:before {
           content: "";
@@ -279,7 +297,6 @@
     height: 1rem;
     width: 1rem;
     margin-left: 0.3rem;
-    /* padding-top: 1rem; */
 }
 
 .contInputs{

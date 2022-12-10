@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import clsx from 'clsx';
 import { useState } from 'react'
-import { useAuth0 } from "@auth0/auth0-react"
+
 import style from "./FormAuth0.module.css"
 import TextField from '@mui/material/TextField';
+
+import { postUser, postUserGoogle } from "../../redux/actions/index.js"
+import { useDispatch } from 'react-redux';
+import { useHistory  } from 'react-router-dom';
+
+import { auth } from "../../firebase/firebaseConfig";
+import {
+    GoogleAuthProvider,
+    signInWithRedirect,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword
+  } from "firebase/auth";
 
 import ojoAbierto from "../../Images/ojoabierto.png"
 import ojoCerrado from "../../Images/ojocerrado.png"
@@ -20,38 +32,30 @@ import logoGoogle from "../../Images/logoGoogle.png"
 // import MenuItem from "@mui/material/MenuItem";
 // import { NativeSelect } from '@mui/material';
 
-import SelectNat from '../SelectNat/SelectNat';
+//import SelectNat from '../SelectNat/SelectNat';
+//import { set } from '../../../../api/src/app';
 
 
 const FormAuth0 = () => {
-    // let user = {given_name: '', family_name: '', nickname: '', name: '', picture: '', email: "", email_verified: false, family_name: "", given_name: "", locale: "", sub: "", updated_at: ""}
-    let { user, isAuthenticated, logout} = useAuth0()
-    // console.log(user)
-    const {loginWithPopup} = useAuth0()
+
+    //const {user, isAuthenticated, logout} = useAuth0()
+    const history = useHistory ();
+    const dispatch = useDispatch();
+    //console.log(user)
     const [contador,setContador] = useState(1)
     const [handleChangePassword, sethandleChangePassword] = useState(false)
 
-    let [input,setInput] = useState({
+    const [user, setUser] = useState({
         email: "",
-        name: "",
-        password: "",
-        repeatPassword: "",
-        nickname: "",
-        lastname: "",
-        telephone: "",
-        dni: 0,
-        nationality: "",
-        showPassword: false,
-        showRepeatPassword: false,
+        password: ""
     })
 
-    // React.useEffect(() => {
-    //     setInput({
-    //         ...input,
-    //         [input.email] : user !== undefined ? user.email : null,
-    //         [input.nickname] : user !== undefined ? user.nickname : null,
-    //     })
-    // }, [user])
+    const [registered, setRegistered] = useState({
+        email: "",
+        password: ""
+    })
+
+
 
     const setNext = () => {
         setContador(contador+1)
@@ -67,6 +71,21 @@ const FormAuth0 = () => {
         sethandleChangePassword(!handleChangePassword)
     }
     
+
+    const [input,setInput] = useState({
+        email: "",
+        password: "",
+        repeatPassword: "",
+        showPassword: false,
+        showRepeatPassword: false,
+        // name: "",
+        // username: "",
+        // lastname: "",
+        // telephone: "",
+        // dni: 0,
+        // nationality: "",
+    })
+
     const handleInput = (e) => {
         setInput({
             ...input,
@@ -81,8 +100,27 @@ const FormAuth0 = () => {
             ...input,
             [e.target.name] : e.target.value,
         })
-        console.log(input)
+        //console.log(input)
     }
+
+
+    const handleChangeRegistered = (e) => {
+        setRegistered({
+            ...registered,
+            [e.target.name] : e.target.value
+        })
+        console.log(registered)
+    }
+
+    // const handleInput2 = () => {
+    //     console.log(input)
+    //     console.log("cambioo")
+    //     console.log(user.email)
+        // setInput({
+        //     ...input,
+        //     [input.email] : user.email
+        // })
+    // }
 
     const handleNickname = (e) => {
         user.nickname = e.target.value
@@ -92,19 +130,48 @@ const FormAuth0 = () => {
         })
         console.log(input)
     }
-    
 
+
+    
     const handleClickShowPassword = () => {
         setInput({
             ...input,
             showPassword: !input.showPassword });
-      };
-
-      const handleClickShowRepeatPassword = () => {
+        };
+        
+    const handleClickShowRepeatPassword = () => {
         setInput({
             ...input,
-            showRepeatPassword: !input.showRepeatPassword });
-      };
+            showRepeatPassword: !input.showRepeatPassword 
+        });
+    };
+            
+    const onSubmitedForm = (e) => {
+        e.preventDefault();
+        if(!input.email || !input.password) {
+            return alert ('Complete correctamente el formulario antes de enviarlo')
+        }
+        createUserWithEmailAndPassword(auth, input.email, input.password)
+        setInput({
+            email: '',
+            password: '',
+            repeatPassword: '',
+        })
+        console.log(input);
+        history.push("/profile");
+    }
+    
+    async function handleSingInGoogle() {
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
+        console.log("auth "+auth)
+        history.push("/profile");
+    }
+
+    const handleLogin =  async () => {
+        await signInWithEmailAndPassword(auth, registered.email, registered.password)
+        history.push("/profile");
+    }
 
 
     //   const setEmailNickname = () => {
@@ -135,98 +202,104 @@ const FormAuth0 = () => {
             <div className={contador> 2 ? style.circuloPintado : style.circuloNormal}/>
         </div>
 
-        <button type='button' onClick={() => loginWithPopup()} className={style.ButSignUp}>
-            Sign up with <img src={`${logoGoogle}`} className={style.google}/>
-        </button>
-
-        <h2 className={style.orH2}>Or</h2>
-
+    {       //contador === 1 ? 
     
-    {
-        contador === 1 ? 
     <div className={style.contInputs}>
         {
-            isAuthenticated ?  (
+            // isAuthenticated ?  (
                 
-                <div className={style.contInputs}>
-                    <TextField id="filled-basic" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleEmail} value={`${user.email}`}/>
 
-                    <TextField id="filled-basic" name="nickname" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleNickname} value={`${user.nickname}`}/>
-                </div>
-            ) 
-            :
-            <div className={style.contInputs}>
-                <TextField id="filled-basic" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.email}`}/>
-
-                <TextField id="filled-basic" name="nickname" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.nickname}`}/>
-        </div>
+            //     <div>
+            //         <TextField id="filled-1" name="email" label={`${user.email}`} variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={console.log("aaa")} disabled/>
+            //     </div>
+            // ) 
+            // : 
+        <TextField value={input.email} id="filled-2" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
         }
 
+        {/* <TextField id="filled-3" name="username" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/> */}
 
         <div className={style.divPassword}>
-        <TextField id="standard-adornment-password" type={input.showPassword ? 'text' : 'password'} name="password" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.password}`}/>
+        <TextField value={input.password} id="standard-adornment-password" type={input.showPassword ? 'text' : 'password'} name="password" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
         {
-            input.showPassword ? <img className={style.ojo1} src={`${ojoAbierto}`} onClick={handleClickShowPassword}/> : <img className={style.ojo1} src={`${ojoCerrado}`} onClick={handleClickShowPassword} />
+            input.showPassword ? <img className={style.ojo1} src={`${ojoAbierto}`} alt="ojoabierto" onClick={handleClickShowPassword}/> : <img className={style.ojo1} src={`${ojoCerrado}`} alt="ojocerrado" onClick={handleClickShowPassword}/>
         }
         </div>
 
         <div className={style.divPassword}>
-        <TextField id="standard-adornment-password" type={input.showRepeatPassword ? 'text' : 'password'} name="repeatPassword" label="Repeat password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.repeatPassword}`}/>
+
+        <TextField value={input.repeatPassword} id="standard-adornment-password" type={input.showRepeatPassword ? 'text' : 'password'} name="repeatPassword" label="Repeat password" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+
         {
-            input.showRepeatPassword ? <img className={style.ojo2} src={`${ojoAbierto}`} onClick={handleClickShowRepeatPassword}/> : <img className={style.ojo2} src={`${ojoCerrado}`} onClick={handleClickShowRepeatPassword}/>
+            input.showRepeatPassword ? <img className={style.ojo2} src={`${ojoAbierto}`} alt="ojoabierto" onClick={handleClickShowRepeatPassword}/> : <img className={style.ojo2} src={`${ojoCerrado}`} alt="ojocerrado" onClick={handleClickShowRepeatPassword}/>
         }
         </div>
     </div>
 
-        : 
-        contador === 2 ?
-        <div className={style.contInputs}>
-            <TextField id="filled-basic" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.name}`}/>
+        // : 
+        // contador === 2 ?
+        // <div className={style.contInputs}>
+        //     <TextField id="filled-4" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
 
-            <TextField id="filled-basic" name="lastname" label="Last name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.lastname}`}/>
-        </div>
+        //     <TextField id="filled-5" name="lastname" label="Last name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
+        // </div>
 
-        : 
-        contador === 3 ?
-        <div className={style.contInputs}>
-            <TextField id="filled-basic" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.telephone}`}/>
+        // : 
+        // contador === 3 ?
+        // <div className={style.contInputs}>
+        //     <TextField id="filled-6" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
 
-            <TextField id="filled-basic" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} value={`${input.dni}`}/>
+        //     <TextField id="filled-7" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
 
-            <SelectNat
-            value={input.nationality}
-            onChange={handleInput}
-            />
+        //     <SelectNat
+        //     value={input.nationality}
+        //     onChange={handleInput}
+        //     />
         
-        </div> : null
+        // </div> : null
     }
 
 
         <div className={style.buttonsDiv}>
-        {
+        {/* {
             contador>1? <button type='button' onClick={setPrev} className={style.butNext}>Prev</button> : null
         }
+
         <button type='button' onClick={setNext} className={style.butNext}>Next</button>
+        {
+            contador===3? <button type='button' onClick={onSubmitedForm} className={style.butNext}>Sing Up</button> : null
+        } */}
+        
+        {/* <button type='button' onClick={setPrev} className={contador > 1 ? style.butNext : style.butHidden }>Prev</button>
+        <button type='button' onClick={setNext} className={contador === 3 ? style.butHidden : style.butNext }>Next</button>
+        <button type='button' onClick={onSubmitedForm} className={contador === 3 ? style.butNext : style.butHidden }>Sing Up</button>  */}
+
+        <button type='button' onClick={onSubmitedForm} className={style.butNext}>Sign Up</button> 
         </div>
         
         </div>
         
         <div className={style.parteDos}>
+        <button type='button' onClick={handleSingInGoogle} className={style.ButSignUp}>
+            Sign in with <img src={`${logoGoogle}`} className={style.google} alt="GoogleLogo"/>
+        </button>
+
+        <h2 className={style.orH2}>Or</h2>
         <h2 className={style.finalH2}>Do you already have an account?</h2>
 
 
-        <TextField id="filled-basic" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
+        <TextField onChange={handleChangeRegistered} name="email" value={registered.email}  id="filled-8" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
 
-        <TextField id="filled-basic" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
+        <TextField onChange={handleChangeRegistered} name="password"  value={registered.password} id="filled-9" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
 
         <div className={style.contLogin}>
-        <button type='button' className={style.ButLogin}>Log in</button>
+        <button onClick={handleLogin} type='button' className={style.ButLogin}>Log in</button>
         </div>
 
         <p>Did you forget your password? <a onClick={changePasswordForm} className={style.forget}>get it back.</a></p>
         {
             handleChangePassword ? (
-                <TextField id="filled-basic" label="Email" variant="standard" color='info' />
+                <TextField id="filled-10" label="Email" variant="standard" color='info' />
                 ) : null
             }
         </div>
