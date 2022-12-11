@@ -12,6 +12,7 @@ import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
+import Comparative from "./components/Comparative/Comparative";
 import Calculator from "./components/Calculator/Calculator";
 import FormAuth0 from "./components/FormAuth0/FormAuth0";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
@@ -38,8 +39,11 @@ function App() {
       <div className="App">
         {/* <h1>TODO POR 2 CRIPTO</h1> */}
         <BrowserRouter>
-
-          <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Navbar} />
+          <Route
+            exact
+            path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]}
+            component={Navbar}
+          />
           <Route exact path={"/"} component={LandingPage} />
           <Route exact path={"/FAQ"} component={FAQ} />
           <Route path={"/home"} component={Home} />
@@ -48,8 +52,13 @@ function App() {
           <Route path={"/form"} component={Form} />
           <Route exact path={"/login"} component={FormAuth0} />
           <Route exact path={"/profile"} component={ProtectedRoute} />
-          <Route exact path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]} component={Footer} />
+          <Route
+            exact
+            path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]}
+            component={Footer}
+          />
           <Route exact path={"/calculator"} component={Calculator} />
+          <Route exact path={"/comparative"} component={Comparative} />
           {/* <Route path="*" component={ErrorPage} /> */}
         </BrowserRouter>
       </div>
