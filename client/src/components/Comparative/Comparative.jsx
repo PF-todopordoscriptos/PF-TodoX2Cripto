@@ -55,9 +55,9 @@ const Comparative = () => {
       <div>
         <div>
           <h3>Comparativo</h3>
-          <label>CryptoSell:</label>
+          <label>Crypto To Sell:</label>
           <select onChange={(e) => handleCoinsSell(e)}>
-            <option value="none">None</option>
+            <option value="none">Select Crypto</option>
             {allCoins &&
               allCoins.map((c) => {
                 return (
@@ -69,16 +69,16 @@ const Comparative = () => {
           </select>
         </div>
         <div>
-          <label>CantidadSell:</label>
+          <label>Amount To Sell:</label>
           <input
             type="number"
             placeholder="Select amount"
             value={amount}
             onChange={(e) => handleInput(e)}
           />
-          <label>CryptoBuy:</label>
+          <label>Crypto To Buy:</label>
           <select onChange={(e) => handleCoinsBuy(e)}>
-            <option value="none">None</option>
+            <option value="none">Select Crypto</option>
             {allCoins &&
               allCoins.map((c) => {
                 return (
@@ -89,7 +89,7 @@ const Comparative = () => {
               })}
           </select>
           <label>
-            CantidadBuy: {(amount * PriceSellCoin()) / PriceBuyCoin()}
+            Amount To Buy: {(amount * PriceSellCoin()) / PriceBuyCoin()}
           </label>
         </div>
       </div>
