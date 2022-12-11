@@ -5,11 +5,11 @@ const {
   getAllCoins,
   getCoinDetail,
   createReview,
-  loadCoinsInDb,
+  postCoinsAPItoDB,
   getReviews,
-  getCoinsFromDb,
+  getCoinsFromDB,
   modifyCoinDisabled,
-  getCoinFromDbById
+  getCoinFromDBbyID
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -85,18 +85,18 @@ router.get("/reviews/:name", async (req, res) => {
   }
 });
 
-router.get("/loadCoinsInDb", async (req, res) => {
+router.post("/postCoinsAPItoDB", async (req, res) => {
   try {
-    let coinsDb = await loadCoinsInDb();
+    let coinsDb = await postCoinsAPItoDB();
     res.send(coinsDb);
   } catch (error) {
     res.send(error);
   }
 });
 
-router.get("/getCoinsFromDb", async (req, res) => {
+router.get("/getCoinsFromDB", async (req, res) => {
   try {
-    const allCoins = await getCoinsFromDb();
+    const allCoins = await getCoinsFromDB();
     res.status(200).send(allCoins);
   } catch (e) {
     res.status(400).send(e.message);
@@ -107,8 +107,8 @@ router.put("/modifyCoinDisabled", async (req, res) => {
   const { id, disabled } = req.body;
   try {
     await modifyCoinDisabled(id, disabled);
-    const findCoinInDb = await getCoinFromDbById(id);
-    res.status(200).send(findUser);
+    const findCoinInDb = await getCoinFromDBbyID(id);
+    res.status(200).send(findCoinInDb);
   } catch (e) {
     res.status(400).send(e.message);
   }

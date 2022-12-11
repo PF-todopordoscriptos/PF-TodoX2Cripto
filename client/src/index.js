@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store/index.js";
 import { Provider } from "react-redux";
 import {Auth0Provider} from "@auth0/auth0-react"
-import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboardCoins";
 
   const domain = process.env.REACT_APP_AUTH0_DOMAIN
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
@@ -18,7 +17,7 @@ ReactDOM.render(
        domain={domain}  
        clientId={clientId} 
        redirectUri={window.location.origin} >
-        <AdminDashboardCoins />
+        <App />
        </Auth0Provider>
     </React.StrictMode>
   </Provider>,

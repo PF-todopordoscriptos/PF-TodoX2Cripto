@@ -114,33 +114,21 @@ async function getAllUsers() {
 async function modifyUserAdmin(id, admin) {
   await User.update(
     { admin: admin },
-    {
-      where: {
-        id: id,
-      },
-    }
+    { where: { id: id } }
   );
 }
 
 async function modifyUserDisabled(id, disabled) {
   await User.update(
     { disabled: disabled },
-    {
-      where: {
-        id: id,
-      },
-    }
+    { where: { id: id } }
   );
 }
 
 async function modifyUserPassword(id, password) {
   await User.update(
     { password: password },
-    {
-      where: {
-        id: id,
-      },
-    }
+    { where: { id: id } }
   );
 }
 
@@ -258,26 +246,21 @@ async function getReviews(name) {
   }
 }
 
-async function loadCoinsInDb() {
-  let coinsDb = await Coins.findAll();
-  if (coinsDb.length > 0) {
-    return coinsDb;
-  } else {
-    const allCoins = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    );
-    let allCoinsApi = allCoins.data.map((e) => {
-      return {
-        id: e.id,
+async function postCoinsAPItoDB() {  
+  const allCoinsFromAPI = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false");
+  allCoinsFromAPI.data.forEach(async (e) => {
+    if (await Coins.findByPk(e.id) === null) {
+      await Coins.create({
         name: e.name,
-      };
-    });
-    let allCoinsDb = await Coins.bulkCreate(allCoinsApi);
-    return allCoinsDb;
-  }
+        id: e.id
+      });
+    }
+  })
+  let allCoinsFromDb = await Coins.findAll();
+  return allCoinsFromDb;
 }
 
-async function getCoinsFromDb() {
+async function getCoinsFromDB() {
   let allCoinsFromDb = await Coins.findAll();
   return allCoinsFromDb;
 }
@@ -285,15 +268,11 @@ async function getCoinsFromDb() {
 async function modifyCoinDisabled(id, disabled) {
   await Coins.update(
     { disabled: disabled },
-    {
-      where: {
-        id: id,
-      },
-    }
+    { where: { id: id } }
   );
 }
 
-async function getCoinFromDbById(id) {
+async function getCoinFromDBbyID(id) {
   const res = await Coins.findByPk(id);
   return res;
 }
@@ -306,13 +285,13 @@ module.exports = {
   getCoinDetail,
   getAllUsers,
   createReview,
-  loadCoinsInDb,
+  postCoinsAPItoDB,
   modifyUserAdmin,
   modifyUserDisabled,
   modifyUserPassword,
   getUserById,
   getReviews,
-  getCoinsFromDb,
+  getCoinsFromDB,
   modifyCoinDisabled,
-  getCoinFromDbById
+  getCoinFromDBbyID
 };

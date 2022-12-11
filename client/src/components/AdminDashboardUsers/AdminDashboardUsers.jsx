@@ -341,17 +341,16 @@ export default function AdminDashboardUsers() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.username);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.username}
-                      selected={isItemSelected}
+                      key={row.id}
                     >
                       <TableCell padding="checkbox" >
                       </TableCell>
@@ -363,10 +362,10 @@ export default function AdminDashboardUsers() {
                       >
                         {row.username}
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell sx={{ width: '30%' }} align="center">
                         {row.id}
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell sx={{ width: '15%' }} align="center">
                         <Checkbox /* PASSWORD COLUMN */
                           color="primary"
                           checked={!!row.password}
@@ -392,7 +391,7 @@ export default function AdminDashboardUsers() {
                           }) : null}
                         />
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell sx={{ width: '15%' }} align="center">
                         <Checkbox /* ADMIN COLUMN */
                           color="primary"
                           checked={row.admin}
@@ -418,7 +417,7 @@ export default function AdminDashboardUsers() {
                           })}
                         />
                       </TableCell>
-                      <TableCell align="center"> 
+                      <TableCell sx={{ width: '15%' }} align="center"> 
                         <Checkbox /* DISABLED COLUMN */
                           color="primary"
                           checked={row.disabled}

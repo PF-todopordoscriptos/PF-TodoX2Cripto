@@ -23,12 +23,12 @@ import axios from 'axios';
 import emailjs from '@emailjs/browser';
 require("dotenv").config();
 
-const { 
-  REACT_APP_EMAILJS_SERVICE, 
-  REACT_APP_EMAILJS_TEMPLATE_PASSWORD,
-  REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED,
-  REACT_APP_EMAILJS_PUBLIC_KEY 
-} = process.env;
+// const { 
+//   REACT_APP_EMAILJS_SERVICE, 
+//   REACT_APP_EMAILJS_TEMPLATE_PASSWORD,
+//   REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED,
+//   REACT_APP_EMAILJS_PUBLIC_KEY 
+// } = process.env;
 
 export default function AdminDashboardCoins() {
 
@@ -36,18 +36,14 @@ export default function AdminDashboardCoins() {
 
   let GetAllUsers =  () => {
     useEffect(() => {
-      axios.get('http://localhost:3001/coins/loadCoinsInDb')
+      axios.get('http://localhost:3001/coins/getCoinsFromDB')
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
           return {
             name: e.name,
             id: e.id,
-            password: e.password,
-            admin: e.admin,
-            disabled: e.disabled,
-            email: e.email,
-            name: e.name
+            disabled: e.disabled
           }})
         qq.forEach(e => ww.push(e))
         setRows(ww)
@@ -57,7 +53,7 @@ export default function AdminDashboardCoins() {
   }  
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/users/modifyCoinDisabled', { 
+    await axios.put('http://localhost:3001/coins/modifyCoinDisabled', { 
       id: id,
       disabled: !dis
     })
@@ -246,18 +242,14 @@ export default function AdminDashboardCoins() {
           <TableCell sx={{ width: '1%' , fontSize: 'large' , padding: '1% 10% 1% 0.5%'}} align="center">
             <IconButton style={{ color: cyan[200] , borderBottom: 0 }}>
               <RefreshSharpIcon  fontSize="large" onClick={function() {
-                axios.get('http://localhost:3001/coins/loadCoinsInDb')
+                axios.post('http://localhost:3001/coins/postCoinsAPItoDB')
                 .then((response) => {
                   let ww = []
                   let qq = response.data.map(function(e) {
                     return {
                       name: e.name,
                       id: e.id,
-                      password: e.password,
-                      admin: e.admin,
-                      disabled: e.disabled,
-                      email: e.email,
-                      name: e.name
+                      disabled: e.disabled
                     }})
                   qq.forEach(e => ww.push(e))
                   setRows(ww)
@@ -267,7 +259,7 @@ export default function AdminDashboardCoins() {
             </IconButton>
              </TableCell>
             <TableCell sx={{ fontSize: 'large' , padding: '0.3% 0% 0px 0.4%' , height: '3px' , color: "white" }} >
-              REFRESH           
+              GET COINS FROM API TO DB
             </TableCell>      
             <TableCell sx={{ width: '55%' , fontSize: 'large' , color: "white"}}>
               ADMIN DASHBOARD  -  COINS
@@ -298,16 +290,16 @@ export default function AdminDashboardCoins() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
-                      selected={isItemSelected}
+                      key={row.id}
                     >
                       <TableCell padding="checkbox" >
                       </TableCell>
                       <TableCell
+                      sx={{ width: '15%' }} align="left"
                         component="th"
                         id={labelId}
                         scope="row"
@@ -318,19 +310,19 @@ export default function AdminDashboardCoins() {
                       <TableCell align="center">
                         {row.id}
                       </TableCell>
-                      <TableCell align="center"> 
+                      <TableCell sx={{ width: '15%' }} align="center"> 
                         <Checkbox /* DISABLED COLUMN */
                           color="primary"
                           checked={row.disabled}
                           onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
-                            axios.get('http://localhost:3001/coins/loadCoinsInDb')
+                            axios.get('http://localhost:3001/coins/getCoinsFromDB')
                             .then((response) => {
                               let ww = []
                               let qq = response.data.map(function(e) {
                                 return {
                                   name: e.name,
-                                  id: e.id,                                
-                                  disabled: e.disabled                               
+                                  id: e.id,
+                                  disabled: e.disabled
                                 }})
                               qq.forEach(e => ww.push(e))
                               setRows(ww)
