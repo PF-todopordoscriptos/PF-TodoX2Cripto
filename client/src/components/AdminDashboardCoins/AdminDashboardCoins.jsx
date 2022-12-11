@@ -23,7 +23,12 @@ import axios from 'axios';
 import emailjs from '@emailjs/browser';
 require("dotenv").config();
 
-const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
+// const { 
+//   REACT_APP_EMAILJS_SERVICE, 
+//   REACT_APP_EMAILJS_TEMPLATE_PASSWORD,
+//   REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED,
+//   REACT_APP_EMAILJS_PUBLIC_KEY 
+// } = process.env;
 
 export default function AdminDashboardCoins() {
 
@@ -31,47 +36,29 @@ export default function AdminDashboardCoins() {
 
   let GetAllUsers =  () => {
     useEffect(() => {
-      axios.get('http://localhost:3001/users/allUsers')
+      axios.get('http://localhost:3001/coins/getCoinsFromDB')
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
           return {
-            username: e.username,
+            name: e.name,
             id: e.id,
-            password: e.password,
-            admin: e.admin,
-            disabled: e.disabled,
-            email: e.email,
-            name: e.name
+            disabled: e.disabled
           }})
         qq.forEach(e => ww.push(e))
         setRows(ww)
         console.log("DONE FETCH")
       }).catch(e => console.log(e))
     }, []);
-  }
-
-  const changeAdmin = async (id, adm) => {
-    await axios.put('http://localhost:3001/users/modifyUserAdmin', { 
-      id: id,
-      admin: !adm
-    })
-  }
+  }  
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/users/modifyUserDisabled', { 
+    await axios.put('http://localhost:3001/coins/modifyCoinDisabled', { 
       id: id,
       disabled: !dis
     })
   }
-
-  const changePassword = async (id, pass) => {
-    await axios.put('http://localhost:3001/users/modifyUserPassword', { 
-      id: id,
-      password: pass ? pass : ""
-    })
-  }
-
+  
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -102,28 +89,16 @@ export default function AdminDashboardCoins() {
 
   const headCells = [
     {
-      id: 'username',
+      id: 'name',
       numeric: false,
       disablePadding: true,
-      label: 'USERNAME'
+      label: 'NAME'
     },
     {
       id: 'id',
       numeric: true,
       disablePadding: false,
       label: '      ID'
-    },
-    {
-      id: 'password',
-      numeric: true,
-      disablePadding: false,
-      label: '      PASSWORD'
-    },
-    {
-      id: 'admin',
-      numeric: true,
-      disablePadding: true,
-      label: '      ADMIN'
     },
     {
       id: 'disabled',
@@ -181,7 +156,7 @@ export default function AdminDashboardCoins() {
   };
 
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('username');
+  const [orderBy, setOrderBy] = React.useState('name');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -195,19 +170,19 @@ export default function AdminDashboardCoins() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.username);
+      const newSelected = rows.map((n) => n.name);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, username) => {
-    const selectedIndex = selected.indexOf(username);
+  const handleClick = (event, name) => {
+    const selectedIndex = selected.indexOf(name);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, username);
+      newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -234,52 +209,24 @@ export default function AdminDashboardCoins() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (username) => selected.indexOf(username) !== -1;
+  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  function passwordNotifier( user_email , user_name ) {
-    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , {
-      user_email: user_email,
-      user_name: user_name,
-      crypto_team: "The CripTornado Team",
-      message: 'Hello dear user, your password has been reset.. Please login and set a new password !'
-    } , REACT_APP_EMAILJS_PUBLIC_KEY )
-      .then((response) => {
-          console.log('SUCCESS!', response.status, response.text);
-      }, (err) => {
-          console.log('FAILED...', err);
-      }); 
-  }
-
-  function adminNotifier( user_email , user_name , adm ) {
-    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
-      user_email: user_email,
-      user_name: user_name,
-      crypto_team: "The CripTornado Team",
-      message: adm ? 'Hello ! We are grateful to notify you that you are admin now !' : 'Hello.. We notify you that you are not admin anymore..'
-    } , REACT_APP_EMAILJS_PUBLIC_KEY )
-      .then((response) => {
-          console.log('SUCCESS!', response.status, response.text);
-      }, (err) => {
-          console.log('FAILED...', err);
-      }); 
-  }
-
-  function disabledNotifier( user_email , user_name , dis ) {
-    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
-      user_email: user_email,
-      user_name: user_name,
-      crypto_team: "The CripTornado Team",
-      message: dis ? 'Hello ! We notify you that you are able to use our services again !' : 'Hello. We notify you that your account has been disabled for suspicious activity.'
-    } , REACT_APP_EMAILJS_PUBLIC_KEY )
-      .then((response) => {
-          console.log('SUCCESS!', response.status, response.text);
-      }, (err) => {
-          console.log('FAILED...', err);
-      }); 
-  }
+  
+  // function disabledNotifier( user_email , user_name , dis ) {
+  //   emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
+  //     user_email: user_email,
+  //     user_name: user_name,
+  //     crypto_team: "The CripTornado Team",
+  //     message: dis ? 'Hello ! We notify you that you are able to use our services again !' : 'Hello. We notify you that your account has been disabled for suspicious activity.'
+  //   } , REACT_APP_EMAILJS_PUBLIC_KEY )
+  //     .then((response) => {
+  //         console.log('SUCCESS!', response.status, response.text);
+  //     }, (err) => {
+  //         console.log('FAILED...', err);
+  //     }); 
+  // }
 
   GetAllUsers() // CALL FOR FIRST RENDER
       
@@ -295,18 +242,14 @@ export default function AdminDashboardCoins() {
           <TableCell sx={{ width: '1%' , fontSize: 'large' , padding: '1% 10% 1% 0.5%'}} align="center">
             <IconButton style={{ color: cyan[200] , borderBottom: 0 }}>
               <RefreshSharpIcon  fontSize="large" onClick={function() {
-                axios.get('http://localhost:3001/users/allUsers')
+                axios.post('http://localhost:3001/coins/postCoinsAPItoDB')
                 .then((response) => {
                   let ww = []
                   let qq = response.data.map(function(e) {
                     return {
-                      username: e.username,
+                      name: e.name,
                       id: e.id,
-                      password: e.password,
-                      admin: e.admin,
-                      disabled: e.disabled,
-                      email: e.email,
-                      name: e.name
+                      disabled: e.disabled
                     }})
                   qq.forEach(e => ww.push(e))
                   setRows(ww)
@@ -316,10 +259,10 @@ export default function AdminDashboardCoins() {
             </IconButton>
              </TableCell>
             <TableCell sx={{ fontSize: 'large' , padding: '0.3% 0% 0px 0.4%' , height: '3px' , color: "white" }} >
-              REFRESH           
+              GET COINS FROM API TO DB
             </TableCell>      
             <TableCell sx={{ width: '55%' , fontSize: 'large' , color: "white"}}>
-              ADMIN DASHBOARD  -  USERS
+              ADMIN DASHBOARD  -  COINS
             </TableCell>
         </TableRow>  
       </Table>      
@@ -342,105 +285,49 @@ export default function AdminDashboardCoins() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.username);
+                  const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.username}
-                      selected={isItemSelected}
+                      key={row.id}
                     >
                       <TableCell padding="checkbox" >
                       </TableCell>
                       <TableCell
+                      sx={{ width: '15%' }} align="left"
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
                       >
-                        {row.username}
+                        {row.name}
                       </TableCell>
                       <TableCell align="center">
                         {row.id}
                       </TableCell>
-                      <TableCell align="center">
-                        <Checkbox /* PASSWORD COLUMN */
-                          color="primary"
-                          checked={!!row.password}
-                          onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
-                            axios.get('http://localhost:3001/users/allUsers')
-                            .then((response) => {
-                              let ww = []
-                              let qq = response.data.map(function(e) {
-                                return {
-                                  username: e.username,
-                                  id: e.id,
-                                  password: e.password,
-                                  admin: e.admin,
-                                  disabled: e.disabled,
-                                  email: e.email,
-                                  name: e.name
-                                }})
-                              qq.forEach(e => ww.push(e))
-                              setRows(ww)
-                              console.log("DONE FETCH")
-                              passwordNotifier( row.email , row.name )
-                            }).catch(e => console.log(e))
-                          }) : null}
-                        />
-                      </TableCell>
-                      <TableCell align="center">
-                        <Checkbox /* ADMIN COLUMN */
-                          color="primary"
-                          checked={row.admin}
-                          onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(function() {
-                            axios.get('http://localhost:3001/users/allUsers')
-                            .then((response) => {
-                              let ww = []
-                              let qq = response.data.map(function(e) {
-                                return {
-                                  username: e.username,
-                                  id: e.id,
-                                  password: e.password,
-                                  admin: e.admin,
-                                  disabled: e.disabled,
-                                  email: e.email,
-                                  name: e.name
-                                }})
-                              qq.forEach(e => ww.push(e))
-                              setRows(ww)
-                              console.log("DONE FETCH")
-                              adminNotifier( row.email , row.name , !row.admin)
-                            }).catch(e => console.log(e))
-                          })}
-                        />
-                      </TableCell>
-                      <TableCell align="center"> 
+                      <TableCell sx={{ width: '15%' }} align="center"> 
                         <Checkbox /* DISABLED COLUMN */
                           color="primary"
                           checked={row.disabled}
                           onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
-                            axios.get('http://localhost:3001/users/allUsers')
+                            axios.get('http://localhost:3001/coins/getCoinsFromDB')
                             .then((response) => {
                               let ww = []
                               let qq = response.data.map(function(e) {
                                 return {
-                                  username: e.username,
+                                  name: e.name,
                                   id: e.id,
-                                  password: e.password,
-                                  admin: e.admin,
-                                  disabled: e.disabled,
-                                  email: e.email,
-                                  name: e.name
+                                  disabled: e.disabled
                                 }})
                               qq.forEach(e => ww.push(e))
                               setRows(ww)
                               console.log("DONE FETCH")
-                              disabledNotifier( row.email , row.name , !!row.disabled)
+                              /* disabledNotifier( row.email , row.name , !!row.disabled) */
                             }).catch(e => console.log(e))
                           })}
                         />
@@ -473,13 +360,7 @@ export default function AdminDashboardCoins() {
       <Table>
         <TableRow sx={{ borderBottom: 0 , width: '1%', fontSize: 'large' , backgroundColor: deepPurple[100] }} >
           <TableCell align='center'>
-            <strong>PASSWORD:     </strong><Checkbox color="primary" checked={true}/>=  User have password     <Checkbox color="primary" checked={false}/>=  User do not have password
-          </TableCell>
-          <TableCell align='center'>
-            <strong>ADMIN:     </strong><Checkbox color="primary" checked={true}/>=  User is admin     <Checkbox color="primary" checked={false}/>=  User is not admin
-          </TableCell>
-          <TableCell align='center'>
-            <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  User is disabled     <Checkbox color="primary" checked={false}/>=  User is not disabled
+            <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  Coin is disabled     <Checkbox color="primary" checked={false}/>=  Coin is not disabled
           </TableCell>
         </TableRow>
       </Table>
@@ -494,7 +375,7 @@ export default function AdminDashboardCoins() {
             />
           </TableCell>            
           <TableCell sx={{ borderBottom: 0 , align: "left", width: '55%', fontSize: 'large' , color: "white" }} align='center'>
-            Warning ! Every change you made will automatically impact in database & send an email to user !
+            Warning ! Every change you made will automatically impact in database !
           </TableCell>
           <TableCell sx={{ borderBottom: 0 , align: "left", width: '12%', fontSize: 'large' , color: "white" }}>
             ©  2022  CripTornado
