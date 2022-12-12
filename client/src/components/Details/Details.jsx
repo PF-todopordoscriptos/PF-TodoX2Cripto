@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { createReview, getCoinDetail, getReview } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
+import Comparative from "../Comparative/Comparative";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import style from "./Details.module.css";
 
@@ -73,7 +74,7 @@ const Details = (props) => {
           </ul>
         </div>
       </div>
-
+      <Comparative />
       <form onSubmit={handleSubmitReview}>
         <input
           type="text"

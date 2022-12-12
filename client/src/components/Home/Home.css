@@ -1,0 +1,36 @@
+.contPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.contButons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.contFilter {
+  margin-bottom: 20px;
+}
+.homeCss {
+  /* display: flex; */
+  padding: 0 150px;
+}
+
+.registerTypo {
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none !important;
+  color: black !important;
+  margin: 0 20px !important;
+}
+
+.registerTypo:hover {
+  color: blueviolet !important;
+  cursor: pointer !important;
+}

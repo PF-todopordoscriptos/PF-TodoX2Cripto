@@ -2,89 +2,95 @@ import React, { Fragment } from "react";
 //import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
 
-import { Stack, CardMedia, Typography, Link  } from "@mui/material";
+import { Stack, CardMedia, Typography, Link } from "@mui/material";
 
-import style from "./Footer.module.css"
+import style from "./Footer.css";
 
 const Footer = () => {
   return (
     <div className={style.cont}>
-    <Fragment>
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-        sx={{
-          bgcolor: "primary.dark",
-          color: "secondary.main",
-        }}
-      >
+      <Fragment>
         <Stack
-          direction="row"
+          direction="column"
           justifyContent="center"
           alignItems="center"
-          spacing={25}
+          spacing={2}
+          sx={{
+            bgcolor: "primary.dark",
+            color: "secondary.main",
+          }}
         >
-          <Stack>
-            <CardMedia
-              component="img"
-              height="110"
-              width="35"
-              image={IMG}
-              alt="logoPrueba"
-              sx={{
-                mt: "20px",
-              }}
-            />
-          </Stack>
           <Stack
-            sx={{
-              fontWeight: 'bold'
-            }}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={25}
+          >
+            <Stack>
+              <CardMedia
+                component="img"
+                height="110"
+                width="35"
+                image={IMG}
+                alt="logoPrueba"
+                sx={{
+                  mt: "20px",
+                }}
+              />
+            </Stack>
+            <Stack
+              sx={{
+                fontWeight: "bold",
+              }}
             >
-            <Typography variant="subtitle1" gutterBottom>
-              CONTACTO
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom>
-              +54 1178434342
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom>
-              todox2criptos@gmail.com
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom>
-              Av. Cabildo 1994
-            </Typography>
-          </Stack> 
-          <Stack>
-            <Link href="/FAQ" underline="none">
               <Typography variant="subtitle1" gutterBottom>
+                CONTACTO
+              </Typography>
+              <Typography variant="subtitle2" gutterBottom>
+                +54 1178434342
+              </Typography>
+              <Typography variant="subtitle2" gutterBottom>
+                todox2criptos@gmail.com
+              </Typography>
+              <Typography variant="subtitle2" gutterBottom>
+                Av. Cabildo 1994
+              </Typography>
+            </Stack>
+            <Stack>
+              <Link
+                className="footer-right-section-FAQ"
+                href="/FAQ"
+                underline="none"
+              >
                 FAQ
-              </Typography>
-            </Link>
-            <Link href="#" underline="none">
-              <Typography variant="subtitle1" gutterBottom>
+              </Link>
+              <Link
+                className="footer-right-section-FAQ"
+                href="#"
+                underline="none"
+              >
                 ABOUT
-              </Typography>
-            </Link>
-            <Link href="#" underline="none">
-              <Typography variant="subtitle1" gutterBottom>
+              </Link>
+              <Link
+                className="footer-right-section-FAQ"
+                href="#"
+                underline="none"
+              >
                 DEVELOPERS
-              </Typography>
-            </Link>
+              </Link>
+            </Stack>
+          </Stack>
+          <hr></hr>
+          <Stack>
+            <Typography variant="subtitle1" gutterBottom>
+              Todo por 2 criptos©
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Derechos Reservados
+            </Typography>
           </Stack>
         </Stack>
-        <hr></hr>
-        <Stack>
-          <Typography variant="subtitle1" gutterBottom>
-            Todo por 2 criptos©
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            Derechos Reservados
-          </Typography>
-        </Stack>
-      </Stack>
-    </Fragment>
+      </Fragment>
     </div>
   );
 };

@@ -1,0 +1,39 @@
+.comparative-mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.comparative-title {
+  color: #5d3c85;
+  font-size: 35px;
+  font-weight: 700;
+}
+.comparative-flexContainer {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+  margin: 6px 0;
+}
+.comparative-label {
+  color: #512983;
+  font-size: 20px;
+  font-weight: 500;
+}
+.comparative-dropDown {
+  background-color: green;
+  color: white;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: #5d3c85;
+}
+.comparative-dropDown::placeholder {
+  color: white;
+}
+.comparative-result {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  color: green;
+}
