@@ -12,12 +12,10 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 //  }
 //);
 
-const sequelize = new Sequelize(DB_DEPLOY, 
-  {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  }
-);
+const sequelize = new Sequelize(DB_DEPLOY, {
+  logging: false, // set to console.log to see the raw SQL queries
+  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+});
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -57,21 +55,19 @@ Coins.belongsToMany(User, {
   through: "Transactions",
 });
 
-
 User.belongsToMany(Review, {
-  through: "UserReviews"
-})
+  through: "UserReviews",
+});
 Review.belongsToMany(User, {
-  through: "UserReviews"
-})
-
+  through: "UserReviews",
+});
 
 Coins.belongsToMany(Review, {
-  through: "CoinsReviews"
-})
+  through: "CoinsReviews",
+});
 Review.belongsToMany(Coins, {
-  through: "CoinsReviews"
-})
+  through: "CoinsReviews",
+});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
