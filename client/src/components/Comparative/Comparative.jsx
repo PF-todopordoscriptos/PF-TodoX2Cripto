@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins } from "../../redux/actions";
+import "./Comparative.css";
 
 const Comparative = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Comparative = () => {
 
   const [coinSell, setCoinSell] = useState({});
   const [coinBuy, setCoinBuy] = useState({});
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
 
   const PriceSellCoin = () => {
     let result;
@@ -51,12 +52,15 @@ const Comparative = () => {
   }
 
   return (
-    <div>
-      <div>
-        <div>
-          <h3>Comparativo</h3>
-          <label>Crypto To Sell:</label>
-          <select onChange={(e) => handleCoinsSell(e)}>
+    <>
+      <div className="comparative-mainContainer">
+        <h3 className="comparative-title">Comparative Of Coins</h3>
+        <div className="comparative-flexContainer">
+          <label className="comparative-label">Crypto To Sell:</label>
+          <select
+            className="comparative-dropDown"
+            onChange={(e) => handleCoinsSell(e)}
+          >
             <option value="none">Select Crypto</option>
             {allCoins &&
               allCoins.map((c) => {
@@ -68,16 +72,22 @@ const Comparative = () => {
               })}
           </select>
         </div>
-        <div>
-          <label>Amount To Sell:</label>
+        <div className="comparative-flexContainer">
+          <label className="comparative-label">Amount To Sell:</label>
           <input
+            className="comparative-dropDown"
             type="number"
             placeholder="Select amount"
             value={amount}
             onChange={(e) => handleInput(e)}
           />
-          <label>Crypto To Buy:</label>
-          <select onChange={(e) => handleCoinsBuy(e)}>
+        </div>
+        <div className="comparative-flexContainer">
+          <label className="comparative-label">Crypto To Buy:</label>
+          <select
+            className="comparative-dropDown"
+            onChange={(e) => handleCoinsBuy(e)}
+          >
             <option value="none">Select Crypto</option>
             {allCoins &&
               allCoins.map((c) => {
@@ -88,13 +98,12 @@ const Comparative = () => {
                 );
               })}
           </select>
-          <label>
-            Amount To Buy: {(amount * PriceSellCoin()) / PriceBuyCoin()}
-          </label>
         </div>
+        <label className="comparative-result">
+          Amount To Buy: {(amount * PriceSellCoin()) / PriceBuyCoin()}
+        </label>
       </div>
-      <div></div>
-    </div>
+    </>
   );
 };
 
