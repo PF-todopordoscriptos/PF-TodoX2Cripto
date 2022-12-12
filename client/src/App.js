@@ -8,14 +8,13 @@ import Home from "./components/Home/Home";
 import Details from "./components/Details/Details";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Profile from "./components/Profile/Profile";
-import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import Comparative from "./components/Comparative/Comparative";
 import Calculator from "./components/Calculator/Calculator";
-import FormAuth0 from "./components/FormAuth0/FormAuth0";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import FormLogin from "./components/FormAuth0/FormLogin";
 
 const theme = createTheme({
   typography: {
@@ -49,8 +48,7 @@ function App() {
           <Route path={"/home"} component={Home} />
           <Route path={"/chart/:id"} component={Chart} />
           <Route path={"/details/:id"} component={Details} />
-          <Route path={"/form"} component={Form} />
-          <Route exact path={"/login"} component={FormAuth0} />
+          <Route exact path={"/login"} component={FormLogin} />
           <Route exact path={"/profile"} component={ProtectedRoute} />
           <Route
             exact

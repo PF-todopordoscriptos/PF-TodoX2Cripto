@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import clsx from 'clsx';
 
-import style from "./FormAuth0.module.css"
+import style from "./FormLogin.module.css"
 import TextField from '@mui/material/TextField';
 
 import { useDispatch } from 'react-redux';
@@ -37,7 +37,7 @@ import Swal from 'sweetalert2'
 //import { set } from '../../../../api/src/app';
 
 
-const FormAuth0 = () => {
+const FormLogin = () => {
     const history = useHistory ();
     const dispatch = useDispatch();
  
@@ -412,4 +412,4 @@ const FormAuth0 = () => {
   )
 }
 
-export default FormAuth0
+export default FormLogin

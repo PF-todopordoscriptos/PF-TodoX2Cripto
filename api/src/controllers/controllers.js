@@ -343,7 +343,7 @@ module.exports = {
   getReviews,
 
   getUserByEmail,
-  updateUser
+  updateUser,
 
   getCoinsFromDB,
   modifyCoinDisabled,
