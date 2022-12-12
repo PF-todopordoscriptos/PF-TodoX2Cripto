@@ -112,24 +112,15 @@ async function getAllUsers() {
 }
 
 async function modifyUserAdmin(id, admin) {
-  await User.update(
-    { admin: admin },
-    { where: { id: id } }
-  );
+  await User.update({ admin: admin }, { where: { id: id } });
 }
 
 async function modifyUserDisabled(id, disabled) {
-  await User.update(
-    { disabled: disabled },
-    { where: { id: id } }
-  );
+  await User.update({ disabled: disabled }, { where: { id: id } });
 }
 
 async function modifyUserPassword(id, password) {
-  await User.update(
-    { password: password },
-    { where: { id: id } }
-  );
+  await User.update({ password: password }, { where: { id: id } });
 }
 
 async function getUserById(id) {
@@ -246,16 +237,18 @@ async function getReviews(name) {
   }
 }
 
-async function postCoinsAPItoDB() {  
-  const allCoinsFromAPI = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false");
+async function postCoinsAPItoDB() {
+  const allCoinsFromAPI = await axios.get(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+  );
   allCoinsFromAPI.data.forEach(async (e) => {
-    if (await Coins.findByPk(e.id) === null) {
+    if ((await Coins.findByPk(e.id)) === null) {
       await Coins.create({
         name: e.name,
-        id: e.id
+        id: e.id,
       });
     }
-  })
+  });
   let allCoinsFromDb = await Coins.findAll();
   return allCoinsFromDb;
 }
@@ -266,10 +259,7 @@ async function getCoinsFromDB() {
 }
 
 async function modifyCoinDisabled(id, disabled) {
-  await Coins.update(
-    { disabled: disabled },
-    { where: { id: id } }
-  );
+  await Coins.update({ disabled: disabled }, { where: { id: id } });
 }
 
 async function getCoinFromDBbyID(id) {
@@ -277,26 +267,34 @@ async function getCoinFromDBbyID(id) {
   return res;
 }
 
-async function getUserByEmail(email){
-    let findUser = await User.findOne({
+async function getUserByEmail(email) {
+  let findUser = await User.findOne({
     where: {
-      email : email
-    }
-  })
-  if(!findUser){
-    throw new Error
+      email: email,
+    },
+  });
+  if (!findUser) {
+    throw new Error();
   }
-  return findUser
+  return findUser;
 }
 
-
-async function updateUser(email,username,name, lastname, telephone, dni, nationality, img){
+async function updateUser(
+  email,
+  username,
+  name,
+  lastname,
+  telephone,
+  dni,
+  nationality,
+  img
+) {
   let userDB = await User.findOne({
     where: {
       username: username.toLowerCase().trim(),
     },
   });
-  
+
   if (userDB) {
     throw new Error("username is not available");
   }
@@ -310,21 +308,22 @@ async function updateUser(email,username,name, lastname, telephone, dni, nationa
     throw new Error(`there is already a user with the DNI ${dni}`);
   }
 
-  const resp = await User.update({
-    username: username,
-    name: name,
-    lastname: lastname,
-    telephone: telephone,
-    nationality: nationality,
-    dni: dni,
-    nationality: nationality,
-    img: img,
+  const resp = await User.update(
+    {
+      username: username,
+      name: name,
+      lastname: lastname,
+      telephone: telephone,
+      nationality: nationality,
+      dni: dni,
+      nationality: nationality,
+      img: img,
     },
     {
-        where: {email}
+      where: { email },
     }
-    )
-    return resp
+  );
+  return resp;
 }
 
 module.exports = {
@@ -347,6 +346,5 @@ module.exports = {
 
   getCoinsFromDB,
   modifyCoinDisabled,
-  getCoinFromDBbyID
-
+  getCoinFromDBbyID,
 };
