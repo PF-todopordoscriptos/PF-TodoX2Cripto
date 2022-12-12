@@ -14,7 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Comparative from "./components/Comparative/Comparative";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import FormLogin from "./components/FormAuth0/FormLogin";
+import FormLogin from "./components/FormLogin/FormLogin";
 import AdminDashboardCoins from "../src/components/AdminDashboardCoins/AdminDashboardCoins";
 import AdminDashboardUsers from "../src/components/AdminDashboardUsers/AdminDashboardUsers";
 
