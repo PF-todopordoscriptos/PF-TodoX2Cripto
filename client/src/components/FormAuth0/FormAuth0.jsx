@@ -12,12 +12,15 @@ import {
     GoogleAuthProvider,
     signInWithRedirect,
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail
   } from "firebase/auth";
 
 import ojoAbierto from "../../Images/ojoabierto.png"
 import ojoCerrado from "../../Images/ojocerrado.png"
 import logoGoogle from "../../Images/logoGoogle.png"
+
+import Swal from 'sweetalert2'
 
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
@@ -41,18 +44,24 @@ const FormAuth0 = () => {
     const [contador,setContador] = useState(1)
     const [handleChangePassword, sethandleChangePassword] = useState(false)
 
-    const [user, setUser] = useState({
-        email: "",
-        password: ""
-    })
+    // const [user, setUser] = useState({
+    //     email: "",
+    //     password: ""
+    // })
 
     const [registered, setRegistered] = useState({
         email: "",
-        password: ""
+        password: "",
+        showRegisterPassword: false,
+    })
+
+    const [resetPassword, setResetPassword] = useState({
+        email: ""
     })
 
     const [errorsLog, setErrorsLog] = useState();
     const [errorsSig, setErrorsSig] = useState();
+    const [errorsPass, setErrorsPass] = useState();
 
     const setNext = () => {
         setContador(contador+1)
@@ -68,7 +77,7 @@ const FormAuth0 = () => {
         sethandleChangePassword(!handleChangePassword)
     }
     
-
+    
     const [input,setInput] = useState({
         email: "",
         password: "",
@@ -91,16 +100,7 @@ const FormAuth0 = () => {
         console.log(input)
     }
 
-    const handleEmail = (e) => {
-        user.email = e.target.value
-        setInput({
-            ...input,
-            [e.target.name] : e.target.value,
-        })
-        //console.log(input)
-    }
-
-
+    
     const handleChangeRegistered = (e) => {
         setRegistered({
             ...registered,
@@ -108,6 +108,22 @@ const FormAuth0 = () => {
         })
         console.log(registered)
     }
+
+    const handleResetPassword = (e) => {
+        setResetPassword({
+            ...resetPassword,
+            [e.target.name] : e.target.value
+        })
+    }
+
+    // const handleEmail = (e) => {
+    //     user.email = e.target.value
+    //     setInput({
+    //         ...input,
+    //         [e.target.name] : e.target.value,
+    //     })
+    //     //console.log(input)
+    // }
 
     // const handleInput2 = () => {
     //     console.log(input)
@@ -119,17 +135,15 @@ const FormAuth0 = () => {
         // })
     // }
 
-    const handleNickname = (e) => {
-        user.nickname = e.target.value
-        setInput({
-            ...input,
-            [e.target.name] : e.target.value,
-        })
-        console.log(input)
-    }
+    // const handleNickname = (e) => {
+    //     user.nickname = e.target.value
+    //     setInput({
+    //         ...input,
+    //         [e.target.name] : e.target.value,
+    //     })
+    //     console.log(input)
+    // }
 
-
-    
     const handleClickShowPassword = () => {
         setInput({
             ...input,
@@ -142,12 +156,21 @@ const FormAuth0 = () => {
             showRepeatPassword: !input.showRepeatPassword 
         });
     };
+
+    const handleClickShowRegisterPassword = () => {
+        setRegistered({
+            ...registered,
+            showRegisterPassword: !registered.showRegisterPassword });
+        };
             
     const onSubmitedForm = async(e) => {
         e.preventDefault();
         try {
             if(!input.email || !input.password) {
                 return alert ('Complete correctamente el formulario antes de enviarlo')
+            }
+            if(input.password !== input.repeatPassword){
+                return setErrorsSig("Keys must match")
             }
             await createUserWithEmailAndPassword(auth, input.email, input.password)
             setInput({
@@ -157,12 +180,13 @@ const FormAuth0 = () => {
             })
             console.log(input);
             console.log(e);
+            history.push("/profile");
         }catch (error) {
             if(error.code === "auth/invalid-email"){
-                setErrorsSig("INVALID EMAIL")
+                setErrorsSig("Invalid email.")
             }
             if(error.code === "auth/weak-password"){
-                setErrorsSig("Password should be at least 6 characters")
+                setErrorsSig("Password should be at least 6 characters.")
             }
             if(error.code === "auth/email-already-in-use"){
                 setErrorsSig("Email already in use, Please log in.")
@@ -170,7 +194,6 @@ const FormAuth0 = () => {
             console.log(error.code)
             console.log(errorsSig)
         }
-        
     }
     
     async function handleSingInGoogle() {
@@ -186,18 +209,49 @@ const FormAuth0 = () => {
             history.push("/profile");            
         } catch (error) {
             if(error.code === "auth/invalid-email"){
-                setErrorsLog("INVALID EMAIL")
+                setErrorsLog("Invalid email.")
             }
             if(error.code === "auth/user-not-found"){
-                setErrorsLog("NOT REGISTER YET")
+                setErrorsLog("Not register yet.")
             }
             if(error.code === "auth/wrong-password"){
-                setErrorsLog("WRONG PASSWORD")
+                setErrorsLog("Wrong password.")
             }
             console.log(error.code)
         }
     }
 
+    const onHandleReset = async () => {
+        try{
+            await sendPasswordResetEmail(auth, resetPassword.email)
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+              })
+              Toast.fire({
+                icon: 'success',
+                iconColor: "#8EFF60",
+                title: `Email sent successfully ㅤ(Check spam box).`,
+                color: 'white',
+                background: '#BE66FE',
+              })
+            setResetPassword({
+                email:""
+            })
+            setErrorsPass("")
+            console.log(resetPassword)
+        }catch(error){
+            if(error.code === "auth/invalid-email"){
+                setErrorsPass("Invalid email.")
+            }
+            if(error.code === "auth/user-not-found"){
+                setErrorsPass("Not register yet.")
+            }
+        }
+    }
 
     //   const setEmailNickname = () => {
     //     let emailAUTH0 = user.email
@@ -222,16 +276,16 @@ const FormAuth0 = () => {
         <h2 className={style.startH2}>Create your profile.</h2>
 
         <div className={style.secciones}>
-            <div className={style.circuloPintado}/>
-            <div className={contador> 1 ? style.circuloPintado : style.circuloNormal}/>
-            <div className={contador> 2 ? style.circuloPintado : style.circuloNormal}/>
+            <div className={input.email !== "" ? style.circuloPintado : style.circuloNormal}/>
+            <div className={input.password !== "" ? style.circuloPintado : style.circuloNormal}/>
+            <div className={input.repeatPassword !== "" ? style.circuloPintado : style.circuloNormal}/>
         </div>
 
     {       //contador === 1 ? 
     
     
     <div className={style.contInputs}>
-        {errorsSig && (<p className={style.orH2}>{errorsSig}</p>)}
+        {/* {errorsSig && (<p className={style.errorsText}>{errorsSig}</p>)} */}
         {
             // isAuthenticated ?  (
                 
@@ -289,6 +343,7 @@ const FormAuth0 = () => {
     }
 
 
+        {errorsSig && (<p className={style.errorsText1}>{errorsSig}</p>)}
         <div className={style.buttonsDiv}>
         {/* {
             contador>1? <button type='button' onClick={setPrev} className={style.butNext}>Prev</button> : null
@@ -310,6 +365,7 @@ const FormAuth0 = () => {
         </div>
         
         <div className={style.parteDos}>
+            
         <button type='button' onClick={handleSingInGoogle} className={style.ButSignUp}>
             Log in with <img src={`${logoGoogle}`} className={style.google} alt="GoogleLogo"/>
         </button>
@@ -318,11 +374,21 @@ const FormAuth0 = () => {
         <h2 className={style.finalH2}>Do you already have an account?</h2>
 
 
-        {errorsLog && (<p className={style.orH2}>{errorsLog}</p>)} 
-        <TextField onChange={handleChangeRegistered} name="email" value={registered.email}  id="filled-8" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
-        <TextField onChange={handleChangeRegistered} name="password"  value={registered.password} id="filled-9" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
+        <div className={style.registerInputs}>
+        <div className={style.divRegister}>
+        <TextField className={style.emailRegister} onChange={handleChangeRegistered} name="email" value={registered.email}  id="filled-8" label="Email" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
+        </div>
+
+        <div className={style.divPassword2}>
+        <TextField onChange={handleChangeRegistered} name="password" type={registered.showRegisterPassword ? 'text' : 'password'} value={registered.password} id="filled-9" label="Password" variant="standard" color='info' sx={{marginTop: '0.5rem'}}/>
+        {
+            registered.showRegisterPassword ? <img className={style.ojo2} src={`${ojoAbierto}`} alt="ojoabierto" onClick={handleClickShowRegisterPassword}/> : <img className={style.ojo2} src={`${ojoCerrado}`} alt="ojocerrado" onClick={handleClickShowRegisterPassword}/>
+        }
+        </div>
+        </div>
         
 
+        {errorsLog && (<p className={style.errorsText2}>{errorsLog}</p>)} 
         <div className={style.contLogin}>
         <button onClick={handleLogin} type='button' className={style.ButLogin}>Log in</button>
         </div>
@@ -330,8 +396,13 @@ const FormAuth0 = () => {
         <p>Did you forget your password? <a onClick={changePasswordForm} className={style.forget}>get it back.</a></p>
         {
             handleChangePassword ? (
-                <TextField id="filled-10" label="Email" variant="standard" color='info' />
-                ) : null
+                <div className={style.resetPa}>
+                <TextField id="filled-10" name="email" label="Email" variant="standard" color='info' value={resetPassword.email} onChange={handleResetPassword}/>
+                    {errorsPass && (<p className={style.errorsText3}>{errorsPass}</p>)}
+                 
+                <button type='button' onClick={onHandleReset} className={style.butReset}>Reset password</button>
+                </div>
+                ): null
             }
         </div>
     
