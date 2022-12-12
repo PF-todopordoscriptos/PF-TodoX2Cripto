@@ -16,6 +16,8 @@ import Comparative from "./components/Comparative/Comparative";
 import Calculator from "./components/Calculator/Calculator";
 import FormAuth0 from "./components/FormAuth0/FormAuth0";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import AdminDashboardCoins from "../src/components/AdminDashboardCoins/AdminDashboardCoins";
+import AdminDashboardUsers from "../src/components/AdminDashboardUsers/AdminDashboardUsers";
 
 const theme = createTheme({
   typography: {
@@ -59,6 +61,8 @@ function App() {
           />
           <Route exact path={"/calculator"} component={Calculator} />
           <Route exact path={"/comparative"} component={Comparative} />
+          <Route exact path={"/admincoins"} component={AdminDashboardCoins} />
+          <Route exact path={"/adminusers"} component={AdminDashboardUsers} />
           {/* <Route path="*" component={ErrorPage} /> */}
         </BrowserRouter>
       </div>
