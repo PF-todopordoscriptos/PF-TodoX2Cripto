@@ -277,6 +277,56 @@ async function loadCoinsInDb() {
   }
 }
 
+async function getUserByEmail(email){
+    let findUser = await User.findOne({
+    where: {
+      email : email
+    }
+  })
+  if(!findUser){
+    throw new Error
+  }
+  return findUser
+}
+
+
+async function updateUser(email,username,name, lastname, telephone, dni, nationality, img){
+  let userDB = await User.findOne({
+    where: {
+      username: username.toLowerCase().trim(),
+    },
+  });
+  
+  if (userDB) {
+    throw new Error("username is not available");
+  }
+
+  let dniDB = await User.findOne({
+    where: {
+      dni: dni,
+    },
+  });
+  if (dniDB) {
+    throw new Error(`there is already a user with the DNI ${dni}`);
+  }
+
+  const resp = await User.update({
+    username: username,
+    name: name,
+    lastname: lastname,
+    telephone: telephone,
+    nationality: nationality,
+    dni: dni,
+    nationality: nationality,
+    img: img,
+    },
+    {
+        where: {email}
+    }
+    )
+    return resp
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
@@ -291,4 +341,6 @@ module.exports = {
   modifyUserPassword,
   getUserById,
   getReviews,
+  getUserByEmail,
+  updateUser
 };

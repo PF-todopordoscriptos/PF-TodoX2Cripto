@@ -6,6 +6,8 @@ const {
   modifyUserDisabled,
   modifyUserPassword,
   getUserById,
+  getUserByEmail,
+  updateUser
 } = require("../controllers/controllers.js");
 
 
@@ -128,6 +130,27 @@ router.put("/modifyUserPassword", async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+
+router.get("/:oneUser", async (req,res) => {
+  const {oneUser} = req.params
+  try{
+    const userFind = await getUserByEmail(oneUser)
+    res.status(200).send(userFind)
+  }catch(e){
+    res.status(400).send("email no encontrado")
+  }
+})
+
+router.put("/:email", async (req,res) => {
+  try{
+    const {email} = req.params
+    const {username,name, lastname, telephone, dni, nationality, img} = req.body
+    const userUpdate = await updateUser(email,username,name, lastname, telephone, dni, nationality, img)
+    res.status(200).send(`${userUpdate} users modified`)
+  }catch(e){
+    res.status(404).send(e.message)
+  }
+})
 
 module.exports = router;
 

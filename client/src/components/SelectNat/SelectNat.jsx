@@ -4,7 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const SelectNat = ({value, onChange}) => {
+const SelectNat = ({value, onChange, edit}) => {
 
     // const [input,setInput] = useState({
     //     email: "",
@@ -32,8 +32,8 @@ const SelectNat = ({value, onChange}) => {
 
   return (
     <div>
-         <FormControl variant="standard" sx={{ m: 1, width: 200 }}>
-        <InputLabel id="demo-simple-select-standard-label">
+         <FormControl variant="standard" sx={{ m: 1, width: "20rem" }}>
+        <InputLabel id="demo-simple-select-standard-label" disabled={edit ? true : null}>
          Nationality
         </InputLabel>
         <Select
@@ -42,6 +42,7 @@ const SelectNat = ({value, onChange}) => {
           name= "nationality"
           value={value}
           onChange={onChange}
+          disabled={edit ? true : null}
         >
 
           { paises.map((p => {

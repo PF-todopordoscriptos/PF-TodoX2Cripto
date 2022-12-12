@@ -1,7 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap');
 
 
 .all{
@@ -51,13 +51,40 @@
     text-shadow: 2px 1px 5px rgb(125, 217, 245);
 }
 
+.errorsText1{
+    font-family: 'Josefin Sans', sans-serif;    
+    font-weight: 600;
+    color: #a71919;
+    text-shadow: 2px 1px 5px rgb(252, 134, 134);
+    margin-top: 1.4rem;
+    margin-bottom: -1rem;
+}
+
+.errorsText2{
+    font-family: 'Josefin Sans', sans-serif;    
+    font-weight: 600;
+    color: #a71919;
+    text-shadow: 2px 1px 5px rgb(252, 134, 134);
+    margin-top: 1.4rem;
+    margin-bottom: 0rem;
+}
+
+.errorsText3{
+    font-family: 'Josefin Sans', sans-serif;    
+    font-weight: 600;
+    color: #a71919;
+    text-shadow: 2px 1px 5px rgb(252, 134, 134);
+    margin-top: 1.4rem;
+    margin-bottom: 0.1rem;
+}
+
 .finalH2{
     display: flex;
     font-family: 'Noto Sans', sans-serif;
     font-weight: bold;
     /* font-size: x-large; */
     color: rgb(0, 0, 0);
-    margin-top: 3.5rem;
+    margin-top: 0.3rem;
 }
 
 
@@ -83,7 +110,7 @@
 
 .buttonsDiv{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .ButSignUp{
@@ -101,6 +128,8 @@
     display: flex;
     justify-content: center;
     cursor: pointer;
+    margin-top: 3.5rem;
+    margin-bottom: 0.5rem;
 }
 .ButSignUp:hover {
     /*right: 80%;*/
@@ -261,7 +290,7 @@
 
 
     .contLogin{
-        margin-top: 3vh;
+        margin-top: 1rem;
     }
 
 
@@ -273,10 +302,28 @@
     /* color: rgba(137, 16, 243, 0.2); */
 }
 
-
 .divPassword{
     display: flex;
     justify-content: space-around;
+}
+
+.divPassword2{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.registerInputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.emailRegister{
+    margin-left: 30%;
+}
+
+.divRegister{
+    display: flex;
+    margin-left: 12%;
 }
 
 .ojo1{
@@ -284,6 +331,7 @@
     /* margin-bottom: auto; */
     height: 1.5rem;
     width: 1.5rem;
+    cursor: pointer;
 }
 
 .ojo2{
@@ -291,6 +339,7 @@
     /* margin-bottom: auto; */
     height: 1.5rem;
     width: 1.5rem;
+    cursor: pointer;
 }
 
 .google{
@@ -302,4 +351,26 @@
 .contInputs{
     display: flex;
     flex-direction: column;
+}
+
+.resetPa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.butReset{
+    margin-top: 1rem;
+    position: relative;
+    /* background: rgb(255, 0, 0, 0.2); */
+    background: none;
+    color: rgb(0, 106, 255);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 0.2em solid rgb(0, 136, 255);
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-family: 'Fira Sans', sans-serif;
+    cursor: pointer;
 }
