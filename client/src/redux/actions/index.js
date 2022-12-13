@@ -14,6 +14,7 @@ import {
   FILTER_FAVORITE,
   CREATE_REVIEW,
   GET_REVIEW,
+  GET_ONE_USER,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -151,6 +152,18 @@ export function getReview(coinName) {
     );
     return dispatch({
       type: GET_REVIEW,
+      payload: json.data,
+    });
+  };
+}
+
+export function getOneUser(email) {
+  return async function (dispatch) {
+    let json = await axios.get(
+      `http://localhost:3001/users/${email}`
+    );
+    return dispatch({
+      type: GET_ONE_USER,
       payload: json.data,
     });
   };
