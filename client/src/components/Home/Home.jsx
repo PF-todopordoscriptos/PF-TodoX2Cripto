@@ -52,9 +52,6 @@ export default function Home() {
               setCoin={setCoin}
             />
           </div>
-          <Link className="registerTypo" href="/form">
-            Register
-          </Link>
         </div>
         {/* 
         <Typography

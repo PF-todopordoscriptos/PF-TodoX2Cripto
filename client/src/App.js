@@ -8,14 +8,13 @@ import Home from "./components/Home/Home";
 import Details from "./components/Details/Details";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Profile from "./components/Profile/Profile";
-import Form from "./components/Form/Form";
 import Navbar from "./components/Navbar/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import Comparative from "./components/Comparative/Comparative";
 import Calculator from "./components/Calculator/Calculator";
-import FormAuth0 from "./components/FormAuth0/FormAuth0";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import FormLogin from "./components/FormLogin/FormLogin";
 import AdminDashboardCoins from "../src/components/AdminDashboardCoins/AdminDashboardCoins";
 import AdminDashboardUsers from "../src/components/AdminDashboardUsers/AdminDashboardUsers";
 
@@ -65,8 +64,8 @@ function App() {
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/chart/:id" element={<Chart />} />
             <Route path="/details/:id" element={<Details />} />
-            <Route path="/form" element={<Form />} />
-            <Route path="/login" element={<FormAuth0 />} />
+            <Route path="/form" element={<FormLogin />} />
+
             <Route path={"/profile"} element={<ProtectedRoute />} />
             <Route path={"/FAQ"} element={<Navbar />} />
             <Route path={"/home"} element={<Navbar />} />

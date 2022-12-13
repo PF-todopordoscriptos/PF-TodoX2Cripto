@@ -46,7 +46,7 @@ const Calculator = () => {
               allCoins.map((c) => {
                 return (
                   <option key={c.id} value={c.id}>
-                    {c.id}
+                    {c.name}
                   </option>
                 );
               })}
