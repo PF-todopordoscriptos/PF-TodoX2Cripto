@@ -1,19 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
 import DinoError404 from "../../Images/DinoError404.jpg";
+import "./ErrorPage.css";
 
 export default function ErrorPage() {
   return (
-    <div>
-      <h1>
-        Error 404 Página no encontrada, coloque una URL correcta o vuelva a la
+    <div className="main-Error">
+      <NavLink className="boton-Home" to="/home">
+        Home
+      </NavLink>
+      <h1 className="title-Error">
+        Página no encontrada
         <div></div>
-        <NavLink to="/home">
-          <Button variant="contained" color="secondary">
-            Home
-          </Button>
-        </NavLink>
       </h1>
       <img src={DinoError404} alt="error" />
     </div>
