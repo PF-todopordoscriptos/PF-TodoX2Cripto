@@ -7,6 +7,8 @@ import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import style from "./Details.module.css";
+import "./DetailsBackground.css";
+import Rex from "../../Images/Rex.png";
 
 const Details = (props) => {
   const dispatch = useDispatch();
@@ -44,7 +46,7 @@ const Details = (props) => {
 
   console.log(coinDetails);
   return (
-    <div>
+    <div className="main-details">
       <div className={style.contArrow}>
         <NavLink to="/home">
           <HiArrowUturnLeft className={style.arrow} />
@@ -75,6 +77,9 @@ const Details = (props) => {
           </ul>
         </div>
       </div>
+      {/* <div className="image">
+        <img src={Rex} alt="error" />
+      </div> */}
       <Comparative />
       <form onSubmit={handleSubmitReview}>
         <input

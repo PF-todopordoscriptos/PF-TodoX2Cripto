@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 // import clsx from 'clsx';
 
 import style from "./FormLogin.module.css";
+import "./FormLoginBackground.css";
 import TextField from "@mui/material/TextField";
 
 import { useDispatch } from "react-redux";
@@ -270,7 +271,7 @@ const FormLogin = () => {
   //   }
 
   return (
-    <div>
+    <div className="main-formlogin">
       <form className={style.all}>
         <div className={style.parteUno}>
           <h4 className={style.startH4}>Sign up free!</h4>
