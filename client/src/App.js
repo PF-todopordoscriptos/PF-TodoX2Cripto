@@ -64,7 +64,7 @@ function App() {
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/chart/:id" element={<Chart />} />
             <Route path="/details/:id" element={<Details />} />
-            <Route path="/form" element={<FormLogin />} />
+            <Route path="/login" element={<FormLogin />} />
 
             <Route path={"/profile"} element={<ProtectedRoute />} />
             <Route path={"/FAQ"} element={<Navbar />} />
