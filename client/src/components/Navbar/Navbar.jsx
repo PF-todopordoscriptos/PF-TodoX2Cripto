@@ -32,7 +32,7 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     signOut(auth);
-    history.push("/home");
+    history("/home");
   };
 
   return (

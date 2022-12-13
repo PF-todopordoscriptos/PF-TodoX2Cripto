@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useAuth0 } from "@auth0/auth0-react"
 import { getUserInfo, postUser, postUserGoogle } from "../../redux/actions/index.js"
 
 import style from "./Profile.module.css"
@@ -9,35 +8,17 @@ import logo from "../../Images/logoGoogle.png"
 import SelectNat from '../SelectNat/SelectNat';
 
 import {
-  signOut,
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
-
-
-
-import style from "./Profile.module.css";
-import TextField from "@mui/material/TextField";
-import logo from "../../Images/logoGoogle.png";
-import SelectNat from "../SelectNat/SelectNat";
-
-import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebaseConfig";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Button } from "@mui/material";
 
 import lapizNegro from "../../Images/lapizNegro.png";
 import lapizGris from "../../Images/lapizGris.png";
 
 const Profile = () => {
-
-    //const {user, isAuthenticated, logout} = useAuth0();
-    
-    const history = useHistory();
     const dispatch = useDispatch();
     const [edit,setEdit] = useState(true)
 
@@ -69,16 +50,12 @@ const Profile = () => {
               })
         }
       })
-    }, [user]);
-        
-    console.log(auth)
-    console.log(user)
-    console.log(userInfo)
+    }, []); 
 
-    React.useEffect(() => {
-      dispatch(getUserInfo(user.email))
+    useEffect(() => {
+      //dispatch(getUserInfo(user.email))
       console.log("estado lleno")
-    },[user])
+    },[])
 
     const [input,setInput] = useState({
       username: "",
@@ -124,49 +101,11 @@ const Profile = () => {
     console.log(input)
     }
 
-  //const {user, isAuthenticated, logout} = useAuth0();
 
-  const history = useNavigate();
-  const dispatch = useDispatch();
-  const [edit, setEdit] = useState(true);
-
-  const [user, setUser] = useState({
-    email: "",
-    //password: ""
-  });
-
-  //const [userDb, setUserDb] = useState(null)
-
-
-  const changeEdit = () => {
-    setEdit(!edit);
-  };
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser({
-          ...user,
-          email: currentUser.email,
-          //password: currentUser.password,
-        });
-        dispatch(postUser(currentUser));
-      } else {
-        console.log("SIGNED OUT");
-        setUser({
-          email: "",
-        });
-      }
-    });
-  }, []);
-  
-  
-  
-  const userDb = dispatch(getOneUser(user.email));
 
   console.log(auth);
   console.log(user.email);
-  console.log("userDb:"+userDb);
+  console.log(userInfo)
 
 
   return (
