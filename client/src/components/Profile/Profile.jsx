@@ -50,16 +50,16 @@ const Profile = () => {
               })
         }
       })
-    }, [user]);
+    }, []);
         
     console.log(auth)
     console.log(user)
     console.log(userInfo)
 
-    React.useEffect(() => {
+    useEffect(() => {
       dispatch(getUserInfo(user.email))
       console.log("estado lleno")
-    },[user])
+    },[])
 
     const [input,setInput] = useState({
       username: "",
@@ -105,25 +105,7 @@ const Profile = () => {
     console.log(input)
     }
 
- 
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser({
-          ...user,
-          email: currentUser.email,
-          //password: currentUser.password,
-        });
-        dispatch(postUser(currentUser));
-      } else {
-        console.log("SIGNED OUT");
-        setUser({
-          email: "",
-        });
-      }
-    });
-  }, []);
-  
+
 
   console.log(auth);
   console.log(user.email);
