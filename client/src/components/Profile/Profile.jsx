@@ -50,14 +50,10 @@ const Profile = () => {
               })
         }
       })
-    }, []);
-        
-    console.log(auth)
-    console.log(user)
-    console.log(userInfo)
+    }, []); 
 
     useEffect(() => {
-      dispatch(getUserInfo(user.email))
+      //dispatch(getUserInfo(user.email))
       console.log("estado lleno")
     },[])
 
@@ -109,6 +105,7 @@ const Profile = () => {
 
   console.log(auth);
   console.log(user.email);
+  console.log(userInfo)
 
 
   return (
