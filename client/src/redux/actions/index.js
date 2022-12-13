@@ -169,9 +169,9 @@ export function getUserInfo(oneUser) {
   }
 }
 
-export function updateUserInfo(email){
+export function updateUserInfo(email, payload){
   return async function (dispatch){
-    let json = await axios.put(`http://localhost:3001/users/${email}`);
+    let json = await axios.put(`http://localhost:3001/users/${email}`,payload);
     return dispatch ({
       type: UPDATE_USER_INFO,
       payload: json.data
