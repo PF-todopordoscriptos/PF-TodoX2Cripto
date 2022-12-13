@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { createReview, getCoinDetail, getReview } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
@@ -10,10 +10,11 @@ import style from "./Details.module.css";
 
 const Details = (props) => {
   const dispatch = useDispatch();
-  const id = props.match.params.id;
+
+  let { id } = useParams();
   console.log(id);
   useEffect(() => {
-    dispatch(getCoinDetail(props.match.params.id));
+    dispatch(getCoinDetail(id));
     dispatch(getReview(id));
   }, [dispatch, props, id]);
 
