@@ -43,11 +43,6 @@ const FormLogin = () => {
   const [contador, setContador] = useState(1);
   const [handleChangePassword, sethandleChangePassword] = useState(false);
 
-  // const [user, setUser] = useState({
-  //     email: "",
-  //     password: ""
-  // })
-
   const [registered, setRegistered] = useState({
     email: "",
     password: "",
@@ -82,12 +77,6 @@ const FormLogin = () => {
     repeatPassword: "",
     showPassword: false,
     showRepeatPassword: false,
-    // name: "",
-    // username: "",
-    // lastname: "",
-    // telephone: "",
-    // dni: 0,
-    // nationality: "",
   });
 
   const handleInput = (e) => {
@@ -113,33 +102,6 @@ const FormLogin = () => {
     });
   };
 
-  // const handleEmail = (e) => {
-  //     user.email = e.target.value
-  //     setInput({
-  //         ...input,
-  //         [e.target.name] : e.target.value,
-  //     })
-  //     //console.log(input)
-  // }
-
-  // const handleInput2 = () => {
-  //     console.log(input)
-  //     console.log("cambioo")
-  //     console.log(user.email)
-  // setInput({
-  //     ...input,
-  //     [input.email] : user.email
-  // })
-  // }
-
-  // const handleNickname = (e) => {
-  //     user.nickname = e.target.value
-  //     setInput({
-  //         ...input,
-  //         [e.target.name] : e.target.value,
-  //     })
-  //     console.log(input)
-  // }
 
   const handleClickShowPassword = () => {
     setInput({
@@ -179,7 +141,7 @@ const FormLogin = () => {
       });
       console.log(input);
       console.log(e);
-      history.push("/profile");
+      history("/profile");
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setErrorsSig("Invalid email.");
@@ -199,7 +161,7 @@ const FormLogin = () => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
     console.log("auth " + auth);
-    history.push("/profile");
+    history("/profile");
   }
 
   const handleLogin = async () => {
@@ -209,7 +171,7 @@ const FormLogin = () => {
         registered.email,
         registered.password
       );
-      history.push("/profile");
+      history("/profile");
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setErrorsLog("Invalid email.");

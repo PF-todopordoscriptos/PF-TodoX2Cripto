@@ -57,22 +57,18 @@ function App() {
                 <>
                   <Navbar />
                   <Home />
+                  <Footer />
                 </>
               }
             />
 
+            <Route path="/login" element={ <><Navbar /> <FormLogin /> <Footer /></> } />
             <Route path="/FAQ" element={<FAQ />} />
             <Route path="/chart/:id" element={<Chart />} />
             <Route path="/details/:id" element={<Details />} />
-            <Route path="/login" element={<FormLogin />} />
-
-            <Route path={"/profile"} element={<ProtectedRoute />} />
+            <Route path={"/profile"} element={ <><Navbar />  <ProtectedRoute /> <Footer /></> } />
             <Route path={"/FAQ"} element={<Navbar />} />
-            <Route path={"/home"} element={<Navbar />} />
             <Route path={"/details/:id"} element={<Navbar />} />
-            <Route path={"/login"} element={<Navbar />} />
-            <Route path={"/profile"} element={<Navbar />} />
-
             <Route path={"/calculator"} element={<Calculator />} />
             <Route path={"/comparative"} element={<Comparative />} />
             <Route path={"/admincoins"} element={<AdminDashboardCoins />} />

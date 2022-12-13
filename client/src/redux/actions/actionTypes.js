@@ -12,3 +12,4 @@ export const POST_USER = 'POST_USER';
 export const FILTER_FAVORITE = 'FILTER_FAVORITE'
 export const CREATE_REVIEW = 'CREATE_REVIEW'
 export const GET_REVIEW = 'GET_REVIEW'
+export const GET_ONE_USER = "GET_ONE_USER"

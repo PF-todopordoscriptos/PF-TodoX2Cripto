@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { postUser, postUserGoogle } from "../../redux/actions/index.js";
+import { postUser, getOneUser } from "../../redux/actions/index.js";
+
 
 import style from "./Profile.module.css";
 import TextField from "@mui/material/TextField";
@@ -28,6 +29,9 @@ const Profile = () => {
     //password: ""
   });
 
+  //const [userDb, setUserDb] = useState(null)
+
+
   const changeEdit = () => {
     setEdit(!edit);
   };
@@ -49,9 +53,14 @@ const Profile = () => {
       }
     });
   }, []);
+  
+  
+  
+  const userDb = dispatch(getOneUser(user.email));
 
   console.log(auth);
-  console.log(user);
+  console.log(user.email);
+  console.log("userDb:"+userDb);
 
   return (
     <div className={style.divAll}>
@@ -135,12 +144,14 @@ const Profile = () => {
                     onClick={changeEdit}
                     className={style.lapiz}
                     src={`${lapizNegro}`}
+                    alt="lapiz1"
                   />
                 ) : (
                   <img
                     onClick={changeEdit}
                     className={style.lapiz}
                     src={`${lapizGris}`}
+                    alt="lapiz2"
                   />
                 )}
               </div>
@@ -178,6 +189,7 @@ const Profile = () => {
               <img
                 className={style.dinosaurio}
                 src="https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s"
+                alt="dinosaurio"
               />
             </marquee>
           </div>
