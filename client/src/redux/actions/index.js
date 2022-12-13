@@ -15,8 +15,7 @@ import {
   CREATE_REVIEW,
   GET_REVIEW,
   GET_USER_INFO,
-  UPDATE_USER_INFO
-  GET_ONE_USER,
+  UPDATE_USER_INFO,
 } from "./actionTypes";
 
 export function getTrendingCoins() {

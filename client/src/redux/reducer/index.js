@@ -14,8 +14,8 @@ import {
   // CREATE_REVIEW,
   GET_REVIEW,
   GET_USER_INFO,
-  UPDATE_USER_INFO
-  GET_ONE_USER
+  UPDATE_USER_INFO,
+
 
 } from "../actions/actionTypes";
 
@@ -197,14 +197,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         userInfo: state.user.info.concat(action.payload)
       }
-
-    case GET_ONE_USER:
-      console.log("action.payload_GOU : "+action.payload)
-      return {
-        ...state,
-        user: action.payload,
-      };
-
 
     default:
       return state;
