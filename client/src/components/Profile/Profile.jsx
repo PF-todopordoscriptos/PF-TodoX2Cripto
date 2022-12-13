@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useAuth0 } from "@auth0/auth0-react"
-import { postUser, postUserGoogle } from "../../redux/actions/index.js"
+import { getUserInfo, postUser, postUserGoogle } from "../../redux/actions/index.js"
 
 import style from "./Profile.module.css"
 import TextField from '@mui/material/TextField';
@@ -35,6 +36,9 @@ const Profile = () => {
     const changeEdit = () => {
       setEdit(!edit)
     }
+    
+    const userInfo = useSelector((state) => state.userInfo)
+    
 
     useEffect(() => {
       onAuthStateChanged(auth, (currentUser) => {
@@ -52,11 +56,61 @@ const Profile = () => {
               })
         }
       })
-    }, []);
+    }, [user]);
         
     console.log(auth)
     console.log(user)
+    console.log(userInfo)
+
+    React.useEffect(() => {
+      dispatch(getUserInfo(user.email))
+      console.log("estado lleno")
+    },[user])
+
+    const [input,setInput] = useState({
+      username: "",
+      name: "",
+      lastname: "",
+      telephone: "",
+      dni: "",
+      nationality: "",
+      img: ""
+    })
     
+    // const llenarEstado = () => {
+    //   setInput({
+    //   username: userInfo !== [] ? userInfo.username : "",
+    //   name: userInfo.name,
+    //   lastname: userInfo.lastname,
+    //   telephone: userInfo.telephone,
+    //   dni: userInfo.dni,
+    //   nationality: userInfo.nationality
+      // img: ""
+    // })
+    // };
+    
+    setTimeout(() => {
+      console.log("manga d putosssssssssssss")
+      setInput({
+          username: userInfo.username,
+          name: userInfo.name,
+          lastname: userInfo.lastname,
+          telephone: userInfo.telephone,
+          dni: userInfo.dni,
+          nationality: userInfo.nationality,
+          img: ""
+        })
+    }, 500);
+    
+    
+    const handleInput = (e) => {
+      setInput({
+        ...input,
+        [e.target.name] : e.target.value,
+    })
+    console.log(input)
+    }
+
   return (
     <div className={style.divAll}>
         <form>
@@ -74,10 +128,11 @@ const Profile = () => {
               </label> 
             </div>
 
-          <TextField id="filled-2" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled/>
-          <TextField id="filled-3" name="username" label="Username" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
-          <TextField id="filled-4" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
-          <TextField id="filled-5" name="lastname" label="Lastname" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
+          {/* <h1>{userInfo.username}</h1> */}
+          <TextField value={user.email} id="filled-2" name="email" label="Email" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled/>
+          <TextField value={input.username} onChange={handleInput} id="filled-3" name="username" label="Username" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
+          <TextField value={input.name} onChange={handleInput} id="filled-4" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
+          <TextField value={input.lastname} onChange={handleInput} id="filled-5" name="lastname" label="Lastname" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
           </div>
 
           <div className={style.parteDos}>
@@ -88,11 +143,13 @@ const Profile = () => {
             }
 
           </div>
-          <TextField id="filled-6" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
-          <TextField id="filled-7" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
+          <TextField value={input.telephone} onChange={handleInput} id="filled-6" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
+          <TextField value={input.dni} onChange={handleInput} type="number" id="filled-7" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '2rem', width:'20rem'}} disabled={edit ? true : null}/>
 
           <div className={style.contNation}>
           <SelectNat
+          value={input.nationality}
+          onChange={handleInput}
           edit= {edit}
           />
           </div>

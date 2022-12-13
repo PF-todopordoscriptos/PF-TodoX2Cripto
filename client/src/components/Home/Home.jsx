@@ -35,6 +35,7 @@ export default function Home() {
 
   const [coin, setCoin] = useState("");
 
+
   return (
     <>
       <div className="homeCss">
