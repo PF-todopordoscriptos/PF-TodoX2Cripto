@@ -13,7 +13,10 @@ import {
   FILTER_FAVORITE,
   // CREATE_REVIEW,
   GET_REVIEW,
+  GET_USER_INFO,
+  UPDATE_USER_INFO
   GET_ONE_USER
+
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -24,6 +27,7 @@ const initialState = {
   historyChart: [],
   favoriteCoins: [],
   reviews: [],
+  userInfo: [],
   user: {},
 };
 
@@ -182,12 +186,25 @@ function rootReducer(state = initialState, action) {
         reviews: action.payload,
       };
 
+    case GET_USER_INFO:
+      return{
+        ...state,
+        userInfo: action.payload
+      }
+
+    case UPDATE_USER_INFO:
+      return{
+        ...state,
+        userInfo: state.user.info.concat(action.payload)
+      }
+
     case GET_ONE_USER:
       console.log("action.payload_GOU : "+action.payload)
       return {
         ...state,
         user: action.payload,
       };
+
 
     default:
       return state;

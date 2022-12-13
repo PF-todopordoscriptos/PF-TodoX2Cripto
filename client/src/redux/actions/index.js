@@ -14,6 +14,8 @@ import {
   FILTER_FAVORITE,
   CREATE_REVIEW,
   GET_REVIEW,
+  GET_USER_INFO,
+  UPDATE_USER_INFO
   GET_ONE_USER,
 } from "./actionTypes";
 
@@ -157,14 +159,25 @@ export function getReview(coinName) {
   };
 }
 
-export function getOneUser(email) {
-  return async function (dispatch) {
-    let json = await axios.get(
-      `http://localhost:3001/users/${email}`
-    );
-    return dispatch({
-      type: GET_ONE_USER,
-      payload: json.data,
-    });
-  };
+
+export function getUserInfo(oneUser) {
+  return async function (dispatch){
+    let json = await axios.get(`http://localhost:3001/users/${oneUser}`);
+    return dispatch ({
+      type: GET_USER_INFO,
+      payload: json.data
+    })
+  }
 }
+
+export function updateUserInfo(email){
+  return async function (dispatch){
+    let json = await axios.put(`http://localhost:3001/users/${email}`);
+    return dispatch ({
+      type: UPDATE_USER_INFO,
+      payload: json.data
+    })
+  }
+}
+
+

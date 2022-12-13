@@ -1,6 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { postUser, getOneUser } from "../../redux/actions/index.js";
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useAuth0 } from "@auth0/auth0-react"
+import { getUserInfo, postUser, postUserGoogle } from "../../redux/actions/index.js"
+
+import style from "./Profile.module.css"
+import TextField from '@mui/material/TextField';
+import logo from "../../Images/logoGoogle.png"
+import SelectNat from '../SelectNat/SelectNat';
+
+import {
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
+import { useHistory } from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
+
 
 
 import style from "./Profile.module.css";
@@ -18,6 +34,96 @@ import lapizNegro from "../../Images/lapizNegro.png";
 import lapizGris from "../../Images/lapizGris.png";
 
 const Profile = () => {
+
+    //const {user, isAuthenticated, logout} = useAuth0();
+    
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const [edit,setEdit] = useState(true)
+
+    const [user, setUser] = useState({
+      email: "",
+      //password: ""
+    })
+
+    const changeEdit = () => {
+      setEdit(!edit)
+    }
+    
+    const userInfo = useSelector((state) => state.userInfo)
+    
+
+    useEffect(() => {
+      onAuthStateChanged(auth, (currentUser) => {
+        if(currentUser){
+            setUser({
+                ...user,
+                email: currentUser.email,
+                //password: currentUser.password,
+              })
+              dispatch(postUser(currentUser));
+            }else{
+              console.log("SIGNED OUT");
+              setUser({
+                email: "",
+              })
+        }
+      })
+    }, [user]);
+        
+    console.log(auth)
+    console.log(user)
+    console.log(userInfo)
+
+    React.useEffect(() => {
+      dispatch(getUserInfo(user.email))
+      console.log("estado lleno")
+    },[user])
+
+    const [input,setInput] = useState({
+      username: "",
+      name: "",
+      lastname: "",
+      telephone: "",
+      dni: "",
+      nationality: "",
+      img: ""
+    })
+    
+    // const llenarEstado = () => {
+    //   setInput({
+    //   username: userInfo !== [] ? userInfo.username : "",
+    //   name: userInfo.name,
+    //   lastname: userInfo.lastname,
+    //   telephone: userInfo.telephone,
+    //   dni: userInfo.dni,
+    //   nationality: userInfo.nationality
+      // img: ""
+    // })
+    // };
+    
+    setTimeout(() => {
+      console.log("manga d putosssssssssssss")
+      setInput({
+          username: userInfo.username,
+          name: userInfo.name,
+          lastname: userInfo.lastname,
+          telephone: userInfo.telephone,
+          dni: userInfo.dni,
+          nationality: userInfo.nationality,
+          img: ""
+        })
+    }, 500);
+    
+    
+    const handleInput = (e) => {
+      setInput({
+        ...input,
+        [e.target.name] : e.target.value,
+    })
+    console.log(input)
+    }
+
   //const {user, isAuthenticated, logout} = useAuth0();
 
   const history = useNavigate();
@@ -61,6 +167,7 @@ const Profile = () => {
   console.log(auth);
   console.log(user.email);
   console.log("userDb:"+userDb);
+
 
   return (
     <div className={style.divAll}>
