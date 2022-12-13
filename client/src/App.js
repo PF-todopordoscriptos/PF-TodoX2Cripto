@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Footer from "./components/Footer/Footer.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
@@ -40,28 +40,42 @@ function App() {
       <div className="App">
         {/* <h1>TODO POR 2 CRIPTO</h1> */}
         <BrowserRouter>
-          <Route
-            exact
-            path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]}
-            component={Navbar}
-          />
-          <Route exact path={"/"} component={LandingPage} />
-          <Route exact path={"/FAQ"} component={FAQ} />
-          <Route path={"/home"} component={Home} />
-          <Route path={"/chart/:id"} component={Chart} />
-          <Route path={"/details/:id"} component={Details} />
-          <Route exact path={"/login"} component={FormLogin} />
-          <Route exact path={"/profile"} component={ProtectedRoute} />
-          <Route
-            exact
-            path={["/", "/FAQ", "/home", "/details/:id", "/login", "/profile"]}
-            component={Footer}
-          />
-          <Route exact path={"/calculator"} component={Calculator} />
-          <Route exact path={"/comparative"} component={Comparative} />
-          <Route exact path={"/admincoins"} component={AdminDashboardCoins} />
-          <Route exact path={"/adminusers"} component={AdminDashboardUsers} />
-          {/* <Route path="*" component={ErrorPage} /> */}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <LandingPage />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <>
+                  <Navbar />
+                  <Home />
+                  <Footer />
+                </>
+              }
+            />
+
+            <Route path="/login" element={ <><Navbar /> <FormLogin /> <Footer /></> } />
+            <Route path="/FAQ" element={<FAQ />} />
+            <Route path="/chart/:id" element={<Chart />} />
+            <Route path="/details/:id" element={<Details />} />
+            <Route path={"/profile"} element={ <><Navbar />  <ProtectedRoute /> <Footer /></> } />
+            <Route path={"/FAQ"} element={<Navbar />} />
+            <Route path={"/details/:id"} element={<Navbar />} />
+            <Route path={"/calculator"} element={<Calculator />} />
+            <Route path={"/comparative"} element={<Comparative />} />
+            <Route path={"/admincoins"} element={<AdminDashboardCoins />} />
+            <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
+            <Route path="/errorpage" element={<ErrorPage />} />
+            <Route path="*" element={<Navigate to="/errorpage" replace />} />
+          </Routes>
         </BrowserRouter>
       </div>
     </ThemeProvider>

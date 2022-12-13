@@ -16,6 +16,7 @@ import {
   GET_REVIEW,
   GET_USER_INFO,
   UPDATE_USER_INFO
+  GET_ONE_USER,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -158,6 +159,7 @@ export function getReview(coinName) {
   };
 }
 
+
 export function getUserInfo(oneUser) {
   return async function (dispatch){
     let json = await axios.get(`http://localhost:3001/users/${oneUser}`);
@@ -177,3 +179,5 @@ export function updateUserInfo(email){
     })
   }
 }
+
+

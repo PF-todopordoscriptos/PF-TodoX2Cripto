@@ -14,3 +14,7 @@ export const CREATE_REVIEW = 'CREATE_REVIEW';
 export const GET_REVIEW = 'GET_REVIEW';
 export const GET_USER_INFO = "GET_USER_INFO";
 export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
+export const FILTER_FAVORITE = 'FILTER_FAVORITE'
+export const CREATE_REVIEW = 'CREATE_REVIEW'
+export const GET_REVIEW = 'GET_REVIEW'
+export const GET_ONE_USER = "GET_ONE_USER"

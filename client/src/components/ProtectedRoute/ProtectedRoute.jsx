@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import {
     onAuthStateChanged,
@@ -9,7 +9,7 @@ import Profile from "../Profile/Profile";
 import FormLogin from "../FormLogin/FormLogin";
 
 export default function ProtectedRoute({ children }) {
-  const history = useHistory();
+  const history = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
