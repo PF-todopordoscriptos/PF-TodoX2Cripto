@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector , useDispatch } from 'react-redux'
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -11,7 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
@@ -20,11 +20,29 @@ import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
+import { getUserInfo } from "../../redux/actions/index.js"
+import {
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 require("dotenv").config();
 
 const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
 
 export default function AdminDashboardUsers() {
+
+  const dispatch = useDispatch();
+
+  //const value = useSelector((state) => state.addNew);
+
+  const userInfo = useSelector((state) => state.getUserInfo)
+  console.log("AAA", userInfo)
+
+    // useEffect(() => {
+    //   dispatch(getUserInfo(user.email))
+    //   console.log("estado lleno")
+    // },[user.email])
+
 
   let [rows, setRows] = useState([]);
 
@@ -51,21 +69,21 @@ export default function AdminDashboardUsers() {
   }
 
   const changeAdmin = async (id, adm) => {
-    await axios.put('http://localhost:3001/users/modifyUserAdmin', { 
+    await axios.put('http://localhost:3001/users/modifyUserAdmin', {
       id: id,
       admin: !adm
     })
   }
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/users/modifyUserDisabled', { 
+    await axios.put('http://localhost:3001/users/modifyUserDisabled', {
       id: id,
       disabled: !dis
     })
   }
 
   const changePassword = async (id, pass) => {
-    await axios.put('http://localhost:3001/users/modifyUserPassword', { 
+    await axios.put('http://localhost:3001/users/modifyUserPassword', {
       id: id,
       password: pass ? pass : ""
     })
@@ -139,9 +157,9 @@ export default function AdminDashboardUsers() {
       onRequestSort(event, property);
     };
 
-    return (      
+    return (
       <TableHead>
-        <TableRow>        
+        <TableRow>
           <TableCell padding="checkbox" >
           </TableCell>
           {headCells.map((headCell) => (
@@ -185,7 +203,7 @@ export default function AdminDashboardUsers() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
- 
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -249,7 +267,7 @@ export default function AdminDashboardUsers() {
           console.log('SUCCESS!', response.status, response.text);
       }, (err) => {
           console.log('FAILED...', err);
-      }); 
+      });
   }
 
   function adminNotifier( user_email , user_name , adm ) {
@@ -263,7 +281,7 @@ export default function AdminDashboardUsers() {
           console.log('SUCCESS!', response.status, response.text);
       }, (err) => {
           console.log('FAILED...', err);
-      }); 
+      });
   }
 
   function disabledNotifier( user_email , user_name , dis ) {
@@ -277,228 +295,215 @@ export default function AdminDashboardUsers() {
           console.log('SUCCESS!', response.status, response.text);
       }, (err) => {
           console.log('FAILED...', err);
-      }); 
+      });
   }
 
-  GetAllUsers() // CALL FOR FIRST RENDER
-      
+  GetAllUsers(); // CALL FOR FIRST RENDER
+
   return (
-    <Box sx={{ width: '100%' , backgroundColor: deepPurple[800] }} >
-      <Box>
-        <TableCell sx={{ borderBottom: 0 , width: '1%' , fontSize: 'large', backgroundColor: deepPurple[200]}} align="center">
-           
-        </TableCell>
+    <Box>
+      <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh' }} align="center" >
       </Box>
-      <Table sx={{ borderBottom: 1}}>
-        <TableRow >
-          <TableCell sx={{ width: '1%' , fontSize: 'large' , padding: '1% 10% 1% 0.5%'}} align="center">
-            <IconButton style={{ color: cyan[200] , borderBottom: 0 }}>
-              <RefreshSharpIcon  fontSize="large" onClick={function() {
-                axios.get('http://localhost:3001/users/allUsers')
-                .then((response) => {
-                  let ww = []
-                  let qq = response.data.map(function(e) {
-                    return {
-                      username: e.username,
-                      id: e.id,
-                      password: e.password,
-                      admin: e.admin,
-                      disabled: e.disabled,
-                      email: e.email,
-                      name: e.name
-                    }})
-                  qq.forEach(e => ww.push(e))
-                  setRows(ww)
-                  console.log("DONE FETCH")
-                }).catch(e => console.log(e))
-              }}/>
-            </IconButton>
-             </TableCell>
-            <TableCell sx={{ fontSize: 'large' , padding: '0.3% 0% 0px 0.4%' , height: '3px' , color: "white" }} >
-              REFRESH           
-            </TableCell>      
-            <TableCell sx={{ width: '55%' , fontSize: 'large' , color: "white"}}>
-              ADMIN DASHBOARD  -  USERS
-            </TableCell>
-        </TableRow>  
-      </Table>      
-      <Paper sx={{ width: '100%', mb: 2 }} >
-        <TableContainer >
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody >
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.id}
-                    >
-                      <TableCell padding="checkbox" >
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.username}
-                      </TableCell>
-                      <TableCell sx={{ width: '30%' }} align="center">
-                        {row.id}
-                      </TableCell>
-                      <TableCell sx={{ width: '15%' }} align="center">
-                        <Checkbox /* PASSWORD COLUMN */
-                          color="primary"
-                          checked={!!row.password}
-                          onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
-                            axios.get('http://localhost:3001/users/allUsers')
-                            .then((response) => {
-                              let ww = []
-                              let qq = response.data.map(function(e) {
-                                return {
-                                  username: e.username,
-                                  id: e.id,
-                                  password: e.password,
-                                  admin: e.admin,
-                                  disabled: e.disabled,
-                                  email: e.email,
-                                  name: e.name
-                                }})
-                              qq.forEach(e => ww.push(e))
-                              setRows(ww)
-                              console.log("DONE FETCH")
-                              passwordNotifier( row.email , row.name )
-                            }).catch(e => console.log(e))
-                          }) : null}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ width: '15%' }} align="center">
-                        <Checkbox /* ADMIN COLUMN */
-                          color="primary"
-                          checked={row.admin}
-                          onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(function() {
-                            axios.get('http://localhost:3001/users/allUsers')
-                            .then((response) => {
-                              let ww = []
-                              let qq = response.data.map(function(e) {
-                                return {
-                                  username: e.username,
-                                  id: e.id,
-                                  password: e.password,
-                                  admin: e.admin,
-                                  disabled: e.disabled,
-                                  email: e.email,
-                                  name: e.name
-                                }})
-                              qq.forEach(e => ww.push(e))
-                              setRows(ww)
-                              console.log("DONE FETCH")
-                              adminNotifier( row.email , row.name , !row.admin)
-                            }).catch(e => console.log(e))
-                          })}
-                        />
-                      </TableCell>
-                      <TableCell sx={{ width: '15%' }} align="center"> 
-                        <Checkbox /* DISABLED COLUMN */
-                          color="primary"
-                          checked={row.disabled}
-                          onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
-                            axios.get('http://localhost:3001/users/allUsers')
-                            .then((response) => {
-                              let ww = []
-                              let qq = response.data.map(function(e) {
-                                return {
-                                  username: e.username,
-                                  id: e.id,
-                                  password: e.password,
-                                  admin: e.admin,
-                                  disabled: e.disabled,
-                                  email: e.email,
-                                  name: e.name
-                                }})
-                              qq.forEach(e => ww.push(e))
-                              setRows(ww)
-                              console.log("DONE FETCH")
-                              disabledNotifier( row.email , row.name , !!row.disabled)
-                            }).catch(e => console.log(e))
-                          })}
-                        />
-                      </TableCell>
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
+        <Box style={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
+          <RefreshSharpIcon  fontSize="large" onClick={function() {
+            axios.get('http://localhost:3001/users/allUsers')
+            .then((response) => {
+              let ww = []
+              let qq = response.data.map(function(e) {
+                return {
+                  username: e.username,
+                  id: e.id,
+                  password: e.password,
+                  admin: e.admin,
+                  disabled: e.disabled,
+                  email: e.email,
+                  name: e.name
+                }})
+              qq.forEach(e => ww.push(e))
+              setRows(ww)
+              console.log("DONE FETCH")
+            }).catch(e => console.log(e))
+          }}/>
+          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw'}} >
+            REFRESH
+          </Box>
+        </Box>
+        <Box sx={{ fontSize: 'large' , color: "white" }}>
+          ADMIN DASHBOARD  -  USERS
+        </Box>
+        <Box  sx={{  width: '8vw' }}  >
+        </Box>
+      </Box>
+      <Box sx={{ width: '100vw' , backgroundColor: deepPurple[800] }} >
+        <Paper sx={{ width: '100vw', mb: 2 }} >
+            <TableContainer >
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={dense ? 'small' : 'medium'}
+              >
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows.length}
+                />
+                <TableBody >
+                  {stableSort(rows, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      const isItemSelected = isSelected(row.id);
+                      const labelId = `enhanced-table-checkbox-${index}`;
+                      return (
+                        <TableRow
+                          hover
+                          onClick={(event) => handleClick(event, row.id)}
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          <TableCell padding="checkbox" >
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                          >
+                            {row.username}
+                          </TableCell>
+                          <TableCell sx={{ width: '30vw' }} align="center">
+                            {row.id}
+                          </TableCell>
+                          <TableCell sx={{ width: '15vw' }} align="center">
+                            <Checkbox /* PASSWORD COLUMN */
+                              color="primary"
+                              checked={!!row.password}
+                              onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
+                                axios.get('http://localhost:3001/users/allUsers')
+                                .then((response) => {
+                                  let ww = []
+                                  let qq = response.data.map(function(e) {
+                                    return {
+                                      username: e.username,
+                                      id: e.id,
+                                      password: e.password,
+                                      admin: e.admin,
+                                      disabled: e.disabled,
+                                      email: e.email,
+                                      name: e.name
+                                    }})
+                                  qq.forEach(e => ww.push(e))
+                                  setRows(ww)
+                                  console.log("DONE FETCH")
+                                  passwordNotifier( row.email , row.name )
+                                }).catch(e => console.log(e))
+                              }) : null}
+                            />
+                          </TableCell>
+                          <TableCell sx={{ width: '11vw' }} align="center">
+                            <Checkbox /* ADMIN COLUMN */
+                              color="primary"
+                              checked={row.admin}
+                              onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(function() {
+                                axios.get('http://localhost:3001/users/allUsers')
+                                .then((response) => {
+                                  let ww = []
+                                  let qq = response.data.map(function(e) {
+                                    return {
+                                      username: e.username,
+                                      id: e.id,
+                                      password: e.password,
+                                      admin: e.admin,
+                                      disabled: e.disabled,
+                                      email: e.email,
+                                      name: e.name
+                                    }})
+                                  qq.forEach(e => ww.push(e))
+                                  setRows(ww)
+                                  console.log("DONE FETCH")
+                                  adminNotifier( row.email , row.name , !row.admin)
+                                }).catch(e => console.log(e))
+                              })}
+                            />
+                          </TableCell>
+                          <TableCell sx={{ width: '11vw' }} align="center">
+                            <Checkbox /* DISABLED COLUMN */
+                              color="primary"
+                              checked={row.disabled}
+                              onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
+                                axios.get('http://localhost:3001/users/allUsers')
+                                .then((response) => {
+                                  let ww = []
+                                  let qq = response.data.map(function(e) {
+                                    return {
+                                      username: e.username,
+                                      id: e.id,
+                                      password: e.password,
+                                      admin: e.admin,
+                                      disabled: e.disabled,
+                                      email: e.email,
+                                      name: e.name
+                                    }})
+                                  qq.forEach(e => ww.push(e))
+                                  setRows(ww)
+                                  console.log("DONE FETCH")
+                                  disabledNotifier( row.email , row.name , !!row.disabled)
+                                }).catch(e => console.log(e))
+                              })}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: (dense ? 33 : 53) * emptyRows}}>
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 15]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <Table>
-        <TableRow sx={{ borderBottom: 0 , width: '1%', fontSize: 'large' , backgroundColor: deepPurple[100] }} >
-          <TableCell align='center'>
-            <strong>PASSWORD:     </strong><Checkbox color="primary" checked={true}/>=  User have password     <Checkbox color="primary" checked={false}/>=  User do not have password
-          </TableCell>
-          <TableCell align='center'>
-            <strong>ADMIN:     </strong><Checkbox color="primary" checked={true}/>=  User is admin     <Checkbox color="primary" checked={false}/>=  User is not admin
-          </TableCell>
-          <TableCell align='center'>
-            <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  User is disabled     <Checkbox color="primary" checked={false}/>=  User is not disabled
-          </TableCell>
-        </TableRow>
-      </Table>
-      <Table>
-        <TableRow /* sx={{ borderBottom: 0}} */ >
-          <TableCell sx={{ borderBottom: 1 , width: '0%' }}></TableCell>
-          <TableCell sx={{ borderBottom: 1 , width: '10%' }}>
-            <FormControlLabel  
-              sx={{ color: "white" , borderBottom: 0 }}
-              control={<Switch checked={dense} onChange={handleChangeDense} />}
-              label="Shrink Rows"              
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 15]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
-          </TableCell>            
-          <TableCell sx={{ borderBottom: 0 , align: "left", width: '55%', fontSize: 'large' , color: "white" }} align='center'>
-            Warning ! Every change you made will automatically impact in database & send an email to user !
-          </TableCell>
-          <TableCell sx={{ borderBottom: 0 , align: "left", width: '12%', fontSize: 'large' , color: "white" }}>
-            ©  2022  CripTornado
-          </TableCell>          
-        </TableRow>
-      </Table>
+        </Paper>
+      </Box>
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '7vh' , backgroundColor: deepPurple[100] }} >
+        <Box>
+          <strong>PASSWORD:     </strong><Checkbox color="primary" checked={true}/>=  User have password     <Checkbox color="primary" checked={false}/>=  User do not have password
+        </Box>
+        <Box>
+          <strong>ADMIN:     </strong><Checkbox color="primary" checked={true}/>=  User is admin     <Checkbox color="primary" checked={false}/>=  User is not admin
+        </Box>
+        <Box>
+          <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  User is disabled     <Checkbox color="primary" checked={false}/>=  User is not disabled
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '9vh' , backgroundColor: deepPurple[800]}}>
+        <Box sx={{ color: "white" }}>
+          <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Shrink Rows"
+          />
+        </Box>
+        <Box sx={{ color: "white" }} >
+          Warning ! Every change you made will automatically impact in database & send an email to user !
+        </Box>
+        <Box sx={{ color: "white" }} >
+          ©  2022  CripTornado
+        </Box>
+      </Box>
     </Box>
   );
 }

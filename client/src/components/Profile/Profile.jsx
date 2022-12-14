@@ -58,7 +58,7 @@ const Profile = () => {
     }, []);
     
     console.log(auth)
-    console.log(user)
+    console.log(user) 
     console.log(userInfo)
 
     React.useEffect(() => {
