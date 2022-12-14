@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
+import LandingPag from "./components/LandingPag/LandingPag";
 import Footer from "./components/Footer/Footer.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
 import Chart from "./components/Chart/Chart";
@@ -46,7 +47,8 @@ function App() {
               element={
                 <>
                   <Navbar />
-                  <LandingPage />
+                  {/* <LandingPage /> */}
+                  <LandingPag/>
                   <Footer />
                 </>
               }

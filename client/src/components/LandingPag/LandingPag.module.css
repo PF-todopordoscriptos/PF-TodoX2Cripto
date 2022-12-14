@@ -1,0 +1,136 @@
+.all{
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../Images/Brontosaurio.png");
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  padding-bottom: 50px;
+  background-size: 41%;
+  margin-top: 1rem;
+  width: 100%;
+  height: 90rem;
+}
+
+.trending{
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin-top: 2rem;
+}
+
+.stTitulo{
+  color: #2a46ad;
+  font-family: 'Lato', sans-serif;
+  font-size: 80px;
+  font-weight: 300;
+  line-height: 58px;
+  margin: 0 0 58px;
+}
+
+.stBreaking{
+  color: #2a46ad;
+  font-family: 'Lato', sans-serif;
+  font-size: 80px;
+  font-weight: 300;
+  line-height: 58px;
+  margin: 0 0 10px;
+}
+
+.arriba{
+    display: flex;
+    flex-direction: row;
+    height: 8rem;
+    margin-bottom: 47rem;
+}
+
+.izquierda{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    justify-content: center;
+}
+
+.derecha{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    margin-left: 10rem;
+    margin-top: 12rem;
+}
+
+.abajo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 8rem;
+    margin-bottom: 15rem;
+  }
+  
+.divNews{
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+}
+
+.stBut {
+    background-color: #1899D6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    /* box-sizing: border-box; */
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round,sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 20px;
+    margin: 0;
+    outline: none;
+    overflow: visible;
+    padding: 13px 16px;
+    text-align: center;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+    margin:0.7rem
+  }
+  
+  .stBut:after  {
+    background-clip: padding-box;
+    background-color: #1CB0F6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+  
+.stBut:main,
+.stBut:focus {
+  user-select: auto;
+}
+
+.stBut:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.stBut:disabled {
+  cursor: auto;
+}
+

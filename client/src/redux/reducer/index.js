@@ -15,8 +15,7 @@ import {
   GET_REVIEW,
   GET_USER_INFO,
   UPDATE_USER_INFO,
-
-
+  GET_TRENDING_NEWS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -24,6 +23,7 @@ const initialState = {
   noFilter: [],
   coinDetails: {},
   trendingCoins: [],
+  trendingNews: [],
   historyChart: [],
   favoriteCoins: [],
   reviews: [],
@@ -38,6 +38,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         trendingCoins: action.payload,
       };
+    case GET_TRENDING_NEWS:
+      return{
+        ...state,
+        trendingNews: action.payload,
+      }
     case GET_ALL_COINS:
       return {
         ...state,
