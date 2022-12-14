@@ -104,20 +104,22 @@ const FAQ = () => {
     // </Box>
     // </div>
 
-    <div>
-      <Navbar/>
+    <div className={style.cont}>
       <div className="accordions">
         <Accordion>
           <AccordionSummary expandIcon={<HiChevronDown />}>
             <Typography variant="h6">¿Puedo comprar sin registrarme?</Typography>
           </AccordionSummary>
+
           <AccordionDetails>
             <Typography variant="h7">Para hacer una compra es necesario tener una cuenta.</Typography>
           </AccordionDetails>
         </Accordion>
+
         <Accordion>
           <AccordionSummary expandIcon={<HiChevronDown />}>
             <Typography variant="h6" >¿Hay mínimo de edad?</Typography>
+
           </AccordionSummary>
           <AccordionDetails>
             <Typography variant="h7">Es necesario ser mayor de 18 años.</Typography>
@@ -155,6 +157,7 @@ const FAQ = () => {
             <Typography variant="h7">Inicia sesión en tu cuenta de "Todo por 2 Criptos" y en la parte superior derecha haz clic en [My Profile]</Typography>
           </AccordionDetails>
         </Accordion>
+
       </div>
     </div>
 

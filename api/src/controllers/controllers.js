@@ -22,6 +22,24 @@ async function getTrendingCoins() {
   return trendingCoinsApi;
 }
 
+async function getTrendingNews(){
+  const trendingNews = await axios.get(
+    "https://newsdata.io/api/1/news?apikey=pub_14581ec60a474fcda424b30ca7f553fd844cd&q=crypto"
+  );
+
+  let trendingNewsApi = trendingNews.data.results.map((n) => {
+    let date = n.pubDate.split(" ")
+    return{
+      title: n.title,
+      description: n.description,
+      link: n.link,
+      pubDate: date[0],
+      country: n.country
+    }
+  })
+  return trendingNewsApi
+}
+
 async function getHistoryChart(id, days) {
   //se puede definir dias y moneda
 
@@ -347,4 +365,5 @@ module.exports = {
   getCoinsFromDB,
   modifyCoinDisabled,
   getCoinFromDBbyID,
+  getTrendingNews,
 };
