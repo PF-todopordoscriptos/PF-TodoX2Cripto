@@ -14,4 +14,4 @@ export const CREATE_REVIEW = 'CREATE_REVIEW';
 export const GET_REVIEW = 'GET_REVIEW';
 export const GET_USER_INFO = "GET_USER_INFO";
 export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
-
+export const GET_TRENDING_NEWS = "GET_TRENDING_NEWS";
