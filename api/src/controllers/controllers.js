@@ -313,18 +313,18 @@ async function updateUser(
     },
   });
 
-  if (userDB) {
-    throw new Error("username is not available");
-  }
+  // if (userDB) {
+  //   throw new Error("username is not available");
+  // }
 
-  let dniDB = await User.findOne({
-    where: {
-      dni: dni,
-    },
-  });
-  if (dniDB) {
-    throw new Error(`there is already a user with the DNI ${dni}`);
-  }
+  // let dniDB = await User.findOne({
+  //   where: {
+  //     dni: dni,
+  //   },
+  // });
+  // if (dniDB) {
+  //   throw new Error(`there is already a user with the DNI ${dni}`);
+  // }
 
   const resp = await User.update(
     {

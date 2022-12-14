@@ -21,6 +21,8 @@ import { Button } from '@mui/material';
 import lapizNegro from "../../Images/lapizNegro.png"
 import lapizGris from "../../Images/lapizGris.png"
 
+import Swal from "sweetalert2";
+
 const Profile = () => {
     //const {user, isAuthenticated, logout} = useAuth0();
     
@@ -38,6 +40,7 @@ const Profile = () => {
     }
     
     const userInfo = useSelector((state) => state.userInfo)
+    const userInfo2 = userInfo
     
     useEffect(() => {
       onAuthStateChanged(auth, (currentUser) => {
@@ -75,19 +78,20 @@ const Profile = () => {
       nationality: "",
       img: ""
     })
-    
-    //   setTimeout(() => {
-    //   console.log("timeee")
-    //   setInput({
-    //   username: userInfo !== [] ? userInfo.username : "",
-    //   name: userInfo.name,
-    //   lastname: userInfo.lastname,
-    //   telephone: userInfo.telephone,
-    //   dni: userInfo.dni,
-    //   nationality: userInfo.nationality
-    //   // img: ""
-    // })
-    // }, 10000);
+
+    React.useEffect(() => {
+      setInput({
+        username: userInfo !== "" ? userInfo.username : "",
+        name: userInfo.name,
+        lastname: userInfo.lastname,
+        telephone: userInfo.telephone,
+        dni: userInfo.dni,
+        nationality: userInfo.nationality,
+        img: ""
+      })
+      console.log("userinfo2")
+      console.log(userInfo2)
+    },[dispatch, userInfo2])
     
     const handleInput = (e) => {
       setInput({
@@ -97,8 +101,22 @@ const Profile = () => {
     console.log(input)
     }
 
-    const saveChanges = (e) => {
-      e.preventDefault()
+    const saveChanges = async(e) => {
+      // e.preventDefault()
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        iconColor: "#8EFF60",
+        title: `User modified successfully .`,
+        color: "white",
+        background: "#66E9FE",
+      });
       dispatch(updateUserInfo(user.email,input))
     //   setInput({
     //     username: "",
