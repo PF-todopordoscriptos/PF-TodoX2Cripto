@@ -66,14 +66,14 @@ const Footer = () => {
               </Link>
               <Link
                 className="footer-right-section-FAQ"
-                href="#"
+                href="/about"
                 underline="none"
               >
                 ABOUT
               </Link>
               <Link
                 className="footer-right-section-FAQ"
-                href="#"
+                href="/developes"
                 underline="none"
               >
                 DEVELOPERS
