@@ -16,6 +16,7 @@ import {
   GET_REVIEW,
   GET_USER_INFO,
   UPDATE_USER_INFO,
+  GET_TRENDING_NEWS,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -23,6 +24,16 @@ export function getTrendingCoins() {
     let json = await axios.get("http://localhost:3001/coins/trending");
     return dispatch({
       type: GET_TRENDING_COINS,
+      payload: json.data,
+    });
+  };
+}
+
+export function getTrendingNews(){
+  return async function(dispatch){
+    let json = await axios.get("http://localhost:3001/coins/trendingNews");
+    return dispatch({
+      type: GET_TRENDING_NEWS,
       payload: json.data,
     });
   };
@@ -178,5 +189,3 @@ export function updateUserInfo(email, payload){
     })
   }
 }
-
-

@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const axios = require("axios");
 const {
   getTrendingCoins,
   getHistoryChart,
@@ -9,7 +10,8 @@ const {
   getReviews,
   getCoinsFromDB,
   modifyCoinDisabled,
-  getCoinFromDBbyID
+  getCoinFromDBbyID,
+  getTrendingNews
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -21,6 +23,31 @@ router.get("/trending", async (req, res) => {
   } catch (err) {
     res.status(400).json(err.message);
   }
+});
+
+router.get("/trendingNews", async (req, res) => {
+    // const options = {
+    //   method: 'GET',
+    //   url: 'https://crypto-news11.p.rapidapi.com/cryptonews/bitcoin',
+    //   params: {max_articles: '10', last_n_hours: '48', top_n_keywords: '10'},
+    //   headers: {
+    //     'X-RapidAPI-Key': '9a68656baamsh1cfc3e752bd68d4p1bd547jsndc88570634fb',
+    //     'X-RapidAPI-Host': 'crypto-news11.p.rapidapi.com'
+    //   }
+    // };
+    
+    // axios.request(options).then(function (response) {
+    //   res.status(200).json(response.data.articles);
+    // }).catch(function (error) {
+    //   res.status(400).json(error);
+    // });
+
+    try {
+      let trendingNews = await getTrendingNews();
+      res.status(200).json(trendingNews);
+    } catch (err) {
+      res.status(400).json(err.message);
+    }
 });
 
 router.get("/allcoins", async (req, res) => {
