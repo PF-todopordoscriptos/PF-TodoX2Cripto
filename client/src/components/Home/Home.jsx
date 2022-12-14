@@ -6,6 +6,8 @@ import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 import style from "./Home.css";
 
+import DinoError404 from "../../Images/DinoError404.jpg";
+
 import { Link, Pagination, Stack, Typography } from "@mui/material";
 
 import Filter from "../Filter/Filter";
@@ -34,6 +36,7 @@ export default function Home() {
   };
 
   const [coin, setCoin] = useState("");
+
 
   return (
     <>
@@ -67,9 +70,7 @@ export default function Home() {
             <Typography variant="h3" color="primary.dark">
               Not coin found
             </Typography>
-            <Typography variant="h5" color="primary.dark">
-              Por favor refresca la pagina
-            </Typography>
+            <img src={DinoError404} alt="error" />
           </Stack>
         ) : (
           <Grid

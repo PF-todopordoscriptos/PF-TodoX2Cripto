@@ -14,6 +14,8 @@ import {
   FILTER_FAVORITE,
   CREATE_REVIEW,
   GET_REVIEW,
+  GET_USER_INFO,
+  UPDATE_USER_INFO,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -155,3 +157,26 @@ export function getReview(coinName) {
     });
   };
 }
+
+
+export function getUserInfo(oneUser) {
+  return async function (dispatch){
+    let json = await axios.get(`http://localhost:3001/users/${oneUser}`);
+    return dispatch ({
+      type: GET_USER_INFO,
+      payload: json.data
+    })
+  }
+}
+
+export function updateUserInfo(email, payload){
+  return async function (dispatch){
+    let json = await axios.put(`http://localhost:3001/users/${email}`,payload);
+    return dispatch ({
+      type: UPDATE_USER_INFO,
+      payload: json.data
+    })
+  }
+}
+
+

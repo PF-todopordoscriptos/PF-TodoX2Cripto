@@ -1,0 +1,9 @@
+.main-details {
+  background: url("../../Images/Rex.png") no-repeat;
+  width: 100%;
+  height: 100vh;
+  /* margin: 0 0 0 100px; */
+  background-position: 5% 100%;
+  /* padding-bottom: 50px; */
+  background-size: 41%;
+}
