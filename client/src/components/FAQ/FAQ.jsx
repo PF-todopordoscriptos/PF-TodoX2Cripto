@@ -104,25 +104,27 @@ const FAQ = () => {
     // </Box>
     // </div>
 
-    <div>
-      <Navbar/>
+    <div className={style.cont}>
       <div className="accordions">
         <Accordion>
           <AccordionSummary>
             <Typography variant="h5" >¿Puedo comprar sin registrarme?</Typography>
           </AccordionSummary>
+
           <AccordionDetails>
             <Typography color="primary.dark">Para hacer una compra es necesario tener una cuenta.</Typography>
           </AccordionDetails>
         </Accordion>
+
         <Accordion>
           <AccordionSummary>
-            <Typography>¿Hay mínimo de edad?</Typography>
+            <Typography variant="h5">¿Hay mínimo de edad?</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography color="primary.dark">Es necesario ser mayor de 18 años.</Typography>
           </AccordionDetails>
         </Accordion>
+
       </div>
     </div>
 
