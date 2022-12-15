@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSelector , useDispatch } from 'react-redux'
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -20,30 +19,15 @@ import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
-import { getUserInfo } from "../../redux/actions/index.js"
-import {
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
 
 const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
 
 export default function AdminDashboardUsers() {
 
-  const dispatch = useDispatch();
-
-  //const value = useSelector((state) => state.addNew);
-
-  const userInfo = useSelector((state) => state.getUserInfo)
-  console.log("AAA", userInfo)
-
-    // useEffect(() => {
-    //   dispatch(getUserInfo(user.email))
-    //   console.log("estado lleno")
-    // },[user.email])
-
-
+  let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
 
   let GetAllUsers =  () => {
@@ -64,8 +48,29 @@ export default function AdminDashboardUsers() {
         qq.forEach(e => ww.push(e))
         setRows(ww)
         console.log("DONE FETCH")
+        onAuthStateChanged(auth, (currentUser) => {
+          setCurrentAdmin({
+             id: ww.filter(e => e.email === currentUser.email)[0].id,
+             email: currentUser.email
+          })
+        })
       }).catch(e => console.log(e))
     }, []);
+  }
+
+  console.log("CURRENT ADMIN", currentAdmin)
+
+  const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
+    await axios.post('http://localhost:3001/users/adminChanges', {
+      idAdmin: idAdmin,
+      emailAdmin: emailAdmin,
+      idUser: idUser,
+      emailUser: emailUser,
+      idCoin: idCoin,
+      nameCoin: nameCoin,
+      dataModified: dataModified,
+      newValue: newValue
+    })
   }
 
   const changeAdmin = async (id, adm) => {
@@ -129,6 +134,12 @@ export default function AdminDashboardUsers() {
       numeric: true,
       disablePadding: false,
       label: '      ID'
+    },
+    {
+      id: 'email',
+      numeric: true,
+      disablePadding: false,
+      label: '      EMAIL'
     },
     {
       id: 'password',
@@ -305,7 +316,7 @@ export default function AdminDashboardUsers() {
       <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh' }} align="center" >
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
-        <Box style={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
+        <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
           <RefreshSharpIcon  fontSize="large" onClick={function() {
             axios.get('http://localhost:3001/users/allUsers')
             .then((response) => {
@@ -379,6 +390,9 @@ export default function AdminDashboardUsers() {
                           <TableCell sx={{ width: '30vw' }} align="center">
                             {row.id}
                           </TableCell>
+                          <TableCell sx={{ width: '30vw' }} align="center">
+                            {row.email}
+                          </TableCell>
                           <TableCell sx={{ width: '15vw' }} align="center">
                             <Checkbox /* PASSWORD COLUMN */
                               color="primary"
@@ -426,6 +440,7 @@ export default function AdminDashboardUsers() {
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
                                   console.log("DONE FETCH")
+                                  adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin)
                                   adminNotifier( row.email , row.name , !row.admin)
                                 }).catch(e => console.log(e))
                               })}
@@ -452,6 +467,7 @@ export default function AdminDashboardUsers() {
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
                                   console.log("DONE FETCH")
+                                  adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled)
                                   disabledNotifier( row.email , row.name , !!row.disabled)
                                 }).catch(e => console.log(e))
                               })}

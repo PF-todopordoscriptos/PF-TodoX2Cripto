@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User, Coins, Review, CoinsReviews } = require("../db");
+const { User, Coins, Review, CoinsReviews , AdminChanges } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -344,6 +344,34 @@ async function updateUser(
   return resp;
 }
 
+async function postAdminChanges(
+  idAdmin,
+  emailAdmin,
+  idUser,
+  emailUser,
+  idCoin,
+  nameCoin,
+  dataModified,
+  newValue
+) {
+  await AdminChanges.create({
+    idAdmin: idAdmin,
+    emailAdmin: emailAdmin,
+    idUser: idUser,
+    emailUser: emailUser,
+    idCoin: idCoin,
+    nameCoin: nameCoin,
+    dataModified: dataModified,
+    newValue: newValue
+  });
+  return "DONE";
+}
+
+async function getAllAdminChanges() {
+  let allChanges = await AdminChanges.findAll();
+  return allChanges;
+}
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
@@ -366,4 +394,6 @@ module.exports = {
   modifyCoinDisabled,
   getCoinFromDBbyID,
   getTrendingNews,
+  postAdminChanges,
+  getAllAdminChanges
 };
