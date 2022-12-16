@@ -307,24 +307,24 @@ async function updateUser(
   nationality,
   img
 ) {
-  let userDB = await User.findOne({
-    where: {
-      username: username.toLowerCase().trim(),
-    },
-  });
+  // let userDB = await User.findOne({
+  //   where: {
+  //     username: username.toLowerCase().trim(),
+  //   },
+  // });
 
-  if (userDB) {
-    throw new Error("username is not available");
-  }
+  // if (userDB) {
+  //   throw new Error("username is not available");
+  // }
 
-  let dniDB = await User.findOne({
-    where: {
-      dni: dni,
-    },
-  });
-  if (dniDB) {
-    throw new Error(`there is already a user with the DNI ${dni}`);
-  }
+  // let dniDB = await User.findOne({
+  //   where: {
+  //     dni: dni,
+  //   },
+  // });
+  // if (dniDB) {
+  //   throw new Error(`there is already a user with the DNI ${dni}`);
+  // }
 
   const resp = await User.update(
     {

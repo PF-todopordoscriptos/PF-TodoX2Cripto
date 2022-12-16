@@ -53,7 +53,6 @@ module.exports = (sequelize) => {
     img: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: 'https://w7.pngwing.com/pngs/524/696/png-transparent-computer-icons-user-symbol-symbol-miscellaneous-black-computer-icons.png',
     },
     admin: {
       type: DataTypes.BOOLEAN,

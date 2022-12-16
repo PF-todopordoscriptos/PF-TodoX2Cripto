@@ -75,19 +75,36 @@ const Profile = () => {
       nationality: "",
       img: ""
     })
-    
-    //   setTimeout(() => {
-    //   console.log("timeee")
-    //   setInput({
-    //   username: userInfo !== [] ? userInfo.username : "",
-    //   name: userInfo.name,
-    //   lastname: userInfo.lastname,
-    //   telephone: userInfo.telephone,
-    //   dni: userInfo.dni,
-    //   nationality: userInfo.nationality
-    //   // img: ""
-    // })
-    // }, 10000);
+
+    const [loading, setLoading] = useState(false);
+    const [image,setImage] = useState("")
+
+    const uploadImage = async(e) => {
+      const files = e.target.files;
+      const data = new FormData();
+      data.append("file", files[0]);
+      data.append("upload_preset", "cripto");
+      setLoading(true);
+      console.log(data)
+      console.log("hola")
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dpb5vf1q1/image/upload",
+        {
+          method: "POST",
+          body: data
+        }
+      )
+      const file = await res.json();
+      console.log(res)
+      // setImage(file.secure_url)
+      setInput({
+        ...input,
+        [e.target.name] : "file.secure_url"
+      })
+      console.log(file.secure_url)
+      setLoading(false)
+    }
+
     
     const handleInput = (e) => {
       setInput({
@@ -100,17 +117,28 @@ const Profile = () => {
     const saveChanges = (e) => {
       e.preventDefault()
       dispatch(updateUserInfo(user.email,input))
-    //   setInput({
-    //     username: "",
-    //     name: "",
-    //     lastname: "",
-    //     telephone: "",
-    //     dni: "",
-    //     nationality: "",
-    //     img: ""
-    // })
     setEdit(!edit)
   }
+
+  const numberPic = () => {
+    let resultado = Math.round(Math.random()*10)
+    if(resultado > 8){
+      resultado = 8
+    }
+    return resultado
+  }
+
+  const arrayPics = [
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil1_ftceos.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil2_qcuyeq.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil3_aeo4th.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil4_cnadk5.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil5_ootzr5.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil6_qo4xku.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212680/cripto/DinoPerfil7_q5n3qh.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212680/cripto/DinoPerfil8_anihxb.png",
+    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212680/cripto/DinoPerfil9_mxcnkj.png",
+  ]
 
   return (
     <div className={style.divAll}>
@@ -122,8 +150,9 @@ const Profile = () => {
           <div className={style.parteUno}>
             
             <div className={style.contFoto}>
-              <img src={logo} alt="foto de perfil" className={style.fotoPerfil}/>
-              <input accept="image/*" id="raised-button-file" multiple type="file" style={{ display: 'none' }} disabled={edit ? true : null} />
+              <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/>
+              {/* <img src={input.img === "" ? arrayPics[numberPic()] : input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
+              <input accept="image/*" id="raised-button-file" multiple type="file" name="img" style={{ display: 'none' }} disabled={edit ? true : null} onChange={uploadImage}/>
               <label htmlFor="raised-button-file">
               <Button variant="raised" component="span" style={{marginLeft: "1rem",marginTop: "2rem", backgroundColor: "#a06aeb55"}} disabled={edit ? true : null}> Upload Image </Button>
               </label> 

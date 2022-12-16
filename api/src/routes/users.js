@@ -34,7 +34,6 @@ function hashFunction(key) {
 
 router.post("/", async (req, res) => {
     const auth = getAuth(firebaseApp);    
-
     const { email, password } = req.body;
     let found = await User.findOne({ where: { email: email } });
     if (found) return res.status(400).send('User does not available');    
