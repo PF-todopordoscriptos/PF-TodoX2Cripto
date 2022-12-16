@@ -1,4 +1,3 @@
-// EDITANDO, NO FUNCIONAL !
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -12,7 +11,6 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
@@ -21,20 +19,16 @@ import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
-
-// const { 
-//   REACT_APP_EMAILJS_SERVICE, 
-//   REACT_APP_EMAILJS_TEMPLATE_PASSWORD,
-//   REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED,
-//   REACT_APP_EMAILJS_PUBLIC_KEY 
-// } = process.env;
 
 export default function AdminDashboardCoins() {
 
+  let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
 
-  let GetAllUsers =  () => {
+  let GetAllCoins =  () => {
     useEffect(() => {
       axios.get('http://localhost:3001/coins/getCoinsFromDB')
       .then((response) => {
@@ -48,17 +42,56 @@ export default function AdminDashboardCoins() {
         qq.forEach(e => ww.push(e))
         setRows(ww)
         console.log("DONE FETCH")
-      }).catch(e => console.log(e))
-    }, []);
-  }  
+      })
+      .then(
+        axios.get('http://localhost:3001/users/allUsers')
+        .then((response) => {
+          let ww = []
+          let qq = response.data.map(function(e) {
+            return {
+              username: e.username,
+              id: e.id,
+              password: e.password,
+              admin: e.admin,
+              disabled: e.disabled,
+              email: e.email,
+              name: e.name
+            }})
+          qq.forEach(e => ww.push(e))
+          console.log("DONE FETCH")
+          onAuthStateChanged(auth, (currentUser) => {
+            setCurrentAdmin({
+              id: ww.filter(e => e.email === currentUser.email)[0].id,
+              email: currentUser.email
+            })
+          })
+        }).catch(e => console.log(e))
+      ).catch(e => console.log(e))
+    }, [])
+  }
+
+  console.log("TEST", currentAdmin)
+
+  const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
+    await axios.post('http://localhost:3001/users/adminChanges', {
+      idAdmin: idAdmin,
+      emailAdmin: emailAdmin,
+      idUser: idUser,
+      emailUser: emailUser,
+      idCoin: idCoin,
+      nameCoin: nameCoin,
+      dataModified: dataModified,
+      newValue: newValue
+    })
+  }
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/coins/modifyCoinDisabled', { 
+    await axios.put('http://localhost:3001/coins/modifyCoinDisabled', {
       id: id,
       disabled: !dis
     })
   }
-  
+
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -115,9 +148,9 @@ export default function AdminDashboardCoins() {
       onRequestSort(event, property);
     };
 
-    return (      
+    return (
       <TableHead>
-        <TableRow>        
+        <TableRow>
           <TableCell padding="checkbox" >
           </TableCell>
           {headCells.map((headCell) => (
@@ -161,7 +194,7 @@ export default function AdminDashboardCoins() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
- 
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -213,7 +246,7 @@ export default function AdminDashboardCoins() {
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-  
+
   // function disabledNotifier( user_email , user_name , dis ) {
   //   emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
   //     user_email: user_email,
@@ -225,48 +258,43 @@ export default function AdminDashboardCoins() {
   //         console.log('SUCCESS!', response.status, response.text);
   //     }, (err) => {
   //         console.log('FAILED...', err);
-  //     }); 
+  //     });
   // }
 
-  GetAllUsers() // CALL FOR FIRST RENDER
-      
+  GetAllCoins() // CALL FOR FIRST RENDER
+
   return (
-    <Box sx={{ width: '100%' , backgroundColor: deepPurple[800] }} >
-      <Box>
-        <TableCell sx={{ borderBottom: 0 , width: '1%' , fontSize: 'large', backgroundColor: deepPurple[200]}} align="center">
-           
-        </TableCell>
+    <Box sx={{ width: '100vw' , backgroundColor: deepPurple[800] }} >
+      <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh' }} align="center" >
       </Box>
-      <Table sx={{ borderBottom: 1}}>
-        <TableRow >
-          <TableCell sx={{ width: '1%' , fontSize: 'large' , padding: '1% 10% 1% 0.5%'}} align="center">
-            <IconButton style={{ color: cyan[200] , borderBottom: 0 }}>
-              <RefreshSharpIcon  fontSize="large" onClick={function() {
-                axios.post('http://localhost:3001/coins/postCoinsAPItoDB')
-                .then((response) => {
-                  let ww = []
-                  let qq = response.data.map(function(e) {
-                    return {
-                      name: e.name,
-                      id: e.id,
-                      disabled: e.disabled
-                    }})
-                  qq.forEach(e => ww.push(e))
-                  setRows(ww)
-                  console.log("DONE FETCH")
-                }).catch(e => console.log(e))
-              }}/>
-            </IconButton>
-             </TableCell>
-            <TableCell sx={{ fontSize: 'large' , padding: '0.3% 0% 0px 0.4%' , height: '3px' , color: "white" }} >
-              GET COINS FROM API TO DB
-            </TableCell>      
-            <TableCell sx={{ width: '55%' , fontSize: 'large' , color: "white"}}>
-              ADMIN DASHBOARD  -  COINS
-            </TableCell>
-        </TableRow>  
-      </Table>      
-      <Paper sx={{ width: '100%', mb: 2 }} >
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
+        <Box  sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '17vw'  }}>
+          <RefreshSharpIcon  fontSize="large" onClick={function() {
+            axios.post('http://localhost:3001/coins/postCoinsAPItoDB')
+            .then((response) => {
+              let ww = []
+              let qq = response.data.map(function(e) {
+                return {
+                  name: e.name,
+                  id: e.id,
+                  disabled: e.disabled
+                }})
+              qq.forEach(e => ww.push(e))
+              setRows(ww)
+              console.log("DONE FETCH")
+            }).catch(e => console.log(e))
+          }}/>
+          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw'}} >
+            GET COINS FROM API TO DB
+          </Box>
+        </Box>
+        <Box sx={{ fontSize: 'large' , color: "white" }}>
+          ADMIN DASHBOARD  -  COINS
+        </Box>
+        <Box  sx={{  width: '8vw' }}  >
+        </Box>
+      </Box>
+      <Paper sx={{ width: '100vw', mb: 2 }} >
         <TableContainer >
           <Table
             sx={{ minWidth: 750 }}
@@ -299,7 +327,7 @@ export default function AdminDashboardCoins() {
                       <TableCell padding="checkbox" >
                       </TableCell>
                       <TableCell
-                      sx={{ width: '15%' }} align="left"
+                      sx={{ width: '11vw' }} align="left"
                         component="th"
                         id={labelId}
                         scope="row"
@@ -310,7 +338,7 @@ export default function AdminDashboardCoins() {
                       <TableCell align="center">
                         {row.id}
                       </TableCell>
-                      <TableCell sx={{ width: '15%' }} align="center"> 
+                      <TableCell sx={{ width: '11vw' }} align="center">
                         <Checkbox /* DISABLED COLUMN */
                           color="primary"
                           checked={row.disabled}
@@ -327,6 +355,7 @@ export default function AdminDashboardCoins() {
                               qq.forEach(e => ww.push(e))
                               setRows(ww)
                               console.log("DONE FETCH")
+                              adminChanges(currentAdmin.id, currentAdmin.email, null, null, row.id, row.name, "COIN DISABLED", !row.disabled)
                               /* disabledNotifier( row.email , row.name , !!row.disabled) */
                             }).catch(e => console.log(e))
                           })}
@@ -357,31 +386,25 @@ export default function AdminDashboardCoins() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <Table>
-        <TableRow sx={{ borderBottom: 0 , width: '1%', fontSize: 'large' , backgroundColor: deepPurple[100] }} >
-          <TableCell align='center'>
-            <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  Coin is disabled     <Checkbox color="primary" checked={false}/>=  Coin is not disabled
-          </TableCell>
-        </TableRow>
-      </Table>
-      <Table>
-        <TableRow /* sx={{ borderBottom: 0}} */ >
-          <TableCell sx={{ borderBottom: 1 , width: '0%' }}></TableCell>
-          <TableCell sx={{ borderBottom: 1 , width: '10%' }}>
-            <FormControlLabel  
-              sx={{ color: "white" , borderBottom: 0 }}
-              control={<Switch checked={dense} onChange={handleChangeDense} />}
-              label="Shrink Rows"              
-            />
-          </TableCell>            
-          <TableCell sx={{ borderBottom: 0 , align: "left", width: '55%', fontSize: 'large' , color: "white" }} align='center'>
-            Warning ! Every change you made will automatically impact in database !
-          </TableCell>
-          <TableCell sx={{ borderBottom: 0 , align: "left", width: '12%', fontSize: 'large' , color: "white" }}>
-            ©  2022  CripTornado
-          </TableCell>          
-        </TableRow>
-      </Table>
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '7vh' , backgroundColor: deepPurple[100] }} >
+        <Box>
+          <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  Coin is disabled     <Checkbox color="primary" checked={false}/>=  Coin is not disabled
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '9vh' , backgroundColor: deepPurple[800]}}>
+        <Box sx={{ color: "white" }}>
+          <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Shrink Rows"
+          />
+        </Box>
+        <Box sx={{ color: "white" }}>
+          Warning ! Every change you made will automatically impact in database !
+        </Box>
+        <Box sx={{ color: "white" }}>
+          ©  2022  CripTornado
+        </Box>
+      </Box>
     </Box>
   );
 }
