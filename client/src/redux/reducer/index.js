@@ -200,7 +200,7 @@ function rootReducer(state = initialState, action) {
     case UPDATE_USER_INFO:
       return{
         ...state,
-        userInfo: state.user.info.concat(action.payload)
+        userInfo: action.payload
       }
 
     default:

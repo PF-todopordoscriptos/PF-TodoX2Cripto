@@ -7,7 +7,9 @@ const {
   modifyUserPassword,
   getUserById,
   getUserByEmail,
-  updateUser
+  updateUser,
+  postAdminChanges,
+  getAllAdminChanges
 } = require("../controllers/controllers.js");
 
 
@@ -33,10 +35,12 @@ function hashFunction(key) {
 }
 
 router.post("/", async (req, res) => {
+
     const auth = getAuth(firebaseApp);    
+
     const { email, password } = req.body;
     let found = await User.findOne({ where: { email: email } });
-    if (found) return res.status(400).send('User does not available');    
+    if (found) return res.status(400).send('User does not available');
     try {
       // const { user } = await createUserWithEmailAndPassword(
       //   auth,
@@ -48,12 +52,12 @@ router.post("/", async (req, res) => {
         email,
         //password: hashFunction(password),
       });
-      
+
       const actionCodeSettings = {
         url: 'http://localhost:3000/',
         handleCodeInApp: true,
       };
-      
+
       sendSignInLinkToEmail(auth, email, actionCodeSettings);
       res.status(200).json({ msg: 'User create!' });
     } catch(e) {
@@ -130,6 +134,15 @@ router.put("/modifyUserPassword", async (req, res) => {
   }
 });
 
+router.get("/allAdminChanges", async (req, res) => {
+  try {
+    const allChanges = await getAllAdminChanges();
+    res.status(200).send(allChanges);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+
 router.get("/:oneUser", async (req,res) => {
   const {oneUser} = req.params
   try{
@@ -150,6 +163,21 @@ router.put("/:email", async (req,res) => {
     res.status(404).send(e.message)
   }
 })
+
+router.post("/adminChanges", async (req, res) => {
+  const {
+    idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue
+  } = req.body;
+  try {
+    const saveLog = await postAdminChanges(
+      idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin, dataModified, newValue)
+    return res.status(200).send(saveLog);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+
+
 
 module.exports = router;
 

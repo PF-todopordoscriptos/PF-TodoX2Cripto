@@ -18,6 +18,7 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import FormLogin from "./components/FormLogin/FormLogin";
 import AdminDashboardCoins from "../src/components/AdminDashboardCoins/AdminDashboardCoins";
 import AdminDashboardUsers from "../src/components/AdminDashboardUsers/AdminDashboardUsers";
+import AdminDashboardChanges from "../src/components/AdminDashboardChanges/AdminDashboardChanges";
 
 const theme = createTheme({
   typography: {
@@ -75,6 +76,7 @@ function App() {
             <Route path={"/comparative"} element={<Comparative />} />
             <Route path={"/admincoins"} element={<AdminDashboardCoins />} />
             <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
+            <Route path={"/adminchanges"} element={<AdminDashboardChanges />} />
             <Route path="/errorpage" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/errorpage" replace />} />
           </Routes>
