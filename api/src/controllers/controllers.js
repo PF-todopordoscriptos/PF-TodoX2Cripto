@@ -307,11 +307,11 @@ async function updateUser(
   nationality,
   img
 ) {
-  let userDB = await User.findOne({
-    where: {
-      username: username.toLowerCase().trim(),
-    },
-  });
+  // let userDB = await User.findOne({
+  //   where: {
+  //     username: username.toLowerCase().trim(),
+  //   },
+  // });
 
   // if (userDB) {
   //   throw new Error("username is not available");

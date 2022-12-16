@@ -11,13 +11,13 @@ const LandingPag = () => {
     const dispatch = useDispatch();
     const trendingCoins = useSelector((state) => state.trendingCoins);
     const trendingNews = useSelector((state) => state.trendingNews.slice(0,8))
-    // const trendingNewsEight = trendingNews.slice(0,7)
 
     React.useEffect(() => {
         dispatch(getTrendingCoins());
         dispatch(getTrendingNews())
       }, [dispatch]);
 
+      // console.log(trendingNews[0]["title"])
   return (
     <div className={style.all}>
 

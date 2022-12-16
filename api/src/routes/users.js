@@ -35,7 +35,8 @@ function hashFunction(key) {
 }
 
 router.post("/", async (req, res) => {
-    const auth = getAuth(firebaseApp);
+
+    const auth = getAuth(firebaseApp);    
 
     const { email, password } = req.body;
     let found = await User.findOne({ where: { email: email } });
