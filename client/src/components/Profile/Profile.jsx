@@ -79,6 +79,19 @@ const Profile = () => {
       img: ""
     })
 
+    React.useEffect(() => {
+      setInput({
+        username: userInfo !== "" ? userInfo.username : "",
+        name: userInfo.name,
+        lastname: userInfo.lastname,
+        telephone: userInfo.telephone,
+        dni: userInfo.dni,
+        nationality: userInfo.nationality,
+      })
+      console.log("userinfo2")
+      console.log(userInfo2)
+    },[dispatch, userInfo2])
+
 
     const [loading, setLoading] = useState(false);
     const [image,setImage] = useState("")
@@ -103,27 +116,11 @@ const Profile = () => {
       // setImage(file.secure_url)
       setInput({
         ...input,
-        [e.target.name] : "file.secure_url"
+        [e.target.name] : file.secure_url
       })
       console.log(file.secure_url)
       setLoading(false)
     }
-
-
-    React.useEffect(() => {
-      setInput({
-        username: userInfo !== "" ? userInfo.username : "",
-        name: userInfo.name,
-        lastname: userInfo.lastname,
-        telephone: userInfo.telephone,
-        dni: userInfo.dni,
-        nationality: userInfo.nationality,
-        img: ""
-      })
-      console.log("userinfo2")
-      console.log(userInfo2)
-    },[dispatch, userInfo2])
-
     
     const handleInput = (e) => {
       setInput({
@@ -183,8 +180,9 @@ const Profile = () => {
           <div className={style.parteUno}>
             
             <div className={style.contFoto}>
-              <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/>
-              {/* <img src={input.img === "" ? arrayPics[numberPic()] : input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
+              {/* <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
+              <img src={input.img !== "" ? input.img : arrayPics[Math.round(Math.random()*10)]}
+              alt="foto de perfil" className={style.fotoPerfil}/>
               <input accept="image/*" id="raised-button-file" multiple type="file" name="img" style={{ display: 'none' }} disabled={edit ? true : null} onChange={uploadImage}/>
               <label htmlFor="raised-button-file">
               <Button variant="raised" component="span" style={{marginLeft: "1rem",marginTop: "2rem", backgroundColor: "#a06aeb55"}} disabled={edit ? true : null}> Upload Image </Button>
