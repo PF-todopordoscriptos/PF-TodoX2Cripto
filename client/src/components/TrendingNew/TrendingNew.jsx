@@ -3,6 +3,7 @@ import style from "./TrendingNew.module.css"
 // import { Link } from "react-router-dom";
 
 
+
 const TrendingNew = (props) => {
     // let pais = props.country[0].charAt(0).toLowerCase()
     return (

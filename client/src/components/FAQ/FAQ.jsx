@@ -7,7 +7,7 @@ import MuiAccordionDetails from '@material-ui/core/AccordionDetails'
 import { Typography } from "@mui/material";
 import { withStyles } from "@material-ui/core/styles";
 import './FAQ.css'
-import Navbar from "../Navbar/Navbar";
+// import Navbar from "../Navbar/Navbar";
 import { HiChevronDown } from "react-icons/hi2";
 
 const Accordion = withStyles({

@@ -11,6 +11,7 @@ const TrendingCard = (props) => {
     <div className={style.contTrending}>
 
         <img src={props.image} alt="img" className={style.stImage}/>
+        <img src={props.image} className={style.stImage} alt="style imag"/>
 
         <div className={style.contText}>
 
@@ -25,7 +26,9 @@ const TrendingCard = (props) => {
         </div>
 
         <div className={style.contCap}>
+
         <img src={flecha} alt="flecha" className={style.stFlecha}/>
+
         <h4 className={style.stCap}>{props.market_cap}</h4>
         </div>
 

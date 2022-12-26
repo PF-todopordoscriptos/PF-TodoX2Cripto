@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 // import { useAuth0 } from "@auth0/auth0-react"
-import { getUserInfo, postUser, updateUserInfo } from "../../redux/actions/index.js"
-// import { postUserGoogle } from "../../redux/actions/index.js"
+
+import { getUserInfo, postUser, postUserGoogle, updateUserInfo } from "../../redux/actions/index.js"
 
 import style from "./Profile.module.css"
 import TextField from '@mui/material/TextField';
-// import logo from "../../Images/logoGoogle.png"
 import SelectNat from '../SelectNat/SelectNat';
 
 import {
@@ -59,7 +58,7 @@ const Profile = () => {
               })
         }
       })
-    }, []);
+    }, [dispatch, userInfo]);
     
     console.log(auth)
     console.log(user) 
@@ -95,6 +94,7 @@ const Profile = () => {
 
 
     const [loading, setLoading] = useState(false);
+    // const [image,setImage] = useState("")
 
     const uploadImage = async(e) => {
       const files = e.target.files;
@@ -157,7 +157,7 @@ const Profile = () => {
   //     resultado = 8
   //   }
   //   return resultado
-  // }
+
 
   const arrayPics = [
     "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil1_ftceos.png",
@@ -201,6 +201,7 @@ const Profile = () => {
           <div className={style.contLapiz}>
             {
               edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt="lapiz"/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt="lapiz"/>
+              edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt='Editar Habilitado'/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt='Editar Deshabilitado'/>
             }
 
           </div>
@@ -225,7 +226,7 @@ const Profile = () => {
 
       <div className={style.divDinosaurio}>
       <marquee  behavior="scroll" direction="left">
-        <img className={style.dinosaurio} src='https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s'/>
+        <img className={style.dinosaurio} src='https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s'alt='Dinosaurio con onda'/>
         </marquee>
       </div>
 

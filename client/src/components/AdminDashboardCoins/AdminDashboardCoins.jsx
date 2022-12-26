@@ -18,7 +18,7 @@ import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
-import emailjs from '@emailjs/browser';
+// import emailjs from '@emailjs/browser';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();

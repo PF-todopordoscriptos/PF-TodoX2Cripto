@@ -9,9 +9,10 @@ import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 import style from "./Home.module.css";
 
+
 import DinoError404 from "../../Images/DinoError404.jpg";
 
-import { Link, Pagination, Stack, Typography } from "@mui/material";
+import {  Pagination, Stack, Typography } from "@mui/material";
 
 import Filter from "../Filter/Filter";
 
