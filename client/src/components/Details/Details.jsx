@@ -8,7 +8,7 @@ import Comparative from "../Comparative/Comparative";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import style from "./Details.module.css";
 import "./DetailsBackground.css";
-import Rex from "../../Images/Rex.png";
+// import Rex from "../../Images/Rex.png";
 
 const Details = (props) => {
   const dispatch = useDispatch();

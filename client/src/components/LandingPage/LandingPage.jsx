@@ -7,7 +7,7 @@ import Grid from "@mui/system/Unstable_Grid";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import Brontosaurio from "../../Images/Brontosaurio.png";
+// import Brontosaurio from "../../Images/Brontosaurio.png";
 import "./LandingPage.css";
 
 const LandingPage = () => {

@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import LandingPage from "./components/LandingPage/LandingPage";
+
 import LandingPag from "./components/LandingPag/LandingPag";
 import Footer from "./components/Footer/Footer.jsx";
 import FAQ from "./components/FAQ/FAQ.jsx";
@@ -8,7 +8,7 @@ import Chart from "./components/Chart/Chart";
 import Home from "./components/Home/Home";
 import Details from "./components/Details/Details";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Profile from "./components/Profile/Profile";
+
 import Navbar from "./components/Navbar/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
@@ -40,7 +40,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        {/* <h1>TODO POR 2 CRIPTO</h1> */}
+     
         <BrowserRouter>
           <Routes>
             <Route
@@ -48,7 +48,7 @@ function App() {
               element={
                 <>
                   <Navbar />
-                  {/* <LandingPage /> */}
+                 
                   <LandingPag/>
                   <Footer />
                 </>

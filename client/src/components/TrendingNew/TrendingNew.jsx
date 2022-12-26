@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./TrendingNew.module.css"
-import { Link } from "react-router-dom";
+
 
 
 const TrendingNew = (props) => {
