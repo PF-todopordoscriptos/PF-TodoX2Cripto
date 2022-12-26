@@ -1,8 +1,9 @@
 .cont{
     display: flex;
+    flex-direction: column;
 }
 
 .contButtons{
-    margin-left: 3vh;
+    /* margin-left: 3vh; */
     margin-top: 3vh;
 }

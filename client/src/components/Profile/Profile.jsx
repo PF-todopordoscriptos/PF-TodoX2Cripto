@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useAuth0 } from "@auth0/auth0-react"
-import { getUserInfo, postUser, postUserGoogle, updateUserInfo } from "../../redux/actions/index.js"
+// import { useAuth0 } from "@auth0/auth0-react"
+import { getUserInfo, postUser, updateUserInfo } from "../../redux/actions/index.js"
+// import { postUserGoogle } from "../../redux/actions/index.js"
 
 import style from "./Profile.module.css"
 import TextField from '@mui/material/TextField';
-import logo from "../../Images/logoGoogle.png"
+// import logo from "../../Images/logoGoogle.png"
 import SelectNat from '../SelectNat/SelectNat';
 
 import {
-  signOut,
+  // signOut,
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
@@ -94,7 +95,6 @@ const Profile = () => {
 
 
     const [loading, setLoading] = useState(false);
-    const [image,setImage] = useState("")
 
     const uploadImage = async(e) => {
       const files = e.target.files;
@@ -102,6 +102,7 @@ const Profile = () => {
       data.append("file", files[0]);
       data.append("upload_preset", "cripto");
       setLoading(true);
+      console.log(loading)
       console.log(data)
       console.log("hola")
       const res = await fetch(
@@ -150,13 +151,13 @@ const Profile = () => {
     setEdit(!edit)
   }
 
-  const numberPic = () => {
-    let resultado = Math.round(Math.random()*10)
-    if(resultado > 8){
-      resultado = 8
-    }
-    return resultado
-  }
+  // const numberPic = () => {
+  //   let resultado = Math.round(Math.random()*10)
+  //   if(resultado > 8){
+  //     resultado = 8
+  //   }
+  //   return resultado
+  // }
 
   const arrayPics = [
     "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil1_ftceos.png",
@@ -199,7 +200,7 @@ const Profile = () => {
             
           <div className={style.contLapiz}>
             {
-              edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`}/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`}/>
+              edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt="lapiz"/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt="lapiz"/>
             }
 
           </div>

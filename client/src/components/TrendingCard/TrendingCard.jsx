@@ -10,7 +10,7 @@ const TrendingCard = (props) => {
         <Link to={`/details/${props.id}`} underline="none">
     <div className={style.contTrending}>
 
-        <img src={props.image} className={style.stImage}/>
+        <img src={props.image} alt="img" className={style.stImage}/>
 
         <div className={style.contText}>
 
@@ -25,7 +25,7 @@ const TrendingCard = (props) => {
         </div>
 
         <div className={style.contCap}>
-        <img src={flecha} className={style.stFlecha}/>
+        <img src={flecha} alt="flecha" className={style.stFlecha}/>
         <h4 className={style.stCap}>{props.market_cap}</h4>
         </div>
 
