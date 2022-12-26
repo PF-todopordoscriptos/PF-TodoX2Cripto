@@ -17,6 +17,7 @@ import {
   GET_USER_INFO,
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
+  SET_THEME_MODE
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -141,8 +142,12 @@ export const postUserGoogle = (user) => {
   };
 };
 
-
-
+export function setThemeMode(payload) {
+  return {
+    type: SET_THEME_MODE,
+    payload
+  }
+};
 
 export function createReview(review, id) {
   return async function (dispatch) {
