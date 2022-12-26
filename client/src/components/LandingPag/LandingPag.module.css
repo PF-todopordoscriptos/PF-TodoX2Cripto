@@ -1,7 +1,7 @@
 .all{
   display: flex;
   flex-direction: column;
-  background-image: url("../../Images/Brontosaurio.png");
+  /* background-image: url("../../Images/Brontosaurio.png"); */
   background-repeat: no-repeat;
   background-position: 100% 0;
   padding-bottom: 50px;

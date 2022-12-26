@@ -15,7 +15,8 @@ import {
   GET_REVIEW,
   GET_USER_INFO,
   UPDATE_USER_INFO,
-  GET_TRENDING_NEWS
+  GET_TRENDING_NEWS,
+  SET_THEME_MODE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
   reviews: [],
   userInfo: [],
   user: {},
+  themeMode: 'light'
 };
 
 function rootReducer(state = initialState, action) {
@@ -202,6 +204,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         userInfo: action.payload
       }
+
+    case SET_THEME_MODE:
+    return {
+      ...state,
+      themeMode: action.payload
+    }
 
     default:
       return state;
