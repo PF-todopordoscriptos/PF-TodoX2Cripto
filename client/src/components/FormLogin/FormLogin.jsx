@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import clsx from 'clsx';
 
 import style from "./FormLogin.module.css";
 import "./FormLoginBackground.css";
 import TextField from "@mui/material/TextField";
 
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../firebase/firebaseConfig";
@@ -39,9 +38,9 @@ import Swal from "sweetalert2";
 
 const FormLogin = () => {
   const history = useNavigate();
-  const dispatch = useDispatch();
 
-  const [contador, setContador] = useState(1);
+
+  // const [contador, setContador] = useState(1);
   const [handleChangePassword, sethandleChangePassword] = useState(false);
 
   const [registered, setRegistered] = useState({
@@ -58,15 +57,15 @@ const FormLogin = () => {
   const [errorsSig, setErrorsSig] = useState();
   const [errorsPass, setErrorsPass] = useState();
 
-  const setNext = () => {
-    setContador(contador + 1);
-    console.log(contador);
-  };
+  // const setNext = () => {
+  //   setContador(contador + 1);
+  //   console.log(contador);
+  // };
 
-  const setPrev = () => {
-    setContador(contador - 1);
-    console.log(contador);
-  };
+  // const setPrev = () => {
+  //   setContador(contador - 1);
+  //   console.log(contador);
+  // };
 
   const changePasswordForm = () => {
     sethandleChangePassword(!handleChangePassword);

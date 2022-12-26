@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
 import style from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import MaterialUISwitch from "./Switch";
@@ -32,7 +32,7 @@ const Navbar = () => {
         setUser(null);
       }
     });
-  }, []);
+  }, [user]);
 
   const handleSignOut = () => {
     signOut(auth);

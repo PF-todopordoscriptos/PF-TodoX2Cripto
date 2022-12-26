@@ -4,11 +4,10 @@ import { getAllCoins } from "../../redux/actions";
 import CoinCard from "../CoinCard/CoinCard";
 import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
-import style from "./Home.css";
 
 import DinoError404 from "../../Images/DinoError404.jpg";
 
-import { Link, Pagination, Stack, Typography } from "@mui/material";
+import {  Pagination, Stack, Typography } from "@mui/material";
 
 import Filter from "../Filter/Filter";
 
