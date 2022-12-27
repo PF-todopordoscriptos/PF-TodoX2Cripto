@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 // import { useAuth0 } from "@auth0/auth0-react"
+
 import { getUserInfo, postUser, postUserGoogle, updateUserInfo } from "../../redux/actions/index.js"
 
 import style from "./Profile.module.css"
@@ -101,6 +102,7 @@ const Profile = () => {
       data.append("file", files[0]);
       data.append("upload_preset", "cripto");
       setLoading(true);
+      console.log(loading)
       console.log(data)
       console.log("hola")
       const res = await fetch(
@@ -155,7 +157,7 @@ const Profile = () => {
   //     resultado = 8
   //   }
   //   return resultado
-  // } /*para que es esto?*/
+
 
   const arrayPics = [
     "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil1_ftceos.png",
@@ -198,6 +200,7 @@ const Profile = () => {
             
           <div className={style.contLapiz}>
             {
+              edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt="lapiz"/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt="lapiz"/>
               edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt='Editar Habilitado'/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt='Editar Deshabilitado'/>
             }
 

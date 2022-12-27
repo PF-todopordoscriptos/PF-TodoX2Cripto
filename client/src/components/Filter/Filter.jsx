@@ -84,7 +84,7 @@ const Filter = ({ setCurrentPage, setOrder, setCoin }) => {
   return (
     <div className={style.cont}>
 
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Quotes</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
