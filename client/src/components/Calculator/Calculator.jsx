@@ -11,7 +11,6 @@ const Calculator = () => {
     dispatch(getAllCoins());
   }, [dispatch]);
   const allCoins = useSelector((state) => state.allCoins);
-  console.log(allCoins);
 
   const [coin, setCoin] = useState({});
   const [price, setPrice] = useState("");

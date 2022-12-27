@@ -7,13 +7,19 @@ import { useNavigate } from "react-router-dom";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import MaterialUISwitch from "./Switch";
-import { FormGroup , FormControlLabel , Box , Typography , Button , Switch } from "@mui/material";
-import { useSelector , useDispatch } from 'react-redux';
-import { setThemeMode } from '../../redux/actions';
+import {
+  FormGroup,
+  FormControlLabel,
+  Box,
+  Typography,
+  Button,
+  Switch,
+} from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { setThemeMode } from "../../redux/actions";
 
 const Navbar = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const history = useNavigate();
   //const {user, isAuthenticated} = useAuth0()
@@ -39,40 +45,114 @@ const Navbar = () => {
     history("/home");
   };
 
-  const themeMode = useSelector( state => state.themeMode )
+  const themeMode = useSelector((state) => state.themeMode);
 
   return (
-    <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '13vh' , backgroundColor: "navbar.background" , padding: '0vw 1vw 0vw'}}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "13vh",
+        backgroundColor: "navbar.background",
+        padding: "0vw 1vw 0vw",
+      }}
+    >
       <div className={style.contLogo}>
         <Link to="/home">
           <img src={IMG} alt="logo" className={style.logo} />
         </Link>
       </div>
       <div className={style.contSwitch}>
-        <FormGroup >
+        <FormGroup>
           <FormControlLabel
-            control={<MaterialUISwitch sx={{ m: 1 }}
-              checked={themeMode === 'light' ? false : true}
-              onChange={ () => themeMode === 'light' ? dispatch(setThemeMode('dark')) : dispatch(setThemeMode('light')) }
-            />}
+            control={
+              <MaterialUISwitch
+                sx={{ m: 1 }}
+                checked={themeMode === "light" ? false : true}
+                onChange={() =>
+                  themeMode === "light"
+                    ? dispatch(setThemeMode("dark"))
+                    : dispatch(setThemeMode("light"))
+                }
+              />
+            }
           />
         </FormGroup>
       </div>
       <Box className={style.butonsAuth}>
         {user ? (
-          <Box sx={{ display: 'flex' , flexDirection: 'row' , width: '15vw' , alignItems: 'center'}} className={style.flexBoton}>
-            <Link  to="/profile">
-              <Button sx={{ ':hover': {backgroundColor: 'navbar.button.:hover.background' , color: 'navbar.button.:hover.text'} , color: "navbar.button.text" , backgroundColor: 'navbar.button.background' , margin: '0.3vw' , height: '5vh' , width: '6vw' , fontWeight: 'bold' , fontSize: 16 , textTransform: 'none'}} className={style.boton} >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "15vw",
+              alignItems: "center",
+            }}
+            className={style.flexBoton}
+          >
+            <Link to="/profile">
+              <Button
+                sx={{
+                  ":hover": {
+                    backgroundColor: "navbar.button.:hover.background",
+                    color: "navbar.button.:hover.text",
+                  },
+                  color: "navbar.button.text",
+                  backgroundColor: "navbar.button.background",
+                  margin: "0.3vw",
+                  height: "5vh",
+                  width: "6vw",
+                  fontWeight: "bold",
+                  fontSize: 16,
+                  textTransform: "none",
+                }}
+                className={style.boton}
+              >
                 My Profile
               </Button>
             </Link>
-            <Button sx={{ ':hover': {backgroundColor: 'navbar.button.:hover.background' , color: 'navbar.button.:hover.text'} , color: "navbar.button.text" , backgroundColor: 'navbar.button.background' , margin: '0.3vw' , height: '5vh' , width: '6vw' , fontWeight: 'bold' , fontSize: 16 , textTransform: 'none'}} className={style.boton} >
+            <Button
+              onClick={handleSignOut}
+              sx={{
+                ":hover": {
+                  backgroundColor: "navbar.button.:hover.background",
+                  color: "navbar.button.:hover.text",
+                },
+                color: "navbar.button.text",
+                backgroundColor: "navbar.button.background",
+                margin: "0.3vw",
+                height: "5vh",
+                width: "6vw",
+                fontWeight: "bold",
+                fontSize: 16,
+                textTransform: "none",
+              }}
+              className={style.boton}
+            >
               Log Out
             </Button>
           </Box>
         ) : (
           <Link to="/login">
-            <Button sx={{ ':hover': {backgroundColor: 'navbar.button.:hover.background' , color: 'navbar.button.:hover.text'} , color: "navbar.button.text" , backgroundColor: 'navbar.button.background' , margin: '0.3vw' , height: '5vh' , width: '6vw' , fontWeight: 'bold' , fontSize: 16 , textTransform: 'none'}} className={style.boton} >
+            <Button
+              sx={{
+                ":hover": {
+                  backgroundColor: "navbar.button.:hover.background",
+                  color: "navbar.button.:hover.text",
+                },
+                color: "navbar.button.text",
+                backgroundColor: "navbar.button.background",
+                margin: "0.3vw",
+                height: "5vh",
+                width: "6vw",
+                fontWeight: "bold",
+                fontSize: 16,
+                textTransform: "none",
+              }}
+              className={style.boton}
+            >
               Log In
             </Button>
           </Link>
