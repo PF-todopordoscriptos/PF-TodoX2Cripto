@@ -53,7 +53,7 @@ const Navbar = () => {
           <FormControlLabel
             control={<MaterialUISwitch sx={{ m: 1 }}
               checked={themeMode === 'light' ? false : true}
-              onChange={ () => themeMode === 'light' ? dispatch(setThemeMode('dark')) : dispatch(setThemeMode('light')) }
+              onClick={ () => themeMode === 'light' ? dispatch(setThemeMode('dark')) : dispatch(setThemeMode('light')) }
             />}
           />
         </FormGroup>
