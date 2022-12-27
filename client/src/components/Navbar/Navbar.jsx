@@ -67,17 +67,12 @@ const Navbar = () => {
       <div className={style.contSwitch}>
         <FormGroup>
           <FormControlLabel
-            control={
-              <MaterialUISwitch
-                sx={{ m: 1 }}
-                checked={themeMode === "light" ? false : true}
-                onChange={() =>
-                  themeMode === "light"
-                    ? dispatch(setThemeMode("dark"))
-                    : dispatch(setThemeMode("light"))
-                }
-              />
-            }
+
+            control={<MaterialUISwitch sx={{ m: 1 }}
+              checked={themeMode === 'light' ? false : true}
+              onClick={ () => themeMode === 'light' ? dispatch(setThemeMode('dark')) : dispatch(setThemeMode('light')) }
+            />}
+
           />
         </FormGroup>
       </div>
