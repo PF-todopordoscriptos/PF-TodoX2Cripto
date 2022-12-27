@@ -147,10 +147,10 @@ function App() {
               <Route path="/login" element={ <><Navbar /> <FormLogin /> <Footer /></> } />
               <Route path="/FAQ" element={<><Navbar /> <FAQ /> <Footer /> </>} />
               <Route path="/chart/:id" element={<Chart />} />
-              <Route path="/details/:id" element={<Details />} />
+              <Route path="/details/:id" element={<><Navbar /> <Details /> <Footer /> </> } />
               <Route path={"/profile"} element={ <><Navbar />  <ProtectedRoute /> <Footer /></> } />
               <Route path={"/FAQ"} element={<Navbar />} />
-              <Route path={"/details/:id"} element={<Navbar />} />
+              {/* <Route path={"/details/:id"} element={<Navbar />} /> */}
               <Route path={"/calculator"} element={<><Navbar /> <Calculator /> <Footer /> </>} />
               <Route path={"/comparative"} element={<Comparative />} />
               <Route path={"/admincoins"} element={<AdminDashboardCoins />} />

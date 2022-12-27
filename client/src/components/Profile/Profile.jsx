@@ -201,6 +201,8 @@ const Profile = () => {
           <div className={style.contLapiz}>
             {
               edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt="lapiz"/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt="lapiz"/>
+            }
+            {
               edit ? <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt='Editar Habilitado'/> : <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt='Editar Deshabilitado'/>
             }
 
