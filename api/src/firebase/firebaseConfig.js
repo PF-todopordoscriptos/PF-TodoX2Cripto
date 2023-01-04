@@ -6,12 +6,12 @@ const { getAuth } = require("firebase/auth");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCHxWaDc7lZ76US3CEzk69NUjShv63hJUU",
-  authDomain: "cripto-henry.firebaseapp.com",
-  projectId: "cripto-henry",
-  storageBucket: "cripto-henry.appspot.com",
-  messagingSenderId: "655606830570",
-  appId: "1:655606830570:web:ae143443a261b911820e93"
+  apiKey: "AIzaSyBeHSvqz_em9AXWAJ3eaVsh5awjUV5zXkw",
+  authDomain: "todox2cripto.firebaseapp.com",
+  projectId: "todox2cripto",
+  storageBucket: "todox2cripto.appspot.com",
+  messagingSenderId: "211613892756",
+  appId: "1:211613892756:web:0056094c3ac93a53113481"
 };
 
 // Initialize Firebase
