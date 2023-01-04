@@ -8,7 +8,7 @@ import FAQ from "./components/FAQ/FAQ.jsx";
 import Chart from "./components/Chart/Chart";
 import Home from "./components/Home/Home";
 import Details from "./components/Details/Details";
-
+import Profile from "./components/Profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import Comparative from "./components/Comparative/Comparative";
@@ -183,15 +183,9 @@ function App() {
             <Route path="/chart/:id" element={<Chart />} />
             <Route element={<ProtectedRoute user={user} />}>
               <Route path="/details/:id" element={<Details />} />
+              <Route path={"/profile"} element={<Profile />} />
             </Route>
-            <Route
-              path={"/profile"}
-              element={
-                <>
-                  <Navbar /> <ProtectedRoute /> <Footer />
-                </>
-              }
-            />
+
             <Route path={"/FAQ"} element={<Navbar />} />
             <Route path={"/details/:id"} element={<Navbar />} />
             <Route

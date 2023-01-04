@@ -9,82 +9,79 @@ const {
   getUserByEmail,
   updateUser,
   postAdminChanges,
-  getAllAdminChanges
+  getAllAdminChanges,
 } = require("../controllers/controllers.js");
 
-
-const { User } = require('../db');
+const { User } = require("../db");
 //const { uuid } = require('uuidv4');
-const { firebaseApp } = require('../firebase/firebaseConfig.js');
-const { Op } = require('sequelize');
+const { firebaseApp } = require("../firebase/firebaseConfig.js");
+const { Op } = require("sequelize");
 const {
-	createUserWithEmailAndPassword,
-	getAuth,
-	sendSignInLinkToEmail,
-} = require('firebase/auth');
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendSignInLinkToEmail,
+} = require("firebase/auth");
 
 const router = Router();
 
-
 function hashFunction(key) {
-  const splittedWord = key.toLowerCase().split('');
+  const splittedWord = key.toLowerCase().split("");
   const codes = splittedWord.map(
     (letter) => `${letter}${String(letter).charCodeAt(0)}`
   );
-  return codes.join('');
+  return codes.join("");
 }
 
 router.post("/", async (req, res) => {
+  const auth = getAuth(firebaseApp);
 
-    const auth = getAuth(firebaseApp);    
+  const { email, password } = req.body;
+  let found = await User.findOne({ where: { email: email } });
+  if (found) return res.status(400).send("User does not available");
+  try {
+    // const { user } = await createUserWithEmailAndPassword(
+    //   auth,
+    //   email,
+    //   password
+    // );
+    const newUser = await User.create({
+      //id: user.uid,
+      email,
+      //password: hashFunction(password),
+    });
 
-    const { email, password } = req.body;
-    let found = await User.findOne({ where: { email: email } });
-    if (found) return res.status(400).send('User does not available');
-    try {
-      // const { user } = await createUserWithEmailAndPassword(
-      //   auth,
-      //   email,
-      //   password
-      // );
-      const newUser = await User.create({
-        //id: user.uid,
-        email,
-        //password: hashFunction(password),
-      });
+    const actionCodeSettings = {
+      url: "http://localhost:3000/",
+      handleCodeInApp: true,
+    };
 
-      const actionCodeSettings = {
-        url: 'http://localhost:3000/',
-        handleCodeInApp: true,
-      };
-
-      sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      res.status(200).json({ msg: 'User create!' });
-    } catch(e) {
-      res.status(400).json(console.log(e));
-    }
-
+    sendSignInLinkToEmail(auth, email, actionCodeSettings);
+    res.status(200).json({ msg: "User create!" });
+  } catch (e) {
+    res.status(400).json(console.log(e));
+  }
 });
 
 router.post("/loginWithGoogle", async (req, res) => {
   const { email, password } = req.body;
   try {
     let found = await User.findOne({ where: { email: email } });
-    if(found?.available === false) return res.status(400).send('User does not available');
+    if (found?.available === false)
+      return res.status(400).send("User does not available");
 
-    if(req.query.google && !found) {
+    if (req.query.google && !found) {
       const newUser = await User.create({
         //id: user.uid,
         email,
         password: hashFunction(password),
-      })
-      console.log(newUser)
-      return res.json(newUser)
+      });
+      console.log(newUser);
+      return res.json(newUser);
     }
     if (found) {
       return res.status(200).send(found);
     } else {
-      return res.status(404).send({ msg: 'sorry, this email is not exist' });
+      return res.status(404).send({ msg: "sorry, this email is not exist" });
     }
   } catch (error) {
     res.status(400).send(error);
@@ -101,6 +98,13 @@ router.get("/allUsers", async (req, res) => {
   }
 });
 
+router.put("/addCoinsUser", async (req, res) => {
+  const { id } = req.body;
+  try {
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
 router.put("/modifyUserAdmin", async (req, res) => {
   const { id, admin } = req.body;
   try {
@@ -143,41 +147,63 @@ router.get("/allAdminChanges", async (req, res) => {
   }
 });
 
-router.get("/:oneUser", async (req,res) => {
-  const {oneUser} = req.params
-  try{
-    const userFind = await getUserByEmail(oneUser)
-    res.status(200).send(userFind)
-  }catch(e){
-    res.status(400).send("email no encontrado")
+router.get("/:oneUser", async (req, res) => {
+  const { oneUser } = req.params;
+  try {
+    const userFind = await getUserByEmail(oneUser);
+    res.status(200).send(userFind);
+  } catch (e) {
+    res.status(400).send("email no encontrado");
   }
-})
+});
 
-router.put("/:email", async (req,res) => {
-  try{
-    const {email} = req.params
-    const {username,name, lastname, telephone, dni, nationality, img} = req.body
-    const userUpdate = await updateUser(email,username,name, lastname, telephone, dni, nationality, img)
-    res.status(200).send(`${userUpdate} users modified`)
-  }catch(e){
-    res.status(404).send(e.message)
+router.put("/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const { username, name, lastname, telephone, dni, nationality, img } =
+      req.body;
+    const userUpdate = await updateUser(
+      email,
+      username,
+      name,
+      lastname,
+      telephone,
+      dni,
+      nationality,
+      img
+    );
+    res.status(200).send(`${userUpdate} users modified`);
+  } catch (e) {
+    res.status(404).send(e.message);
   }
-})
+});
 
 router.post("/adminChanges", async (req, res) => {
   const {
-    idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue
+    idAdmin,
+    emailAdmin,
+    idUser,
+    emailUser,
+    idCoin,
+    nameCoin,
+    dataModified,
+    newValue,
   } = req.body;
   try {
     const saveLog = await postAdminChanges(
-      idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin, dataModified, newValue)
+      idAdmin,
+      emailAdmin,
+      idUser,
+      emailUser,
+      idCoin,
+      nameCoin,
+      dataModified,
+      newValue
+    );
     return res.status(200).send(saveLog);
   } catch (e) {
     res.status(400).send(e.message);
   }
 });
 
-
-
 module.exports = router;
-

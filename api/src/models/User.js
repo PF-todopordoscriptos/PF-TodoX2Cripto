@@ -14,41 +14,16 @@ module.exports = (sequelize) => {
     username: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: '',
+      defaultValue: "",
     },
     password: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: '',
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: '',
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    },
-    telephone: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: '',
-    },
-    dni: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 0,
-    },
-    nationality: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: '',
     },
     img: {
       type: DataTypes.STRING,
