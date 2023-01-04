@@ -12,6 +12,7 @@ import Profile from "./components/Profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import Comparative from "./components/Comparative/Comparative";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import FormLogin from "./components/FormLogin/FormLogin";
@@ -197,6 +198,7 @@ function App() {
               }
             />
             <Route path={"/comparative"} element={<Comparative />} />
+            <Route path={"/shoppingcart"} element={<ShoppingCart />} />
             <Route path={"/admincoins"} element={<AdminDashboardCoins />} />
             <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
             <Route path={"/adminchanges"} element={<AdminDashboardChanges />} />
