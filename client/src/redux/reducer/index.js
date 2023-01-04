@@ -16,7 +16,11 @@ import {
   GET_USER_INFO,
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
-  SET_THEME_MODE
+  SET_THEME_MODE,
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -30,7 +34,16 @@ const initialState = {
   reviews: [],
   userInfo: [],
   user: {},
-  themeMode: 'light'
+  themeMode: "light",
+  products: [
+    { id: 1, name: "Producto 1", price: 20 },
+    { id: 2, name: "Producto 2", price: 40 },
+    { id: 3, name: "Producto 3", price: 60 },
+    { id: 4, name: "Producto 4", price: 80 },
+    { id: 5, name: "Producto 5", price: 100 },
+    { id: 6, name: "Producto 6", price: 120 },
+  ],
+  cart: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -41,10 +54,10 @@ function rootReducer(state = initialState, action) {
         trendingCoins: action.payload,
       };
     case GET_TRENDING_NEWS:
-      return{
+      return {
         ...state,
         trendingNews: action.payload,
-      }
+      };
     case GET_ALL_COINS:
       return {
         ...state,
@@ -194,22 +207,31 @@ function rootReducer(state = initialState, action) {
       };
 
     case GET_USER_INFO:
-      return{
+      return {
         ...state,
-        userInfo: action.payload
-      }
+        userInfo: action.payload,
+      };
 
     case UPDATE_USER_INFO:
-      return{
+      return {
         ...state,
-        userInfo: action.payload
-      }
+        userInfo: action.payload,
+      };
 
     case SET_THEME_MODE:
-    return {
-      ...state,
-      themeMode: action.payload
-    }
+      return {
+        ...state,
+        themeMode: action.payload,
+      };
+    // carrito de compras
+    case ADD_TO_CART:
+      return {};
+    case REMOVE_ONE_FROM_CART:
+      return {};
+    case REMOVE_ALL_FROM_CART:
+      return {};
+    case CLEAR_CART:
+      return {};
 
     default:
       return state;
