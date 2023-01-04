@@ -302,8 +302,8 @@ async function updateUser(
   username,
   name,
   lastname,
-  telephone,
-  dni,
+  // telephone,
+  // dni,
   nationality,
   img
 ) {
@@ -331,9 +331,8 @@ async function updateUser(
       username: username,
       name: name,
       lastname: lastname,
-      telephone: telephone,
-      nationality: nationality,
-      dni: dni,
+      // telephone: telephone,
+      // dni: dni,
       nationality: nationality,
       img: img,
     },

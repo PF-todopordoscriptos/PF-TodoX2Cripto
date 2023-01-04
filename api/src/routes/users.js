@@ -160,15 +160,15 @@ router.get("/:oneUser", async (req, res) => {
 router.put("/:email", async (req, res) => {
   try {
     const { email } = req.params;
-    const { username, name, lastname, telephone, dni, nationality, img } =
+    const { username, name, lastname, /*telephone, dni,*/ nationality, img } =
       req.body;
     const userUpdate = await updateUser(
       email,
       username,
       name,
       lastname,
-      telephone,
-      dni,
+      // telephone,
+      // dni,
       nationality,
       img
     );

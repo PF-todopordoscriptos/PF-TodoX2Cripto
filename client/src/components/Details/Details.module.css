@@ -66,3 +66,11 @@
   /* justify-content: center; */
   align-items: center;
 }
+
+.variationGreen{
+  color: rgb(26, 195, 26);
+}
+
+.variationRed{
+  color: rgb(195, 26, 26);
+}

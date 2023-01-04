@@ -25,6 +25,21 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
+    nationality: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    lastname: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
     img: {
       type: DataTypes.STRING,
       allowNull: true,

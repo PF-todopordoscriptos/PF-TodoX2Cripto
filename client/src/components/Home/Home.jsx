@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins } from "../../redux/actions";
-import CoinCard from "../CoinCard/CoinCard";
 import CoinTarget from "../CoinTarget/CoinTarget";
 import { NavLink } from "react-router-dom";
 
@@ -110,38 +109,6 @@ export default function Home() {
       }
         </div>
         </div>
-      
-              {/* {allCoins[0] === "Ninguna moneda coincide" ? (
-                <Stack>
-                <Typography variant="h3" color="primary.dark">
-                Not coin found
-                </Typography>
-                <img src={DinoError404} alt="error" />
-                </Stack>
-              ) : (
-                <Grid
-                  sx={{ gap: 2 }}
-                  container
-                  spacing={{ xs: 2, md: 3 }}
-                  columns={{ xs: 4, sm: 8, md: 12 }}
-                >
-                  {currentCoins &&
-                    currentCoins.map((c) => (
-                      // <NavLink to={"/details/" + c.id} key={c.id}>
-                      <CoinCard
-                        key={c.id}
-                        id={c.id}
-                        name={c.name}
-                        symbol={c.symbol}
-                        current_price={c.current_price}
-                        image={c.image}
-                        market_cap={c.market_cap}
-                        price_change_percentage_24h={`Price change: ${c.price_change_percentage_24h}%`}
-                      />
-                      // </NavLink>
-                    ))}
-                </Grid>
-              )} */}
 
         <div className={style.contPagination}>
           <Pagination style={{color:"red"}}
