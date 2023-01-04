@@ -11,7 +11,6 @@ const TrendingCard = (props) => {
     <div className={style.contTrending}>
 
         <img src={props.image} alt="img" className={style.stImage}/>
-        <img src={props.image} className={style.stImage} alt="style imag"/>
 
         <div className={style.contText}>
 

@@ -320,7 +320,7 @@ const FormLogin = () => {
               <div className={style.divPassword}>
                 <TextField
                   value={input.repeatPassword}
-                  id="standard-adornment-password"
+                  id="standard-adornment-repeat-password"
                   type={input.showRepeatPassword ? "text" : "password"}
                   name="repeatPassword"
                   label="Repeat password"

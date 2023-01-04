@@ -25,6 +25,8 @@ import { Button } from "@mui/material";
 import lapizNegro from "../../Images/lapizNegro.png";
 import lapizGris from "../../Images/lapizGris.png";
 
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Profile = () => {
@@ -32,6 +34,8 @@ const Profile = () => {
 
   // const history = useHistory();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [edit, setEdit] = useState(true);
 
   const [user, setUser] = useState({
@@ -77,8 +81,8 @@ const Profile = () => {
     username: "",
     name: "",
     lastname: "",
-    telephone: "",
-    dni: "",
+    // telephone: "",
+    // dni: "",
     nationality: "",
     img: "",
   });
@@ -88,8 +92,8 @@ const Profile = () => {
       username: userInfo !== "" ? userInfo.username : "",
       name: userInfo.name,
       lastname: userInfo.lastname,
-      telephone: userInfo.telephone,
-      dni: userInfo.dni,
+      // telephone: userInfo.telephone,
+      // dni: userInfo.dni,
       nationality: userInfo.nationality,
     });
     console.log("userinfo2");
@@ -134,22 +138,25 @@ const Profile = () => {
     console.log(input);
   };
 
+  console.log(input);
+
   const saveChanges = async (e) => {
     // e.preventDefault()
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 3000,
       timerProgressBar: true,
     });
     Toast.fire({
       icon: "success",
       iconColor: "#8EFF60",
-      title: `User modified successfully .`,
+      title: `User modified successfully`,
       color: "white",
-      background: "#66E9FE",
+      background: "#1db722d3" 
     });
+    navigate("/home")
     dispatch(updateUserInfo(user.email, input));
     setEdit(!edit);
   };
@@ -181,143 +188,38 @@ const Profile = () => {
             <div className={style.parteUno}>
               <div className={style.contFoto}>
                 {/* <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
-                <img
-                  src={
-                    input.img !== ""
-                      ? input.img
-                      : arrayPics[Math.round(Math.random() * 10)]
-                  }
-                  alt="foto de perfil"
-                  className={style.fotoPerfil}
-                />
-                <input
-                  accept="image/*"
-                  id="raised-button-file"
-                  multiple
-                  type="file"
-                  name="img"
-                  style={{ display: "none" }}
-                  disabled={edit ? true : null}
-                  onChange={uploadImage}
-                />
+                <img src={ input.img !== "" ? input.img : arrayPics[Math.round(Math.random() * 10)]} alt="foto de perfil" className={style.fotoPerfil} />
+                <input accept="image/*" id="raised-button-file" multiple type="file" name="img" style={{ display: "none" }} disabled={edit ? true : null} onChange={uploadImage}/>
                 <label htmlFor="raised-button-file">
-                  <Button
-                    variant="raised"
-                    component="span"
-                    style={{
-                      marginLeft: "1rem",
-                      marginTop: "2rem",
-                      backgroundColor: "#a06aeb55",
-                    }}
-                    disabled={edit ? true : null}
-                  >
+                  <Button variant="raised" component="span" style={{marginLeft: "1rem", marginTop: "2rem", backgroundColor: "#a06aeb55", }} disabled={edit ? true : null}>
                     {" "}
                     Upload Image{" "}
                   </Button>
                 </label>
               </div>
 
-              <TextField
-                value={user.email}
-                id="filled-2"
-                name="email"
-                label="Email"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "2rem", width: "20rem" }}
-                disabled
-              />
-              <TextField
-                value={input.username}
-                onChange={handleInput}
-                id="filled-3"
-                name="username"
-                label="Username"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "2rem", width: "20rem" }}
-                disabled={edit ? true : null}
-              />
-              <TextField
-                value={input.name}
-                onChange={handleInput}
-                id="filled-4"
-                name="name"
-                label="Name"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "2rem", width: "20rem" }}
-                disabled={edit ? true : null}
-              />
-              <TextField
-                value={input.lastname}
-                onChange={handleInput}
-                id="filled-5"
-                name="lastname"
-                label="Lastname"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "2rem", width: "20rem" }}
-                disabled={edit ? true : null}
-              />
+              <TextField value={user.email} id="filled-2" name="email" label="Email" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled/>              
+
+              <TextField value={input.username} onChange={handleInput} id="filled-3" name="username" label="Username" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }}  disabled={edit ? true : null}/>
+              
+              <TextField value={input.name} onChange={handleInput} id="filled-4" name="name" label="Name" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null} />
+
+              <TextField value={input.lastname} onChange={handleInput} id="filled-5" name="lastname" label="Lastname" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null} />
             </div>
 
             <div className={style.parteDos}>
               <div className={style.contLapiz}>
                 {edit ? (
-                  <img
-                    onClick={changeEdit}
-                    className={style.lapiz}
-                    src={`${lapizNegro}`}
-                    alt="lapiz"
-                  />
+                  <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt="Editar Habilitado" />
                 ) : (
-                  <img
-                    onClick={changeEdit}
-                    className={style.lapiz}
-                    src={`${lapizGris}`}
-                    alt="lapiz"
-                  />
-                )}
-                {edit ? (
-                  <img
-                    onClick={changeEdit}
-                    className={style.lapiz}
-                    src={`${lapizNegro}`}
-                    alt="Editar Habilitado"
-                  />
-                ) : (
-                  <img
-                    onClick={changeEdit}
-                    className={style.lapiz}
-                    src={`${lapizGris}`}
-                    alt="Editar Deshabilitado"
-                  />
+                  <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt="Editar Deshabilitado" />
                 )}
               </div>
-              <TextField
-                value={input.telephone}
-                onChange={handleInput}
-                id="filled-6"
-                name="telephone"
-                label="Telephone"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "2rem", width: "20rem" }}
-                disabled={edit ? true : null}
-              />
-              <TextField
-                value={input.dni}
-                onChange={handleInput}
-                type="number"
-                id="filled-7"
-                name="dni"
-                label="DNI"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "2rem", width: "20rem" }}
-                disabled={edit ? true : null}
-              />
+
+              {/* <TextField value={input.telephone} onChange={handleInput} id="filled-6" name="telephone" label="Telephone" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null} />
+              
+              <TextField value={input.dni} onChange={handleInput} type="number" id="filled-7" name="dni" label="DNI" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null}
+              /> */}
 
               <div className={style.contNation}>
                 <SelectNat
@@ -330,18 +232,22 @@ const Profile = () => {
           </div>
 
           <div className={style.contButton}>
+            {
+            input.username !== "" && input.name !== "" && input.lastname !== "" && input.nationality !== "" ? 
             <button className={style.butChanges} onClick={saveChanges}>
               Save changes
             </button>
+            :
+            <button className={style.butChangesDis} onClick={saveChanges} disabled>
+             Rellenar todos los campos
+           </button>
+             
+            }
           </div>
 
           <div className={style.divDinosaurio}>
             <marquee behavior="scroll" direction="left">
-              <img
-                className={style.dinosaurio}
-                src="https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s"
-                alt="Dinosaurio con onda"
-              />
+              <img className={style.dinosaurio} src="https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s" alt="Dinosaurio con onda" />
             </marquee>
           </div>
         </div>

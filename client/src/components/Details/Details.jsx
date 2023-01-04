@@ -71,15 +71,13 @@ const Details = (props) => {
           </div>
 
           <ul className={style.ul}>
+            <li>Current price: ${coinDetails.current_price}</li>
             <li>Market Cap: {coinDetails.market_cap}</li>
-            <li>Variation: {coinDetails.price_change_percentage_24h}</li>
-            <li>Current price:{coinDetails.current_price}</li>
+            <li className={coinDetails.price_change_percentage_24h > 0 ? style.variationGreen : style.variationRed}>Variation: %{coinDetails.price_change_percentage_24h} </li>
           </ul>
         </div>
       </div>
-      {/* <div className="image">
-        <img src={Rex} alt="error" />
-      </div> */}
+
       <Comparative />
       <form onSubmit={handleSubmitReview}>
         <input
