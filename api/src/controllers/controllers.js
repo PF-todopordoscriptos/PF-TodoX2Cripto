@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { User, Coins, Review, CoinsReviews , AdminChanges } = require("../db");
+const { User, Coins, Review, CoinsReviews, AdminChanges } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -22,22 +22,22 @@ async function getTrendingCoins() {
   return trendingCoinsApi;
 }
 
-async function getTrendingNews(){
+async function getTrendingNews() {
   const trendingNews = await axios.get(
     "https://newsdata.io/api/1/news?apikey=pub_14581ec60a474fcda424b30ca7f553fd844cd&q=crypto"
   );
 
   let trendingNewsApi = trendingNews.data.results.map((n) => {
-    let date = n.pubDate.split(" ")
-    return{
+    let date = n.pubDate.split(" ");
+    return {
       title: n.title,
       description: n.description,
       link: n.link,
       pubDate: date[0],
-      country: n.country
-    }
-  })
-  return trendingNewsApi
+      country: n.country,
+    };
+  });
+  return trendingNewsApi;
 }
 
 async function getHistoryChart(id, days) {
@@ -362,7 +362,7 @@ async function postAdminChanges(
     idCoin: idCoin,
     nameCoin: nameCoin,
     dataModified: dataModified,
-    newValue: newValue
+    newValue: newValue,
   });
   return "DONE";
 }
@@ -370,6 +370,10 @@ async function postAdminChanges(
 async function getAllAdminChanges() {
   let allChanges = await AdminChanges.findAll();
   return allChanges;
+}
+
+async function addCoinsUser(id) {
+  let coinsDb = await getCoinsFromDB();
 }
 
 module.exports = {
@@ -395,5 +399,5 @@ module.exports = {
   getCoinFromDBbyID,
   getTrendingNews,
   postAdminChanges,
-  getAllAdminChanges
+  getAllAdminChanges,
 };
