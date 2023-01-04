@@ -23,7 +23,7 @@ import {
   CLEAR_CART,
 } from "../actions/actionTypes";
 
-const initialState = {
+export const initialState = {
   allCoins: [],
   noFilter: [],
   coinDetails: {},
@@ -46,7 +46,7 @@ const initialState = {
   cart: [],
 };
 
-function rootReducer(state = initialState, action) {
+export function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TRENDING_COINS:
       return {
