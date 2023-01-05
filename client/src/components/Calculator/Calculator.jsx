@@ -4,20 +4,21 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins } from "../../redux/actions";
 
-const Calculator = () => {
+const Calculator = ({id}) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllCoins());
-  }, [dispatch]);
-  const allCoins = useSelector((state) => state.allCoins);
-
   const [coin, setCoin] = useState({});
   const [price, setPrice] = useState("");
 
+  useEffect(() => {
+    dispatch(getAllCoins());
+    setCoin(id)
+  }, [dispatch]);
+  const allCoins = useSelector((state) => state.allCoins);
+
+
   const renderPriceCoin = () => {
     let result;
-    let coinSelected = allCoins.find((p) => p.id === coin);
+    let coinSelected = allCoins.find(() => `${id}` === coin);
     Object.keys(coin).length === 0
       ? (result = "Select one coin to start comparation")
       : (result = coinSelected.current_price);
@@ -40,15 +41,15 @@ const Calculator = () => {
         <div>
           <h3>Coin Exchange</h3>
           <select onChange={(e) => handleSelectedCoins(e)}>
-            <option value="none">None</option>
-            {allCoins &&
+            <option value={id}>{id.charAt(0).toUpperCase() + id.slice(1)}</option>
+            {/* {allCoins &&
               allCoins.map((c) => {
                 return (
                   <option key={c.id} value={c.id}>
                     {c.name}
                   </option>
                 );
-              })}
+              })} */}
           </select>
           <label>Price: U$D{renderPriceCoin()}</label>
         </div>
@@ -60,8 +61,8 @@ const Calculator = () => {
             value={price}
             onChange={(e) => handleInput(e)}
           />
-          <label>You are going to buy: {price / renderPriceCoin()} coins</label>
         </div>
+          <label>You are going to buy: {price / renderPriceCoin()} coins</label>
       </div>
       <div></div>
     </div>

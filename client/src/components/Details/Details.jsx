@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+import Calculator from "../Calculator/Calculator";
 
 const Details = (props) => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Details = (props) => {
 
   let { id } = useParams();
   console.log(id);
+  
   useEffect(() => {
     dispatch(getCoinDetail(id));
     dispatch(getReview(id));
@@ -45,12 +47,14 @@ const Details = (props) => {
     text: "",
     username: "thiago",
   });
+
   const handleReview = (e) => {
     setReview({
       ...review,
       [e.target.name]: e.target.value,
     });
   };
+  
   const handleSubmitReview = (e) => {
     // e.preventDefault()
     dispatch(createReview(review, id));
@@ -70,7 +74,8 @@ const Details = (props) => {
       inputLabel: 'What happens with this coin?',
       input: 'textarea',
       html:
-    `<input id="swal-input1" class="swal2-input" placeholder=${user.email} disabled>`,
+    `<input id="swal-input1" class="swal2-input" placeholder=${user.email} disabled>
+    <input id="swal-input1" class="swal2-input" placeholder=${id} disabled>`,
       inputPlaceholder: 'Type your alert or notice here...',
       inputAttributes: {
         'aria-label': 'Type your message here'
@@ -95,7 +100,7 @@ const Details = (props) => {
         </NavLink>
       </div>
 
-
+      <div className={style.contCardCalculator}>
       <div className={style.card}>
         <div className={style.contTop}>
           <img
@@ -129,7 +134,13 @@ const Details = (props) => {
       
       {/* <div className={style.contComp}>
       <Comparative />
-      </div> */}
+    </div> */}
+      <div className={style.contCalculator}>
+      <Calculator
+      id = {id}
+      />
+      </div>
+        </div>
 
       <div className={style.contReviews}>
       <form onSubmit={handleSubmitReview}>

@@ -6,9 +6,9 @@
 
 .card {
   /* display: flex; */
-  position: absolute;
+  /* position: absolute; */
   margin-left: 10vh;
-  margin-top: 20vh;
+  margin-top: 5vh;
   /* border: 1px solid red; */
   height: 55vh;
   width: 120vh;
@@ -65,7 +65,7 @@
 }
 
 .contMiddle {
-  position: relative;
+  /* position: relative; */
   display: flex;
   /* justify-content: center; */
   align-items: center;
@@ -95,13 +95,13 @@
 
 .contReviews{
   display: flex;
-  margin-top: 84vh;
-  position: absolute;
+  /* margin-top: 84vh; */
+  /* position: absolute; */
 }
 
 .contWarning{
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   justify-content: center;
   align-items: center;
   margin-top: 14vh;
@@ -114,4 +114,15 @@
   border-radius: 1rem;
   /* border: ; */
   /* box-shadow: 0px 0px 53px -20px rgb(5, 48, 167); */
+}
+
+.contCalculator{
+  display: flex;
+  margin-left: 5rem;
+  margin-top: 3rem;
+}
+
+.contCardCalculator{
+  display: flex;
+  flex-direction: row;
 }

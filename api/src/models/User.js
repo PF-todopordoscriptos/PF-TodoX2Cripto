@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
     },
     img: {
       type: DataTypes.STRING,
-      allowNull: true,
+      defaultValue: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
     },
     admin: {
       type: DataTypes.BOOLEAN,

@@ -1,12 +1,6 @@
 const axios = require("axios");
-const {
-  User,
-  Coins,
-  Review,
-  CoinsReviews,
-  AdminChanges,
-  Warnings,
-} = require("../db");
+
+const { User, Coins, Review, CoinsReviews, AdminChanges, Warning } = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -395,19 +389,21 @@ async function addCoinsUser(idUser, idCoin, quantity) {
   return result;
 }
 
-async function allWarnings() {
-  let allWarningsFromDb = await Warnings.findAll();
-  return allWarningsFromDb;
+async function allWarnings(){
+  let allWarningsFromDb = await Warning.findAll();
+  return allWarningsFromDb 
 }
 
-async function createWarning(email, text) {
-  if (!email || !text) {
-    return "misign data";
-  }
-  let newWarning = await Warnings.create({
+async function createWarning(email,text,coin){
+  if(!email || !text || !coin){
+    return "misign data"
+}
+  let newWarning = await Warning.create({
     email,
     text,
-  });
+    coin
+  })
+
 
   return newWarning;
 }
