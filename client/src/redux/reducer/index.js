@@ -224,14 +224,23 @@ export function rootReducer(state = initialState, action) {
         themeMode: action.payload,
       };
     // carrito de compras
-    case ADD_TO_CART:
-      return {};
-    case REMOVE_ONE_FROM_CART:
-      return {};
-    case REMOVE_ALL_FROM_CART:
-      return {};
-    case CLEAR_CART:
-      return {};
+    case ADD_TO_CART: {
+      let newItem = state.products.find(
+        (product) => product.id === action.payload
+      );
+      console.log(newItem);
+
+      return {
+        ...state,
+        cart: [...state.cart, newItem],
+      };
+    }
+    case REMOVE_ONE_FROM_CART: {
+    }
+    case REMOVE_ALL_FROM_CART: {
+    }
+    case CLEAR_CART: {
+    }
 
     default:
       return state;
