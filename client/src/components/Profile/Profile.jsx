@@ -81,10 +81,10 @@ const Profile = () => {
     username: "",
     name: "",
     lastname: "",
+    img: "",
     // telephone: "",
     // dni: "",
     nationality: "",
-    img: "",
   });
 
   React.useEffect(() => {
@@ -95,6 +95,7 @@ const Profile = () => {
       // telephone: userInfo.telephone,
       // dni: userInfo.dni,
       nationality: userInfo.nationality,
+      img: userInfo.img,
     });
     console.log("userinfo2");
     console.log(userInfo2);
@@ -188,7 +189,7 @@ const Profile = () => {
             <div className={style.parteUno}>
               <div className={style.contFoto}>
                 {/* <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
-                <img src={ input.img !== "" ? input.img : arrayPics[Math.round(Math.random() * 10)]} alt="foto de perfil" className={style.fotoPerfil} />
+                <img src={ input.img !== "" ? input.img : "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil2_qcuyeq.png"} alt="foto de perfil" className={style.fotoPerfil} />
                 <input accept="image/*" id="raised-button-file" multiple type="file" name="img" style={{ display: "none" }} disabled={edit ? true : null} onChange={uploadImage}/>
                 <label htmlFor="raised-button-file">
                   <Button variant="raised" component="span" style={{marginLeft: "1rem", marginTop: "2rem", backgroundColor: "#a06aeb55", }} disabled={edit ? true : null}>
