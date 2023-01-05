@@ -162,24 +162,6 @@ const Profile = () => {
     setEdit(!edit);
   };
 
-  // const numberPic = () => {
-  //   let resultado = Math.round(Math.random()*10)
-  //   if(resultado > 8){
-  //     resultado = 8
-  //   }
-  //   return resultado
-
-  const arrayPics = [
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil1_ftceos.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil2_qcuyeq.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil3_aeo4th.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil4_cnadk5.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil5_ootzr5.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil6_qo4xku.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212680/cripto/DinoPerfil7_q5n3qh.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212680/cripto/DinoPerfil8_anihxb.png",
-    "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212680/cripto/DinoPerfil9_mxcnkj.png",
-  ];
 
   return (
     <div className={style.divAll}>
@@ -189,7 +171,7 @@ const Profile = () => {
             <div className={style.parteUno}>
               <div className={style.contFoto}>
                 {/* <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
-                <img src={ input.img !== "" ? input.img : "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1671212679/cripto/DinoPerfil2_qcuyeq.png"} alt="foto de perfil" className={style.fotoPerfil} />
+                <img src={ input.img ? input.img : "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png"} alt="foto de perfil" className={style.fotoPerfil} />
                 <input accept="image/*" id="raised-button-file" multiple type="file" name="img" style={{ display: "none" }} disabled={edit ? true : null} onChange={uploadImage}/>
                 <label htmlFor="raised-button-file">
                   <Button variant="raised" component="span" style={{marginLeft: "1rem", marginTop: "2rem", backgroundColor: "#a06aeb55", }} disabled={edit ? true : null}>

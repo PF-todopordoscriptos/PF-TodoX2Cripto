@@ -19,8 +19,8 @@ router.get("/allWarnings", async (req,res) => {
 
 router.post("/warnings", async (req,res) => {
     try {
-        let {email,text} = req.body
-        const newWarning = await createWarning(email,text)
+        let {email,text,coin} = req.body
+        const newWarning = await createWarning(email,text,coin)
         res.status(200).send(newWarning)
     } catch (err) {
         res.status(400).send(err.message)
