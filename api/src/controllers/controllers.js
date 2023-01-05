@@ -1,5 +1,12 @@
 const axios = require("axios");
-const { User, Coins, Review, CoinsReviews, AdminChanges, Warnings } = require("../db");
+const {
+  User,
+  Coins,
+  Review,
+  CoinsReviews,
+  AdminChanges,
+  Warnings,
+} = require("../db");
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -125,7 +132,7 @@ async function getHistoryChart(id, days) {
 // }
 
 async function getAllUsers() {
-  let allUsers = await User.findAll();
+  let allUsers = await User.findAll({ include: Coins });
   return allUsers;
 }
 
@@ -371,28 +378,39 @@ async function getAllAdminChanges() {
   return allChanges;
 }
 
-async function addCoinsUser(id) {
-  let coinsDb = await getCoinsFromDB();
+async function addCoinsUser(idUser, idCoin, quantity) {
+  const user = await User.findOne({
+    where: { id: idUser },
+  });
+  const coin = await Coins.findOne({
+    where: { id: idCoin },
+  });
+
+  await user.addCoins(coin, { through: { quantity: quantity } });
+
+  const result = await User.findOne({
+    where: { id: idUser },
+    include: Coins,
+  });
+  return result;
 }
 
-async function allWarnings(){
+async function allWarnings() {
   let allWarningsFromDb = await Warnings.findAll();
-  return allWarningsFromDb 
+  return allWarningsFromDb;
 }
 
-async function createWarning(email,text){
-  if(!email || !text){
-    return "misign data"
-}
+async function createWarning(email, text) {
+  if (!email || !text) {
+    return "misign data";
+  }
   let newWarning = await Warnings.create({
     email,
-    text
-  })
+    text,
+  });
 
-  return newWarning
+  return newWarning;
 }
-
-
 
 module.exports = {
   getTrendingCoins,
@@ -419,5 +437,6 @@ module.exports = {
   postAdminChanges,
   getAllAdminChanges,
   allWarnings,
-  createWarning
+  createWarning,
+  addCoinsUser,
 };
