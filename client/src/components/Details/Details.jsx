@@ -6,12 +6,29 @@ import { createReview, getCoinDetail, getReview } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
 import { HiArrowUturnLeft } from "react-icons/hi2";
+import alerta from "../../Images/alerta.png"
 import style from "./Details.module.css";
 import "./DetailsBackground.css";
 // import Rex from "../../Images/Rex.png";
+import Swal from "sweetalert2";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 
 const Details = (props) => {
   const dispatch = useDispatch();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    });
+  }, []);
+
+  console.log(user)
 
   let { id } = useParams();
   console.log(id);
@@ -45,13 +62,39 @@ const Details = (props) => {
   };
 
   console.log(coinDetails);
+
+  const alertaa = async () => {
+
+    const { value: text } = await Swal.fire({
+      
+      inputLabel: 'What happens with this coin?',
+      input: 'textarea',
+      html:
+    `<input id="swal-input1" class="swal2-input" placeholder=${user.email} disabled>`,
+      inputPlaceholder: 'Type your alert or notice here...',
+      inputAttributes: {
+        'aria-label': 'Type your message here'
+      },
+      showCancelButton: true
+    })
+    
+    if (text) {
+      Swal.fire(text)
+    }
+    console.log(text)
+
+    }
+
+
+
   return (
-    <div className="main-details">
+    <div className={style.Todo}>
       <div className={style.contArrow}>
         <NavLink to="/home">
           <HiArrowUturnLeft className={style.arrow} />
         </NavLink>
       </div>
+
 
       <div className={style.card}>
         <div className={style.contTop}>
@@ -59,10 +102,16 @@ const Details = (props) => {
             src={coinDetails.image}
             alt={coinDetails.id}
             className={style.imagen}
-          />
+            />
           <h1 className={style.titulo}>
             {id.charAt(0).toUpperCase() + id.slice(1)}
           </h1>
+          <img
+          src={alerta}
+          alt="alerta"
+          className={style.alerta}
+          onClick={alertaa}
+          />
         </div>
 
         <div className={style.contMiddle}>
@@ -77,8 +126,12 @@ const Details = (props) => {
           </ul>
         </div>
       </div>
-
+      
+      {/* <div className={style.contComp}>
       <Comparative />
+      </div> */}
+
+      <div className={style.contReviews}>
       <form onSubmit={handleSubmitReview}>
         <input
           type="text"
@@ -86,14 +139,14 @@ const Details = (props) => {
           value={review.text}
           onChange={handleReview}
           placeholder="Text"
-        ></input>
+          ></input>
         <input
           type="number"
           name="stars"
           value={review.stars}
           onChange={handleReview}
           placeholder="Stars"
-        ></input>
+          ></input>
         <button onSubmit={handleSubmitReview}>SUBMIT</button>
       </form>
 
@@ -105,10 +158,11 @@ const Details = (props) => {
               <li>{r.text}</li>
             </ul>
           ))
-        ) : (
-          <h1>Todavía no hay comentarios</h1>
-        )}
+          ) : (
+            <h1>Todavía no hay comentarios</h1>
+            )}
       </div>
+    </div>
     </div>
   );
 };
