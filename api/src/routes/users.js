@@ -217,25 +217,22 @@ router.post("/addTransaction", async (req, res) => {
 router.post("/payment", async (req, res) => {
   const product = req.body;
   try {
+    let qq = []
+    function pusher() {
+      product.map((e) => {
+        qq.push({
+          id: product.indexOf(e),
+          title: product[product.indexOf(e)].amount + " " + product[product.indexOf(e)].title,
+          quantity: 1,
+          unit_price: (parseFloat(product[product.indexOf(e)].price) / 10) + parseFloat(product[product.indexOf(e)].price),
+          currency_id: 'ARS',
+          picture_url: product[product.indexOf(e)].image,
+        })
+       })
+    }
+    pusher()
     let preference = {
-      items: [
-        {
-          id: 1,
-          title: product.amount + " " + product.title,
-          quantity: 1,
-          unit_price: product.price,
-          currency_id: 'ARS',
-          picture_url: product.image,
-        },
-        {
-          id: 2,
-          title: product.amount + " " + product.title,
-          quantity: 1,
-          unit_price: product.price,
-          currency_id: 'ARS',
-          picture_url: product.image,
-        }
-      ],
+      items: qq,
       payer: {
         type: "customer",
         id: "4085428740137259"
