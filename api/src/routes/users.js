@@ -22,6 +22,10 @@ const {
   getAuth,
   sendSignInLinkToEmail,
 } = require("firebase/auth");
+const mercadopago = require("mercadopago");
+const { preferences } = require("mercadopago");
+require("dotenv").config();
+mercadopago.configure({ access_token: process.env.MERCADOPAGO_KEY})
 
 const router = Router();
 
@@ -205,6 +209,48 @@ router.post("/addTransaction", async (req, res) => {
     const { idUser, idCoin, quantity } = req.body;
     let transaction = addCoinsUser(idUser, idCoin, quantity);
     res.status(200).send(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+router.post("/payment", async (req, res) => {
+  const product = req.body;
+  try {
+    let preference = {
+      items: [
+        {
+          id: 1,
+          title: product.amount + " " + product.title,
+          quantity: 1,
+          unit_price: product.price,
+          currency_id: 'ARS',
+          picture_url: product.image,
+        },
+        {
+          id: 2,
+          title: product.amount + " " + product.title,
+          quantity: 1,
+          unit_price: product.price,
+          currency_id: 'ARS',
+          picture_url: product.image,
+        }
+      ],
+      payer: {
+        type: "customer",
+        id: "4085428740137259"
+      },
+      back_urls: {
+        success: 'http://localhost:3000',
+        failure: '',
+        pending: ''
+      },
+      auto_return: 'approved',
+      binary_mode: true
+    }
+    mercadopago.preferences.create(preference)
+    .then((response) => res.status(200).send({response}))
+    .catch((e) => res.status(404).send.apply(e.message))
   } catch (e) {
     res.status(404).send(e.message);
   }

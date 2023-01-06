@@ -16,10 +16,10 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import FormLogin from "./components/FormLogin/FormLogin";
-import AdminDashboardCoins from "../src/components/AdminDashboardCoins/AdminDashboardCoins";
-import AdminDashboardUsers from "../src/components/AdminDashboardUsers/AdminDashboardUsers";
-import AdminDashboardChanges from "../src/components/AdminDashboardChanges/AdminDashboardChanges";
-
+import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboardCoins";
+import AdminDashboardUsers from "./components/AdminDashboardUsers/AdminDashboardUsers";
+import AdminDashboardChanges from "./components/AdminDashboardChanges/AdminDashboardChanges";
+import Payment from "./components/Payment/Payment";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../src/firebase/firebaseConfig";
 
@@ -36,6 +36,7 @@ import {
 } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -202,6 +203,7 @@ function App() {
             <Route path={"/admincoins"} element={<AdminDashboardCoins />} />
             <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
             <Route path={"/adminchanges"} element={<AdminDashboardChanges />} />
+            <Route path={"/payment"} element={<Payment />} />
             <Route path="/errorpage" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/errorpage" replace />} />
           </Routes>
