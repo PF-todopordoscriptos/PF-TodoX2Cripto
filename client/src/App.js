@@ -52,6 +52,8 @@ function App() {
     });
   }, []);
 
+  console.log(user)
+
   const getDesignTokens = (PaletteMode) => ({
     palette: {
       PaletteMode,

@@ -18,11 +18,9 @@ import {
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
-
+  CREATE_WARNING,
+  CLEAR_ADMIN
   ADD_TO_CART,
-
-  CREATE_WARNING
-
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -215,5 +213,14 @@ export function createWarning(payload){
   return async function(){
     let json = await axios.post("http://localhost:3001/warnings/warnings", payload);
     return json
+  }
+}
+
+export function clearAdmin(payload) {
+  return async function(dispatch){
+    return dispatch({
+      type: CLEAR_ADMIN,
+      payload
+    })
   }
 }
