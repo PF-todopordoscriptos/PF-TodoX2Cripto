@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
-
+const { DataTypes } = require("sequelize");
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/cripto?sslmode=require`,
   {
@@ -17,7 +17,6 @@ const sequelize = new Sequelize(
 //   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 // });
 const basename = path.basename(__filename);
-
 const modelDefiners = [];
 
 // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
@@ -47,12 +46,19 @@ const { User, Coins, Review, Warning } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
+const transactions = sequelize.define("Transactions", {
+  quantity: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+});
+
 User.belongsToMany(Coins, {
-  through: "Transactions",
+  through: transactions,
 });
 
 Coins.belongsToMany(User, {
-  through: "Transactions",
+  through: transactions,
 });
 
 User.belongsToMany(Review, {
