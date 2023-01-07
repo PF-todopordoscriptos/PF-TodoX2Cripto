@@ -36,14 +36,6 @@ export const initialState = {
   userInfo: [],
   user: {},
   themeMode: "light",
-  products: [
-    { id: 1, name: "Producto 1", price: 20 },
-    { id: 2, name: "Producto 2", price: 40 },
-    { id: 3, name: "Producto 3", price: 60 },
-    { id: 4, name: "Producto 4", price: 80 },
-    { id: 5, name: "Producto 5", price: 100 },
-    { id: 6, name: "Producto 6", price: 120 },
-  ],
   cart: [],
 };
 
@@ -224,9 +216,9 @@ export function rootReducer(state = initialState, action) {
         ...state,
         themeMode: action.payload,
       };
-    // carrito de compras
+    ///////////////////////////////////////////////////////////////////// carrito de compras API Home
     case ADD_TO_CART: {
-      let newItem = state.products.find(
+      let newItem = state.allCoins.find(
         (product) => product.id === action.payload
       );
       // console.log(newItem);
@@ -246,6 +238,10 @@ export function rootReducer(state = initialState, action) {
             ...state,
             cart: [...state.cart, { ...newItem, quantity: 1 }],
           };
+      // return {
+      //   ...state,
+      //   cart: state.cart.concat(action.payload),
+      // };
     }
     case REMOVE_ONE_FROM_CART: {
       let itemToDelete = state.cart.find((item) => item.id === action.payload);
@@ -281,5 +277,57 @@ export function rootReducer(state = initialState, action) {
     default:
       return state;
   }
+  //   /////////////////////////////////////////////////////////// carrito de compras
+  //   case ADD_TO_CART: {
+  //     let newItem = state.products.find(
+  //       (product) => product.id === action.payload
+  //     );
+  //     // console.log(newItem);
+
+  //     let itemInCart = state.cart.find((item) => item.id === newItem.id);
+
+  //     return itemInCart
+  //       ? {
+  //           ...state,
+  //           cart: state.cart.map((item) =>
+  //             item.id === newItem.id
+  //               ? { ...item, quantity: item.quantity + 1 }
+  //               : item
+  //           ),
+  //         }
+  //       : {
+  //           ...state,
+  //           cart: [...state.cart, { ...newItem, quantity: 1 }],
+  //         };
+  //   }
+  //   case REMOVE_ONE_FROM_CART: {
+  //     let itemToDelete = state.cart.find((item) => item.id === action.payload);
+
+  //     return itemToDelete.quantity > 1
+  //       ? {
+  //           ...state,
+  //           cart: state.cart.map((item) =>
+  //             item.id === action.payload
+  //               ? { ...item, quantity: item.quantity - 1 }
+  //               : item
+  //           ),
+  //         }
+  //       : {
+  //           ...state,
+  //           cart: state.cart.filter((item) => item.id !== action.payload),
+  //         };
+  //   }
+  //   case REMOVE_ALL_FROM_CART: {
+  //     return {
+  //       ...state,
+  //       cart: state.cart.filter((item) => item.id !== action.payload),
+  //     };
+  //   }
+  //   case CLEAR_CART:
+  //     return initialState;
+
+  //   default:
+  //     return state;
+  // }
 }
 export default rootReducer;
