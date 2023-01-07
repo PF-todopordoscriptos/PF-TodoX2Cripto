@@ -21,7 +21,8 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
-  CREATE_WARNING
+  CREATE_WARNING,
+  CLEAR_ADMIN
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -270,12 +271,18 @@ export function rootReducer(state = initialState, action) {
         cart: state.cart.filter((item) => item.id !== action.payload),
       };
     }
-    case CLEAR_CART:
+    case CLEAR_CART: {
       return initialState;
-
+    }
     case CREATE_WARNING:{
       return{
         ...state
+      }
+    }
+    case CLEAR_ADMIN :{
+      return{
+        ...state,
+        userInfo: []
       }
     }
     default:

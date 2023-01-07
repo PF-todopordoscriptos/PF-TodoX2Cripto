@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
 import style from "./Navbar.module.css";
-import { useNavigate } from "react-router-dom";
 // import { useAuth0 } from "@auth0/auth0-react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
@@ -16,47 +15,62 @@ import {
   Switch,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserInfo, setThemeMode } from "../../redux/actions";
+import { clearAdmin, getUserInfo, setThemeMode } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-
-  const history = useNavigate();
+  const navigate = useNavigate();
   //const {user, isAuthenticated} = useAuth0()
   // const [user, setUser] = useState(null);
-  const [user, setUser] = useState({
-    email: "",
-    //password: ""
-  });
+  // const [user, setUser] = useState({
+  //   email: "",
+  //   //password: ""
+  // });
   const userInfo = useSelector((state) => state.userInfo);
   
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setUser({
-          ...user,
-          email: currentUser.email,
-          //password: currentUser.password,
-        });
-      } else {
-        console.log("SIGNED OUT");
-        setUser(null);
+        setUser(currentUser);
       }
     });
   }, [user]);
+console.log(user)
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (currentUser) => {
+  //     if (currentUser) {
+  //       setUser({
+  //         ...user,
+  //         email: currentUser.email,
+  //         //password: currentUser.password,
+  //       });
+  //       dispatch(getUserInfo(user.email));
+  //     } else {
+  //       console.log("SIGNED OUT");
+  //       setUser(null);
+  //     }
+  //   });
+  // }, [user]);
 
 
   // console.log(userInfo)
 
-  React.useEffect(() => {
-    dispatch(getUserInfo(user.email));
-    console.log("estado lleno");
-  }, [user.email]);
+  // React.useEffect(() => {
+  //   if(user.email){
+  //     dispatch(getUserInfo(user.email));
+  //     console.log("estado lleno");
+  //   }
+  // }, [user]);
 
   const handleSignOut = () => {
+    dispatch(clearAdmin())
     signOut(auth);
-    history("/home");
+    navigate("/")
+    // Navigate("/home");
+    // console.log("limpiado")
   };
 
   const themeMode = useSelector((state) => state.themeMode);
