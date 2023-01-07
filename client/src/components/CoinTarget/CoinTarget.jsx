@@ -86,19 +86,17 @@ const CoinTarget = (props) => {
 
       <h3 className={style.marketCripto}>{props.market_cap}</h3>
 
-
-      <NavLink to={"/details/" + props.id}>
+      {/* <NavLink to={"/details/" + props.id}>
         <button className={style.butComprar}>Details</button>
-      </NavLink>
+      </NavLink> */}
 
-        <div className={style.contDetail}>
+      <div className={style.contDetail}>
         <Link to={"/details/" + props.id}>
-        <button className={style.butDetails}>Details</button>
+          <button className={style.butDetails}>Details</button>
         </Link>
-        </div>
+      </div>
 
-
-      <button onClick={() => addToCart(props.id)} className={style.butComprar}>
+      <button onClick={() => addToCart(props.id)} className={style.butDetails}>
         Agregar al Carrito
       </button>
     </div>
