@@ -13,7 +13,7 @@ const TrendingNew = (props) => {
                 <h4 className={style.arribaTexto}>🌍{props.country[0].charAt(0).toUpperCase() + props.country[0].slice(1)}</h4>
             </div>
             <div >
-                <h2 className={style.stTittle}>{props.title}</h2>
+                <h3 className={style.stTittle}>{props.title}</h3>
                 <a href={props.link}>
                     <h4 className={style.stClick}>Click here</h4>
                 </a>

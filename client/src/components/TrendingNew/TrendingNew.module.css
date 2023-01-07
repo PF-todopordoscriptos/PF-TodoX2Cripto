@@ -10,10 +10,11 @@
     margin: 2rem 1rem 2rem 1rem;
     display: flex;
     flex-direction: column;
-    background-image: url(https://static.vecteezy.com/system/resources/thumbnails/001/626/668/original/a-digital-representation-of-a-compass-by-the-globe-in-a-blue-background-free-video.jpg);
+    background-image: url("https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673134247/fondoo_negro2_tsz42w.jpg");
+    /* background-image: url(https://static.vecteezy.com/system/resources/thumbnails/001/626/668/original/a-digital-representation-of-a-compass-by-the-globe-in-a-blue-background-free-video.jpg); */
     background-repeat: no-repeat;
     background-position: 100% ;
-    background-size: 100%;
+    background-size: 120%;
 }
 
 /* .a, .b, .c, .d, .e{
@@ -47,20 +48,30 @@
 }
 
 .arribaTexto{
--webkit-text-stroke: 1px black;
-  color: white; 
+/* -webkit-text-stroke: 1px black; */
+  /* color: white;  */
+  color: rgb(26, 195, 26);
+  text-transform: uppercase;
+  font-family: 'Heebo', sans-serif;
 }
 
 .stTittle{
-    font-family: 'Nunito Sans', sans-serif;
-    color: rgb(0, 0, 0);
+    /* font-family: 'Nunito Sans', sans-serif; */
+    /* color: #abff2e; */
+    /* font-family: 'Heebo', sans-serif; */
+    color:white;
+    font-family: 'Signika Negative', sans-serif;
     margin-top: -0.3rem;
-    text-shadow: 3px 3px 4px rgba(255,255,255,0.98);
+    font-weight: 500;
+    /* text-shadow: 3px 3px 4px rgba(255,255,255,0.98); */
 }
 
 .stClick{
-    font-family: 'Pathway Gothic One', sans-serif;
+    /* font-family: 'Pathway Gothic One', sans-serif; */
     font-style: italic;
-    text-transform:lowercase ;
+    /* text-transform:lowercase ; */
     color: white;
+    color: #abff2e;
+  text-transform: uppercase;
+  font-family: 'Heebo', sans-serif;
 }
