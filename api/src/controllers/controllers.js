@@ -1,4 +1,5 @@
 const axios = require("axios");
+
 const { User, Coins, Review, CoinsReviews, AdminChanges, Warning } = require("../db");
 
 async function getTrendingCoins() {
@@ -125,7 +126,7 @@ async function getHistoryChart(id, days) {
 // }
 
 async function getAllUsers() {
-  let allUsers = await User.findAll();
+  let allUsers = await User.findAll({ include: Coins });
   return allUsers;
 }
 
@@ -371,8 +372,21 @@ async function getAllAdminChanges() {
   return allChanges;
 }
 
-async function addCoinsUser(id) {
-  let coinsDb = await getCoinsFromDB();
+async function addCoinsUser(idUser, idCoin, quantity) {
+  const user = await User.findOne({
+    where: { id: idUser },
+  });
+  const coin = await Coins.findOne({
+    where: { id: idCoin },
+  });
+
+  await user.addCoins(coin, { through: { quantity: quantity } });
+
+  const result = await User.findOne({
+    where: { id: idUser },
+    include: Coins,
+  });
+  return result;
 }
 
 async function allWarnings(){
@@ -390,10 +404,9 @@ async function createWarning(email,text,coin){
     coin
   })
 
-  return newWarning
+
+  return newWarning;
 }
-
-
 
 module.exports = {
   getTrendingCoins,
@@ -420,5 +433,6 @@ module.exports = {
   postAdminChanges,
   getAllAdminChanges,
   allWarnings,
-  createWarning
+  createWarning,
+  addCoinsUser,
 };

@@ -10,6 +10,7 @@ const {
   updateUser,
   postAdminChanges,
   getAllAdminChanges,
+  addCoinsUser,
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
@@ -98,13 +99,6 @@ router.get("/allUsers", async (req, res) => {
   }
 });
 
-router.put("/addCoinsUser", async (req, res) => {
-  const { id } = req.body;
-  try {
-  } catch (e) {
-    res.status(400).send(e.message);
-  }
-});
 router.put("/modifyUserAdmin", async (req, res) => {
   const { id, admin } = req.body;
   try {
@@ -206,6 +200,14 @@ router.post("/adminChanges", async (req, res) => {
   }
 });
 
-
+router.post("/addTransaction", async (req, res) => {
+  try {
+    const { idUser, idCoin, quantity } = req.body;
+    let transaction = addCoinsUser(idUser, idCoin, quantity);
+    res.status(200).send(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
 
 module.exports = router;

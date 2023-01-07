@@ -1,5 +1,10 @@
 import React, { useReducer } from "react";
-import { ADD_TO_CART } from "../../redux/actions/actionTypes";
+import {
+  ADD_TO_CART,
+  CLEAR_CART,
+  REMOVE_ALL_FROM_CART,
+  REMOVE_ONE_FROM_CART,
+} from "../../redux/actions/actionTypes";
 import { rootReducer, initialState } from "../../redux/reducer/index";
 import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
@@ -12,8 +17,18 @@ const ShoppingCart = () => {
     console.log(id);
     dispatch({ type: ADD_TO_CART, payload: id });
   };
-  const delFromCart = () => {};
-  const clearCart = () => {};
+  const delFromCart = (id, all = false) => {
+    console.log(id, all);
+    if (all) {
+      dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
+    } else {
+      dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
+    }
+  };
+
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
 
   return (
     <div>
