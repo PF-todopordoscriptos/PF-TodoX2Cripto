@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import {
   ADD_TO_CART,
   CLEAR_CART,
@@ -8,10 +8,20 @@ import {
 import { rootReducer, initialState } from "../../redux/reducer/index";
 import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
+import { getAllCoins } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const ShoppingCart = () => {
-  const [state, dispatch] = useReducer(rootReducer, initialState);
-  const { products, cart } = state;
+  // const [state, dispatch] = useReducer(rootReducer, initialState);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCoins());
+  }, [dispatch]);
+
+  const allCoins = useSelector((state) => state.allCoins);
+  const cartCoins = useSelector((state) => state.cart);
+  console.log(allCoins);
+  console.log(cartCoins);
 
   const addToCart = (id) => {
     console.log(id);
@@ -35,15 +45,15 @@ const ShoppingCart = () => {
       <h2>Carrito de Compras</h2>
       <h3>Productos</h3>
       <article className="box">
-        {products.map((product) => (
+        {cartCoins.map((product) => (
           <ProductItem key={product.id} data={product} addToCart={addToCart} />
         ))}
       </article>
       <h3>Carrito</h3>
       <article className="box">
         <button onClick={clearCart}>Limpiar Carrito</button>
-        {cart.map((item, index) => (
-          <CartItem key={index} data={item} delFromCart={delFromCart} />
+        {cartCoins.map((item, id) => (
+          <CartItem key={id} data={item} delFromCart={delFromCart} />
         ))}
       </article>
     </div>
