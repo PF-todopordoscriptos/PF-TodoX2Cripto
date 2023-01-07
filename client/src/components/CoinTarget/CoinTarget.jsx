@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite, removeFavorite } from "../../redux/actions";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
@@ -71,9 +72,11 @@ const CoinTarget = (props) => {
 
         <h3 className={style.marketCripto}>{props.market_cap}</h3>
 
-        <NavLink to={"/details/" + props.id}>
-        <button className={style.butComprar}>Details</button>
-        </NavLink>
+        <div className={style.contDetail}>
+        <Link to={"/details/" + props.id}>
+        <button className={style.butDetails}>Details</button>
+        </Link>
+        </div>
 
     </div>
   )

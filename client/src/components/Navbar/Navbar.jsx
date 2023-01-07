@@ -16,14 +16,20 @@ import {
   Switch,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { setThemeMode } from "../../redux/actions";
+import { getUserInfo, setThemeMode } from "../../redux/actions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
 
   const history = useNavigate();
   //const {user, isAuthenticated} = useAuth0()
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    email: "",
+    //password: ""
+  });
+  const userInfo = useSelector((state) => state.userInfo);
+  
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -39,6 +45,14 @@ const Navbar = () => {
       }
     });
   }, [user]);
+
+
+  // console.log(userInfo)
+
+  React.useEffect(() => {
+    dispatch(getUserInfo(user.email));
+    console.log("estado lleno");
+  }, [user.email]);
 
   const handleSignOut = () => {
     signOut(auth);
@@ -76,7 +90,23 @@ const Navbar = () => {
           />
         </FormGroup>
       </div>
+
+
       <Box className={style.butonsAuth}>
+
+      <div className={style.contButsExtras}>
+        {
+          userInfo.admin ? 
+        <Link to="/admin">
+          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673116583/tuercas_qsi3hj.png" alt="admin" className={style.admin} />
+        </Link> 
+        : null
+        }
+        <Link to="/cart">
+          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />
+        </Link>
+      </div>
+
         {user ? (
           <Box
             sx={{
@@ -130,7 +160,7 @@ const Navbar = () => {
             </Button>
           </Box>
         ) : (
-          <Link to="/login">
+          <Link to="/signup">
             <Button
               sx={{
                 ":hover": {
@@ -140,6 +170,7 @@ const Navbar = () => {
                 color: "navbar.button.text",
                 backgroundColor: "navbar.button.background",
                 margin: "0.3vw",
+                marginLeft: "2rem",
                 height: "5vh",
                 width: "6vw",
                 fontWeight: "bold",
@@ -148,7 +179,7 @@ const Navbar = () => {
               }}
               className={style.boton}
             >
-              Log In
+              Sign Up
             </Button>
           </Link>
         )}
