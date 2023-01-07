@@ -1,0 +1,109 @@
+.contTodo{
+  width: 100%;
+  height: 80rem;
+  background-color: #ffffffc5;
+}
+
+.homeCss {
+  display: flex;
+  /* padding: 0 150px; */
+  flex-direction: column;
+  justify-content: center;
+  /* height: 80rem; */
+  width: 100%;
+}
+
+.divFilterTargets{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.contButons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.contFilter {
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-top: 2%;
+}
+
+.contPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+
+.divAll{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* margin: 0px; */
+}
+
+.divColumns{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  height: 40px;
+  color: #828ea1;
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  margin-left: 60%;
+}
+
+.divColumnsH4uno{
+  margin-left: 5vw;
+}
+
+.divColumnsH4dos{
+  margin-left: 5vw;
+}
+
+.divColumnsH4tres{
+  margin-left: 4.6vw;
+}
+
+.divColumnsH4cuatro{
+  margin-left: 3.3vw;
+}
+
+.divTargets{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-left: 60%;
+}
+
+.divDino{
+  width: 100%;
+  margin-top: 20%;
+  margin-left: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .registerTypo {
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none !important;
+  color: black !important;
+  margin: 0 20px !important;
+}
+
+.registerTypo:hover {
+  color: blueviolet !important;
+  cursor: pointer !important;
+} */

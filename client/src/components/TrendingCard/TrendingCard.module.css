@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap');
+
+.contTrending{
+    position: relative; 
+    width: 12vw;
+    height: 13vh;
+    border: 2px solid rgb(97, 47, 123);
+    border-radius: 2rem;
+    /* background-color: rgb(79, 79, 79); */
+    background-image: url(https://blog.makerdao.com/wp-content/uploads/2019/11/Frame-8-e1597669621904.png);
+    /* opacity: 0.6;  */
+    margin: 2rem 1rem 2rem 1rem
+}
+.contTrending::before{
+    background-color: rgba(0,0,0,0.25);
+}
+
+
+.stImage{
+    margin-top: -2rem;
+    height: 4rem;
+    width: 4rem;
+}
+
+.contText{
+    display: flex;
+    /* margin-left: 1rem; */
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.stName{
+    color:white;
+    font-family: 'Signika Negative', sans-serif;
+}
+
+.stMarket{
+    color: rgb(26, 195, 26);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    margin-top: 1.4rem;
+    font-family: 'Heebo', sans-serif;
+}
+
+.contCap{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2.2rem;
+    margin-top: -2rem;
+}
+
+.stFlecha{
+    margin-top: 1.6rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+.stCap{
+    margin-left: 1rem;
+    color: #abff2e;
+}

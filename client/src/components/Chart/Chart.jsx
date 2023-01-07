@@ -18,6 +18,9 @@ import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { historyOptions } from "./ChartOptions";
 
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useState } from "react";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,20 +31,38 @@ ChartJS.register(
   Filler,
   Legend
 );
-const HistoryChart = (id) => {
+const HistoryChart = (id, days) => {
   const dispatch = useDispatch();
   const historyChart = useSelector((state) => state.historyChart);
   console.log(id);
 
   useEffect(() => {
-    dispatch(getHistoryChart(id.id));
+    dispatch(getHistoryChart(id.id, 7));
   }, [dispatch, id]);
 
   const options = { ...historyOptions };
+  const [day, setDay] = useState({});
+
+  const handleDays = (e) => {
+    dispatch(getHistoryChart(id.id, e.target.value));
+    setDay(e.target.value);
+  };
 
   return (
     <div>
-      Chart
+      <FormControl>
+        <InputLabel id="demo-simple-select-standard-label">Days</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={day}
+          onChange={handleDays}
+        >
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="7">7</MenuItem>
+          <MenuItem value="30">30</MenuItem>
+        </Select>
+      </FormControl>
       <div>
         {Object.keys(historyChart).length > 0 ? (
           <Line
@@ -53,9 +74,9 @@ const HistoryChart = (id) => {
               datasets: [
                 {
                   fill: true,
-                  label: id,
+                  label: id.id,
                   data: historyChart.coinChartData.map((value) => value.y),
-                  borderColor: "rgb(53, 162, 235)",
+                  borderColor: "purple",
                 },
               ],
             }}

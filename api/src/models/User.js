@@ -9,38 +9,40 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
+      unique: true,
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "",
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    telephone: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    dni: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      unique: true,
     },
     nationality: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: '',
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    lastname: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: '',
+    },
+    img: {
+      type: DataTypes.STRING,
+      defaultValue: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
     },
     admin: {
       type: DataTypes.BOOLEAN,
@@ -51,6 +53,6 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
-    }
+    },
   });
 };

@@ -1,0 +1,128 @@
+.Todo{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.card {
+  /* display: flex; */
+  /* position: absolute; */
+  margin-left: 10vh;
+  margin-top: 5vh;
+  /* border: 1px solid red; */
+  height: 60vh;
+  width: 120vh;
+  overflow: hidden;
+  border-radius: 30px;
+  /* margin: 45px; */
+  /* box-shadow: rgba(0, 0, 0, 0.9) 1px 2px 4px; */
+  background-color: white;
+  box-shadow: 0px 0px 53px -20px rgb(2, 2, 2);
+  transition: all ease-in-out 0.4s;
+}
+
+.contArrow {
+  display: flex;
+  margin-top: 10vh;
+  margin-left: 10vh;
+}
+
+.arrow {
+  height: 5vh;
+  width: 4vw;
+}
+
+.imagen {
+  height: 8vh;
+  width: 4vw;
+}
+
+.ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: large;
+}
+
+.contTop {
+  display: flex;
+  margin-left: 8vh;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.titulo {
+  margin-left: 5vh;
+}
+
+.contChart {
+  position: relative;
+  margin-left: 5vh;
+  height: 30vh;
+  width: 35vw;
+}
+
+.contMiddle {
+  /* position: relative; */
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.variationGreen{
+  color: rgb(26, 195, 26);
+}
+
+.variationRed{
+  color: rgb(195, 26, 26);
+}
+
+.alerta{
+  height: 3rem;
+  width: 3rem;
+  margin-left: 68%;
+  margin-top: -3%;
+  cursor: pointer;
+  /* opacity: 70%; */
+}
+
+.contComp{
+  display: flex;
+  /* position: relative; */
+}
+
+.contReviews{
+  display: flex;
+  /* margin-top: 84vh; */
+  /* position: absolute; */
+}
+
+.contWarning{
+  display: flex;
+  /* position: absolute; */
+  justify-content: center;
+  align-items: center;
+  margin-top: 14vh;
+  margin-left: 82vh;
+  /* margin-right: 50%; */
+  height: 40vh;
+  width: 50vh;
+  background-color: rgb(255, 255, 255);
+  /* opacity: 90%; */
+  border-radius: 1rem;
+  /* border: ; */
+  /* box-shadow: 0px 0px 53px -20px rgb(5, 48, 167); */
+}
+
+.contCalculator{
+  display: flex;
+  margin-left: 5rem;
+  margin-top: 3rem;
+}
+
+.contCardCalculator{
+  display: flex;
+  flex-direction: row;
+}

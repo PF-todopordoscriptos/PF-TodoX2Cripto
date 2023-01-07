@@ -10,8 +10,15 @@ import {
   ORDER_QUOTES,
   ORDER_RANKS,
   ORDER_CHANGE_PERCENTAGE,
-  POST_USER,
+  // POST_USER,
   FILTER_FAVORITE,
+  CREATE_REVIEW,
+  GET_REVIEW,
+  GET_USER_INFO,
+  UPDATE_USER_INFO,
+  GET_TRENDING_NEWS,
+  SET_THEME_MODE,
+  CREATE_WARNING
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -19,6 +26,16 @@ export function getTrendingCoins() {
     let json = await axios.get("http://localhost:3001/coins/trending");
     return dispatch({
       type: GET_TRENDING_COINS,
+      payload: json.data,
+    });
+  };
+}
+
+export function getTrendingNews(){
+  return async function(dispatch){
+    let json = await axios.get("http://localhost:3001/coins/trendingNews");
+    return dispatch({
+      type: GET_TRENDING_NEWS,
       payload: json.data,
     });
   };
@@ -34,9 +51,11 @@ export function getAllCoins() {
   };
 }
 
-export function getHistoryChart(id) {
+export function getHistoryChart(id, days) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/coins/chart/${id}`);
+    let json = await axios.get(
+      `http://localhost:3001/coins/chart/${id}?days=${days}`
+    );
     return dispatch({
       type: GET_HISTORY_CHART,
       payload: json.data,
@@ -115,3 +134,73 @@ export const postUser = (user) => {
     return response;
   };
 };
+
+export const postUserGoogle = (user) => {
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/users/loginWithGoogle?google=true`, user);
+
+    return response;
+  };
+};
+
+export function setThemeMode(payload) {
+  return {
+    type: SET_THEME_MODE,
+    payload
+  }
+};
+
+export function createReview(review, id) {
+  return async function (dispatch) {
+    await axios
+      .post(`http://localhost:3001/coins/reviews/${id}`, review)
+      .then((json) => {
+        return dispatch({
+          type: CREATE_REVIEW,
+          payload: json.data,
+        });
+      });
+  };
+}
+
+export function getReview(coinName) {
+  return async function (dispatch) {
+    let json = await axios.get(
+      `http://localhost:3001/coins/reviews/${coinName}`
+    );
+    return dispatch({
+      type: GET_REVIEW,
+      payload: json.data,
+    });
+  };
+}
+
+
+export function getUserInfo(oneUser) {
+  return async function (dispatch){
+    let json = await axios.get(`http://localhost:3001/users/${oneUser}`);
+    return dispatch ({
+      type: GET_USER_INFO,
+      payload: json.data
+    })
+  }
+}
+
+export function updateUserInfo(email, payload){
+  return async function (dispatch){
+    let json = await axios.put(`http://localhost:3001/users/${email}`,payload);
+    console.log("update user")
+    console.log(json.data)
+    return dispatch ({
+      type: UPDATE_USER_INFO,
+      payload: json.data
+    })
+  }
+}
+
+export function createWarning(payload){
+  return async function(){
+    let json = await axios.post("http://localhost:3001/warnings/warnings", payload);
+    return json
+  }
+}
