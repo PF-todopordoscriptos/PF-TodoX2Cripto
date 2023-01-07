@@ -7,8 +7,9 @@ const {
   CoinsReviews,
   AdminChanges,
   Warning,
-  Historic_Transactions
+  Historic_Transactions, Cart
 } = require("../db");
+
 
 
 async function getTrendingCoins() {
@@ -406,22 +407,23 @@ await Historic_Transactions.create({
   return result;
 }
 async function addCoinsUserCart(idUser, idCoin, quantity, price) {
-  const user = await User.findOne({
-    where: { id: idUser },
+
+  const cart = await Cart.create({
+    idUser,
+    idCoin,
+    quantity,
+    price
+  })
+  return cart;
+}
+async function finishTransactions(idUser) {
+
+  let finish = await Cart.destroy({
+    where: { idUser },
   });
-  const coin = await Coins.findOne({
-    where: { id: idCoin },
-  });
 
-  await user.addCoins(coin, { through: { quantity: quantity } });
+  return finish
 
-  const result = await User.findOne({
-    where: { id: idUser },
-    include: Coins,
-  });
-
-
-  return result;
 }
 
 async function allWarnings() {
@@ -475,5 +477,6 @@ module.exports = {
   createWarning,
   addCoinsUser,
   getHistoric,
-  addCoinsUserCart
+  addCoinsUserCart,
+  finishTransactions
 };

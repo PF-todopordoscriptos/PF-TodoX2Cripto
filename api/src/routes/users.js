@@ -12,7 +12,8 @@ const {
   getAllAdminChanges,
   addCoinsUser,
   getHistoric,
-  addCoinsUserCart
+  addCoinsUserCart,
+  finishTransactions
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
@@ -203,6 +204,17 @@ router.post("/addTransactionCart", async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+
+router.delete("/finishTransactions", async(req, res) =>{
+  try{
+    const { idUser } = req.body;
+    let validation= finishTransactions(idUser)
+        res.status(200).json(validation);
+      } catch (err) {
+        res.status(400).json(err.message);
+      }
+    });
+
 
 router.post("/payment", async (req, res) => {
   const product = req.body;
