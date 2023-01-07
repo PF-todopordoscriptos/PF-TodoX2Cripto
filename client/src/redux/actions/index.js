@@ -17,7 +17,8 @@ import {
   GET_USER_INFO,
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
-  SET_THEME_MODE
+  SET_THEME_MODE,
+  CREATE_WARNING
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -194,5 +195,12 @@ export function updateUserInfo(email, payload){
       type: UPDATE_USER_INFO,
       payload: json.data
     })
+  }
+}
+
+export function createWarning(payload){
+  return async function(){
+    let json = await axios.post("http://localhost:3001/warnings/warnings", payload);
+    return json
   }
 }

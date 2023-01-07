@@ -9,12 +9,11 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
-      unique: true,
+      // unique: true,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     text: {
       type: DataTypes.STRING,
