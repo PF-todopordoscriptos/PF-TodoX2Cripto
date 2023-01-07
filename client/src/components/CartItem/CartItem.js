@@ -1,6 +1,6 @@
 import React from "react";
 
-const CartItem = ({ key, data, delFromCart }) => {
+const CartItem = ({ key, data, delFromCart, addOneFromCart }) => {
   let { id, name, current_price, quantity } = data;
   return (
     <div>
@@ -8,7 +8,9 @@ const CartItem = ({ key, data, delFromCart }) => {
       <h5>
         ${current_price}.00 x {quantity} = ${current_price * quantity}.00
       </h5>
-      <button onClick={() => delFromCart(id)}>Eliminar Uno</button>
+      <button onClick={() => addOneFromCart(id)}>+</button>
+      <br />
+      <button onClick={() => delFromCart(id)}>-</button>
       <br />
       <button onClick={() => delFromCart(id, true)}>X</button>
     </div>

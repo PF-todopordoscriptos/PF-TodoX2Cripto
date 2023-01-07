@@ -18,11 +18,12 @@ import {
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
   ADD_TO_CART,
+  ADD_ONE_FROM_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CREATE_WARNING,
-  CLEAR_ADMIN
+  CLEAR_ADMIN,
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -244,6 +245,16 @@ export function rootReducer(state = initialState, action) {
       //   cart: state.cart.concat(action.payload),
       // };
     }
+    case ADD_ONE_FROM_CART: {
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          item.id === action.payload
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
+      };
+    }
     case REMOVE_ONE_FROM_CART: {
       let itemToDelete = state.cart.find((item) => item.id === action.payload);
 
@@ -270,16 +281,16 @@ export function rootReducer(state = initialState, action) {
     case CLEAR_CART: {
       return initialState;
     }
-    case CREATE_WARNING:{
-      return{
-        ...state
-      }
-    }
-    case CLEAR_ADMIN :{
-      return{
+    case CREATE_WARNING: {
+      return {
         ...state,
-        userInfo: []
-      }
+      };
+    }
+    case CLEAR_ADMIN: {
+      return {
+        ...state,
+        userInfo: [],
+      };
     }
     default:
       return state;
