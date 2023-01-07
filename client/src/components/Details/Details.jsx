@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { createReview, getCoinDetail, getReview } from "../../redux/actions";
+import { createReview, createWarning, getCoinDetail, getReview } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
 import { HiArrowUturnLeft } from "react-icons/hi2";
@@ -83,11 +83,18 @@ const Details = (props) => {
       showCancelButton: true
     })
     
+
     if (text) {
-      Swal.fire(text)
+      // Swal.fire(text)
+      let data = {
+        email: user.email,
+        coin: id,
+        text: text
+      }
+      dispatch(createWarning(data))
+      console.log(data)
     }
     console.log(text)
-
     }
 
 

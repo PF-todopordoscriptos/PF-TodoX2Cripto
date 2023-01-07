@@ -18,7 +18,11 @@ import {
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
+
   ADD_TO_CART,
+
+  CREATE_WARNING
+
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -205,4 +209,11 @@ export function addCart(payload) {
     type: ADD_TO_CART,
     payload,
   };
+}
+
+export function createWarning(payload){
+  return async function(){
+    let json = await axios.post("http://localhost:3001/warnings/warnings", payload);
+    return json
+  }
 }

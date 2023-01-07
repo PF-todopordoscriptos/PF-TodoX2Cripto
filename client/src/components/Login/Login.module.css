@@ -1,0 +1,373 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap");
+
+.all {
+  display: flex;
+  justify-content: space-evenly;
+  /* background: #ADA996;
+    background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
+    background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); */
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+
+.parteUno {
+  display: flex;
+  flex-direction: column;
+}
+
+.parteDos {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 3rem; */
+}
+
+.startH4 {
+  display: flex;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 500;
+  /* font-size: x-large; */
+  color: rgb(0, 0, 0);
+  margin-top: 3rem;
+  margin-bottom: 0px;
+}
+
+.startH2 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  /* font-size: x-large; */
+  color: rgb(0, 0, 0);
+  margin-top: 0.5rem;
+}
+
+.orH2 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 600;
+  color: #000000;
+  text-shadow: 2px 1px 5px rgb(125, 217, 245);
+  margin-bottom: -0.2rem;
+}
+
+.errorsText1 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  color: #a71919;
+  text-shadow: 2px 1px 5px rgb(252, 134, 134);
+  margin-top: 1.4rem;
+  margin-bottom: -1rem;
+}
+
+.errorsText2 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  color: #a71919;
+  text-shadow: 2px 1px 5px rgb(252, 134, 134);
+  margin-top: 1.4rem;
+  margin-bottom: 0rem;
+}
+
+.errorsText3 {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 600;
+  color: #a71919;
+  text-shadow: 2px 1px 5px rgb(252, 134, 134);
+  margin-top: 1.4rem;
+  margin-bottom: 0.1rem;
+}
+
+.finalH2 {
+  display: flex;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  /* font-size: x-large; */
+  color: rgb(0, 0, 0);
+  margin-top: 0.3rem;
+}
+
+.secciones {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1.3rem;
+}
+
+.circuloNormal {
+  background-color: rgb(199, 199, 199);
+  border-radius: 100%;
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.circuloPintado {
+  background-image: radial-gradient(
+    circle 685.3px at 47.8% 55.1%,
+    rgba(255, 99, 152, 1) 0%,
+    rgba(251, 213, 149, 1) 90.1%
+  );
+  border-radius: 100%;
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.buttonsDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.ButSignUp {
+  position: relative;
+  /* background: rgb(0, 255, 255, 0.2); */
+  background: none;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0.2em solid rgb(212, 0, 255);
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  border-radius: 5px;
+  font-family: "Fira Sans", sans-serif;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+.ButSignUp:hover {
+  /*right: 80%;*/
+  cursor: pointer;
+}
+
+.ButSignUp:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10%;
+  background: #222;
+  height: 0.3em;
+  right: 20%;
+  top: -0.21em;
+  transform: skewX(-45deg);
+  -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.ButSignUp:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10%;
+  background: #222;
+  height: 0.3em;
+  left: 20%;
+  bottom: -0.25em;
+  transform: skewX(45deg);
+  -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.ButSignUp:hover:before {
+  right: 80%;
+}
+
+.ButSignUp:hover::after {
+  left: 80%;
+}
+
+.ButLogin {
+  position: relative;
+  /* background: rgb(0, 255, 255, 0.2); */
+  background: none;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0.2em solid rgb(212, 0, 255);
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  font-family: "Fira Sans", sans-serif;
+}
+.ButLogin:hover {
+  /*right: 80%;*/
+  cursor: pointer;
+}
+
+.ButLogin:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10%;
+  background: #222;
+  height: 0.3em;
+  right: 20%;
+  top: -0.21em;
+  transform: skewX(-45deg);
+  -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.ButLogin:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10%;
+  background: #222;
+  height: 0.3em;
+  left: 20%;
+  bottom: -0.25em;
+  transform: skewX(45deg);
+  -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.ButLogin:hover:before {
+  right: 80%;
+}
+
+.ButLogin:hover::after {
+  left: 80%;
+}
+
+.butHidden {
+  display: none;
+}
+
+.butNext {
+  margin-top: 2rem;
+  position: relative;
+  /* background: rgb(255, 0, 0, 0.2); */
+  background: none;
+  color: rgb(255, 0, 0);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0.2em solid rgb(255, 0, 0);
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  font-family: "Fira Sans", sans-serif;
+}
+
+.butNext:hover {
+  /*right: 80%;*/
+  cursor: pointer;
+}
+
+.butNext:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10%;
+  background: #222;
+  height: 0.3em;
+  right: 20%;
+  top: -0.21em;
+  transform: skewX(-45deg);
+  -webkit-transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.butNext:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 10%;
+  background: #222;
+  height: 0.3em;
+  left: 20%;
+  bottom: -0.25em;
+  transform: skewX(45deg);
+  -webkit-transition: all 0.45 cubic-bezier(0.86, 0, 0.07, 1);
+  transition: all 0.45s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.butNext:hover:before {
+  right: 80%;
+}
+
+.butNext:hover::after {
+  left: 80%;
+}
+
+.contLogin {
+  margin-top: 2rem;
+}
+
+.forget {
+  color: rgb(42, 3, 199);
+  font-style: italic;
+  cursor: pointer;
+  font-weight: bold;
+  /* color: rgba(137, 16, 243, 0.2); */
+}
+
+.divPassword {
+  display: flex;
+  justify-content: space-around;
+}
+
+.divPassword2 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.registerInputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.emailRegister {
+  margin-left: 30%;
+}
+
+.divRegister {
+  display: flex;
+  margin-left: 12%;
+}
+
+.ojo1 {
+  margin-top: 1.8rem;
+  /* margin-bottom: auto; */
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+}
+
+.ojo2 {
+  margin-top: 1.8rem;
+  /* margin-bottom: auto; */
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+}
+
+.google {
+  height: 1rem;
+  width: 1rem;
+  margin-left: 0.3rem;
+}
+
+.contInputs {
+  display: flex;
+  flex-direction: column;
+}
+
+.resetPa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.butReset {
+  margin-top: 1rem;
+  position: relative;
+  /* background: rgb(255, 0, 0, 0.2); */
+  background: none;
+  color: rgb(0, 106, 255);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0.2em solid rgb(0, 136, 255);
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  font-family: "Fira Sans", sans-serif;
+  cursor: pointer;
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import style from "./FormLogin.module.css";
-import "./FormLoginBackground.css";
+import style from "./SignUp.module.css";
+import "./SignUpBackground.css";
 import TextField from "@mui/material/TextField";
 
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import logoGoogle from "../../Images/logoGoogle.png";
 import Swal from "sweetalert2";
 
 
-const FormLogin = () => {
+const SignUp = () => {
   const history = useNavigate();
 
 
@@ -372,113 +372,16 @@ const FormLogin = () => {
             </button>
             {/* disabled= {errorsSig.length === 0 ? false : true} */}
           </div>
-        </div>
-
-        <div className={style.parteDos}>
-          <button
-            type="button"
-            onClick={handleSingInGoogle}
-            className={style.ButSignUp}
-          >
-            Log in with{" "}
-            <img
-              src={`${logoGoogle}`}
-              className={style.google}
-              alt="GoogleLogo"
-            />
-          </button>
-
-          <h2 className={style.orH2}>Or</h2>
-          <h2 className={style.finalH2}>Do you already have an account?</h2>
-
-          <div className={style.registerInputs}>
-            <div className={style.divRegister}>
-              <TextField
-                className={style.emailRegister}
-                onChange={handleChangeRegistered}
-                name="email"
-                value={registered.email}
-                id="filled-8"
-                label="Email"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "0.5rem" }}
-              />
-            </div>
-
-            <div className={style.divPassword2}>
-              <TextField
-                onChange={handleChangeRegistered}
-                name="password"
-                type={registered.showRegisterPassword ? "text" : "password"}
-                value={registered.password}
-                id="filled-9"
-                label="Password"
-                variant="standard"
-                color="info"
-                sx={{ marginTop: "0.5rem" }}
-              />
-              {registered.showRegisterPassword ? (
-                <img
-                  className={style.ojo2}
-                  src={`${ojoAbierto}`}
-                  alt="ojoabierto"
-                  onClick={handleClickShowRegisterPassword}
-                />
-              ) : (
-                <img
-                  className={style.ojo2}
-                  src={`${ojoCerrado}`}
-                  alt="ojocerrado"
-                  onClick={handleClickShowRegisterPassword}
-                />
-              )}
-            </div>
-          </div>
-
-          {errorsLog && <p className={style.errorsText2}>{errorsLog}</p>}
-          <div className={style.contLogin}>
-            <button
-              onClick={handleLogin}
-              type="button"
-              className={style.ButLogin}
-            >
-              Log in
-            </button>
-          </div>
-
           <p>
-            Did you forget your password?{" "}
-            <a onClick={changePasswordForm} className={style.forget}>
-              get it back.
+          Do you already have an account?{" "}
+            <a href="/login" className={style.forget}>
+              Login here
             </a>
           </p>
-          {handleChangePassword ? (
-            <div className={style.resetPa}>
-              <TextField
-                id="filled-10"
-                name="email"
-                label="Email"
-                variant="standard"
-                color="info"
-                value={resetPassword.email}
-                onChange={handleResetPassword}
-              />
-              {errorsPass && <p className={style.errorsText3}>{errorsPass}</p>}
-
-              <button
-                type="button"
-                onClick={onHandleReset}
-                className={style.butReset}
-              >
-                Reset password
-              </button>
-            </div>
-          ) : null}
         </div>
       </form>
     </div>
   );
 };
 
-export default FormLogin;
+export default SignUp;

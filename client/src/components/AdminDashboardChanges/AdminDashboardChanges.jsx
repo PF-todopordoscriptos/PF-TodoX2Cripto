@@ -18,7 +18,7 @@ import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 
-export default function AdminDashboardUsers() {
+export default function AdminDashboardChanges() {
 
   let [rows, setRows] = useState([]);
 

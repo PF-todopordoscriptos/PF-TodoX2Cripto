@@ -3,25 +3,27 @@ const { DataTypes } = require("sequelize");
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("Warning", {
+  sequelize.define("Historic_Transactions", {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
-      // unique: true,
+      autoIncrement: true
     },
-    email: {
+    idUser: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    text: {
+    idCoin: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    coin: {
-      type: DataTypes.STRING,
+    quantity: {
+      type: DataTypes.FLOAT,
       allowNull: false,
+    },
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
     },
   });
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import style from "./FormLogin.module.css";
-import "./FormLoginBackground.css";
+import style from "./Login.module.css";
+import "./LoginBackground.css";
 import TextField from "@mui/material/TextField";
 
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import logoGoogle from "../../Images/logoGoogle.png";
 import Swal from "sweetalert2";
 
 
-const FormLogin = () => {
+const Login = () => {
   const history = useNavigate();
 
 
@@ -211,168 +211,7 @@ const FormLogin = () => {
   return (
     <div className="main-formlogin">
       <form className={style.all}>
-        <div className={style.parteUno}>
-          <h4 className={style.startH4}>Sign up free!</h4>
-          <h2 className={style.startH2}>Create your profile.</h2>
-
-          <div className={style.secciones}>
-            <div
-              className={
-                input.email !== "" ? style.circuloPintado : style.circuloNormal
-              }
-            />
-            <div
-              className={
-                input.password !== ""
-                  ? style.circuloPintado
-                  : style.circuloNormal
-              }
-            />
-            <div
-              className={
-                input.repeatPassword !== ""
-                  ? style.circuloPintado
-                  : style.circuloNormal
-              }
-            />
-          </div>
-
-          {
-            //contador === 1 ?
-
-            <div className={style.contInputs}>
-              {/* {errorsSig && (<p className={style.errorsText}>{errorsSig}</p>)} */}
-              {
-                // isAuthenticated ?  (
-
-                //     <div>
-                //         <TextField id="filled-1" name="email" label={`${user.email}`} variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={console.log("aaa")} disabled/>
-                //     </div>
-                // )
-                // :
-
-                <TextField
-                  value={input.email}
-                  id="filled-2"
-                  name="email"
-                  label="Email"
-                  variant="standard"
-                  color="info"
-                  sx={{ marginTop: "0.5rem" }}
-                  onChange={handleInput}
-                />
-              }
-
-              {/* <TextField id="filled-3" name="username" label="Username" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/> */}
-
-              <div className={style.divPassword}>
-                <TextField
-                  value={input.password}
-                  id="standard-adornment-password"
-                  type={input.showPassword ? "text" : "password"}
-                  name="password"
-                  label="Password"
-                  variant="standard"
-                  color="info"
-                  sx={{ marginTop: "0.5rem" }}
-                  onChange={handleInput}
-                />
-                {input.showPassword ? (
-                  <img
-                    className={style.ojo1}
-                    src={`${ojoAbierto}`}
-                    alt="ojoabierto"
-                    onClick={handleClickShowPassword}
-                  />
-                ) : (
-                  <img
-                    className={style.ojo1}
-                    src={`${ojoCerrado}`}
-                    alt="ojocerrado"
-                    onClick={handleClickShowPassword}
-                  />
-                )}
-              </div>
-
-              <div className={style.divPassword}>
-                <TextField
-                  value={input.repeatPassword}
-                  id="standard-adornment-repeat-password"
-                  type={input.showRepeatPassword ? "text" : "password"}
-                  name="repeatPassword"
-                  label="Repeat password"
-                  variant="standard"
-                  color="info"
-                  sx={{ marginTop: "0.5rem" }}
-                  onChange={handleInput}
-                />
-
-                {input.showRepeatPassword ? (
-                  <img
-                    className={style.ojo2}
-                    src={`${ojoAbierto}`}
-                    alt="ojoabierto"
-                    onClick={handleClickShowRepeatPassword}
-                  />
-                ) : (
-                  <img
-                    className={style.ojo2}
-                    src={`${ojoCerrado}`}
-                    alt="ojocerrado"
-                    onClick={handleClickShowRepeatPassword}
-                  />
-                )}
-              </div>
-            </div>
-
-            // :
-            // contador === 2 ?
-            // <div className={style.contInputs}>
-            //     <TextField id="filled-4" name="name" label="Name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
-
-            //     <TextField id="filled-5" name="lastname" label="Last name" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
-            // </div>
-
-            // :
-            // contador === 3 ?
-            // <div className={style.contInputs}>
-            //     <TextField id="filled-6" name="telephone" label="Telephone" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput} />
-
-            //     <TextField id="filled-7" name="dni" label="DNI" variant="standard" color='info' sx={{marginTop: '0.5rem'}} onChange={handleInput}/>
-
-            //     <SelectNat
-            //     value={input.nationality}
-            //     onChange={handleInput}
-            //     />
-
-            // </div> : null
-          }
-
-          {errorsSig && <p className={style.errorsText1}>{errorsSig}</p>}
-          <div className={style.buttonsDiv}>
-            {/* {
-            contador>1? <button type='button' onClick={setPrev} className={style.butNext}>Prev</button> : null
-        }
-
-        <button type='button' onClick={setNext} className={style.butNext}>Next</button>
-        {
-            contador===3? <button type='button' onClick={onSubmitedForm} className={style.butNext}>Sing Up</button> : null
-        } */}
-
-            {/* <button type='button' onClick={setPrev} className={contador > 1 ? style.butNext : style.butHidden }>Prev</button>
-        <button type='button' onClick={setNext} className={contador === 3 ? style.butHidden : style.butNext }>Next</button>
-        <button type='button' onClick={onSubmitedForm} className={contador === 3 ? style.butNext : style.butHidden }>Sing Up</button>  */}
-
-            <button
-              type="button"
-              onClick={onSubmitedForm}
-              className={style.butNext}
-            >
-              Sign Up
-            </button>
-            {/* disabled= {errorsSig.length === 0 ? false : true} */}
-          </div>
-        </div>
+        
 
         <div className={style.parteDos}>
           <button
@@ -389,7 +228,7 @@ const FormLogin = () => {
           </button>
 
           <h2 className={style.orH2}>Or</h2>
-          <h2 className={style.finalH2}>Do you already have an account?</h2>
+          {/* <h2 className={style.finalH2}>Do you already have an account?</h2> */}
 
           <div className={style.registerInputs}>
             <div className={style.divRegister}>
@@ -481,4 +320,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default Login;

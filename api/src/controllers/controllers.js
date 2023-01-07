@@ -7,7 +7,9 @@ const {
   CoinsReviews,
   AdminChanges,
   Warning,
+  Historic_Transactions
 } = require("../db");
+
 
 async function getTrendingCoins() {
   const trendingCoins = await axios.get(
@@ -133,7 +135,7 @@ async function getHistoryChart(id, days) {
 // }
 
 async function getAllUsers() {
-  let allUsers = await User.findAll({ include: Coins });
+  let allUsers = await User.findAll({ include: Coins,  });
   return allUsers;
 }
 
@@ -379,7 +381,7 @@ async function getAllAdminChanges() {
   return allChanges;
 }
 
-async function addCoinsUser(idUser, idCoin, quantity) {
+async function addCoinsUser(idUser, idCoin, quantity, price) {
   const user = await User.findOne({
     where: { id: idUser },
   });
@@ -393,6 +395,32 @@ async function addCoinsUser(idUser, idCoin, quantity) {
     where: { id: idUser },
     include: Coins,
   });
+
+await Historic_Transactions.create({
+  idUser,
+  idCoin,
+  quantity,
+  price
+})
+
+  return result;
+}
+async function addCoinsUserCart(idUser, idCoin, quantity, price) {
+  const user = await User.findOne({
+    where: { id: idUser },
+  });
+  const coin = await Coins.findOne({
+    where: { id: idCoin },
+  });
+
+  await user.addCoins(coin, { through: { quantity: quantity } });
+
+  const result = await User.findOne({
+    where: { id: idUser },
+    include: Coins,
+  });
+
+
   return result;
 }
 
@@ -412,6 +440,11 @@ async function createWarning(email, text, coin) {
   });
 
   return newWarning;
+}
+
+async function getHistoric() {
+  let historic = await Historic_Transactions.findAll();
+  return historic;
 }
 
 module.exports = {
@@ -441,4 +474,6 @@ module.exports = {
   allWarnings,
   createWarning,
   addCoinsUser,
+  getHistoric,
+  addCoinsUserCart
 };
