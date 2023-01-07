@@ -11,7 +11,33 @@
 }
 
 .contSwitch{
-  margin-left: 10vh;
+  margin-left: -105vh;
+}
+
+.contButsExtras{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.admin{
+  height: 2.5rem;
+  width: 2.5rem;
+  border: aliceblue 0.3rem solid;
+  /* padding: 0.5rem; */
+  background-color: aliceblue;
+  border-radius: 3rem;
+}
+
+.carrito{
+  height: 2.5rem;
+  width: 2.5rem;
+  border: aliceblue 0.3rem solid;
+  /* padding: 0.5rem; */
+  background-color: aliceblue;
+  border-radius: 3rem;
+  margin-left: 1rem;
 }
 
 .logo{
@@ -23,7 +49,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 50vw;
+  /* margin-left: 50vw; */
 }
 
 .flexBoton{
@@ -34,7 +60,7 @@
 }
 
 .boton {
-  margin-left: 2vh;
+  margin-left: 50vh;
   background: #7b27a5;
   border: none;
   border-radius: 6px;
