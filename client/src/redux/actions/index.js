@@ -19,7 +19,7 @@ import {
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
   CREATE_WARNING,
-  CLEAR_ADMIN
+  CLEAR_ADMIN,
   ADD_TO_CART,
 } from "./actionTypes";
 
