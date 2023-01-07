@@ -21,6 +21,7 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  CREATE_WARNING
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -242,6 +243,11 @@ export function rootReducer(state = initialState, action) {
     case CLEAR_CART: {
     }
 
+    case CREATE_WARNING:{
+      return{
+        ...state
+      }
+    }
     default:
       return state;
   }
