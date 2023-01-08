@@ -24,6 +24,7 @@ import {
   CLEAR_CART,
   CREATE_WARNING,
   CLEAR_ADMIN,
+  GET_USER_CART
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -37,6 +38,7 @@ export const initialState = {
   reviews: [],
   userInfo: [],
   user: {},
+  userCart:[],
   themeMode: "light",
   cart: [],
 };
@@ -290,6 +292,12 @@ export function rootReducer(state = initialState, action) {
       return {
         ...state,
         userInfo: [],
+      };
+    }
+    case GET_USER_CART: {
+      return {
+        ...state,
+        userCart: action.payload,
       };
     }
     default:

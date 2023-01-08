@@ -29,10 +29,10 @@ const Details = (props) => {
     });
   }, []);
 
-  console.log(user)
+
 
   let { id } = useParams();
-  console.log(id);
+
   
   useEffect(() => {
     dispatch(getCoinDetail(id));
@@ -65,7 +65,7 @@ const Details = (props) => {
     });
   };
 
-  console.log(coinDetails);
+
 
   const alertaa = async () => {
 
@@ -92,9 +92,9 @@ const Details = (props) => {
         text: text
       }
       dispatch(createWarning(data))
-      console.log(data)
+
     }
-    console.log(text)
+
     }
 
 
@@ -147,6 +147,7 @@ const Details = (props) => {
       id = {id}
       />
       </div>
+     
         </div>
 
       <div className={style.contReviews}>

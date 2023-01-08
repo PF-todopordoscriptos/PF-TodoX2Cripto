@@ -206,9 +206,9 @@ router.post("/addTransactionCart", async (req, res) => {
   }
 });
 
-router.get("/transactionCart", async (req, res) => {
+router.get("/transactionCart/:idUser", async (req, res) => {
   try {
-    const { idUser} = req.body;
+    const { idUser} = req.params;
     let transaction =await getCoinsUserCart(idUser);
     res.status(200).json(transaction);
   } catch (e) {
@@ -216,9 +216,9 @@ router.get("/transactionCart", async (req, res) => {
   }
 });
 
-router.delete("/finishTransactions", async(req, res) =>{
+router.delete("/finishTransactions/:idUser", async(req, res) =>{
   try{
-    const { idUser } = req.body;
+    const { idUser } = req.params;
     let validation= finishTransactions(idUser)
         res.status(200).json(validation);
       } catch (err) {
