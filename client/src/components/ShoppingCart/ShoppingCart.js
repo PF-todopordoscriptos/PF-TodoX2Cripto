@@ -11,9 +11,12 @@ import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
 import { getAllCoins, getUserInfo, getCartUser, deleteCartUser } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-
+import axios from 'axios';
 import {  onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+
+import { Button } from '@mui/material';
+
 
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -46,7 +49,6 @@ const ShoppingCart = () => {
   }, [userInfo]);
 
 
-console.log(userCart)
 
 
   useEffect(() => {
@@ -78,6 +80,28 @@ console.log(userCart)
     dispatch(deleteCartUser(userInfo.id));
   };
 
+let product =[]
+const productPayment = () => {
+  userCart.map((e)=>product.push(
+    {
+      title:e.idCoin,
+      amount:e.quantity,
+      price:e.price
+
+    }
+    
+    ))
+  
+}
+productPayment()
+console.log(product)
+  // let product = [
+  //   {
+  //     title,
+  //     amount, // seria quantity
+  //     price,
+  //   },
+  // ]
   return (
     <div>
       <h2>Carrito de Compras</h2>
@@ -98,15 +122,27 @@ console.log(userCart)
 <label>{i.idCoin}</label>
 <label>{i.price}</label>
 <label>{i.quantity}</label>
-                </div>
+          <Button
+          onClick={() => {
+            axios.post('http://localhost:3001/users/payment', product)
+            .then((res) => window.location.href = res.data.response.body.init_point)
+        }}
+        >
+          BUY CRIPTO
+        </Button>
+          </div>
               );
             })
-          ) : (
+          ) 
+          
+          : (
             <div>
               <p>Carrito vacío</p>
             </div>
           )} 
 </div>
+
+
 
 {/* 
         {cartCoins.map((item, id) => (
