@@ -69,7 +69,6 @@ export default function AdminDashboardCoins() {
       ).catch(e => console.log(e))
     }, [])
   }
-
   console.log("TEST", currentAdmin)
 
   const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
@@ -264,12 +263,12 @@ export default function AdminDashboardCoins() {
   GetAllCoins() // CALL FOR FIRST RENDER
 
   return (
-    <Box sx={{ width: '100vw' , backgroundColor: deepPurple[800] }} >
+    <Box sx={{ width: '100vw' , backgroundColor: deepPurple[800], marginLeft: "-2.5rem" }} >
       <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh' }} align="center" >
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box  sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '17vw'  }}>
-          <RefreshSharpIcon  fontSize="large" onClick={function() {
+          <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
             axios.post('http://localhost:3001/coins/postCoinsAPItoDB')
             .then((response) => {
               let ww = []
@@ -284,7 +283,7 @@ export default function AdminDashboardCoins() {
               console.log("DONE FETCH")
             }).catch(e => console.log(e))
           }}/>
-          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw'}} >
+          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw', cursor: "pointer"}} >
             GET COINS FROM API TO DB
           </Box>
         </Box>

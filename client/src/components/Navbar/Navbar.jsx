@@ -67,6 +67,7 @@ console.log(user)
 
   const handleSignOut = () => {
     dispatch(clearAdmin())
+    setUser(null)
     signOut(auth);
     navigate("/")
     // Navigate("/home");

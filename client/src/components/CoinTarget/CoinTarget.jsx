@@ -8,6 +8,8 @@ import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import IconButton from "@mui/material/IconButton";
 
+import Swal from "sweetalert2";
+
 import style from "./CoinTarget.module.css";
 
 const CoinTarget = (props) => {
@@ -48,6 +50,20 @@ const CoinTarget = (props) => {
 
   const addToCart = (id) => {
     dispatch(addCart(id));
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    Toast.fire({
+      icon: "success",
+      iconColor: "#8EFF60",
+      title: `Coin added to cart.`,
+      color: "white",
+      background: "#E6112B" 
+    });
   };
 
   return (
@@ -96,8 +112,8 @@ const CoinTarget = (props) => {
         </Link>
       </div>
 
-      <button onClick={() => addToCart(props.id)} className={style.butDetails}>
-        Agregar al Carrito
+      <button onClick={() => addToCart(props.id)} className={style.butCart}>
+          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />
       </button>
     </div>
   );
