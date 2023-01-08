@@ -192,18 +192,15 @@ const Details = (props) => {
       
       </div>
 
-     //   </div>
-
-
-      <div >
+      <div>
         <form className={style.contForm}>
-          <TextField id="filled-basic" label="Type your review..." variant="standard" sx={{width: "40rem"}} onChange={handleInput} name="text" value={comment.text}/>
-          <Rating name="stars" value={comment.stars} onChange={handleInput}/>
-          <Button variant="outlined" color="secondary" onClick={postComment}>Send Review</Button>
+           <TextField id="filled-basic" label="Type your review..." variant="standard" sx={{width: "40rem"}} onChange={handleInput} name="text" value={comment.text}/>
+           <Rating name="stars" value={comment.stars} onChange={handleInput}/>
+           <Button variant="outlined" color="secondary" onClick={postComment}>Send Review</Button>
         </form>
       </div>
 
-    </div>
+  </div>
   );
 };
 
