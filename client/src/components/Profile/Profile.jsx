@@ -153,7 +153,7 @@ const Profile = () => {
     Toast.fire({
       icon: "success",
       iconColor: "#8EFF60",
-      title: `User modified successfully`,
+      title: `User modified successfully.`,
       color: "white",
       background: "#1db722d3" 
     });
@@ -215,7 +215,7 @@ const Profile = () => {
           </div>
 
           <div className={style.contButton}>
-            {
+            {/* {
             input.username !== "" && input.name !== "" && input.lastname !== "" && input.nationality !== "" ? 
             <button className={style.butChanges} onClick={saveChanges}>
               Save changes
@@ -224,8 +224,12 @@ const Profile = () => {
             <button className={style.butChangesDis} onClick={saveChanges} disabled>
              Rellenar todos los campos
            </button>
-             
-            }
+            } */}
+
+            <button className={style.butChanges} onClick={saveChanges}>
+              Save changes
+            </button>
+            
           </div>
 
           <div className={style.divDinosaurio}>
