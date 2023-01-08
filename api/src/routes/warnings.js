@@ -29,17 +29,4 @@ router.post("/warnings", async (req,res) => {
 
 
 
-
-router.post("/", async (req,res) => {
-    try{
-        let {name,heightMin, heightMax, weightMin, weightMax, lifeMin, lifeMax, img, tempers} = req.body
-        await allTemps()
-        const newDog = await createBreed(name,heightMin, heightMax, weightMin, weightMax, lifeMin, lifeMax, img, tempers)
-        res.status(200).send(newDog)
-    }catch(e){
-        res.status(404).send(e.message)
-    }
-})
-
-
 module.exports = router;

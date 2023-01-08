@@ -21,6 +21,8 @@ import {
   CREATE_WARNING,
   CLEAR_ADMIN,
   ADD_TO_CART,
+  COIN_COMMENT,
+  POST_COMMENT
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -227,3 +229,24 @@ export function clearAdmin(payload) {
     });
   };
 }
+
+export function createComment(payload){
+  return async function () {
+    let json = await axios.post(
+      "http://localhost:3001/comments/comment",
+      payload
+    );
+    return json;
+  };
+}
+
+export function getCoinComment(coin) {
+  return async function (dispatch) {
+    let json = await axios.get(`http://localhost:3001/comments/${coin}`);
+    return dispatch({
+      type: COIN_COMMENT,
+      payload: json.data,
+    });
+  };
+}
+

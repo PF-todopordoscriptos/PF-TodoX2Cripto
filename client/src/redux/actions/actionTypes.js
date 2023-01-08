@@ -23,3 +23,5 @@ export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
 export const CREATE_WARNING = "CREATE_WARNING";
 export const CLEAR_ADMIN = "CLEAR_ADMIN";
+export const COIN_COMMENT = "COIN_COMMENT";
+export const POST_COMMENT = "POST_COMMENT";
