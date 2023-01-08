@@ -16,9 +16,12 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import FormLogin from "./components/FormLogin/FormLogin";
+import SignUp from "./components/SignUp/SignUp"
+import Login from "./components/Login/Login";
 import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboardCoins";
 import AdminDashboardUsers from "./components/AdminDashboardUsers/AdminDashboardUsers";
 import AdminDashboardChanges from "./components/AdminDashboardChanges/AdminDashboardChanges";
+import PanelAdmin from "./components/PanelAdmin/PanelAdmin";
 import Payment from "./components/Payment/Payment";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../src/firebase/firebaseConfig";
@@ -48,6 +51,8 @@ function App() {
       }
     });
   }, []);
+
+  console.log(user)
 
   const getDesignTokens = (PaletteMode) => ({
     palette: {
@@ -170,7 +175,23 @@ function App() {
               path="/login"
               element={
                 <>
-                  <Navbar /> <FormLogin /> <Footer />
+                  <Navbar /> <Login /> <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <>
+                  <Navbar /> <SignUp /> <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <>
+                  <Navbar /> <ShoppingCart /> <Footer />
                 </>
               }
             />
@@ -198,6 +219,7 @@ function App() {
                 </>
               }
             />
+            <Route path={"/admin"} element={<PanelAdmin />} />
             <Route path={"/comparative"} element={<Comparative />} />
             <Route path={"/shoppingcart"} element={<ShoppingCart />} />
             <Route path={"/admincoins"} element={<AdminDashboardCoins />} />

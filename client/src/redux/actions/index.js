@@ -18,7 +18,12 @@ import {
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
-  CREATE_WARNING
+  CREATE_WARNING,
+  CLEAR_ADMIN,
+  ADD_TO_CART,
+  ADD_TO_CART_BACK,
+  GET_USER_CART,
+  CLEAR_CART,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -31,8 +36,8 @@ export function getTrendingCoins() {
   };
 }
 
-export function getTrendingNews(){
-  return async function(dispatch){
+export function getTrendingNews() {
+  return async function (dispatch) {
     let json = await axios.get("http://localhost:3001/coins/trendingNews");
     return dispatch({
       type: GET_TRENDING_NEWS,
@@ -137,7 +142,10 @@ export const postUser = (user) => {
 
 export const postUserGoogle = (user) => {
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/users/loginWithGoogle?google=true`, user);
+    const response = await axios.post(
+      `http://localhost:3001/users/loginWithGoogle?google=true`,
+      user
+    );
 
     return response;
   };
@@ -146,9 +154,9 @@ export const postUserGoogle = (user) => {
 export function setThemeMode(payload) {
   return {
     type: SET_THEME_MODE,
-    payload
-  }
-};
+    payload,
+  };
+}
 
 export function createReview(review, id) {
   return async function (dispatch) {
@@ -175,32 +183,85 @@ export function getReview(coinName) {
   };
 }
 
-
 export function getUserInfo(oneUser) {
-  return async function (dispatch){
+  return async function (dispatch) {
     let json = await axios.get(`http://localhost:3001/users/${oneUser}`);
-    return dispatch ({
+    return dispatch({
       type: GET_USER_INFO,
-      payload: json.data
-    })
-  }
+      payload: json.data,
+    });
+  };
 }
 
-export function updateUserInfo(email, payload){
-  return async function (dispatch){
-    let json = await axios.put(`http://localhost:3001/users/${email}`,payload);
-    console.log("update user")
-    console.log(json.data)
-    return dispatch ({
+export function updateUserInfo(email, payload) {
+  return async function (dispatch) {
+    let json = await axios.put(`http://localhost:3001/users/${email}`, payload);
+    console.log("update user");
+    console.log(json.data);
+    return dispatch({
       type: UPDATE_USER_INFO,
-      payload: json.data
-    })
-  }
+      payload: json.data,
+    });
+  };
 }
 
-export function createWarning(payload){
-  return async function(){
-    let json = await axios.post("http://localhost:3001/warnings/warnings", payload);
-    return json
-  }
+export function addCart(payload) {
+  return {
+    type: ADD_TO_CART,
+    payload,
+  };
+}
+
+export const addCartBack = (idUser, idCoin, quantity, price) => {
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/users/addTransactionCart`, idUser, idCoin, quantity, price);
+      return response;
+  };
+};
+
+export const getCartUser = (idUser)=> {
+  
+  return async function (dispatch) {
+    let json = await axios.get(
+`http://localhost:3001/users/transactionCart/${idUser}`,
+     
+      );
+      return dispatch({
+        type: GET_USER_CART,
+        payload: json.data
+      })
+  };
+}
+export const deleteCartUser = (idUser)=> {
+  
+  return async function (dispatch) {
+    let json = await axios.delete(
+`http://localhost:3001/users/finishTransactions/${idUser}`,
+     
+      );
+      return dispatch({
+        type: CLEAR_CART,
+       
+      })
+  };
+}
+
+
+export function createWarning(payload) {
+  return async function () {
+    let json = await axios.post(
+      "http://localhost:3001/warnings/warnings",
+      payload
+    );
+    return json;
+  };
+}
+
+export function clearAdmin(payload) {
+  return async function (dispatch) {
+    return dispatch({
+      type: CLEAR_ADMIN,
+      payload,
+    });
+  };
 }

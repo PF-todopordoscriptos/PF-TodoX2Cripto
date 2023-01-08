@@ -44,11 +44,11 @@ const LandingPag = () => {
 
         </div>
         <div className={style.derecha}>
-          <Link to="/profile">
-            <Button sx={{ ':hover': {filter: 'brightness(1.1)' ,  transition: '.2s;' , backgroundColor: 'landingPage.button.background'} , transition: '.2s;' , backgroundColor: 'landingPage.button.background' , color: 'landingPage.button.text' , borderBottom: 3 , borderColor: 'landingPage.button.border' , fontWeight: 700, fontSize: 16 , borderRadius: '16px' , width: '7vw' , height: '5vh', padding: '0.3vh 0vh 0vh' , margin: '0.5vw'}} /* className={style.stBut} */>INGRESAR</Button>
-          </Link>
+          {/* <Link to="/profile">
+            <Button sx={{ ':hover': {filter: 'brightness(1.1)' ,  transition: '.2s;' , backgroundColor: 'landingPage.button.background'} , transition: '.2s;' , backgroundColor: 'landingPage.button.background' , color: 'landingPage.button.text' , borderBottom: 3 , borderColor: 'landingPage.button.border' , fontWeight: 700, fontSize: 16 , borderRadius: '16px' , width: '7vw' , height: '5vh', padding: '0.3vh 0vh 0vh' , margin: '0.5vw'}}>INGRESAR</Button>
+          </Link> */}
           <Link to="/home">
-            <Button  sx={{ ':hover': {filter: 'brightness(1.1)' ,  transition: '.2s;' , backgroundColor: 'landingPage.button.background'} ,  transition: '.2s;' , backgroundColor: 'landingPage.button.background' , color: 'landingPage.button.text' , borderBottom: 3 , borderColor: 'landingPage.button.border' , fontWeight: 700, fontSize: 16 , borderRadius: '16px' , width: '12.5vw' , height: '5vh' , padding: '0.3vh 0vh 0vh'}} /* className={style.stBut} */>INICIAR COMO INVITADO</Button>
+            <Button  sx={{ ':hover': {filter: 'brightness(1.1)' ,  transition: '.2s;' , backgroundColor: 'landingPage.button.background'} ,  transition: '.2s;' , backgroundColor: 'landingPage.button.background' , color: 'landingPage.button.text' , borderBottom: 3 , borderColor: 'landingPage.button.border' , fontWeight: 700, fontSize: 16 , borderRadius: '16px' , width: '12.5vw' , height: '5vh' , padding: '0.3vh 0vh 0vh'}} /* className={style.stBut} */>INICIAR</Button>
           </Link>
         </div>
       </div>

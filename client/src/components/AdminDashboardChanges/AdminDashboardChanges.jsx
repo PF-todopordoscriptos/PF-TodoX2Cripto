@@ -18,7 +18,7 @@ import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 
-export default function AdminDashboardUsers() {
+export default function AdminDashboardChanges() {
 
   let [rows, setRows] = useState([]);
 
@@ -224,12 +224,12 @@ export default function AdminDashboardUsers() {
   GetAllChanges(); // CALL FOR FIRST RENDER
 
   return (
-    <Box>
+    <Box sx={{width: '100vw',marginLeft: "-2.5rem"}}>
       <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh' }} align="center" >
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
-          <RefreshSharpIcon  fontSize="large" onClick={function() {
+          <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
             axios.get('http://localhost:3001/users/allAdminChanges')
             .then((response) => {
               let ww = []
@@ -250,7 +250,7 @@ export default function AdminDashboardUsers() {
               console.log("DONE FETCH")
             }).catch(e => console.log(e))
           }}/>
-          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw'}} >
+          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw', cursor: "pointer"}} >
             REFRESH
           </Box>
         </Box>

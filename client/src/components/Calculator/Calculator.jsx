@@ -1,22 +1,48 @@
 import React from "react";
+import axios from 'axios';
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins } from "../../redux/actions";
-
-import style from "./Calculator.module.css"
+import {  onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebaseConfig";
 import TextField from "@mui/material/TextField";
+import {  getUserInfo, addCartBack } from "../../redux/actions";
+import style from "../CoinTarget/CoinTarget.module.css";
+
 
 const Calculator = ({id}) => {
   const dispatch = useDispatch();
   const [coin, setCoin] = useState({});
   const [price, setPrice] = useState("");
+  const userInfo = useSelector((state) => state.userInfo);
+  const [user, setUser] = useState({
+    email: "",
+   });
+  useEffect(() => {
+    dispatch(getUserInfo(user.email));
+
+  }, [user.email]);
 
   useEffect(() => {
     dispatch(getAllCoins());
     setCoin(id)
   }, [dispatch]);
+
   const allCoins = useSelector((state) => state.allCoins);
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser({
+          ...user,
+          email: currentUser.email,
+        });
+
+      }
+    });
+  }, [dispatch, userInfo]);
+
+
 
 
   const renderPriceCoin = () => {
@@ -38,40 +64,35 @@ const Calculator = ({id}) => {
     setPrice(e.target.value);
   }
 
+  const idUser= userInfo.id
+  const idCoin= id
+  const quantity= price / renderPriceCoin()
+  // const addToCartBack =(price, id)=>{
+// console.log(idUser, idCoin, price, quantity)
+  // dispatch(addCartBack(idUser, idCoin, quantity))
+  // }
+
   return (
     <div>
       <div>
         <div>
           <h3>Coin Exchange</h3>
-          {/* <select onChange={(e) => handleSelectedCoins(e)}>
-            <option value={id}>{id.charAt(0).toUpperCase() + id.slice(1)}</option>
-            {allCoins &&
-              allCoins.map((c) => {
-                return (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                );
-              })}
-          </select> */}
-          {/* <input type="text" value={id.charAt(0).toUpperCase() + id.slice(1)} name={id} disabled/> */}
+      
+         
           <TextField id="outlined-basic" variant="outlined" value={id.charAt(0).toUpperCase() + id.slice(1)} name={id} disabled/>
           
           <label>Price: U$D{renderPriceCoin()}</label>
         </div>
         <div>
-          {/* <label>Buy:</label> */}
-          {/* <input
-            type="number"
-            placeholder="Select amount"
-            value={price}
-            onChange={(e) => handleInput(e)}
-          /> */}
+ 
           <TextField value={price} id="outlined-number" label="Buy" type="number" placeholder="Select amount" InputLabelProps={{shrink: true}} onChange={(e) => handleInput(e)} sx={{width: "9vw"}}/>
         </div>
           <label>You are going to buy: {price / renderPriceCoin()} coins</label>
+      <button onClick={() => { axios.post(`http://localhost:3001/users/addTransactionCart`, {idUser, idCoin, quantity, price})}}> {<img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />}
+     </button>
       </div>
-      <div></div>
+      <div>
+      </div>
     </div>
   );
 };

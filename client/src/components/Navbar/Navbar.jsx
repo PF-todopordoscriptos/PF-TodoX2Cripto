@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
 import style from "./Navbar.module.css";
-import { useNavigate } from "react-router-dom";
 // import { useAuth0 } from "@auth0/auth0-react";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
@@ -16,33 +15,62 @@ import {
   Switch,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { setThemeMode } from "../../redux/actions";
+import { clearAdmin, getUserInfo, setThemeMode } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-
-  const history = useNavigate();
+  const navigate = useNavigate();
   //const {user, isAuthenticated} = useAuth0()
+  // const [user, setUser] = useState(null);
+  // const [user, setUser] = useState({
+  //   email: "",
+  //   //password: ""
+  // });
+  const userInfo = useSelector((state) => state.userInfo);
+  
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setUser({
-          ...user,
-          email: currentUser.email,
-          //password: currentUser.password,
-        });
-      } else {
-        console.log("SIGNED OUT");
-        setUser(null);
+        setUser(currentUser);
       }
     });
   }, [user]);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (currentUser) => {
+  //     if (currentUser) {
+  //       setUser({
+  //         ...user,
+  //         email: currentUser.email,
+  //         //password: currentUser.password,
+  //       });
+  //       dispatch(getUserInfo(user.email));
+  //     } else {
+  //       console.log("SIGNED OUT");
+  //       setUser(null);
+  //     }
+  //   });
+  // }, [user]);
+
+
+  // console.log(userInfo)
+
+  // React.useEffect(() => {
+  //   if(user.email){
+  //     dispatch(getUserInfo(user.email));
+  //     console.log("estado lleno");
+  //   }
+  // }, [user]);
 
   const handleSignOut = () => {
+    dispatch(clearAdmin())
+    setUser(null)
     signOut(auth);
-    history("/home");
+    navigate("/")
+    // Navigate("/home");
+    // console.log("limpiado")
   };
 
   const themeMode = useSelector((state) => state.themeMode);
@@ -76,7 +104,23 @@ const Navbar = () => {
           />
         </FormGroup>
       </div>
+
+
       <Box className={style.butonsAuth}>
+
+      <div className={style.contButsExtras}>
+        {
+          userInfo.admin ? 
+        <Link to="/admin">
+          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673116583/tuercas_qsi3hj.png" alt="admin" className={style.admin} />
+        </Link> 
+        : null
+        }
+        <Link to="/cart">
+          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />
+        </Link>
+      </div>
+
         {user ? (
           <Box
             sx={{
@@ -130,7 +174,7 @@ const Navbar = () => {
             </Button>
           </Box>
         ) : (
-          <Link to="/login">
+          <Link to="/signup">
             <Button
               sx={{
                 ":hover": {
@@ -140,6 +184,7 @@ const Navbar = () => {
                 color: "navbar.button.text",
                 backgroundColor: "navbar.button.background",
                 margin: "0.3vw",
+                marginLeft: "2rem",
                 height: "5vh",
                 width: "6vw",
                 fontWeight: "bold",
@@ -148,7 +193,7 @@ const Navbar = () => {
               }}
               className={style.boton}
             >
-              Log In
+              Sign Up
             </Button>
           </Link>
         )}

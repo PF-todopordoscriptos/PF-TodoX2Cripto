@@ -11,6 +11,10 @@ const {
   postAdminChanges,
   getAllAdminChanges,
   addCoinsUser,
+  getHistoric,
+  addCoinsUserCart,
+  finishTransactions,
+  getCoinsUserCart
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
@@ -36,7 +40,14 @@ function hashFunction(key) {
   );
   return codes.join("");
 }
-
+router.get("/getTransactions", async (req, res) => {
+  try {
+    const historic = await getHistoric();
+    res.status(200).send(historic);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
 router.post("/", async (req, res) => {
   const auth = getAuth(firebaseApp);
 
@@ -145,36 +156,7 @@ router.get("/allAdminChanges", async (req, res) => {
   }
 });
 
-router.get("/:oneUser", async (req, res) => {
-  const { oneUser } = req.params;
-  try {
-    const userFind = await getUserByEmail(oneUser);
-    res.status(200).send(userFind);
-  } catch (e) {
-    res.status(400).send("email no encontrado");
-  }
-});
 
-router.put("/:email", async (req, res) => {
-  try {
-    const { email } = req.params;
-    const { username, name, lastname, /*telephone, dni,*/ nationality, img } =
-      req.body;
-    const userUpdate = await updateUser(
-      email,
-      username,
-      name,
-      lastname,
-      // telephone,
-      // dni,
-      nationality,
-      img
-    );
-    res.status(200).send(`${userUpdate} users modified`);
-  } catch (e) {
-    res.status(404).send(e.message);
-  }
-});
 
 router.post("/adminChanges", async (req, res) => {
   const {
@@ -206,13 +188,44 @@ router.post("/adminChanges", async (req, res) => {
 
 router.post("/addTransaction", async (req, res) => {
   try {
-    const { idUser, idCoin, quantity } = req.body;
-    let transaction = addCoinsUser(idUser, idCoin, quantity);
+    const { idUser, idCoin, quantity, price } = req.body;
+    let transaction = addCoinsUser(idUser, idCoin, quantity, price);
     res.status(200).send(transaction);
   } catch (e) {
     res.status(404).send(e.message);
   }
 });
+
+router.post("/addTransactionCart", async (req, res) => {
+  try {
+    const { idUser, idCoin, quantity, price } = req.body;
+    let transaction = addCoinsUserCart(idUser, idCoin, quantity, price);
+    res.status(200).send(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+router.get("/transactionCart/:idUser", async (req, res) => {
+  try {
+    const { idUser} = req.params;
+    let transaction =await getCoinsUserCart(idUser);
+    res.status(200).json(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+router.delete("/finishTransactions/:idUser", async(req, res) =>{
+  try{
+    const { idUser } = req.params;
+    let validation= finishTransactions(idUser)
+        res.status(200).json(validation);
+      } catch (err) {
+        res.status(400).json(err.message);
+      }
+    });
+
 
 router.post("/payment", async (req, res) => {
   const product = req.body;
@@ -252,5 +265,37 @@ router.post("/payment", async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+router.get("/:oneUser", async (req, res) => {
+  const { oneUser } = req.params;
+  try {
+    const userFind = await getUserByEmail(oneUser);
+    res.status(200).send(userFind);
+  } catch (e) {
+    res.status(400).send("email no encontrado");
+  }
+});
+
+router.put("/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const { username, name, lastname, /*telephone, dni,*/ nationality, img } =
+      req.body;
+    const userUpdate = await updateUser(
+      email,
+      username,
+      name,
+      lastname,
+      // telephone,
+      // dni,
+      nationality,
+      img
+    );
+    res.status(200).send(`${userUpdate} users modified`);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+
 
 module.exports = router;
