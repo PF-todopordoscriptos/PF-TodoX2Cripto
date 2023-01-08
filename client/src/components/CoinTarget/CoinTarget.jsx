@@ -48,23 +48,23 @@ const CoinTarget = (props) => {
     return "red";
   }
 
-  const addToCart = (id) => {
-    dispatch(addCart(id));
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-    });
-    Toast.fire({
-      icon: "success",
-      iconColor: "#8EFF60",
-      title: `Coin added to cart.`,
-      color: "white",
-      background: "#E6112B" 
-    });
-  };
+  // const addToCart = (id) => {
+  //   dispatch(addCart(id));
+  //   const Toast = Swal.mixin({
+  //     toast: true,
+  //     position: "top-end",
+  //     showConfirmButton: false,
+  //     timer: 3000,
+  //     timerProgressBar: true,
+  //   });
+  //   Toast.fire({
+  //     icon: "success",
+  //     iconColor: "#8EFF60",
+  //     title: `Coin added to cart.`,
+  //     color: "white",
+  //     background: "#E6112B" 
+  //   });
+  // };
 
   return (
     <div className={style.contTarget}>
@@ -112,9 +112,9 @@ const CoinTarget = (props) => {
         </Link>
       </div>
 
-      <button onClick={() => addToCart(props.id)} className={style.butCart}>
+      {/* <button onClick={() => addToCart(props.id)} className={style.butCart}>
           <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />
-      </button>
+      </button> */}
     </div>
   );
 };

@@ -2,31 +2,42 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { createReview, createWarning, getCoinDetail, getReview } from "../../redux/actions";
+import { createComment, createWarning, getCoinComment, getCoinDetail, getUserInfo } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
+import Rating from '@mui/material/Rating';
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import alerta from "../../Images/alerta.png"
 import style from "./Details.module.css";
 import "./DetailsBackground.css";
 // import Rex from "../../Images/Rex.png";
+
+import TextField from '@mui/material/TextField';
 import Swal from "sweetalert2";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import Calculator from "../Calculator/Calculator";
+import { Button } from "@mui/material";
 
 const Details = (props) => {
   const dispatch = useDispatch();
+  // const [user, setUser] = useState(null);
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    email: "",
+    //password: ""
+  });
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setUser(currentUser);
-      }
-    });
+        setUser({
+          ...user,
+          email: currentUser.email,
+          //password: currentUser.password,
+        });
+    }});
   }, []);
 
 
@@ -34,41 +45,74 @@ const Details = (props) => {
   let { id } = useParams();
 
   
+  const userInfo = useSelector((state) => state.userInfo);
+  
+  const [comment, setComment] = useState({
+    email: "",
+    img: "",
+    text: "",
+    coin: id,
+    stars: 0
+  });
+
   useEffect(() => {
     dispatch(getCoinDetail(id));
-    dispatch(getReview(id));
+    dispatch(getCoinComment(id));
   }, [dispatch, props, id]);
 
   const coinDetails = useSelector((state) => state.coinDetails);
-  const reviews = useSelector((state) => state.reviews);
+  const coinComments = useSelector((state) => state.comments);
 
-  const [review, setReview] = useState({
-    stars: "",
-    text: "",
-    username: "thiago",
-  });
+  React.useEffect(() => {
+    dispatch(getUserInfo(user.email));
+    console.log(userInfo)
+    console.log("estado lleno");
+    setComment({
+      ...comment,
+      email: user.email,
+      img: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
+    })
+  }, [user.email]);
 
-  const handleReview = (e) => {
-    setReview({
-      ...review,
+
+  const handleInput = (e) => {
+    setComment({
+      ...comment,
       [e.target.name]: e.target.value,
     });
+    console.log(comment);
   };
-  
-  const handleSubmitReview = (e) => {
+
+  console.log(userInfo)
+  console.log(coinDetails);
+
+
+  const postComment = () => {
     // e.preventDefault()
-    dispatch(createReview(review, id));
-    setReview({
-      stars: "",
-      text: "",
-      username: "thiago",
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
     });
-  };
-
-
+    Toast.fire({
+      icon: "success",
+      iconColor: "#8EFF60",
+      title: `Comment created successfully.`,
+      color: "white",
+      background: "#FFDA33" 
+    });
+    setComment({
+      text: "",
+      stars: 0
+    })
+    console.log(comment)
+    dispatch(createComment(comment))
+    console.log("comentario")
+  }
 
   const alertaa = async () => {
-
     const { value: text } = await Swal.fire({
       
       inputLabel: 'What happens with this coin?',
@@ -82,10 +126,9 @@ const Details = (props) => {
       },
       showCancelButton: true
     })
-    
 
     if (text) {
-      // Swal.fire(text)
+      Swal.fire(text)
       let data = {
         email: user.email,
         coin: id,
@@ -96,8 +139,6 @@ const Details = (props) => {
     }
 
     }
-
-
 
   return (
     <div className={style.Todo}>
@@ -142,46 +183,26 @@ const Details = (props) => {
       {/* <div className={style.contComp}>
       <Comparative />
     </div> */}
-      <div className={style.contCalculator}>
+    
+      {/* <div className={style.contCalculator}>
       <Calculator
       id = {id}
-      />
+      /> */}
+      {/* </div> */}
+      
       </div>
-     
-        </div>
 
-      <div className={style.contReviews}>
-      <form onSubmit={handleSubmitReview}>
-        <input
-          type="text"
-          name="text"
-          value={review.text}
-          onChange={handleReview}
-          placeholder="Text"
-          ></input>
-        <input
-          type="number"
-          name="stars"
-          value={review.stars}
-          onChange={handleReview}
-          placeholder="Stars"
-          ></input>
-        <button onSubmit={handleSubmitReview}>SUBMIT</button>
-      </form>
+     //   </div>
 
-      <div>
-        {reviews && reviews.length > 0 ? (
-          reviews.map((r) => (
-            <ul className={style.ul}>
-              <li>{r.stars}</li>
-              <li>{r.text}</li>
-            </ul>
-          ))
-          ) : (
-            <h1>Todavía no hay comentarios</h1>
-            )}
+
+      <div >
+        <form className={style.contForm}>
+          <TextField id="filled-basic" label="Type your review..." variant="standard" sx={{width: "40rem"}} onChange={handleInput} name="text" value={comment.text}/>
+          <Rating name="stars" value={comment.stars} onChange={handleInput}/>
+          <Button variant="outlined" color="secondary" onClick={postComment}>Send Review</Button>
+        </form>
       </div>
-    </div>
+
     </div>
   );
 };

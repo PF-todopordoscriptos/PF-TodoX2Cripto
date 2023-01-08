@@ -7,7 +7,9 @@ const {
   CoinsReviews,
   AdminChanges,
   Warning,
-  Historic_Transactions, Cart
+  Historic_Transactions,
+  Cart,
+  Comment
 } = require("../db");
 
 
@@ -453,6 +455,32 @@ async function getCoinsUserCart(idUser) {
   return historic;
 }
 
+async function allComments() {
+  let allCommentsFromDb = await Comment.findAll();
+  return allCommentsFromDb;
+}
+
+async function coinComments(coin) {
+  let coinCommentsFromDb = await Comment.findAll({where: {coin}});
+  return coinCommentsFromDb;
+}
+
+async function createComment(email,img, text, coin, stars) {
+  if (!email || !img || !text || !coin || !stars) {
+    return "misign data";
+  }
+  let newComment = await Comment.create({
+    email,
+    img,
+    text,
+    coin,
+    stars
+  });
+
+  return newComment;
+}
+
+
 module.exports = {
   getTrendingCoins,
   getHistoryChart,
@@ -483,5 +511,8 @@ module.exports = {
   getHistoric,
   addCoinsUserCart,
   finishTransactions,
-  getCoinsUserCart
+  getCoinsUserCart,
+  allComments,
+  coinComments,
+  createComment
 };

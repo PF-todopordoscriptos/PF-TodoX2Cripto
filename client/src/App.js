@@ -205,9 +205,10 @@ function App() {
             />
             <Route path="/chart/:id" element={<Chart />} />
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path={"/details/:id"} element={<> <Navbar /><Details /> <Footer /> </>} />
               <Route path={"/profile"} element={<> <Navbar /> <Profile /> <Footer /> </>} />
             </Route>
+
+            <Route path={"/details/:id"} element={<> <Navbar /><Details /> <Footer /> </>} />
 
             <Route path={"/FAQ"} element={<Navbar />} />
             {/* <Route path={"/details/:id"} element={<Navbar />} /> */}
