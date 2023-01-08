@@ -13,7 +13,8 @@ const {
   addCoinsUser,
   getHistoric,
   addCoinsUserCart,
-  finishTransactions
+  finishTransactions,
+  getCoinsUserCart
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
@@ -200,6 +201,16 @@ router.post("/addTransactionCart", async (req, res) => {
     const { idUser, idCoin, quantity, price } = req.body;
     let transaction = addCoinsUserCart(idUser, idCoin, quantity, price);
     res.status(200).send(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+router.get("/transactionCart", async (req, res) => {
+  try {
+    const { idUser} = req.body;
+    let transaction =await getCoinsUserCart(idUser);
+    res.status(200).json(transaction);
   } catch (e) {
     res.status(404).send(e.message);
   }

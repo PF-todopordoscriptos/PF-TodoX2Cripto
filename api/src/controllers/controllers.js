@@ -448,6 +448,10 @@ async function getHistoric() {
   let historic = await Historic_Transactions.findAll();
   return historic;
 }
+async function getCoinsUserCart(idUser) {
+  let historic = await Cart.findAll({where: { idUser }});
+  return historic;
+}
 
 module.exports = {
   getTrendingCoins,
@@ -478,5 +482,6 @@ module.exports = {
   addCoinsUser,
   getHistoric,
   addCoinsUserCart,
-  finishTransactions
+  finishTransactions,
+  getCoinsUserCart
 };
