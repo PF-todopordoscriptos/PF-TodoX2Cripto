@@ -250,7 +250,7 @@ router.post("/payment", async (req, res) => {
         id: "4085428740137259"
       },
       back_urls: {
-        success: 'http://localhost:3000',
+        success: 'http://localhost:3000/exito',
         failure: '',
         pending: ''
       },

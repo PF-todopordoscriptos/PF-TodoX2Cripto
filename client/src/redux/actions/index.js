@@ -218,6 +218,18 @@ export const addCartBack = (idUser, idCoin, quantity, price) => {
       return response;
   };
 };
+export const addTransactionCart = (idUser, idCoin, quantity, price) => {
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/users/addTransactionCart`, idUser, idCoin, quantity, price);
+      return response;
+  };
+};
+export const addTransaction = (idUser, idCoin, quantity, price) => {
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/users/addTransaction`, idUser, idCoin, quantity, price);
+      return response;
+  };
+};
 
 export const getCartUser = (idUser)=> {
   

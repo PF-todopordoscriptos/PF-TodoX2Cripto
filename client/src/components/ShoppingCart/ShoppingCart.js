@@ -27,7 +27,7 @@ const ShoppingCart = () => {
   const [user, setUser] = useState({
     email: "",
    });
-
+console.log(userCart)
    useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -57,7 +57,7 @@ const ShoppingCart = () => {
 
   const allCoins = useSelector((state) => state.allCoins);
   const cartCoins = useSelector((state) => state.cart);
-  
+
   const addToCart = (id) => {
   
     dispatch({ type: ADD_TO_CART, payload: id });
