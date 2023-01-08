@@ -38,7 +38,6 @@ const Navbar = () => {
       }
     });
   }, [user]);
-console.log(user)
   // useEffect(() => {
   //   onAuthStateChanged(auth, (currentUser) => {
   //     if (currentUser) {

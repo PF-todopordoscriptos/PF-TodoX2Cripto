@@ -22,7 +22,10 @@ import {
   CLEAR_ADMIN,
   ADD_TO_CART,
   COIN_COMMENT,
-  POST_COMMENT
+  POST_COMMENT,
+  ADD_TO_CART_BACK,
+  GET_USER_CART,
+  CLEAR_CART,
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -210,6 +213,41 @@ export function addCart(payload) {
     payload,
   };
 }
+
+export const addCartBack = (idUser, idCoin, quantity, price) => {
+  return async function (dispatch) {
+    const response = await axios.post(`http://localhost:3001/users/addTransactionCart`, idUser, idCoin, quantity, price);
+      return response;
+  };
+};
+
+export const getCartUser = (idUser)=> {
+  
+  return async function (dispatch) {
+    let json = await axios.get(
+`http://localhost:3001/users/transactionCart/${idUser}`,
+     
+      );
+      return dispatch({
+        type: GET_USER_CART,
+        payload: json.data
+      })
+  };
+}
+export const deleteCartUser = (idUser)=> {
+  
+  return async function (dispatch) {
+    let json = await axios.delete(
+`http://localhost:3001/users/finishTransactions/${idUser}`,
+     
+      );
+      return dispatch({
+        type: CLEAR_CART,
+       
+      })
+  };
+}
+
 
 export function createWarning(payload) {
   return async function () {

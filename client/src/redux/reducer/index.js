@@ -25,7 +25,8 @@ import {
   CREATE_WARNING,
   CLEAR_ADMIN,
   COIN_COMMENT,
-  POST_COMMENT
+  POST_COMMENT,
+  GET_USER_CART
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -39,6 +40,7 @@ export const initialState = {
   reviews: [],
   userInfo: [],
   user: {},
+  userCart:[],
   themeMode: "light",
   cart: [],
   comments: []
@@ -304,6 +306,12 @@ export function rootReducer(state = initialState, action) {
       return {
         ...state,
         userInfo: [],
+      };
+    }
+    case GET_USER_CART: {
+      return {
+        ...state,
+        userCart: action.payload,
       };
     }
     default:

@@ -17,6 +17,8 @@ export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
 export const GET_TRENDING_NEWS = "GET_TRENDING_NEWS";
 export const SET_THEME_MODE = "SET_THEME_MODE";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_CART_BACK = "ADD_TO_CART_BACK";
+export const GET_USER_CART = "GET_USER_CART";
 export const ADD_ONE_FROM_CART = "ADD_ONE_FROM_CART";
 export const REMOVE_ONE_FROM_CART = "REMOVE_ONE_FROM_CART";
 export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
@@ -25,3 +27,4 @@ export const CREATE_WARNING = "CREATE_WARNING";
 export const CLEAR_ADMIN = "CLEAR_ADMIN";
 export const COIN_COMMENT = "COIN_COMMENT";
 export const POST_COMMENT = "POST_COMMENT";
+

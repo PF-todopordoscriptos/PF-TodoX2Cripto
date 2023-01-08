@@ -40,10 +40,10 @@ const Details = (props) => {
     }});
   }, []);
 
-  console.log(user)
+
 
   let { id } = useParams();
-  console.log(id);
+
   
   const userInfo = useSelector((state) => state.userInfo);
   
@@ -85,6 +85,7 @@ const Details = (props) => {
 
   console.log(userInfo)
   console.log(coinDetails);
+
 
   const postComment = () => {
     // e.preventDefault()
@@ -134,9 +135,9 @@ const Details = (props) => {
         text: text
       }
       dispatch(createWarning(data))
-      console.log(data)
+
     }
-    console.log(text)
+
     }
 
   return (
@@ -190,6 +191,9 @@ const Details = (props) => {
       {/* </div> */}
       
       </div>
+
+     //   </div>
+
 
       <div >
         <form className={style.contForm}>
