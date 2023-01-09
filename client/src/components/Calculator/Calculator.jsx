@@ -1,26 +1,26 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins } from "../../redux/actions";
-import {  onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import TextField from "@mui/material/TextField";
-import {  getUserInfo, addCartBack, getCoinDetail } from "../../redux/actions";
+import { getUserInfo, addCartBack, getCoinDetail } from "../../redux/actions";
 import style from "../CoinTarget/CoinTarget.module.css";
+import "./Calculator.css";
 
 import Swal from "sweetalert2";
 
-
-const Calculator = ({id}) => {
+const Calculator = ({ id }) => {
   const dispatch = useDispatch();
   const [coin, setCoin] = useState({});
   const [price, setPrice] = useState("");
   const userInfo = useSelector((state) => state.userInfo);
   const [user, setUser] = useState({
     email: "",
-   });
+  });
   useEffect(() => {
     dispatch(getUserInfo(user.email));
   }, [user.email]);
@@ -28,7 +28,7 @@ const Calculator = ({id}) => {
   useEffect(() => {
     // dispatch(getAllCoins());
     dispatch(getCoinDetail(id));
-    setCoin(id)
+    setCoin(id);
   }, [dispatch]);
 
   // const allCoins = useSelector((state) => state.allCoins);
@@ -41,11 +41,9 @@ const Calculator = ({id}) => {
           ...user,
           email: currentUser.email,
         });
-
       }
     });
   }, [dispatch, userInfo]);
-
 
   // const renderPriceCoin = () => {
   //   let result;
@@ -66,10 +64,10 @@ const Calculator = ({id}) => {
     setPrice(e.target.value);
   }
 
-  const idUser= userInfo.id
-  const idCoin= id
+  const idUser = userInfo.id;
+  const idCoin = id;
   // const quantity= price / renderPriceCoin()
-  const quantity= price / coinDetails.current_price
+  const quantity = price / coinDetails.current_price;
 
   const addItem = () => {
     const Toast = Swal.mixin({
@@ -84,36 +82,62 @@ const Calculator = ({id}) => {
       iconColor: "#8EFF60",
       title: `Coin added to cart.`,
       color: "white",
-      background: "#E6112B" 
+      background: "#E6112B",
     });
   };
 
   // const addToCartBack =(price, id)=>{
-// console.log(idUser, idCoin, price, quantity)
-  // dispatch(addCartBack(idUser, idCoin, quantity))  
+  // console.log(idUser, idCoin, price, quantity)
+  // dispatch(addCartBack(idUser, idCoin, quantity))
   // }
 
   return (
-    <div>
-      <div>
-        <div>
-          <h3>Pre Cart</h3>
-      
-         
-          <TextField id="outlined-basic" variant="outlined" value={id.charAt(0).toUpperCase() + id.slice(1)} name={id} disabled/>
-          
-          <label>Price: U$D{coinDetails.current_price}</label>
-        </div>
-        <div>
- 
-          <TextField value={price} id="outlined-number" label="Buy" type="number" placeholder="Select amount" InputLabelProps={{shrink: true}} onChange={(e) => handleInput(e)} sx={{width: "9vw"}}/>
-        </div>
-          <label>You are going to buy: {price / coinDetails.current_price} coins</label>
-      <button onClick={() => { axios.post(`http://localhost:3001/users/addTransactionCart`, {idUser, idCoin, quantity, price})}}> {<img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} onClick={addItem} />}
-     </button>
-      </div>
-      <div>
-      </div>
+    <div className="preCart-container">
+      <h3 className="title-preCart">Pre Cart</h3>
+
+      <TextField
+        id="outlined-basic"
+        variant="outlined"
+        value={id.charAt(0).toUpperCase() + id.slice(1)}
+        name={id}
+        disabled
+      />
+
+      <label>Price: U$D{coinDetails.current_price}</label>
+
+      <TextField
+        value={price}
+        id="outlined-number"
+        label="Buy"
+        type="number"
+        placeholder="Select amount"
+        InputLabelProps={{ shrink: true }}
+        onChange={(e) => handleInput(e)}
+      />
+
+      <label>
+        You are going to buy: {price / coinDetails.current_price} coins
+      </label>
+      <button
+        className="button-preCart"
+        onClick={() => {
+          axios.post(`http://localhost:3001/users/addTransactionCart`, {
+            idUser,
+            idCoin,
+            quantity,
+            price,
+          });
+        }}
+      >
+        {
+          <img
+            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+            alt="cart"
+            className={style.carrito}
+            onClick={addItem}
+          />
+        }
+      </button>
     </div>
   );
 };

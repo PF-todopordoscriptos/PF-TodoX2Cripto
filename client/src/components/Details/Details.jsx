@@ -3,17 +3,23 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { createComment, createWarning, getCoinComment, getCoinDetail, getUserInfo } from "../../redux/actions";
+import {
+  createComment,
+  createWarning,
+  getCoinComment,
+  getCoinDetail,
+  getUserInfo,
+} from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
 import { HiArrowUturnLeft } from "react-icons/hi2";
-import alerta from "../../Images/alerta.png"
+import alerta from "../../Images/alerta.png";
 import style from "./Details.module.css";
 import "./DetailsBackground.css";
 // import Rex from "../../Images/Rex.png";
 
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import Swal from "sweetalert2";
 
 import { onAuthStateChanged } from "firebase/auth";
@@ -34,7 +40,7 @@ const Details = (props) => {
     //password: ""
   });
 
-  const [ayudin, setAyudin] = useState(true)
+  const [ayudin, setAyudin] = useState(true);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -44,16 +50,14 @@ const Details = (props) => {
           email: currentUser.email,
           //password: currentUser.password,
         });
-    }});
+      }
+    });
   }, []);
-
-
 
   let { id } = useParams();
 
-  
   const userInfo = useSelector((state) => state.userInfo);
-  
+
   const [comment, setComment] = useState({
     email: "",
     img: "",
@@ -65,7 +69,7 @@ const Details = (props) => {
 
   useEffect(() => {
     dispatch(getCoinDetail(id));
-    dispatch(getCoinComment(id))
+    dispatch(getCoinComment(id));
   }, [dispatch]);
 
   const coinComments = useSelector((state) => state.comments);
@@ -78,28 +82,27 @@ const Details = (props) => {
 
   React.useEffect(() => {
     dispatch(getUserInfo(user.email));
-    console.log(userInfo)
+    console.log(userInfo);
     console.log("estado lleno");
     setComment({
       ...comment,
       email: user.email,
       // img: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
-    })
+    });
   }, [user.email]);
 
-
   const handleInput = (e) => {
-    if(user.email === ""){
-       Swal.fire({
-        icon: 'error',
-        background: "#A35C82", 
+    if (user.email === "") {
+      Swal.fire({
+        icon: "error",
+        background: "#A35C82",
         color: "white",
-        title: 'Oops...',
-        text: 'Please register or log in!',
+        title: "Oops...",
+        text: "Please register or log in!",
         footer: `<a href="/signup">Click here.</a>`,
         confirmButtonColor: "#E71C35",
-      })
-      return 
+      });
+      return;
     }
     setComment({
       ...comment,
@@ -108,44 +111,42 @@ const Details = (props) => {
     console.log(comment);
   };
 
-
   const setData = () => {
     setComment({
       ...comment,
       img: userInfo.img,
       coinImg: coinDetails.image,
     });
-    if(user.email === ""){
-       Swal.fire({
-        icon: 'error',
-        background: "#A35C82", 
+    if (user.email === "") {
+      Swal.fire({
+        icon: "error",
+        background: "#A35C82",
         color: "white",
-        title: 'Oops...',
-        text: 'Please register or log in!',
+        title: "Oops...",
+        text: "Please register or log in!",
         footer: `<a href="/signup">Click here.</a>`,
         confirmButtonColor: "#E71C35",
-      })
-      return 
+      });
+      return;
     }
-  }
+  };
 
-  console.log(userInfo)
+  console.log(userInfo);
   console.log(coinDetails);
 
-
   const postComment = (e) => {
-    e.preventDefault()
-    if(user.email === ""){
-       Swal.fire({
-        icon: 'error',
-        background: "#A35C82", 
+    e.preventDefault();
+    if (user.email === "") {
+      Swal.fire({
+        icon: "error",
+        background: "#A35C82",
         color: "white",
-        title: 'Oops...',
-        text: 'Please register or log in!',
+        title: "Oops...",
+        text: "Please register or log in!",
         footer: `<a href="/signup">Click here.</a>`,
         confirmButtonColor: "#E71C35",
-      })
-      return 
+      });
+      return;
     }
     if(comment.text.length === 0 || comment.stars === 0){
       return alert("Fill in all the fields")
@@ -162,50 +163,48 @@ const Details = (props) => {
       iconColor: "#8EFF60",
       title: `Comment created successfully.`,
       color: "white",
-      background: "#FFDA33" 
+      background: "#FFDA33",
     });
-    console.log(comment)
+    console.log(comment);
     setComment({
       ...comment,
       text: "",
-      stars: 0
-    })
-    dispatch(createComment(comment))
-    setAyudin(!ayudin)
+      stars: 0,
+    });
+    dispatch(createComment(comment));
+    setAyudin(!ayudin);
     // dispatch(getCoinComment(id));
-    console.log("comentario")
-  }
+    console.log("comentario");
+  };
 
   const alertaa = async () => {
-    if(user.email === ""){
+    if (user.email === "") {
       await Swal.fire({
-        icon: 'error',
-        background: "#A35C82", 
+        icon: "error",
+        background: "#A35C82",
         color: "white",
-        title: 'Oops...',
-        text: 'Please register or log in!',
+        title: "Oops...",
+        text: "Please register or log in!",
         footer: `<a href="/signup">Click here.</a>`,
         confirmButtonColor: "#E71C35",
-      })
-      return 
+      });
+      return;
     }
- 
+
     const { value: text } = await Swal.fire({
-      
-      inputLabel: 'What happens with this coin?',
-      input: 'textarea',
-      html:
-    `<input id="swal-input1" class="swal2-input" placeholder=${user.email} disabled>
+      inputLabel: "What happens with this coin?",
+      input: "textarea",
+      html: `<input id="swal-input1" class="swal2-input" placeholder=${user.email} disabled>
     <input id="swal-input1" class="swal2-input" placeholder=${id} disabled>`,
-      inputPlaceholder: 'Type your alert or notice here...',
+      inputPlaceholder: "Type your alert or notice here...",
       inputAttributes: {
-        'aria-label': 'Type your message here'
+        "aria-label": "Type your message here",
       },
-      showCancelButton: true
-    })
+      showCancelButton: true,
+    });
 
     if (text) {
-      Swal.fire(text)
+      Swal.fire(text);
       let data = {
         email: user.email,
         img: userInfo.img,
@@ -226,10 +225,10 @@ const Details = (props) => {
         iconColor: "#8EFF60",
         title: `Warning created successfully.`,
         color: "white",
-        background: "#FC44F4" 
+        background: "#FC44F4",
       });
     }
-    }
+  };
 
   return (
     <div className={style.Todo}>
@@ -240,73 +239,93 @@ const Details = (props) => {
       </div>
 
       <div className={style.contCardCalculator}>
-      <div className={style.card}>
-        <div className={style.contTop}>
-          <img
-            src={coinDetails.image}
-            alt={coinDetails.id}
-            className={style.imagen}
+        <div className={style.card}>
+          <div className={style.contTop}>
+            <img
+              src={coinDetails.image}
+              alt={coinDetails.id}
+              className={style.imagen}
             />
-          <h1 className={style.titulo}>
-            {id.charAt(0).toUpperCase() + id.slice(1)}
-          </h1>
-          <img
-          src={alerta}
-          alt="alerta"
-          className={style.alerta}
-          onClick={alertaa}
-          />
-        </div>
-
-        <div className={style.contMiddle}>
-          <div className={style.contChart}>
-            <HistoryChart id={id} />
+            <h1 className={style.titulo}>
+              {id.charAt(0).toUpperCase() + id.slice(1)}
+            </h1>
+            <img
+              src={alerta}
+              alt="alerta"
+              className={style.alerta}
+              onClick={alertaa}
+            />
           </div>
 
-          <ul className={style.ul}>
-            <li>Current price: ${coinDetails.current_price}</li>
-            <li>Market Cap: {coinDetails.market_cap}</li>
-            <li className={coinDetails.price_change_percentage_24h > 0 ? style.variationGreen : style.variationRed}>Variation: %{coinDetails.price_change_percentage_24h} </li>
-          </ul>
+          <div className={style.contMiddle}>
+            <div className={style.contChart}>
+              <HistoryChart id={id} />
+            </div>
+
+            <ul className={style.ul}>
+              <li>Current price: ${coinDetails.current_price}</li>
+              <li>Market Cap: {coinDetails.market_cap}</li>
+              <li
+                className={
+                  coinDetails.price_change_percentage_24h > 0
+                    ? style.variationGreen
+                    : style.variationRed
+                }
+              >
+                Variation: %{coinDetails.price_change_percentage_24h}{" "}
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    
-      <div className={style.contCalculator}>
-      <Calculator
-      id = {id}
-      />
-      </div>
-      
+
+        <div className={style.contCalculator}>
+          <Calculator id={id} />
+        </div>
       </div>
 
       <div>
-        <form className={style.contForm} onSubmit={(e) => postComment(e)} >
-           <TextField id="filled-basic" label="Type your review..." variant="standard" sx={{width: "40rem"}} onChange={handleInput} onClick={setData} name="text" value={comment.text}/>
-           <Rating name="stars" value={comment.stars} onChange={handleInput}/>
-           <Button variant="outlined" color="secondary" type="submit">Send Review</Button>
+        <form className={style.contForm} onSubmit={(e) => postComment(e)}>
+          <TextField
+            id="filled-basic"
+            label="Type your review..."
+            variant="standard"
+            sx={{ width: "40rem" }}
+            onChange={handleInput}
+            onClick={setData}
+            name="text"
+            value={comment.text}
+          />
+          <Rating name="stars" value={comment.stars} onChange={handleInput} />
+          <Button variant="outlined" color="secondary" type="submit">
+            Send Review
+          </Button>
         </form>
       </div>
 
       <div className={style.contComments}>
-        {coinComments.length ? coinComments.map((c) => (
-          <CommentTarget
-          key={c.id}
-          email={c.email}
-          img={c.img}
-          text={c.text}
-          coin={c.coin}
-          stars={c.stars}
-          />
-        ))
-        :
-        <div className={style.loading}>
-        <img src="https://custom-doodle.com/wp-content/uploads/doodle/chrome-dino-surf/chrome-dino-surf-doodle.gif" alt="gif dino" className={style.dino}/>
-        <h3 className={style.texto}>No hay comentarios...</h3>    
-        </div>
-        }
+        {coinComments.length ? (
+          coinComments.map((c) => (
+            <CommentTarget
+              key={c.id}
+              email={c.email}
+              img={c.img}
+              text={c.text}
+              coin={c.coin}
+              stars={c.stars}
+            />
+          ))
+        ) : (
+          <div className={style.loading}>
+            <img
+              src="https://custom-doodle.com/wp-content/uploads/doodle/chrome-dino-surf/chrome-dino-surf-doodle.gif"
+              alt="gif dino"
+              className={style.dino}
+            />
+            <h3 className={style.texto}>No hay comentarios...</h3>
+          </div>
+        )}
       </div>
-      
-  </div>
+    </div>
   );
 };
 
