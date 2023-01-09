@@ -7,8 +7,10 @@ import { getAllCoins } from "../../redux/actions";
 import {  onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import TextField from "@mui/material/TextField";
-import {  getUserInfo, addCartBack } from "../../redux/actions";
+import {  getUserInfo, addCartBack, getCoinDetail } from "../../redux/actions";
 import style from "../CoinTarget/CoinTarget.module.css";
+
+import Swal from "sweetalert2";
 
 
 const Calculator = ({id}) => {
@@ -21,15 +23,17 @@ const Calculator = ({id}) => {
    });
   useEffect(() => {
     dispatch(getUserInfo(user.email));
-
   }, [user.email]);
 
   useEffect(() => {
-    dispatch(getAllCoins());
+    // dispatch(getAllCoins());
+    dispatch(getCoinDetail(id));
     setCoin(id)
   }, [dispatch]);
 
-  const allCoins = useSelector((state) => state.allCoins);
+  // const allCoins = useSelector((state) => state.allCoins);
+  const coinDetails = useSelector((state) => state.coinDetails);
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -43,21 +47,19 @@ const Calculator = ({id}) => {
   }, [dispatch, userInfo]);
 
 
+  // const renderPriceCoin = () => {
+  //   let result;
+  //   let coinSelected = allCoins.find(() => `${id}` === coin);
+  //   Object.keys(coin).length === 0
+  //     ? (result = "Select one coin to start comparation")
+  //     : (result = coinSelected.current_price);
+  //   return result;
+  // };
 
-
-  const renderPriceCoin = () => {
-    let result;
-    let coinSelected = allCoins.find(() => `${id}` === coin);
-    Object.keys(coin).length === 0
-      ? (result = "Select one coin to start comparation")
-      : (result = coinSelected.current_price);
-    return result;
-  };
-
-  const handleSelectedCoins = (e) => {
-    e.preventDefault();
-    setCoin(e.target.value);
-  };
+  // const handleSelectedCoins = (e) => {
+  //   e.preventDefault();
+  //   setCoin(e.target.value);
+  // };
 
   function handleInput(e) {
     e.preventDefault();
@@ -66,29 +68,48 @@ const Calculator = ({id}) => {
 
   const idUser= userInfo.id
   const idCoin= id
-  const quantity= price / renderPriceCoin()
+  // const quantity= price / renderPriceCoin()
+  const quantity= price / coinDetails.current_price
+
+  const addItem = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    Toast.fire({
+      icon: "success",
+      iconColor: "#8EFF60",
+      title: `Coin added to cart.`,
+      color: "white",
+      background: "#E6112B" 
+    });
+  };
+
   // const addToCartBack =(price, id)=>{
 // console.log(idUser, idCoin, price, quantity)
-  // dispatch(addCartBack(idUser, idCoin, quantity))
+  // dispatch(addCartBack(idUser, idCoin, quantity))  
   // }
 
   return (
     <div>
       <div>
         <div>
-          <h3>Coin Exchange</h3>
+          <h3>Pre Cart</h3>
       
          
           <TextField id="outlined-basic" variant="outlined" value={id.charAt(0).toUpperCase() + id.slice(1)} name={id} disabled/>
           
-          <label>Price: U$D{renderPriceCoin()}</label>
+          <label>Price: U$D{coinDetails.current_price}</label>
         </div>
         <div>
  
           <TextField value={price} id="outlined-number" label="Buy" type="number" placeholder="Select amount" InputLabelProps={{shrink: true}} onChange={(e) => handleInput(e)} sx={{width: "9vw"}}/>
         </div>
-          <label>You are going to buy: {price / renderPriceCoin()} coins</label>
-      <button onClick={() => { axios.post(`http://localhost:3001/users/addTransactionCart`, {idUser, idCoin, quantity, price})}}> {<img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />}
+          <label>You are going to buy: {price / coinDetails.current_price} coins</label>
+      <button onClick={() => { axios.post(`http://localhost:3001/users/addTransactionCart`, {idUser, idCoin, quantity, price})}}> {<img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} onClick={addItem} />}
      </button>
       </div>
       <div>

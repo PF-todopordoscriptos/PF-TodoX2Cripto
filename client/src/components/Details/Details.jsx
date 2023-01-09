@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createComment, createWarning, getCoinComment, getCoinDetail, getUserInfo } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
 import Comparative from "../Comparative/Comparative";
@@ -19,15 +20,21 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import Calculator from "../Calculator/Calculator";
 import { Button } from "@mui/material";
+import CommentTarget from "../CommentTarget/CommentTarget";
+
+import { useNavigate } from "react-router-dom";
 
 const Details = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const [user, setUser] = useState(null);
 
   const [user, setUser] = useState({
     email: "",
     //password: ""
   });
+
+  const [ayudin, setAyudin] = useState(true)
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -57,11 +64,16 @@ const Details = (props) => {
 
   useEffect(() => {
     dispatch(getCoinDetail(id));
+    dispatch(getCoinComment(id))
+  }, [dispatch]);
+
+  const coinComments = useSelector((state) => state.comments);
+
+  useEffect(() => {
     dispatch(getCoinComment(id));
-  }, [dispatch, props, id]);
+  }, [ayudin]);
 
   const coinDetails = useSelector((state) => state.coinDetails);
-  const coinComments = useSelector((state) => state.comments);
 
   React.useEffect(() => {
     dispatch(getUserInfo(user.email));
@@ -70,12 +82,24 @@ const Details = (props) => {
     setComment({
       ...comment,
       email: user.email,
-      img: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
+      // img: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
     })
   }, [user.email]);
 
 
   const handleInput = (e) => {
+    if(user.email === ""){
+       Swal.fire({
+        icon: 'error',
+        background: "#A35C82", 
+        color: "white",
+        title: 'Oops...',
+        text: 'Please register or log in!',
+        footer: `<a href="/signup">Click here.</a>`,
+        confirmButtonColor: "#E71C35",
+      })
+      return 
+    }
     setComment({
       ...comment,
       [e.target.name]: e.target.value,
@@ -83,12 +107,44 @@ const Details = (props) => {
     console.log(comment);
   };
 
+
+  const setData = () => {
+    setComment({
+      ...comment,
+      img: userInfo.img,
+    });
+    if(user.email === ""){
+       Swal.fire({
+        icon: 'error',
+        background: "#A35C82", 
+        color: "white",
+        title: 'Oops...',
+        text: 'Please register or log in!',
+        footer: `<a href="/signup">Click here.</a>`,
+        confirmButtonColor: "#E71C35",
+      })
+      return 
+    }
+  }
+
   console.log(userInfo)
   console.log(coinDetails);
 
 
-  const postComment = () => {
-    // e.preventDefault()
+  const postComment = (e) => {
+    e.preventDefault()
+    if(user.email === ""){
+       Swal.fire({
+        icon: 'error',
+        background: "#A35C82", 
+        color: "white",
+        title: 'Oops...',
+        text: 'Please register or log in!',
+        footer: `<a href="/signup">Click here.</a>`,
+        confirmButtonColor: "#E71C35",
+      })
+      return 
+    }
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -103,16 +159,32 @@ const Details = (props) => {
       color: "white",
       background: "#FFDA33" 
     });
+    console.log(comment)
     setComment({
+      ...comment,
       text: "",
       stars: 0
     })
-    console.log(comment)
     dispatch(createComment(comment))
+    setAyudin(!ayudin)
+    // dispatch(getCoinComment(id));
     console.log("comentario")
   }
 
   const alertaa = async () => {
+    if(user.email === ""){
+      await Swal.fire({
+        icon: 'error',
+        background: "#A35C82", 
+        color: "white",
+        title: 'Oops...',
+        text: 'Please register or log in!',
+        footer: `<a href="/signup">Click here.</a>`,
+        confirmButtonColor: "#E71C35",
+      })
+      return 
+    }
+ 
     const { value: text } = await Swal.fire({
       
       inputLabel: 'What happens with this coin?',
@@ -135,9 +207,21 @@ const Details = (props) => {
         text: text
       }
       dispatch(createWarning(data))
-
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      Toast.fire({
+        icon: "success",
+        iconColor: "#8EFF60",
+        title: `Warning created successfully.`,
+        color: "white",
+        background: "#FC44F4" 
+      });
     }
-
     }
 
   return (
@@ -179,27 +263,42 @@ const Details = (props) => {
           </ul>
         </div>
       </div>
-      
-      {/* <div className={style.contComp}>
-      <Comparative />
-    </div> */}
     
-      {/* <div className={style.contCalculator}>
+      <div className={style.contCalculator}>
       <Calculator
       id = {id}
-      /> */}
-      {/* </div> */}
+      />
+      </div>
       
       </div>
 
       <div>
-        <form className={style.contForm}>
-           <TextField id="filled-basic" label="Type your review..." variant="standard" sx={{width: "40rem"}} onChange={handleInput} name="text" value={comment.text}/>
+        <form className={style.contForm} onSubmit={(e) => postComment(e)} >
+           <TextField id="filled-basic" label="Type your review..." variant="standard" sx={{width: "40rem"}} onChange={handleInput} onClick={setData} name="text" value={comment.text}/>
            <Rating name="stars" value={comment.stars} onChange={handleInput}/>
-           <Button variant="outlined" color="secondary" onClick={postComment}>Send Review</Button>
+           <Button variant="outlined" color="secondary" type="submit">Send Review</Button>
         </form>
       </div>
 
+      <div className={style.contComments}>
+        {coinComments.length ? coinComments.map((c) => (
+          <CommentTarget
+          key={c.id}
+          email={c.email}
+          img={c.img}
+          text={c.text}
+          coin={c.coin}
+          stars={c.stars}
+          />
+        ))
+        :
+        <div className={style.loading}>
+        <img src="https://custom-doodle.com/wp-content/uploads/doodle/chrome-dino-surf/chrome-dino-surf-doodle.gif" alt="gif dino" className={style.dino}/>
+        <h3 className={style.texto}>No hay comentarios...</h3>    
+        </div>
+        }
+      </div>
+      
   </div>
   );
 };
