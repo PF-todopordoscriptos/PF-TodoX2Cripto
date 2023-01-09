@@ -16,7 +16,7 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import FormLogin from "./components/FormLogin/FormLogin";
-import SignUp from "./components/SignUp/SignUp"
+import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboardCoins";
 import AdminDashboardUsers from "./components/AdminDashboardUsers/AdminDashboardUsers";
@@ -40,7 +40,8 @@ import {
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Exito from "./Exito/Exito";
-
+import Developers from "./components/Developers/Developers";
+import About from "./components/About/About";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -53,7 +54,7 @@ function App() {
     });
   }, []);
 
-  console.log(user)
+  console.log(user);
 
   const getDesignTokens = (PaletteMode) => ({
     palette: {
@@ -97,6 +98,15 @@ function App() {
                 textWhiteBlack: purple[500],
               },
             },
+            cardDev: {
+              background: grey[500],
+              divider: grey[900],
+              textPurple: "#000000",
+              textWhiteBlack: "#000000",
+              ":hover": {
+                textWhiteBlack: grey[300],
+              },
+            },
           }
         : {
             // palette values for dark mode
@@ -128,6 +138,15 @@ function App() {
               },
             },
             footer: {
+              background: grey[500],
+              divider: grey[900],
+              textPurple: "#000000",
+              textWhiteBlack: "#000000",
+              ":hover": {
+                textWhiteBlack: grey[300],
+              },
+            },
+            cardDev: {
               background: grey[500],
               divider: grey[900],
               textPurple: "#000000",
@@ -206,12 +225,47 @@ function App() {
             />
             <Route path="/chart/:id" element={<Chart />} />
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path={"/profile"} element={<> <Navbar /> <Profile /> <Footer /> </>} />
+              <Route
+                path={"/profile"}
+                element={
+                  <>
+                    {" "}
+                    <Navbar /> <Profile /> <Footer />{" "}
+                  </>
+                }
+              />
             </Route>
 
-            <Route path={"/details/:id"} element={<> <Navbar /><Details /> <Footer /> </>} />
+            <Route
+              path={"/details/:id"}
+              element={
+                <>
+                  {" "}
+                  <Navbar />
+                  <Details /> <Footer />{" "}
+                </>
+              }
+            />
 
             <Route path={"/FAQ"} element={<Navbar />} />
+            <Route
+              path={"/developers"}
+              element={
+                <>
+                  {" "}
+                  <Navbar /> <Developers /> <Footer />{" "}
+                </>
+              }
+            />
+            <Route
+              path={"/about"}
+              element={
+                <>
+                  {" "}
+                  <Navbar /> <About /> <Footer />{" "}
+                </>
+              }
+            />
             {/* <Route path={"/details/:id"} element={<Navbar />} /> */}
             <Route
               path={"/calculator"}
