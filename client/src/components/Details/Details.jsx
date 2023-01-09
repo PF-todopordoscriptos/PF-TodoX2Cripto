@@ -63,7 +63,8 @@ const Details = (props) => {
     img: "",
     text: "",
     coin: id,
-    stars: 0,
+    coinImg: "",
+    stars: 0
   });
 
   useEffect(() => {
@@ -114,6 +115,7 @@ const Details = (props) => {
     setComment({
       ...comment,
       img: userInfo.img,
+      coinImg: coinDetails.image,
     });
     if (user.email === "") {
       Swal.fire({
@@ -145,6 +147,9 @@ const Details = (props) => {
         confirmButtonColor: "#E71C35",
       });
       return;
+    }
+    if(comment.text.length === 0 || comment.stars === 0){
+      return alert("Fill in all the fields")
     }
     const Toast = Swal.mixin({
       toast: true,
@@ -202,10 +207,12 @@ const Details = (props) => {
       Swal.fire(text);
       let data = {
         email: user.email,
+        img: userInfo.img,
         coin: id,
         text: text,
-      };
-      dispatch(createWarning(data));
+        coinImg: coinDetails.image,
+      }
+      dispatch(createWarning(data))
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",

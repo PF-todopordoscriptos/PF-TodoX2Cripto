@@ -433,14 +433,16 @@ async function allWarnings() {
   return allWarningsFromDb;
 }
 
-async function createWarning(email, text, coin) {
-  if (!email || !text || !coin) {
+async function createWarning(email, img, text, coin, coinImg) {
+  if (!email || !img || !text || !coin || !coinImg) {
     return "misign data";
   }
   let newWarning = await Warning.create({
     email,
+    img,
     text,
     coin,
+    coinImg
   });
 
   return newWarning;
@@ -465,8 +467,8 @@ async function coinComments(coin) {
   return coinCommentsFromDb;
 }
 
-async function createComment(email,img, text, coin, stars) {
-  if (!email || !img || !text || !coin || !stars) {
+async function createComment(email,img, text, coin,coinImg, stars) {
+  if (!email || !img || !text || !coin || !coinImg || !stars) {
     return "misign data";
   }
   let newComment = await Comment.create({
@@ -474,6 +476,7 @@ async function createComment(email,img, text, coin, stars) {
     img,
     text,
     coin,
+    coinImg,
     stars
   });
 

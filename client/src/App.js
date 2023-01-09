@@ -11,6 +11,7 @@ import Details from "./components/Details/Details";
 import Profile from "./components/Profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
+import { ProtectedAdmin } from "./components/ProtectedAdmin/ProtectedAdmin";
 import Comparative from "./components/Comparative/Comparative";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
@@ -221,7 +222,11 @@ function App() {
                 </>
               }
             />
-            <Route path={"/admin"} element={<PanelAdmin />} />
+            {/* <Route path={"/admin"} element={<PanelAdmin />} /> */}
+            <Route element={<ProtectedAdmin user={user} />}>
+              <Route path={"/admin"} element={<PanelAdmin />} />
+            </Route>
+
             <Route path={"/comparative"} element={<Comparative />} />
             <Route path={"/shoppingcart"} element={<ShoppingCart />} />
             <Route path={"/admincoins"} element={<AdminDashboardCoins />} />

@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import {  onAuthStateChanged } from "firebase/auth";
 // import { auth } from "../firebase/firebaseConfig";
 // import { addCartBack, addTransaction, addTransactionCart, deleteCartUser, getCartUser, getUserInfo } from "../redux/actions";
@@ -6,7 +6,7 @@
 
 
 
-// const Exito = () => {
+const Exito = () => {
 //   const dispatch = useDispatch();
 //   const userCart = useSelector((state) => state.userCart);
 //   const userInfo = useSelector((state) => state.userInfo);
@@ -51,12 +51,12 @@
 // }
 
 // console.log(userCart)
-// return (
+return (
 //     <div>Exito
-
+            <h1>para que ande</h1>
 //         <button onClick={()=>{transaccion()}}>holi</button>
 //     </div>
-//     )
-// }
+    )
+}
 
-// export default Exito
+export default Exito

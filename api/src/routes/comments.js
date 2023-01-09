@@ -5,6 +5,9 @@ const {
   coinComments,
   createComment
   } = require("../controllers/controllers.js");
+  const {
+    Comment
+  } = require("../db");
 
 const router = Router();
 
@@ -31,15 +34,25 @@ router.get("/:coin", async (req, res) => {
 
  router.post("/comment", async (req,res) => {
       try {
-          let {email,img, text, coin, stars} = req.body
-          const newComment = await createComment(email,img, text, coin, stars)
+          let {email,img, text, coin, coinImg, stars} = req.body
+          const newComment = await createComment(email,img, text, coin, coinImg, stars)
           res.status(200).send(newComment)
       } catch (err) {
           res.status(400).send(err.message)
       }
   })
 
-
+  router.delete("/:id", async (req,res) => {
+    try{
+      let {id} = req.params
+      const resp = await Comment.destroy({
+          where: {id}
+      });
+      res.status(200).send(`${resp} comments removes`)
+  }catch(e){
+      res.status(404).send(e.message)
+  }
+  })
 
 
 module.exports = router;

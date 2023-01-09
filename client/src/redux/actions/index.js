@@ -19,13 +19,16 @@ import {
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
   CREATE_WARNING,
+  GET_ALL_WARNINGS,
   CLEAR_ADMIN,
   ADD_TO_CART,
   COIN_COMMENT,
   POST_COMMENT,
+  GET_ALL_COMMENTS,
   ADD_TO_CART_BACK,
   GET_USER_CART,
   CLEAR_CART,
+  DELETE_COMMENT
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -261,6 +264,26 @@ export const deleteCartUser = (idUser)=> {
 }
 
 
+export function clearAdmin(payload) {
+  return async function (dispatch) {
+    return dispatch({
+      type: CLEAR_ADMIN,
+      payload,
+    });
+  };
+}
+
+export function getAllWarnings(){
+  return async function (dispatch) {
+    let json = await axios.get("http://localhost:3001/warnings/allWarnings");
+    return dispatch({
+      type: GET_ALL_WARNINGS,
+      payload: json.data,
+    });
+  };
+}
+
+
 export function createWarning(payload) {
   return async function () {
     let json = await axios.post(
@@ -268,15 +291,6 @@ export function createWarning(payload) {
       payload
     );
     return json;
-  };
-}
-
-export function clearAdmin(payload) {
-  return async function (dispatch) {
-    return dispatch({
-      type: CLEAR_ADMIN,
-      payload,
-    });
   };
 }
 
@@ -300,3 +314,22 @@ export function getCoinComment(coin) {
   };
 }
 
+export function getAllComments(){
+  return async function (dispatch) {
+    let json = await axios.get("http://localhost:3001/comments/allComments");
+    return dispatch({
+      type: GET_ALL_COMMENTS,
+      payload: json.data,
+    });
+  };
+}
+
+export function deleteComment(id){
+  return async function(){
+    try{
+        return await axios.delete(`http://localhost:3001/comments/${id}`)
+    }catch(e){
+        console.log(e.message)
+    }
+}
+}
