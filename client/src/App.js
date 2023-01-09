@@ -39,6 +39,7 @@ import {
 } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
+import Exito from "./Exito/Exito";
 
 
 function App() {
@@ -227,6 +228,7 @@ function App() {
             <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
             <Route path={"/adminchanges"} element={<AdminDashboardChanges />} />
             <Route path={"/payment"} element={<Payment />} />
+            <Route path={"/exito"} element={<Exito />} />
             <Route path="/errorpage" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/errorpage" replace />} />
           </Routes>

@@ -239,7 +239,6 @@ router.post("/payment", async (req, res) => {
           quantity: 1,
           unit_price: (parseFloat(product[product.indexOf(e)].price) / 10) + parseFloat(product[product.indexOf(e)].price),
           currency_id: 'ARS',
-          picture_url: product[product.indexOf(e)].image,
         })
        })
     }
@@ -251,7 +250,7 @@ router.post("/payment", async (req, res) => {
         id: "4085428740137259"
       },
       back_urls: {
-        success: 'http://localhost:3000',
+        success: 'http://localhost:3000/exito',
         failure: '',
         pending: ''
       },
