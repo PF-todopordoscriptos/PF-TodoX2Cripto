@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 //import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
-import { Stack, CardMedia, Typography, Link , Divider } from "@mui/material";
+import { Stack, CardMedia, Typography, Link, Divider } from "@mui/material";
 import style from "./Footer.css";
 
 const Footer = () => {
@@ -54,10 +54,13 @@ const Footer = () => {
                 Av. Cabildo 1994
               </Typography>
             </Stack>
-            <Stack >
+            <Stack>
               <Link
                 //className="footer-right-section-FAQ"
-                sx={{ ':hover': {color: 'footer.:hover.textWhiteBlack'} , color: "footer.textWhiteBlack" }}
+                sx={{
+                  ":hover": { color: "footer.:hover.textWhiteBlack" },
+                  color: "footer.textWhiteBlack",
+                }}
                 href="/FAQ"
                 underline="none"
               >
@@ -65,7 +68,10 @@ const Footer = () => {
               </Link>
               <Link
                 //className="footer-right-section-FAQ"
-                sx={{ ':hover': {color: 'footer.:hover.textWhiteBlack'} , color: "footer.textWhiteBlack" }}
+                sx={{
+                  ":hover": { color: "footer.:hover.textWhiteBlack" },
+                  color: "footer.textWhiteBlack",
+                }}
                 href="/about"
                 underline="none"
               >
@@ -73,20 +79,33 @@ const Footer = () => {
               </Link>
               <Link
                 //className="footer-right-section-FAQ"
-                sx={{ ':hover': {color: 'footer.:hover.textWhiteBlack'} , color: "footer.textWhiteBlack" }}
-                href="/developes"
+                sx={{
+                  ":hover": { color: "footer.:hover.textWhiteBlack" },
+                  color: "footer.textWhiteBlack",
+                }}
+                href="/developers"
                 underline="none"
               >
                 DEVELOPERS
               </Link>
             </Stack>
           </Stack>
-          <Divider sx={{ bgcolor: "footer.divider", borderColor: "footer.divider" }} />
+          <Divider
+            sx={{ bgcolor: "footer.divider", borderColor: "footer.divider" }}
+          />
           <Stack>
-            <Typography sx={{ color: "footer.textWhiteBlack" }} variant="subtitle1" gutterBottom>
+            <Typography
+              sx={{ color: "footer.textWhiteBlack" }}
+              variant="subtitle1"
+              gutterBottom
+            >
               Todo por 2 criptos©
             </Typography>
-            <Typography sx={{ color: "footer.textWhiteBlack" }} variant="subtitle1" gutterBottom>
+            <Typography
+              sx={{ color: "footer.textWhiteBlack" }}
+              variant="subtitle1"
+              gutterBottom
+            >
               Derechos Reservados
             </Typography>
           </Stack>
