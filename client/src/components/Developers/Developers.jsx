@@ -57,7 +57,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Rodrigo Appel"
-              //   src=
+                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306776/1662763345634_l8vvrz.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -74,7 +74,7 @@ const Developers = () => {
               Rodrigo Appel
             </Typography>
             <Typography variant="h6" gutterBottom>
-              @
+              @rodri_appel
             </Typography>
             <Box
               sx={{
@@ -90,7 +90,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://www.linkedin.com/in/rodrigoappel/"
                 underline="none"
               >
                 <LinkedInIcon sx={{ fontSize: "50px" }} />
@@ -100,7 +100,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://github.com/RodriAppel"
                 underline="none"
               >
                 <GitHubIcon sx={{ fontSize: "50px" }} />
@@ -119,7 +119,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Martín Appel"
-              //   src=
+                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306546/1661973940354_rid3ih.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -136,7 +136,7 @@ const Developers = () => {
               Martín Appel
             </Typography>
             <Typography variant="h6" gutterBottom>
-              @
+              @tin_appel
             </Typography>
             <Box
               sx={{
@@ -152,7 +152,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://www.linkedin.com/in/martinappelprogramador/"
                 underline="none"
               >
                 <LinkedInIcon sx={{ fontSize: "50px" }} />
@@ -162,7 +162,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://github.com/TinoProgramer"
                 underline="none"
               >
                 <GitHubIcon sx={{ fontSize: "50px" }} />
@@ -181,7 +181,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Juan Pablo Azambuyo"
-              //   src=
+                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306937/1660788009318_wsbcfd.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -198,7 +198,7 @@ const Developers = () => {
               Juan Pablo Azambuyo
             </Typography>
             <Typography variant="h6" gutterBottom>
-              @
+              @juanpi_az
             </Typography>
             <Box
               sx={{
@@ -214,7 +214,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://www.linkedin.com/in/juan-pablo-azambuyo/"
                 underline="none"
               >
                 <LinkedInIcon sx={{ fontSize: "50px" }} />
@@ -224,7 +224,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://github.com/PabloAza89"
                 underline="none"
               >
                 <GitHubIcon sx={{ fontSize: "50px" }} />
@@ -243,7 +243,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Juan Cruz Pérez"
-              //   src=
+                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307475/58a3ea3f-ce4e-42a3-8274-a616acb7304d_kphw7u.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -260,7 +260,7 @@ const Developers = () => {
               Juan Cruz Pérez
             </Typography>
             <Typography variant="h6" gutterBottom>
-              @
+              @juan_perez
             </Typography>
             <Box
               sx={{
@@ -276,7 +276,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://www.linkedin.com/in/juan-cruz-perez-fullstack-dev/"
                 underline="none"
               >
                 <LinkedInIcon sx={{ fontSize: "50px" }} />
@@ -286,14 +286,14 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://github.com/Juanchosss1"
                 underline="none"
               >
                 <GitHubIcon sx={{ fontSize: "50px" }} />
               </Link>
             </Box>
           </Paper>
-          <Paper
+          {/* <Paper
             elevation={5}
             sx={{
               display: "flex",
@@ -354,7 +354,7 @@ const Developers = () => {
                 <GitHubIcon sx={{ fontSize: "50px" }} />
               </Link>
             </Box>
-          </Paper>
+          </Paper> */}
           <Paper
             elevation={5}
             sx={{
@@ -367,7 +367,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Facundo Monllor"
-              //   src=
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307271/1668525992950_ae2slm.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -384,7 +384,7 @@ const Developers = () => {
               Facundo Monllor
             </Typography>
             <Typography variant="h6" gutterBottom>
-              @
+              @facu_monllor
             </Typography>
             <Box
               sx={{
@@ -400,7 +400,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href="#"
+                href="https://www.linkedin.com/in/facundo-monllor/"
                 underline="none"
               >
                 <LinkedInIcon sx={{ fontSize: "50px" }} />
@@ -410,7 +410,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href="#"
+                href="https://github.com/facundo-monllor"
                 underline="none"
               >
                 <GitHubIcon sx={{ fontSize: "50px" }} />
@@ -429,7 +429,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Ramiro Monllor"
-              //   src=
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307183/1658597397093_ndy0m0.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -446,7 +446,7 @@ const Developers = () => {
               Ramiro Monllor
             </Typography>
             <Typography variant="h6" gutterBottom>
-              @
+              @rami_monllor
             </Typography>
             <Box
               sx={{
@@ -462,7 +462,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://www.linkedin.com/in/ramiro-monllor/"
                 underline="none"
               >
                 <LinkedInIcon sx={{ fontSize: "50px" }} />
@@ -472,7 +472,7 @@ const Developers = () => {
                   ":hover": { color: "cardDev.:hover.textWhiteBlack" },
                   color: "cardDev.textWhiteBlack",
                 }}
-                href=""
+                href="https://github.com/ramiro-monllor"
                 underline="none"
               >
                 <GitHubIcon sx={{ fontSize: "50px" }} />
@@ -491,7 +491,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Ricardo Suarez"
-              //   src=
+                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307600/1658786277144_y2ztex.jpg"
               sx={{
                 mt: -10,
                 width: 150,
