@@ -9,14 +9,19 @@ import {
 import { rootReducer, initialState } from "../../redux/reducer/index";
 import CartItem from "../CartItem/CartItem";
 import ProductItem from "../ProductItem/ProductItem";
-import { getAllCoins, getUserInfo, getCartUser, deleteCartUser } from "../../redux/actions";
+import {
+  getAllCoins,
+  getUserInfo,
+  getCartUser,
+  deleteCartUser,
+} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
-import {  onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+import "./ShoppingCart.css";
 
-import { Button } from '@mui/material';
-
+import { Button } from "@mui/material";
 
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -26,16 +31,15 @@ const ShoppingCart = () => {
   const userCart = useSelector((state) => state.userCart);
   const [user, setUser] = useState({
     email: "",
-   });
-console.log(userCart)
-   useEffect(() => {
+  });
+  console.log(userCart);
+  useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser({
           ...user,
           email: currentUser.email,
         });
-
       }
     });
   }, [dispatch, userInfo]);
@@ -48,9 +52,6 @@ console.log(userCart)
     dispatch(getCartUser(userInfo.id));
   }, [userInfo]);
 
-
-
-
   useEffect(() => {
     dispatch(getAllCoins());
   }, [dispatch]);
@@ -59,11 +60,9 @@ console.log(userCart)
   const cartCoins = useSelector((state) => state.cart);
 
   const addToCart = (id) => {
-  
     dispatch({ type: ADD_TO_CART, payload: id });
   };
   const delFromCart = (id, all = false) => {
-    
     if (all) {
       dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
     } else {
@@ -72,7 +71,6 @@ console.log(userCart)
   };
 
   const addOneFromCart = (id) => {
-    
     dispatch({ type: ADD_ONE_FROM_CART, payload: id });
   };
 
@@ -80,21 +78,18 @@ console.log(userCart)
     dispatch(deleteCartUser(userInfo.id));
   };
 
-let product =[]
-const productPayment = () => {
-  userCart.map((e)=>product.push(
-    {
-      title:e.idCoin,
-      amount:e.quantity,
-      price:e.price
-
-    }
-    
-    ))
-  
-}
-productPayment()
-console.log(product)
+  let product = [];
+  const productPayment = () => {
+    userCart.map((e) =>
+      product.push({
+        title: e.idCoin,
+        amount: e.quantity,
+        price: e.price,
+      })
+    );
+  };
+  productPayment();
+  console.log(product);
   // let product = [
   //   {
   //     title,
@@ -103,48 +98,51 @@ console.log(product)
   //   },
   // ]
   return (
-    <div>
-      <h2>Carrito de Compras</h2>
-      <h3>Productos</h3>
+    <div className="cart-container">
+      <h2 className="title-cart">Carrito de Compras</h2>
+      <h3 className="title-products">Productos</h3>
       {/* <article className="box">
         {cartCoins.map((product) => (
           <ProductItem key={product.id} data={product} addToCart={addToCart} />
         ))}
       </article> */}
-      <h3>Carrito</h3>
+      <h3 className="title-carrito">Carrito</h3>
       <article className="box">
-        <button onClick={clearCart}>Limpiar Carrito</button>
-<div>
+        <div>
           {userCart.length !== 0 ? (
             userCart.map((i) => {
               return (
-                <div key={i.id}>
-<label>{i.idCoin}</label>
-<label>{i.price}</label>
-<label>{i.quantity}</label>
-          <Button
-          onClick={() => {
-            axios.post('http://localhost:3001/users/payment', product)
-            .then((res) => window.location.href = res.data.response.body.init_point)
-        }}
-        >
-          BUY CRIPTO
-        </Button>
-          </div>
+                <div className="cart-box" key={i.id}>
+                  <label>{i.idCoin}</label>
+                  <label>{i.price}</label>
+                  <label>{i.quantity}</label>
+                  <Button
+                    onClick={() => {
+                      axios
+                        .post("http://localhost:3001/users/payment", product)
+                        .then(
+                          (res) =>
+                            (window.location.href =
+                              res.data.response.body.init_point)
+                        );
+                    }}
+                  >
+                    BUY CRIPTO
+                  </Button>
+                </div>
               );
             })
-          ) 
-          
-          : (
+          ) : (
             <div>
-              <p>Carrito vacío</p>
+              <p className="carrito-vacio">---</p>
             </div>
-          )} 
-</div>
+          )}
+        </div>
+        <button className="button-clear-cart" onClick={clearCart}>
+          LIMPIAR CARRITO
+        </button>
 
-
-
-{/* 
+        {/* 
         {cartCoins.map((item, id) => (
           <CartItem
             key={id}
@@ -153,7 +151,6 @@ console.log(product)
             addOneFromCart={addOneFromCart}
           />
         ))} */}
-
       </article>
     </div>
   );
