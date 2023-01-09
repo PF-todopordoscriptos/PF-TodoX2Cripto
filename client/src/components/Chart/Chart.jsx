@@ -38,7 +38,7 @@ const HistoryChart = (id, days) => {
 
   useEffect(() => {
     dispatch(getHistoryChart(id.id, 7));
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   const options = { ...historyOptions };
   const [day, setDay] = useState({});

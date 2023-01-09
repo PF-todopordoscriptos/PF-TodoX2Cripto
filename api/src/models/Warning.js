@@ -15,11 +15,19 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    img: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     text: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     coin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    coinImg: {
       type: DataTypes.STRING,
       allowNull: false,
     },

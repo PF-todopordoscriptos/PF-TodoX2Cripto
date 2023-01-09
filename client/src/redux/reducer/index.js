@@ -23,10 +23,13 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CREATE_WARNING,
+  GET_ALL_WARNINGS,
   CLEAR_ADMIN,
   COIN_COMMENT,
   POST_COMMENT,
-  GET_USER_CART
+  GET_ALL_COMMENTS,
+  GET_USER_CART,
+  DELETE_COMMENT
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -43,7 +46,9 @@ export const initialState = {
   userCart:[],
   themeMode: "light",
   cart: [],
-  comments: []
+  comments: [],
+  allComments : [],
+  allWarnings: []
 };
 
 export function rootReducer(state = initialState, action) {
@@ -286,6 +291,12 @@ export function rootReducer(state = initialState, action) {
     case CLEAR_CART: {
       return initialState;
     }
+    case GET_ALL_WARNINGS:{
+      return{
+        ...state,
+        allWarnings: action.payload
+      }
+    }
     case CREATE_WARNING: {
       return {
         ...state,
@@ -302,6 +313,12 @@ export function rootReducer(state = initialState, action) {
         ...state,
       };
     }
+    case GET_ALL_COMMENTS: {
+      return{
+        ...state,
+        allComments: action.payload
+      }
+    }
     case CLEAR_ADMIN: {
       return {
         ...state,
@@ -314,6 +331,13 @@ export function rootReducer(state = initialState, action) {
         userCart: action.payload,
       };
     }
+
+    case DELETE_COMMENT: {
+      return{
+        ...state
+      }
+    }
+    
     default:
       return state;
   }
