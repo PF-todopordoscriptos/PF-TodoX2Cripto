@@ -13,9 +13,10 @@ import { HiChevronDown } from "react-icons/hi2";
 const Accordion = withStyles({
   root: {
     width: '70%',
-    backgroundColor: '#5d4269',
+    backgroundColor: 'rgb(168, 135, 187)',
     border: '2px solid #684477',
-    margin: '5px',
+    margin: '0.7rem',
+    borderRadius: "0.2rem"
   },
   expanded: {}
 })(MuiAccordion)
@@ -107,14 +108,14 @@ const FAQ = () => {
     <div className={style.cont}>
       <div className="accordions">
         <Accordion>
-          <AccordionSummary expandIcon={<HiChevronDown />}>
+           <AccordionSummary expandIcon={<HiChevronDown />}>
             <Typography variant="h6">¿Puedo comprar sin registrarme?</Typography>
-          </AccordionSummary>
+           </AccordionSummary> 
 
-          <AccordionDetails>
+           <AccordionDetails>
             <Typography variant="h7">Para hacer una compra es necesario tener una cuenta.</Typography>
-          </AccordionDetails>
-        </Accordion>
+           </AccordionDetails>
+         </Accordion> 
 
         <Accordion>
           <AccordionSummary expandIcon={<HiChevronDown />}>
