@@ -23,6 +23,7 @@ import {
 } from "../../redux/actions/actionTypes";
 
 export default function Home() {
+  localStorage.getItem("store") === null && localStorage.setItem("store", "")
   const dispatch = useDispatch();
 
   useEffect(() => {
