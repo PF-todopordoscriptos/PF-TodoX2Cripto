@@ -41,19 +41,24 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { User, Coins, Review, Warning, Historic_Transactions, Cart, Comment } = sequelize.models;
+const { User, Coins, Review, Warning, Historic_Transactions, Cart, Comment } =
+  sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
 const transactions = sequelize.define("Transactions", {
-  id:{
-    type:DataTypes.INTEGER,
+  id: {
+    type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   quantity: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
+  },
+  price: {
+    type: DataTypes.FLOAT,
     defaultValue: 0,
   },
 });
