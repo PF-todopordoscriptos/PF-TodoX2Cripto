@@ -131,7 +131,7 @@ const Calculator = ({ id }) => {
         You are going to buy: {price / coinDetails.current_price} coins
       </label>
 
-      {price === "" ? ( //por si esta vacio el amount lo establezco en disabled :)
+      {price === "" ? //por si esta vacio el amount lo establezco en disabled :)
         <button
         className={style.buttonPreCart}
         disabled
