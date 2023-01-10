@@ -8,8 +8,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import TextField from "@mui/material/TextField";
 import { getUserInfo, addCartBack, getCoinDetail } from "../../redux/actions";
-import style from "../CoinTarget/CoinTarget.module.css";
-import "./Calculator.css";
+
+import style from "./Calculator.module.css";
+// import "./Calculator.css";
 
 import Swal from "sweetalert2";
 
@@ -70,6 +71,10 @@ const Calculator = ({ id }) => {
   const quantity = price / coinDetails.current_price;
 
   const addItem = () => {
+    // if(price === ""){
+    //   return alert("Select an amount")
+    // }
+    setPrice("")
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -96,12 +101,10 @@ const Calculator = ({ id }) => {
     let newConcat = fromStore.concat(JSON.stringify({idCoin: idCoin, quantity: quantity, price: price}))
     localStorage.setItem("store", newConcat)
   }
-  
+
   return (
-    <div className="preCart-container">
-      {/* <button style={{width: '10vw'}} onClick={() => localStorage.setItem("store", "")} >SET FIRST STORE</button> */}
-      <button style={{width: '10vw'}} onClick={() => localStorage.setItem("store", "")}  >CLEAR</button>
-      <h3 className="title-preCart">Pre Cart</h3>
+    <div className={style.preCartContainer}>
+      <h3 className={style.titlePreCart}>Pre Cart</h3>
 
       <TextField
         id="outlined-basic"
@@ -126,11 +129,30 @@ const Calculator = ({ id }) => {
       <label>
         You are going to buy: {price / coinDetails.current_price} coins
       </label>
+
+      {
+        price === "" ? //por si esta vacio el amount lo establezco en disabled :)
+        <button
+        className={style.buttonPreCart}
+        disabled
+      >
+        {
+          <img
+            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+            alt="cart"
+            className={style.carrito}
+            // onClick={addItem}
+          />
+        }
+      </button>
+      :
       <button
-        className="button-preCart"
-        onClick={() => { idUser === undefined ?
-          saveToLocalStore()
+        className={style.buttonPreCart}
+        onClick={ idUser === undefined ?
+          () => saveToLocalStore() + addItem()
           :
+          () => {
+          addItem()
           axios.post(`http://localhost:3001/users/addTransactionCart`, {
             idUser,
             idCoin,
@@ -144,10 +166,11 @@ const Calculator = ({ id }) => {
             src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
             alt="cart"
             className={style.carrito}
-            onClick={addItem}
+            // onClick={addItem}
           />
         }
       </button>
+      }
     </div>
   );
 };

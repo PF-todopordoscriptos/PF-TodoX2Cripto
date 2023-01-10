@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import style from "./Exito.module.css";
 
 const Exito = () => {
   const dispatch = useDispatch();
@@ -81,10 +82,11 @@ const Exito = () => {
     dispatch(deleteCartUser(userInfo.id));
   };
   return (
-    <div>
-      <h1>para que ande</h1>
-      <button onClick={clearCart}>
-        <Link to="/home">Volver a Inicio</Link>
+    <div className={style.contExito}>
+      <h1 className={style.textCompra}>Compra realizada con exito!</h1>
+      <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673311496/giphy_rsmxuw.gif" alt="gif dino" className={style.dino} />
+      <button onClick={clearCart} className={style.butCompra}>
+        <Link to="/home" className={style.link}>Volver a Inicio</Link>
       </button>
     </div>
   );
