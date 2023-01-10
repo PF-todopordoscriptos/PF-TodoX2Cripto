@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 // import {
 //     onAuthStateChanged,
@@ -7,19 +8,17 @@ import React, { useEffect, useState } from "react";
 // import FormLogin from "../FormLogin/FormLogin";
 import { Navigate, Outlet } from "react-router-dom";
 
-import style from "./ProtectedRoute.module.css"
+import style from "./ProtectedRoute.module.css";
 
 // import { useNavigate, Link } from "react-router-dom";
-
 
 // export default function ProtectedRoute({ children }) {
 
 //   const [user, setUser] = useState(null);
 
 //export default function ProtectedRoute({ children }) {
-  // const history = useNavigate();
-  //const [user, setUser] = useState(null);
-
+// const history = useNavigate();
+//const [user, setUser] = useState(null);
 
 //   useEffect(() => {
 //     onAuthStateChanged(auth, (currentUser) => {
@@ -33,8 +32,6 @@ import style from "./ProtectedRoute.module.css"
 //   if (!user) return <FormLogin />; //history.push("/login");
 //   return <>{children}</>;
 // }
-
-
 
 export const ProtectedRoute = ({ user, children, redirecTo = "/login" }) => {
   if (!user) {

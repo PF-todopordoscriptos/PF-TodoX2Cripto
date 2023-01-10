@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, addFavorite, removeFavorite } from "../../redux/actions";
@@ -62,7 +63,7 @@ const CoinTarget = (props) => {
   //     iconColor: "#8EFF60",
   //     title: `Coin added to cart.`,
   //     color: "white",
-  //     background: "#E6112B" 
+  //     background: "#E6112B"
   //   });
   // };
 

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
@@ -74,7 +75,7 @@ const Calculator = ({ id }) => {
     // if(price === ""){
     //   return alert("Select an amount")
     // }
-    setPrice("")
+    setPrice("");
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -124,55 +125,53 @@ const Calculator = ({ id }) => {
         You are going to buy: {price / coinDetails.current_price} coins
       </label>
 
-      {
-        price === "" ? //por si esta vacio el amount lo establezco en disabled :)
+      {price === "" ? ( //por si esta vacio el amount lo establezco en disabled :)
         <button
-        className={style.buttonPreCart}
-        onClick={() => {
-          addItem()
-          axios.post(`http://localhost:3001/users/addTransactionCart`, {
-            idUser,
-            idCoin,
-            quantity,
-            price,
-          });
-        }}
-        disabled
-      >
-        {
-          <img
-            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
-            alt="cart"
-            className={style.carrito}
-            // onClick={addItem}
-          />
-        }
-      </button> 
-      :
-      <button
-        className={style.buttonPreCart}
-        onClick={() => {
-          addItem()
-          axios.post(`http://localhost:3001/users/addTransactionCart`, {
-            idUser,
-            idCoin,
-            quantity,
-            price,
-          });
-          // addItem()
-        }}
-      >
-        {
-          <img
-            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
-            alt="cart"
-            className={style.carrito}
-            // onClick={addItem}
-          />
-        }
-      </button>
-      }
-
+          className={style.buttonPreCart}
+          onClick={() => {
+            addItem();
+            axios.post(`http://localhost:3001/users/addTransactionCart`, {
+              idUser,
+              idCoin,
+              quantity,
+              price,
+            });
+          }}
+          disabled
+        >
+          {
+            <img
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+              alt="cart"
+              className={style.carrito}
+              // onClick={addItem}
+            />
+          }
+        </button>
+      ) : (
+        <button
+          className={style.buttonPreCart}
+          onClick={() => {
+            addItem();
+            axios.post(`http://localhost:3001/users/addTransactionCart`, {
+              idUser,
+              idCoin,
+              quantity,
+              price,
+            });
+            // addItem()
+          }}
+        >
+          {
+            <img
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+              alt="cart"
+              className={style.carrito}
+              // onClick={addItem}
+            />
+          }
+        </button>
+      )}
 
       {/* <button
         className={style.buttonPreCart}

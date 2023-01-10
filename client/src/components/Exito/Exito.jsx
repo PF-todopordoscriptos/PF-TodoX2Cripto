@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
@@ -84,9 +85,15 @@ const Exito = () => {
   return (
     <div className={style.contExito}>
       <h1 className={style.textCompra}>Compra realizada con exito!</h1>
-      <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673311496/giphy_rsmxuw.gif" alt="gif dino" className={style.dino} />
+      <img
+        src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673311496/giphy_rsmxuw.gif"
+        alt="gif dino"
+        className={style.dino}
+      />
       <button onClick={clearCart} className={style.butCompra}>
-        <Link to="/home" className={style.link}>Volver a Inicio</Link>
+        <Link to="/home" className={style.link}>
+          Volver a Inicio
+        </Link>
       </button>
     </div>
   );

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import { useAuth0 } from "@auth0/auth0-react"
@@ -155,13 +156,12 @@ const Profile = () => {
       iconColor: "#8EFF60",
       title: `User modified successfully.`,
       color: "white",
-      background: "#1db722d3" 
+      background: "#1db722d3",
     });
-    navigate("/home")
+    navigate("/home");
     dispatch(updateUserInfo(user.email, input));
     setEdit(!edit);
   };
-
 
   return (
     <div className={style.divAll}>
@@ -171,31 +171,106 @@ const Profile = () => {
             <div className={style.parteUno}>
               <div className={style.contFoto}>
                 {/* <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
-                <img src={ input.img ? input.img : "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png"} alt="foto de perfil" className={style.fotoPerfil} />
-                <input accept="image/*" id="raised-button-file" multiple type="file" name="img" style={{ display: "none" }} disabled={edit ? true : null} onChange={uploadImage}/>
+                <img
+                  src={
+                    input.img
+                      ? input.img
+                      : "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png"
+                  }
+                  alt="foto de perfil"
+                  className={style.fotoPerfil}
+                />
+                <input
+                  accept="image/*"
+                  id="raised-button-file"
+                  multiple
+                  type="file"
+                  name="img"
+                  style={{ display: "none" }}
+                  disabled={edit ? true : null}
+                  onChange={uploadImage}
+                />
                 <label htmlFor="raised-button-file">
-                  <Button variant="raised" component="span" style={{marginLeft: "1rem", marginTop: "2rem", backgroundColor: "#a06aeb55", }} disabled={edit ? true : null}>
+                  <Button
+                    variant="raised"
+                    component="span"
+                    style={{
+                      marginLeft: "1rem",
+                      marginTop: "2rem",
+                      backgroundColor: "#a06aeb55",
+                    }}
+                    disabled={edit ? true : null}
+                  >
                     {" "}
                     Upload Image{" "}
                   </Button>
                 </label>
               </div>
 
-              <TextField value={user.email} id="filled-2" name="email" label="Email" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled/>              
+              <TextField
+                value={user.email}
+                id="filled-2"
+                name="email"
+                label="Email"
+                variant="standard"
+                color="info"
+                sx={{ marginTop: "2rem", width: "20rem" }}
+                disabled
+              />
 
-              <TextField value={input.username} onChange={handleInput} id="filled-3" name="username" label="Username" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }}  disabled={edit ? true : null}/>
-              
-              <TextField value={input.name} onChange={handleInput} id="filled-4" name="name" label="Name" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null} />
+              <TextField
+                value={input.username}
+                onChange={handleInput}
+                id="filled-3"
+                name="username"
+                label="Username"
+                variant="standard"
+                color="info"
+                sx={{ marginTop: "2rem", width: "20rem" }}
+                disabled={edit ? true : null}
+              />
 
-              <TextField value={input.lastname} onChange={handleInput} id="filled-5" name="lastname" label="Lastname" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null} />
+              <TextField
+                value={input.name}
+                onChange={handleInput}
+                id="filled-4"
+                name="name"
+                label="Name"
+                variant="standard"
+                color="info"
+                sx={{ marginTop: "2rem", width: "20rem" }}
+                disabled={edit ? true : null}
+              />
+
+              <TextField
+                value={input.lastname}
+                onChange={handleInput}
+                id="filled-5"
+                name="lastname"
+                label="Lastname"
+                variant="standard"
+                color="info"
+                sx={{ marginTop: "2rem", width: "20rem" }}
+                disabled={edit ? true : null}
+              />
             </div>
 
             <div className={style.parteDos}>
               <div className={style.contLapiz}>
                 {edit ? (
-                  <img onClick={changeEdit} className={style.lapiz} src={`${lapizNegro}`} alt="Editar Habilitado" />
+                  <img
+                    onClick={changeEdit}
+                    className={style.lapiz}
+                    src={`${lapizNegro}`}
+                    alt="Editar Habilitado"
+                  />
                 ) : (
-                  <img onClick={changeEdit} className={style.lapiz} src={`${lapizGris}`} alt="Editar Deshabilitado" />
+                  <img
+                    onClick={changeEdit}
+                    className={style.lapiz}
+                    src={`${lapizGris}`}
+                    alt="Editar Deshabilitado"
+                  />
                 )}
               </div>
 
@@ -229,12 +304,15 @@ const Profile = () => {
             <button className={style.butChanges} onClick={saveChanges}>
               Save changes
             </button>
-            
           </div>
 
           <div className={style.divDinosaurio}>
             <marquee behavior="scroll" direction="left">
-              <img className={style.dinosaurio} src="https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s" alt="Dinosaurio con onda" />
+              <img
+                className={style.dinosaurio}
+                src="https://media3.giphy.com/media/e5RXnHeokFGMsOUMMm/giphy.gif?cid=6c09b95217a7b5ed944209a47fe302510eb22ef9574ad7ba&rid=giphy.gif&ct=s"
+                alt="Dinosaurio con onda"
+              />
             </marquee>
           </div>
         </div>
