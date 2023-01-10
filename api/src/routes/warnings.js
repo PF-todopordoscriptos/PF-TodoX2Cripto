@@ -19,27 +19,14 @@ router.get("/allWarnings", async (req,res) => {
 
 router.post("/warnings", async (req,res) => {
     try {
-        let {email,text,coin} = req.body
-        const newWarning = await createWarning(email,text,coin)
+        let {email, img, text, coin, coinImg} = req.body
+        const newWarning = await createWarning(email, img, text, coin, coinImg)
         res.status(200).send(newWarning)
     } catch (err) {
         res.status(400).send(err.message)
     }
 })
 
-
-
-
-router.post("/", async (req,res) => {
-    try{
-        let {name,heightMin, heightMax, weightMin, weightMax, lifeMin, lifeMax, img, tempers} = req.body
-        await allTemps()
-        const newDog = await createBreed(name,heightMin, heightMax, weightMin, weightMax, lifeMin, lifeMax, img, tempers)
-        res.status(200).send(newDog)
-    }catch(e){
-        res.status(404).send(e.message)
-    }
-})
 
 
 module.exports = router;

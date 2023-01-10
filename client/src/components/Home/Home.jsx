@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCart, getAllCoins } from "../../redux/actions";
@@ -23,6 +24,7 @@ import {
 } from "../../redux/actions/actionTypes";
 
 export default function Home() {
+  localStorage.getItem("store") === null && localStorage.setItem("store", "")
   const dispatch = useDispatch();
 
   useEffect(() => {

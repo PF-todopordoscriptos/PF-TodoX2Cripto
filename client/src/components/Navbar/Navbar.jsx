@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
@@ -28,7 +29,7 @@ const Navbar = () => {
   //   //password: ""
   // });
   const userInfo = useSelector((state) => state.userInfo);
-  
+
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -54,7 +55,6 @@ const Navbar = () => {
   //   });
   // }, [user]);
 
-
   // console.log(userInfo)
 
   // React.useEffect(() => {
@@ -65,10 +65,10 @@ const Navbar = () => {
   // }, [user]);
 
   const handleSignOut = () => {
-    dispatch(clearAdmin())
-    setUser(null)
+    dispatch(clearAdmin());
+    setUser(null);
     signOut(auth);
-    navigate("/")
+    navigate("/");
     // Navigate("/home");
     // console.log("limpiado")
   };
@@ -95,31 +95,40 @@ const Navbar = () => {
       <div className={style.contSwitch}>
         <FormGroup>
           <FormControlLabel
-
-            control={<MaterialUISwitch sx={{ m: 1 }}
-              checked={themeMode === 'light' ? false : true}
-              onClick={ () => themeMode === 'light' ? dispatch(setThemeMode('dark')) : dispatch(setThemeMode('light')) }
-            />}
-
+            control={
+              <MaterialUISwitch
+                sx={{ m: 1 }}
+                checked={themeMode === "light" ? false : true}
+                onClick={() =>
+                  themeMode === "light"
+                    ? dispatch(setThemeMode("dark"))
+                    : dispatch(setThemeMode("light"))
+                }
+              />
+            }
           />
         </FormGroup>
       </div>
 
-
       <Box className={style.butonsAuth}>
-
-      <div className={style.contButsExtras}>
-        {
-          userInfo.admin ? 
-        <Link to="/admin">
-          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673116583/tuercas_qsi3hj.png" alt="admin" className={style.admin} />
-        </Link> 
-        : null
-        }
-        <Link to="/cart">
-          <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png" alt="cart" className={style.carrito} />
-        </Link>
-      </div>
+        <div className={style.contButsExtras}>
+          {userInfo.admin ? (
+            <Link to="/admin">
+              <img
+                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673116583/tuercas_qsi3hj.png"
+                alt="admin"
+                className={style.admin}
+              />
+            </Link>
+          ) : null}
+          <Link to="/cart">
+            <img
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+              alt="cart"
+              className={style.carrito}
+            />
+          </Link>
+        </div>
 
         {user ? (
           <Box

@@ -1,7 +1,7 @@
-.Todo{
+.Todo {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 150vh;
 }
 
 .card {
@@ -11,7 +11,7 @@
   margin-top: 5vh;
   /* border: 1px solid red; */
   height: 60vh;
-  width: 120vh;
+  width: 127vh;
   overflow: hidden;
   border-radius: 30px;
   /* margin: 45px; */
@@ -71,15 +71,15 @@
   align-items: center;
 }
 
-.variationGreen{
+.variationGreen {
   color: rgb(26, 195, 26);
 }
 
-.variationRed{
+.variationRed {
   color: rgb(195, 26, 26);
 }
 
-.alerta{
+.alerta {
   height: 3rem;
   width: 3rem;
   margin-left: 68%;
@@ -88,18 +88,18 @@
   /* opacity: 70%; */
 }
 
-.contComp{
+.contComp {
   display: flex;
   /* position: relative; */
 }
 
-.contReviews{
+.contReviews {
   display: flex;
   /* margin-top: 84vh; */
   /* position: absolute; */
 }
 
-.contWarning{
+.contWarning {
   display: flex;
   /* position: absolute; */
   justify-content: center;
@@ -116,13 +116,54 @@
   /* box-shadow: 0px 0px 53px -20px rgb(5, 48, 167); */
 }
 
-.contCalculator{
+.contCalculator {
   display: flex;
   margin-left: 5rem;
   margin-top: 3rem;
 }
 
-.contCardCalculator{
+.contCardCalculator {
   display: flex;
   flex-direction: row;
+}
+
+.contForm {
+  margin-top: 5rem;
+  /* margin-right: 5rem; */
+  /* margin-left: 5rem; */
+  width: 60%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: 3rem;
+}
+
+.contComments {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  /* margin-bottom: 10rem; */
+}
+
+.loading {
+  display: flex;
+  height: 50vh;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.dino {
+  height: 250px;
+}
+
+.texto {
+  /* color: rgb(172, 40, 40); */
+  color: rgb(158, 36, 152);
+  margin-top: 0px;
+}
+
+.contAlerta {
+  color: white;
 }

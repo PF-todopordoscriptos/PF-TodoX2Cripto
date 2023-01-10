@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import {
   GET_TRENDING_COINS,
   GET_ALL_COINS,
@@ -23,8 +24,15 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CREATE_WARNING,
+  GET_ALL_WARNINGS,
   CLEAR_ADMIN,
-  GET_USER_CART
+  COIN_COMMENT,
+  POST_COMMENT,
+  GET_ALL_COMMENTS,
+  GET_USER_CART,
+  DELETE_COMMENT,
+  GET_ALL_TRANSACTIONS,
+  GET_ALL_USERS,
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -41,6 +49,11 @@ export const initialState = {
   userCart:[],
   themeMode: "light",
   cart: [],
+  comments: [],
+  allComments : [],
+  allWarnings: [],
+  allTransactions: [],
+  allUsers: [],
 };
 
 export function rootReducer(state = initialState, action) {
@@ -283,10 +296,33 @@ export function rootReducer(state = initialState, action) {
     case CLEAR_CART: {
       return initialState;
     }
+    case GET_ALL_WARNINGS:{
+      return{
+        ...state,
+        allWarnings: action.payload
+      }
+    }
     case CREATE_WARNING: {
       return {
         ...state,
       };
+    }
+    case COIN_COMMENT:{
+      return {
+        ...state,
+        comments: action.payload,
+      }
+    }
+    case POST_COMMENT: {
+      return {
+        ...state,
+      };
+    }
+    case GET_ALL_COMMENTS: {
+      return{
+        ...state,
+        allComments: action.payload
+      }
     }
     case CLEAR_ADMIN: {
       return {
@@ -300,6 +336,27 @@ export function rootReducer(state = initialState, action) {
         userCart: action.payload,
       };
     }
+
+    case DELETE_COMMENT: {
+      return{
+        ...state
+      }
+    }
+
+    case GET_ALL_TRANSACTIONS: {
+      return {
+        ...state,
+        allTransactions: action.payload,
+      }
+    }
+
+    case GET_ALL_USERS: {
+      return {
+        ...state,
+        allUsers: action.payload,
+      }
+    }
+    
     default:
       return state;
   }

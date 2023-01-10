@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useEffect, useMemo } from "react";
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -11,35 +12,39 @@ import Details from "./components/Details/Details";
 import Profile from "./components/Profile/Profile";
 import Navbar from "./components/Navbar/Navbar";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
+import { ProtectedAdmin } from "./components/ProtectedAdmin/ProtectedAdmin";
 import Comparative from "./components/Comparative/Comparative";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import FormLogin from "./components/FormLogin/FormLogin";
-import SignUp from "./components/SignUp/SignUp"
+//import FormLogin from "./components/FormLogin/FormLogin";
+import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboardCoins";
 import AdminDashboardUsers from "./components/AdminDashboardUsers/AdminDashboardUsers";
 import AdminDashboardChanges from "./components/AdminDashboardChanges/AdminDashboardChanges";
 import PanelAdmin from "./components/PanelAdmin/PanelAdmin";
+import PanelUser from "./components/PanelUser/PanelUser";
 import Payment from "./components/Payment/Payment";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../src/firebase/firebaseConfig";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  amber,
   grey,
-  deepOrange,
   purple,
   deepPurple,
-  pink,
-  yellow,
-  lightBlue,
+  // amber,
+  // deepOrange,
+  // pink,
+  // yellow,
+  // lightBlue,
 } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
-
+import Exito from "../src/components/Exito/Exito";
+import Developers from "./components/Developers/Developers";
+import About from "./components/About/About";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,7 +57,7 @@ function App() {
     });
   }, []);
 
-  console.log(user)
+  console.log(user);
 
   const getDesignTokens = (PaletteMode) => ({
     palette: {
@@ -96,6 +101,15 @@ function App() {
                 textWhiteBlack: purple[500],
               },
             },
+            cardDev: {
+              background: grey[500],
+              divider: grey[900],
+              textPurple: "#000000",
+              textWhiteBlack: "#000000",
+              ":hover": {
+                textWhiteBlack: grey[300],
+              },
+            },
           }
         : {
             // palette values for dark mode
@@ -127,6 +141,15 @@ function App() {
               },
             },
             footer: {
+              background: grey[500],
+              divider: grey[900],
+              textPurple: "#000000",
+              textWhiteBlack: "#000000",
+              ":hover": {
+                textWhiteBlack: grey[300],
+              },
+            },
+            cardDev: {
               background: grey[500],
               divider: grey[900],
               textPurple: "#000000",
@@ -205,27 +228,70 @@ function App() {
             />
             <Route path="/chart/:id" element={<Chart />} />
             <Route element={<ProtectedRoute user={user} />}>
-              <Route path={"/details/:id"} element={<> <Navbar /><Details /> <Footer /> </>} />
-              <Route path={"/profile"} element={<> <Navbar /> <Profile /> <Footer /> </>} />
+              <Route
+                path={"/profile"}
+                element={
+                  <>
+                    {" "}
+                    <Navbar /> <PanelUser /> <Footer />{" "}
+                  </>
+                }
+              />
             </Route>
 
-            <Route path={"/FAQ"} element={<Navbar />} />
-            {/* <Route path={"/details/:id"} element={<Navbar />} /> */}
             <Route
+              path={"/details/:id"}
+              element={
+                <>
+                  {" "}
+                  <Navbar />
+                  <Details /> <Footer />{" "}
+                </>
+              }
+            />
+
+            <Route path={"/FAQ"} element={<Navbar />} />
+            <Route
+              path={"/developers"}
+              element={
+                <>
+                  {" "}
+                  <Navbar /> <Developers /> <Footer />{" "}
+                </>
+              }
+            />
+            <Route
+              path={"/about"}
+              element={
+                <>
+                  {" "}
+                  <Navbar /> <About /> <Footer />{" "}
+                </>
+              }
+            />
+            {/* <Route path={"/details/:id"} element={<Navbar />} /> */}
+            {/* <Route
               path={"/calculator"}
               element={
                 <>
                   <Navbar /> <Calculator /> <Footer />{" "}
                 </>
               }
-            />
-            <Route path={"/admin"} element={<PanelAdmin />} />
+            /> */}
+            {/* <Route path={"/admin"} element={<PanelAdmin />} /> */}
+            <Route element={<ProtectedAdmin user={user} />}>
+              <Route path={"/admin"} element={<PanelAdmin />} />
+            </Route>
+
             <Route path={"/comparative"} element={<Comparative />} />
             <Route path={"/shoppingcart"} element={<ShoppingCart />} />
-            <Route path={"/admincoins"} element={<AdminDashboardCoins />} />
-            <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
-            <Route path={"/adminchanges"} element={<AdminDashboardChanges />} />
+
+            {/* <Route path={"/admincoins"} element={<AdminDashboardCoins />} /> */}
+            {/* <Route path={"/adminusers"} element={<AdminDashboardUsers />} /> */}
+            {/* <Route path={"/adminchanges"} element={<AdminDashboardChanges />} /> */}
+
             <Route path={"/payment"} element={<Payment />} />
+            <Route path={"/exito"} element={<Exito />} />
             <Route path="/errorpage" element={<ErrorPage />} />
             <Route path="*" element={<Navigate to="/errorpage" replace />} />
           </Routes>

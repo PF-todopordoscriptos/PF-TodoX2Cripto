@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,7 +39,7 @@ const HistoryChart = (id, days) => {
 
   useEffect(() => {
     dispatch(getHistoryChart(id.id, 7));
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   const options = { ...historyOptions };
   const [day, setDay] = useState({});

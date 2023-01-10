@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 
 import style from "./SignUp.module.css";
@@ -17,14 +18,12 @@ import {
 
 import ojoAbierto from "../../Images/ojoabierto.png";
 import ojoCerrado from "../../Images/ojocerrado.png";
-import logoGoogle from "../../Images/logoGoogle.png";
+//import logoGoogle from "../../Images/logoGoogle.png";
 
 import Swal from "sweetalert2";
 
-
 const SignUp = () => {
   const history = useNavigate();
-
 
   // const [contador, setContador] = useState(1);
   const [handleChangePassword, sethandleChangePassword] = useState(false);
@@ -42,7 +41,7 @@ const SignUp = () => {
   const [errorsLog, setErrorsLog] = useState();
   const [errorsSig, setErrorsSig] = useState();
   const [errorsPass, setErrorsPass] = useState();
-
+  console.log(errorsLog, errorsSig, errorsPass);
 
   const changePasswordForm = () => {
     sethandleChangePassword(!handleChangePassword);
@@ -78,7 +77,6 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
-
 
   const handleClickShowPassword = () => {
     setInput({
@@ -194,19 +192,6 @@ const SignUp = () => {
       }
     }
   };
-
-  //   const setEmailNickname = () => {
-  //     let emailAUTH0 = user.email
-  //     let nicknameAUTH0 = user.nickname
-  //     console.log(emailAUTH0, nicknameAUTH0)
-  //     console.log(input.email)
-  //     setContador(contador+1)
-  //     setInput({
-  //         ...input,
-  //         [input.email] : emailAUTH0,
-  //         [input.nickname] : nicknameAUTH0,
-  //     })
-  //   }
 
   return (
     <div className="main-formlogin">
@@ -373,7 +358,7 @@ const SignUp = () => {
             {/* disabled= {errorsSig.length === 0 ? false : true} */}
           </div>
           <p>
-          Do you already have an account?{" "}
+            Do you already have an account?{" "}
             <a href="/login" className={style.forget}>
               Login here
             </a>

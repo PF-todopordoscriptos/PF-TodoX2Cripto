@@ -9,6 +9,7 @@ import Brontosaurio from "../../Images/Brontosaurio.png";
 import { CardMedia , Typography , Button } from '@mui/material';
 
 const LandingPag = () => {
+    localStorage.getItem("store") === null && localStorage.setItem("store", "")
     const dispatch = useDispatch();
     const trendingCoins = useSelector((state) => state.trendingCoins);
     const trendingNews = useSelector((state) => state.trendingNews.slice(0,8))

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { NavLink } from "react-router-dom";
+
+import { HiArrowUturnLeft } from "react-icons/hi2";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -8,6 +11,11 @@ import Box from '@mui/material/Box';
 import AdminDashboardCoins from '../AdminDashboardCoins/AdminDashboardCoins';
 import AdminDashboardUsers from '../AdminDashboardUsers/AdminDashboardUsers';
 import AdminDashboardChanges from '../AdminDashboardChanges/AdminDashboardChanges';
+import AdminDashboardTransactions from '../AdminDashboardTransactions/AdminDashboardTransactions';
+import AdminDashboardComments from '../AdminDashboardComments/AdminDashboardComments';
+import AdminDashboardWarnings from '../AdminDashboardWarnings/AdminDashboardWarnings';
+
+import style from "./PanelAdmin.module.css"
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,13 +60,19 @@ export default function PanelAdmin() {
   return (
     <Box sx={{ width: '100%' }}>
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+      <Box sx={{ borderBottom: 1, borderColor: 'darkviolet' }}>
+      <div className={style.contArrow}>
+        <NavLink to="/home">
+          <HiArrowUturnLeft className={style.arrow} />
+        </NavLink>
+      </div>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary" indicatorColor="secondary">
           <Tab label="COINS" {...a11yProps(0)} />
           <Tab label="USERS" {...a11yProps(1)} />
           <Tab label="CHANGES" {...a11yProps(2)} />
           <Tab label="TRANSACTIONS" {...a11yProps(3)} />
-          <Tab label="WARNINGS" {...a11yProps(4)} />
+          <Tab label="COMMENTS" {...a11yProps(4)} />
+          <Tab label="WARNINGS" {...a11yProps(5)} />
         </Tabs>
       </Box>
 
@@ -75,11 +89,15 @@ export default function PanelAdmin() {
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        {/* <AdminDashboardChanges /> */}
+        <AdminDashboardTransactions />
       </TabPanel>
 
       <TabPanel value={value} index={4}>
-        {/* <AdminDashboardChanges /> */}
+        <AdminDashboardComments />
+      </TabPanel>
+
+      <TabPanel value={value} index={5}>
+        <AdminDashboardWarnings />
       </TabPanel>
 
     </Box>
