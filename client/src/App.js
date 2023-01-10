@@ -40,7 +40,7 @@ import {
 } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
-import Exito from "./Exito/Exito";
+import Exito from "../src/components/Exito/Exito";
 import Developers from "./components/Developers/Developers";
 import About from "./components/About/About";
 
