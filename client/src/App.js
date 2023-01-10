@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState, useEffect, useMemo } from "react";
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -16,7 +17,7 @@ import Comparative from "./components/Comparative/Comparative";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Calculator from "./components/Calculator/Calculator";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import FormLogin from "./components/FormLogin/FormLogin";
+//import FormLogin from "./components/FormLogin/FormLogin";
 import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboardCoins";
@@ -30,14 +31,14 @@ import { auth } from "../src/firebase/firebaseConfig";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  amber,
   grey,
-  deepOrange,
   purple,
   deepPurple,
-  pink,
-  yellow,
-  lightBlue,
+  // amber,
+  // deepOrange,
+  // pink,
+  // yellow,
+  // lightBlue,
 } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";

@@ -1,16 +1,8 @@
 import React from "react";
 import { Grid, Paper, Box, Typography, Avatar, Link } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 const Developers = () => {
   return (
     <>
@@ -57,7 +49,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Rodrigo Appel"
-                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306776/1662763345634_l8vvrz.jpg"
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306776/1662763345634_l8vvrz.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -119,7 +111,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Martín Appel"
-                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306546/1661973940354_rid3ih.jpg"
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306546/1661973940354_rid3ih.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -181,7 +173,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Juan Pablo Azambuyo"
-                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306937/1660788009318_wsbcfd.jpg"
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673306937/1660788009318_wsbcfd.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -243,7 +235,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Juan Cruz Pérez"
-                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307475/58a3ea3f-ce4e-42a3-8274-a616acb7304d_kphw7u.jpg"
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307475/58a3ea3f-ce4e-42a3-8274-a616acb7304d_kphw7u.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -491,7 +483,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Ricardo Suarez"
-                src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307600/1658786277144_y2ztex.jpg"
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307600/1658786277144_y2ztex.jpg"
               sx={{
                 mt: -10,
                 width: 150,

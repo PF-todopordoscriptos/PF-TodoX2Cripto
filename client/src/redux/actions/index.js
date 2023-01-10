@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import axios from "axios";
 import {
   GET_TRENDING_COINS,
@@ -18,24 +19,28 @@ import {
   UPDATE_USER_INFO,
   GET_TRENDING_NEWS,
   SET_THEME_MODE,
-  CREATE_WARNING,
   GET_ALL_WARNINGS,
   CLEAR_ADMIN,
   ADD_TO_CART,
   COIN_COMMENT,
-  POST_COMMENT,
   GET_ALL_COMMENTS,
-  ADD_TO_CART_BACK,
   GET_USER_CART,
   CLEAR_CART,
   DELETE_COMMENT,
   GET_ALL_TRANSACTIONS,
   GET_ALL_USERS
+  // CREATE_WARNING,
+  // POST_COMMENT,
+  // ADD_TO_CART_BACK,
+  // DELETE_COMMENT,
 } from "./actionTypes";
+
+//const baseUrl = "http://localhost:3001";
+const baseUrl = "https://todox2cripto-backend.onrender.com";
 
 export function getTrendingCoins() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/coins/trending");
+    let json = await axios.get(`${baseUrl}/coins/trending`);
     return dispatch({
       type: GET_TRENDING_COINS,
       payload: json.data,
@@ -45,7 +50,7 @@ export function getTrendingCoins() {
 
 export function getTrendingNews() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/coins/trendingNews");
+    let json = await axios.get(`${baseUrl}/coins/trendingNews`);
     return dispatch({
       type: GET_TRENDING_NEWS,
       payload: json.data,
@@ -55,7 +60,7 @@ export function getTrendingNews() {
 
 export function getAllCoins() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/coins/allcoins");
+    let json = await axios.get(`${baseUrl}/coins/allcoins`);
     return dispatch({
       type: GET_ALL_COINS,
       payload: json.data,
@@ -65,9 +70,7 @@ export function getAllCoins() {
 
 export function getHistoryChart(id, days) {
   return async function (dispatch) {
-    let json = await axios.get(
-      `http://localhost:3001/coins/chart/${id}?days=${days}`
-    );
+    let json = await axios.get(`${baseUrl}/coins/chart/${id}?days=${days}`);
     return dispatch({
       type: GET_HISTORY_CHART,
       payload: json.data,
@@ -77,9 +80,7 @@ export function getHistoryChart(id, days) {
 
 export function getCoinByName(id) {
   return async function (dispatch) {
-    let json = await axios.get(
-      `http://localhost:3001/coins/allcoins?name=${id}`
-    );
+    let json = await axios.get(`${baseUrl}/coins/allcoins?name=${id}`);
     return dispatch({
       type: GET_COIN_BY_NAME,
       payload: json.data,
@@ -89,7 +90,7 @@ export function getCoinByName(id) {
 
 export function getCoinDetail(id) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/coins/details/${id}`);
+    let json = await axios.get(`${baseUrl}/coins/details/${id}`);
     return dispatch({
       type: GET_COIN_DETAIL,
       payload: json.data,
@@ -141,7 +142,7 @@ export function orderChangePercentage(payload) {
 
 export const postUser = (user) => {
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/users/`, user);
+    const response = await axios.post(`${baseUrl}/users/`, user);
 
     return response;
   };
@@ -150,7 +151,7 @@ export const postUser = (user) => {
 export const postUserGoogle = (user) => {
   return async function (dispatch) {
     const response = await axios.post(
-      `http://localhost:3001/users/loginWithGoogle?google=true`,
+      `${baseUrl}/users/loginWithGoogle?google=true`,
       user
     );
 
@@ -167,22 +168,18 @@ export function setThemeMode(payload) {
 
 export function createReview(review, id) {
   return async function (dispatch) {
-    await axios
-      .post(`http://localhost:3001/coins/reviews/${id}`, review)
-      .then((json) => {
-        return dispatch({
-          type: CREATE_REVIEW,
-          payload: json.data,
-        });
+    await axios.post(`${baseUrl}/coins/reviews/${id}`, review).then((json) => {
+      return dispatch({
+        type: CREATE_REVIEW,
+        payload: json.data,
       });
+    });
   };
 }
 
 export function getReview(coinName) {
   return async function (dispatch) {
-    let json = await axios.get(
-      `http://localhost:3001/coins/reviews/${coinName}`
-    );
+    let json = await axios.get(`${baseUrl}/coins/reviews/${coinName}`);
     return dispatch({
       type: GET_REVIEW,
       payload: json.data,
@@ -192,7 +189,7 @@ export function getReview(coinName) {
 
 export function getUserInfo(oneUser) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/users/${oneUser}`);
+    let json = await axios.get(`${baseUrl}/users/${oneUser}`);
     return dispatch({
       type: GET_USER_INFO,
       payload: json.data,
@@ -202,7 +199,7 @@ export function getUserInfo(oneUser) {
 
 export function updateUserInfo(email, payload) {
   return async function (dispatch) {
-    let json = await axios.put(`http://localhost:3001/users/${email}`, payload);
+    let json = await axios.put(`${baseUrl}/users/${email}`, payload);
     console.log("update user");
     console.log(json.data);
     return dispatch({
@@ -221,50 +218,60 @@ export function addCart(payload) {
 
 export const addCartBack = (idUser, idCoin, quantity, price) => {
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/users/addTransactionCart`, idUser, idCoin, quantity, price);
-      return response;
+    const response = await axios.post(
+      `${baseUrl}/users/addTransactionCart`,
+      idUser,
+      idCoin,
+      quantity,
+      price
+    );
+    return response;
   };
 };
 export const addTransactionCart = (idUser, idCoin, quantity, price) => {
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/users/addTransactionCart`, idUser, idCoin, quantity, price);
-      return response;
+    const response = await axios.post(
+      `${baseUrl}/users/addTransactionCart`,
+      idUser,
+      idCoin,
+      quantity,
+      price
+    );
+    return response;
   };
 };
 export const addTransaction = (idUser, idCoin, quantity, price) => {
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/users/addTransaction`, idUser, idCoin, quantity, price);
-      return response;
+    const response = await axios.post(
+      `${baseUrl}/users/addTransaction`,
+      idUser,
+      idCoin,
+      quantity,
+      price
+    );
+    return response;
   };
 };
 
-export const getCartUser = (idUser)=> {
-  
+export const getCartUser = (idUser) => {
   return async function (dispatch) {
-    let json = await axios.get(
-`http://localhost:3001/users/transactionCart/${idUser}`,
-     
-      );
-      return dispatch({
-        type: GET_USER_CART,
-        payload: json.data
-      })
+    let json = await axios.get(`${baseUrl}/users/transactionCart/${idUser}`);
+    return dispatch({
+      type: GET_USER_CART,
+      payload: json.data,
+    });
   };
-}
-export const deleteCartUser = (idUser)=> {
-  
+};
+export const deleteCartUser = (idUser) => {
   return async function (dispatch) {
     let json = await axios.delete(
-`http://localhost:3001/users/finishTransactions/${idUser}`,
-     
-      );
-      return dispatch({
-        type: CLEAR_CART,
-       
-      })
+      `${baseUrl}/users/finishTransactions/${idUser}`
+    );
+    return dispatch({
+      type: CLEAR_CART,
+    });
   };
-}
-
+};
 
 export function clearAdmin(payload) {
   return async function (dispatch) {
@@ -275,9 +282,9 @@ export function clearAdmin(payload) {
   };
 }
 
-export function getAllWarnings(){
+export function getAllWarnings() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/warnings/allWarnings");
+    let json = await axios.get(`${baseUrl}/warnings/allWarnings`);
     return dispatch({
       type: GET_ALL_WARNINGS,
       payload: json.data,
@@ -285,30 +292,23 @@ export function getAllWarnings(){
   };
 }
 
-
 export function createWarning(payload) {
   return async function () {
-    let json = await axios.post(
-      "http://localhost:3001/warnings/warnings",
-      payload
-    );
+    let json = await axios.post(`${baseUrl}/warnings/warnings`, payload);
     return json;
   };
 }
 
-export function createComment(payload){
+export function createComment(payload) {
   return async function () {
-    let json = await axios.post(
-      "http://localhost:3001/comments/comment",
-      payload
-    );
+    let json = await axios.post(`${baseUrl}/comments/comment`, payload);
     return json;
   };
 }
 
 export function getCoinComment(coin) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/comments/${coin}`);
+    let json = await axios.get(`${baseUrl}/comments/${coin}`);
     return dispatch({
       type: COIN_COMMENT,
       payload: json.data,
@@ -316,9 +316,9 @@ export function getCoinComment(coin) {
   };
 }
 
-export function getAllComments(){
+export function getAllComments() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/comments/allComments");
+    let json = await axios.get(`${baseUrl}/comments/allComments`);
     return dispatch({
       type: GET_ALL_COMMENTS,
       payload: json.data,
@@ -326,14 +326,14 @@ export function getAllComments(){
   };
 }
 
-export function deleteComment(id){
-  return async function(){
-    try{
-        return await axios.delete(`http://localhost:3001/comments/${id}`)
-    }catch(e){
-        console.log(e.message)
+export function deleteComment(id) {
+  return async function () {
+    try {
+      return await axios.delete(`${baseUrl}/comments/${id}`);
+    } catch (e) {
+      console.log(e.message);
     }
-}
+  };
 }
 
 export function getAllTransactions(){

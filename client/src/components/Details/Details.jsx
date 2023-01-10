@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,7 +65,7 @@ const Details = (props) => {
     text: "",
     coin: id,
     coinImg: "",
-    stars: 0
+    stars: 0,
   });
 
   useEffect(() => {
@@ -148,8 +149,8 @@ const Details = (props) => {
       });
       return;
     }
-    if(comment.text.length === 0 || comment.stars === 0){
-      return alert("Fill in all the fields")
+    if (comment.text.length === 0 || comment.stars === 0) {
+      return alert("Fill in all the fields");
     }
     const Toast = Swal.mixin({
       toast: true,
@@ -211,8 +212,8 @@ const Details = (props) => {
         coin: id,
         text: text,
         coinImg: coinDetails.image,
-      }
-      dispatch(createWarning(data))
+      };
+      dispatch(createWarning(data));
       const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
