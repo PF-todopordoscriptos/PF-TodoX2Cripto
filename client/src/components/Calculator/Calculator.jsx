@@ -98,9 +98,11 @@ const Calculator = ({ id }) => {
   // }
 
   function saveToLocalStore() {
-    let fromStore = localStorage.getItem("store")
-    let newConcat = fromStore.concat(JSON.stringify({idCoin: idCoin, quantity: quantity, price: price}))
-    localStorage.setItem("store", newConcat)
+    let fromStore = localStorage.getItem("store");
+    let newConcat = fromStore.concat(
+      JSON.stringify({ idCoin: idCoin, quantity: quantity, price: price })
+    );
+    localStorage.setItem("store", newConcat);
   }
 
   return (
@@ -131,48 +133,44 @@ const Calculator = ({ id }) => {
         You are going to buy: {price / coinDetails.current_price} coins
       </label>
 
-      {price === "" ? //por si esta vacio el amount lo establezco en disabled :)
+      {price === "" ? ( //por si esta vacio el amount lo establezco en disabled :)
+        <button className={style.buttonPreCart} disabled>
+          {
+            <img
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+              alt="cart"
+              className={style.carrito}
+            />
+          }
+        </button>
+      ) : (
         <button
-        className={style.buttonPreCart}
-        disabled
-      >
-        {
-          <img
-            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
-            alt="cart"
-            className={style.carrito}
-          />
-        }
-      </button>
-      :
-      <button
-        className={style.buttonPreCart}
-        onClick={ idUser === undefined ?
-          () => saveToLocalStore() + addItem()
-          :
-          () => {
-
-          addItem()
-          axios.post(`http://localhost:3001/users/addTransactionCart`, {
-            idUser,
-            idCoin,
-            quantity,
-            price,
-          });
-          // addItem()
-        }}
-      >
-        {
-          <img
-            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
-            alt="cart"
-            className={style.carrito}
-            // onClick={addItem}
-          />
-        }
-
-      </button>
-      }
+          className={style.buttonPreCart}
+          onClick={
+            idUser === undefined
+              ? () => saveToLocalStore() + addItem()
+              : () => {
+                  addItem();
+                  axios.post(`http://localhost:3001/users/addTransactionCart`, {
+                    idUser,
+                    idCoin,
+                    quantity,
+                    price,
+                  });
+                  // addItem()
+                }
+          }
+        >
+          {
+            <img
+              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+              alt="cart"
+              className={style.carrito}
+              // onClick={addItem}
+            />
+          }
+        </button>
+      )}
     </div>
   );
 };
