@@ -91,8 +91,16 @@ const Calculator = ({ id }) => {
   // dispatch(addCartBack(idUser, idCoin, quantity))
   // }
 
+  function saveToLocalStore() {
+    let fromStore = localStorage.getItem("store")
+    let newConcat = fromStore.concat(JSON.stringify({idCoin: idCoin, quantity: quantity, price: price}))
+    localStorage.setItem("store", newConcat)
+  }
+  
   return (
     <div className="preCart-container">
+      {/* <button style={{width: '10vw'}} onClick={() => localStorage.setItem("store", "")} >SET FIRST STORE</button> */}
+      <button style={{width: '10vw'}} onClick={() => localStorage.setItem("store", "")}  >CLEAR</button>
       <h3 className="title-preCart">Pre Cart</h3>
 
       <TextField
@@ -120,7 +128,9 @@ const Calculator = ({ id }) => {
       </label>
       <button
         className="button-preCart"
-        onClick={() => {
+        onClick={() => { idUser === undefined ?
+          saveToLocalStore()
+          :
           axios.post(`http://localhost:3001/users/addTransactionCart`, {
             idUser,
             idCoin,
