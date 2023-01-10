@@ -1,3 +1,9 @@
+.contWarnings{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .loading{
     display: flex;
     height: 50vh;

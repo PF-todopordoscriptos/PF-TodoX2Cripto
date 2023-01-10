@@ -1,0 +1,8 @@
+.contArrow {
+    display: flex;
+  }
+  
+  .arrow {
+    height: 5vh;
+    width: 4vw;
+  }
