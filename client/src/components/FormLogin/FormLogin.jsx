@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from "react";
 
 import style from "./FormLogin.module.css";
@@ -21,10 +22,8 @@ import logoGoogle from "../../Images/logoGoogle.png";
 
 import Swal from "sweetalert2";
 
-
 const FormLogin = () => {
   const history = useNavigate();
-
 
   // const [contador, setContador] = useState(1);
   const [handleChangePassword, sethandleChangePassword] = useState(false);
@@ -42,7 +41,6 @@ const FormLogin = () => {
   const [errorsLog, setErrorsLog] = useState();
   const [errorsSig, setErrorsSig] = useState();
   const [errorsPass, setErrorsPass] = useState();
-
 
   const changePasswordForm = () => {
     sethandleChangePassword(!handleChangePassword);
@@ -78,7 +76,6 @@ const FormLogin = () => {
       [e.target.name]: e.target.value,
     });
   };
-
 
   const handleClickShowPassword = () => {
     setInput({

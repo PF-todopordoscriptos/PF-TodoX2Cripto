@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
@@ -74,7 +75,7 @@ const Calculator = ({ id }) => {
     // if(price === ""){
     //   return alert("Select an amount")
     // }
-    setPrice("")
+    setPrice("");
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -130,8 +131,7 @@ const Calculator = ({ id }) => {
         You are going to buy: {price / coinDetails.current_price} coins
       </label>
 
-      {
-        price === "" ? //por si esta vacio el amount lo establezco en disabled :)
+      {price === "" ? ( //por si esta vacio el amount lo establezco en disabled :)
         <button
         className={style.buttonPreCart}
         disabled
@@ -151,6 +151,7 @@ const Calculator = ({ id }) => {
           () => saveToLocalStore() + addItem()
           :
           () => {
+
           addItem()
           axios.post(`http://localhost:3001/users/addTransactionCart`, {
             idUser,
@@ -158,6 +159,7 @@ const Calculator = ({ id }) => {
             quantity,
             price,
           });
+          // addItem()
         }}
       >
         {
@@ -168,6 +170,7 @@ const Calculator = ({ id }) => {
             // onClick={addItem}
           />
         }
+
       </button>
       }
     </div>
