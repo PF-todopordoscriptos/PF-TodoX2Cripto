@@ -59,13 +59,13 @@ export default function PanelAdmin() {
   return (
     <Box sx={{ width: '100%' }}>
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'darkviolet' }}>
       <div className={style.contArrow}>
         <NavLink to="/home">
           <HiArrowUturnLeft className={style.arrow} />
         </NavLink>
       </div>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary" indicatorColor="secondary">
           <Tab label="COINS" {...a11yProps(0)} />
           <Tab label="USERS" {...a11yProps(1)} />
           <Tab label="CHANGES" {...a11yProps(2)} />
