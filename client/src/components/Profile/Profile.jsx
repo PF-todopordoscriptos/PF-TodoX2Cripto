@@ -59,6 +59,7 @@ const Profile = () => {
           email: currentUser.email,
           //password: currentUser.password,
         });
+        console.log(currentUser)
         dispatch(postUser(currentUser));
       } else {
         console.log("SIGNED OUT");

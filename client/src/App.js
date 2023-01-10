@@ -23,6 +23,7 @@ import AdminDashboardCoins from "./components/AdminDashboardCoins/AdminDashboard
 import AdminDashboardUsers from "./components/AdminDashboardUsers/AdminDashboardUsers";
 import AdminDashboardChanges from "./components/AdminDashboardChanges/AdminDashboardChanges";
 import PanelAdmin from "./components/PanelAdmin/PanelAdmin";
+import PanelUser from "./components/PanelUser/PanelUser";
 import Payment from "./components/Payment/Payment";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../src/firebase/firebaseConfig";
@@ -231,7 +232,7 @@ function App() {
                 element={
                   <>
                     {" "}
-                    <Navbar /> <Profile /> <Footer />{" "}
+                    <Navbar /> <PanelUser /> <Footer />{" "}
                   </>
                 }
               />
@@ -268,14 +269,14 @@ function App() {
               }
             />
             {/* <Route path={"/details/:id"} element={<Navbar />} /> */}
-            <Route
+            {/* <Route
               path={"/calculator"}
               element={
                 <>
                   <Navbar /> <Calculator /> <Footer />{" "}
                 </>
               }
-            />
+            /> */}
             {/* <Route path={"/admin"} element={<PanelAdmin />} /> */}
             <Route element={<ProtectedAdmin user={user} />}>
               <Route path={"/admin"} element={<PanelAdmin />} />
@@ -283,9 +284,11 @@ function App() {
 
             <Route path={"/comparative"} element={<Comparative />} />
             <Route path={"/shoppingcart"} element={<ShoppingCart />} />
-            <Route path={"/admincoins"} element={<AdminDashboardCoins />} />
-            <Route path={"/adminusers"} element={<AdminDashboardUsers />} />
-            <Route path={"/adminchanges"} element={<AdminDashboardChanges />} />
+
+            {/* <Route path={"/admincoins"} element={<AdminDashboardCoins />} /> */}
+            {/* <Route path={"/adminusers"} element={<AdminDashboardUsers />} /> */}
+            {/* <Route path={"/adminchanges"} element={<AdminDashboardChanges />} /> */}
+
             <Route path={"/payment"} element={<Payment />} />
             <Route path={"/exito"} element={<Exito />} />
             <Route path="/errorpage" element={<ErrorPage />} />
