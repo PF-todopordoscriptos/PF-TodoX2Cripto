@@ -8,8 +8,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import TextField from "@mui/material/TextField";
 import { getUserInfo, addCartBack, getCoinDetail } from "../../redux/actions";
-import style from "../CoinTarget/CoinTarget.module.css";
-import "./Calculator.css";
+
+import style from "./Calculator.module.css";
+// import "./Calculator.css";
 
 import Swal from "sweetalert2";
 
@@ -70,6 +71,10 @@ const Calculator = ({ id }) => {
   const quantity = price / coinDetails.current_price;
 
   const addItem = () => {
+    // if(price === ""){
+    //   return alert("Select an amount")
+    // }
+    setPrice("")
     const Toast = Swal.mixin({
       toast: true,
       position: "top-end",
@@ -92,8 +97,8 @@ const Calculator = ({ id }) => {
   // }
 
   return (
-    <div className="preCart-container">
-      <h3 className="title-preCart">Pre Cart</h3>
+    <div className={style.preCartContainer}>
+      <h3 className={style.titlePreCart}>Pre Cart</h3>
 
       <TextField
         id="outlined-basic"
@@ -118,9 +123,13 @@ const Calculator = ({ id }) => {
       <label>
         You are going to buy: {price / coinDetails.current_price} coins
       </label>
-      <button
-        className="button-preCart"
+
+      {
+        price === "" ? //por si esta vacio el amount lo establezco en disabled :)
+        <button
+        className={style.buttonPreCart}
         onClick={() => {
+          addItem()
           axios.post(`http://localhost:3001/users/addTransactionCart`, {
             idUser,
             idCoin,
@@ -128,16 +137,65 @@ const Calculator = ({ id }) => {
             price,
           });
         }}
+        disabled
       >
         {
           <img
             src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
             alt="cart"
             className={style.carrito}
-            onClick={addItem}
+            // onClick={addItem}
+          />
+        }
+      </button> 
+      :
+      <button
+        className={style.buttonPreCart}
+        onClick={() => {
+          addItem()
+          axios.post(`http://localhost:3001/users/addTransactionCart`, {
+            idUser,
+            idCoin,
+            quantity,
+            price,
+          });
+          // addItem()
+        }}
+      >
+        {
+          <img
+            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+            alt="cart"
+            className={style.carrito}
+            // onClick={addItem}
           />
         }
       </button>
+      }
+
+
+      {/* <button
+        className={style.buttonPreCart}
+        onClick={() => {
+          addItem()
+          axios.post(`http://localhost:3001/users/addTransactionCart`, {
+            idUser,
+            idCoin,
+            quantity,
+            price,
+          });
+          // addItem()
+        }}
+      >
+        {
+          <img
+            src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
+            alt="cart"
+            className={style.carrito}
+            // onClick={addItem}
+          />
+        }
+      </button> */}
     </div>
   );
 };
