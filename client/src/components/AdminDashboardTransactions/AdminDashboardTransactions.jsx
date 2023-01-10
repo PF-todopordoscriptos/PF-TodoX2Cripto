@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { getAllCoins, getAllTransactions, getAllUsers } from '../../redux/actions';
@@ -22,7 +22,7 @@ const AdminDashboardTransactions = () => {
     <div>
         <div className={style.contTransactions}>
       {
-        allTransactions.length && allUsers.length ? allTransactions.map((t) => (
+        allTransactions.length && allUsers.length && allCoins.length ? allTransactions.map((t) => (
           <TransactionAdmin
             key={t.id}
             id={t.id}
