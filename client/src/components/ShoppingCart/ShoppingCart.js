@@ -114,7 +114,8 @@ const ShoppingCart = () => {
     return ww
   }
 
-  //console.log("LOCAL STORAGE", localStorage.getItem("store"))
+  console.log("LOCAL STORAGE", localStorage.getItem("store").length)
+  console.log("USER CART", userCart)
 
   return (
     userInfo.id === undefined ?
@@ -130,11 +131,9 @@ const ShoppingCart = () => {
               return (
                 <div className="cart-box" key={i.id}>
                   <label>{i.idCoin}</label>
-                  <label>{i.price}</label>
                   <label>{i.quantity}</label>
-                  <Button component={Link} to="/signup">
-                    BUY CRIPTO
-                  </Button>
+                  USD
+                  <label>{i.price.toFixed(2)}</label>
                 </div>
               );
             })
@@ -144,6 +143,24 @@ const ShoppingCart = () => {
             </div>
           )}
         </div>
+        {
+          readFromLocalStore().length !== 0 ?
+          <div>
+            <h3 className="title-carrito">
+              Cargos
+              USD {(readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10).toFixed(2)}
+            </h3>
+            <h3 className="title-carrito">
+              Total
+              USD {(readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) + (readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10)).toFixed(2)}
+            </h3>
+            <Link to={"/signup"}>
+              <button className="button-clear-cart">BUY CRIPTO</button>
+            </Link>
+          </div>
+          :
+          null
+        }
         <button className="button-clear-cart" onClick={() => localStorage.setItem("store", "") + setReloader(!reloader)}>
           LIMPIAR CARRITO
         </button>
@@ -166,21 +183,9 @@ const ShoppingCart = () => {
               return (
                 <div className="cart-box" key={i.id}>
                   <label>{i.idCoin}</label>
-                  <label>{i.price}</label>
                   <label>{i.quantity}</label>
-                  <Button
-                    onClick={() => {
-                      axios
-                        .post("http://localhost:3001/users/payment", product)
-                        .then(
-                          (res) =>
-                            (window.location.href =
-                              res.data.response.body.init_point)
-                        );
-                    }}
-                  >
-                    BUY CRIPTO
-                  </Button>
+                  USD
+                  <label>{i.price.toFixed(2)}</label>
                 </div>
               );
             })
@@ -190,10 +195,38 @@ const ShoppingCart = () => {
             </div>
           )}
         </div>
+        {
+          userCart.length !== 0 ?
+          <div>
+            <h3 className="title-carrito">
+              Cargos
+              USD {(userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10).toFixed(2)}
+            </h3>
+            <h3 className="title-carrito">
+              Total
+              USD {(userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) + (userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10)).toFixed(2)}
+            </h3>
+            <button
+              className="button-clear-cart"
+              onClick={() => {
+                axios
+                  .post("http://localhost:3001/users/payment", product)
+                  .then(
+                    (res) =>
+                      (window.location.href =
+                        res.data.response.body.init_point)
+                  );
+              }}
+            >
+              BUY CRIPTO
+            </button>
+          </div>
+           :
+          null
+        }
         <button className="button-clear-cart" onClick={clearCart}>
           LIMPIAR CARRITO
         </button>
-
         {/*
         {cartCoins.map((item, id) => (
           <CartItem
