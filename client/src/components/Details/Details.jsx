@@ -150,7 +150,7 @@ const Details = (props) => {
       return;
     }
     if (comment.text.length === 0 || comment.stars === 0) {
-      return alert("Fill in all the fields");
+      return alert("Fill in all the fields")
     }
     const Toast = Swal.mixin({
       toast: true,
@@ -212,7 +212,7 @@ const Details = (props) => {
         coin: id,
         text: text,
         coinImg: coinDetails.image,
-      };
+      }
       dispatch(createWarning(data));
       const Toast = Swal.mixin({
         toast: true,
