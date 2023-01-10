@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import AdminDashboardCoins from '../AdminDashboardCoins/AdminDashboardCoins';
 import AdminDashboardUsers from '../AdminDashboardUsers/AdminDashboardUsers';
 import AdminDashboardChanges from '../AdminDashboardChanges/AdminDashboardChanges';
+import AdminDashboardTransactions from '../AdminDashboardTransactions/AdminDashboardTransactions';
 import AdminDashboardComments from '../AdminDashboardComments/AdminDashboardComments';
 import AdminDashboardWarnings from '../AdminDashboardWarnings/AdminDashboardWarnings';
 
@@ -88,7 +89,7 @@ export default function PanelAdmin() {
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        {/* <AdminDashboardComments /> */}
+        <AdminDashboardTransactions />
       </TabPanel>
 
       <TabPanel value={value} index={4}>

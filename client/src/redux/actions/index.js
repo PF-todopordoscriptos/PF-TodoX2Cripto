@@ -28,7 +28,9 @@ import {
   ADD_TO_CART_BACK,
   GET_USER_CART,
   CLEAR_CART,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  GET_ALL_TRANSACTIONS,
+  GET_ALL_USERS
 } from "./actionTypes";
 
 export function getTrendingCoins() {
@@ -332,4 +334,24 @@ export function deleteComment(id){
         console.log(e.message)
     }
 }
+}
+
+export function getAllTransactions(){
+  return async function (dispatch) {
+    let json = await axios.get("http://localhost:3001/users/getTransactions");
+    return dispatch({
+      type: GET_ALL_TRANSACTIONS,
+      payload: json.data,
+    });
+  };
+}
+
+export function getAllUsers(){
+  return async function (dispatch) {
+    let json = await axios.get("http://localhost:3001/users/allUsers");
+    return dispatch({
+      type: GET_ALL_USERS,
+      payload: json.data,
+    });
+  };
 }

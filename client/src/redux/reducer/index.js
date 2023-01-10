@@ -29,7 +29,9 @@ import {
   POST_COMMENT,
   GET_ALL_COMMENTS,
   GET_USER_CART,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  GET_ALL_TRANSACTIONS,
+  GET_ALL_USERS,
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -48,7 +50,9 @@ export const initialState = {
   cart: [],
   comments: [],
   allComments : [],
-  allWarnings: []
+  allWarnings: [],
+  allTransactions: [],
+  allUsers: [],
 };
 
 export function rootReducer(state = initialState, action) {
@@ -335,6 +339,20 @@ export function rootReducer(state = initialState, action) {
     case DELETE_COMMENT: {
       return{
         ...state
+      }
+    }
+
+    case GET_ALL_TRANSACTIONS: {
+      return {
+        ...state,
+        allTransactions: action.payload,
+      }
+    }
+
+    case GET_ALL_USERS: {
+      return {
+        ...state,
+        allUsers: action.payload,
       }
     }
     

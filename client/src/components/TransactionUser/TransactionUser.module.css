@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+.contTodo{
+    display: flex;
+    flex-direction: column;
+    width: 60rem;
+    height: 12rem;
+    margin-bottom: 2rem;
+    border: 0.1rem solid rgb(150, 150, 150);
+    -webkit-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+}
+
+.arriba{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.NumTran{
+    margin-left: 2rem;
+    color: rgb(153, 153, 153);
+    font-style: italic;
+}
+
+.fecha{
+    margin-right: 2rem;
+    color: rgb(153, 153, 153);
+    font-style: italic;
+}
+
+.abajo{
+    display: flex;
+    flex-direction: row;
+}
+
+.contUser{
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 17rem;
+}
+
+.imgUser{
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+}
+
+.imgCoin{
+    height: 2rem;
+    width: 2rem;
+    margin-right: 0.5rem;
+}
+
+.emailUser{
+    font-family: 'Raleway', sans-serif;
+}
+
+.h3coin{
+    font-family: 'Varela Round', sans-serif;
+}
+
+.divQuantity{
+    border-top: 1px solid gray;
+    margin-left: 40rem;
+}
+
+.divPurchase{
+    border-top: 1px solid gray;
+    margin-left: 7.7rem;
+}
+
+.quantity{
+    color: rgb(163, 163, 163);
+    margin: 0;
+}
+
+.purchase{
+    color: rgb(163, 163, 163);
+    margin: 0;
+}
+
+.contData{
+    display: flex;
+    flex-direction: row;
+}
+
+.contCoin{
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 4rem;
+    width: 7.5rem;
+}
+
+.contPrice{
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.quant{
+    font-family: 'Varela Round', sans-serif;
+    color: rgb(112, 112, 112);
+}
+
+.price{
+    font-family: 'Varela Round', sans-serif;
+    color: rgb(1, 151, 46);
+}
+
+.contQuant{
+    display: flex;
+    width: 15rem;
+    justify-content: center;
+}
+
+.contPri{
+    display: flex;
+    width: 10rem;
+    justify-content: center;
+}
