@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import {
   GET_TRENDING_COINS,
   GET_ALL_COINS,

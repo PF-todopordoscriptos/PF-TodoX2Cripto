@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 
 import style from "./TransactionAdmin.module.css"
 
 const TransactionAdmin = (props) => {
-  const dispatch = useDispatch();
 
 const findImg = () => {
   let monedita = props.allCoins.find(c => props.idCoin === c.id)
@@ -37,17 +35,17 @@ console.log(props.allCoins)
         <div className={style.abajo}>
 
         <div className={style.contUser}>
-        <img src={findImageUser()} className={style.imgUser}/>
+        <img src={findImageUser()} className={style.imgUser} alt="imageU"/>
         <h3 className={style.emailUser}>{findEmail()}</h3>
         </div>
 
         <div className={style.contCoin}>
-        <img src={findImg()} className={style.imgCoin}/>
+        <img src={findImg()} className={style.imgCoin} alt="imageCoin"/>
         <h3 className={style.h3coin}>{props.idCoin}</h3>
         </div>
 
         <div className={style.contPrice}>
-        <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673377167/stockIcon_px34mq.png" className={style.imgUser}/>
+        <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673377167/stockIcon_px34mq.png" className={style.imgUser} alt="stock"/>
         <div className={style.contQuant}>
         <h3 className={style.quant}>{props.quantity}</h3>
         </div>
