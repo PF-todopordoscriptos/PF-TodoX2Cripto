@@ -457,6 +457,11 @@ async function getCoinsUserCart(idUser) {
   return historic;
 }
 
+async function getWalletUser(idUser) {
+  let historic = await Historic_Transactions.findAll({where: { idUser }});
+  return historic;
+}
+
 async function allComments() {
   let allCommentsFromDb = await Comment.findAll();
   return allCommentsFromDb;
@@ -517,5 +522,6 @@ module.exports = {
   getCoinsUserCart,
   allComments,
   coinComments,
-  createComment
+  createComment,
+  getWalletUser
 };

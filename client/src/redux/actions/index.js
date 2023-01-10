@@ -28,11 +28,12 @@ import {
   CLEAR_CART,
   DELETE_COMMENT,
   GET_ALL_TRANSACTIONS,
-  GET_ALL_USERS
+  GET_ALL_USERS,
   // CREATE_WARNING,
   // POST_COMMENT,
   // ADD_TO_CART_BACK,
   // DELETE_COMMENT,
+  GET_WALLET,
 } from "./actionTypes";
 
 // const baseUrl = "http://localhost:3001";
@@ -351,6 +352,16 @@ export function getAllUsers(){
     let json = await axios.get("http://localhost:3001/users/allUsers");
     return dispatch({
       type: GET_ALL_USERS,
+      payload: json.data,
+    });
+  };
+}
+
+export function getWallet(idUser){
+  return async function (dispatch) {
+    let json = await axios.get(`http://localhost:3001/users/transaction/${idUser}`);
+    return dispatch({
+      type: GET_WALLET,
       payload: json.data,
     });
   };

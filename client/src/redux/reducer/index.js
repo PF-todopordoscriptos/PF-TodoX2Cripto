@@ -33,6 +33,7 @@ import {
   DELETE_COMMENT,
   GET_ALL_TRANSACTIONS,
   GET_ALL_USERS,
+  GET_WALLET,
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -54,6 +55,7 @@ export const initialState = {
   allWarnings: [],
   allTransactions: [],
   allUsers: [],
+  userWallet: [],
 };
 
 export function rootReducer(state = initialState, action) {
@@ -354,6 +356,13 @@ export function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+      }
+    }
+
+    case GET_WALLET: {
+      return {
+        ...state,
+        userWallet: action.payload,
       }
     }
     
