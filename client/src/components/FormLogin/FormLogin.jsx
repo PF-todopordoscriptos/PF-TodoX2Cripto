@@ -446,7 +446,7 @@ const FormLogin = () => {
 
           <p>
             Did you forget your password?{" "}
-            <a onClick={changePasswordForm} className={style.forget}>
+            <a onClick={changePasswordForm} className={style.forget} href="#">
               get it back.
             </a>
           </p>
