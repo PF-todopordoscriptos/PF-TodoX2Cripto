@@ -1,4 +1,4 @@
-.preCart-container {
+.preCartContainer {
   margin-top: 8px;
   display: flex;
   flex-direction: column;
@@ -11,22 +11,30 @@
   border: 1px solid grey;
   box-shadow: 0px 0px 10px 11px rgba(81, 41, 131, 0.5);
 }
-.button-preCart {
+.buttonPreCart {
   color: white;
   font-weight: 600;
   background-color: #8c47e0;
   width: 100%;
-  padding: 6px;
+  height: 2rem;
+  /* padding: 6px; */
   border-radius: 6px;
   margin-top: 10px;
   cursor: pointer;
 }
-.button-preCart:hover {
+.buttonPreCart:hover {
   background-color: green;
 }
-.title-preCart {
+.titlePreCart {
   font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
   color: #512983;
   font-weight: 600;
+}
+
+.carrito{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 9rem;
+  margin-right: 9rem;
 }
