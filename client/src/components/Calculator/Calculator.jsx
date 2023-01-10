@@ -141,7 +141,6 @@ const Calculator = ({ id }) => {
             src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
             alt="cart"
             className={style.carrito}
-            // onClick={addItem}
           />
         }
       </button>
