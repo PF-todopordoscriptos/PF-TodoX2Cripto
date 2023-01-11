@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
@@ -24,10 +23,12 @@ export const ProtectedAdmin = ({ user, children, redirecTo = "/home" }) => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(userAdmin.email));
+    // eslint-disable-next-line
   }, [userAdmin.email]);
 
   if (userInfo.admin === false) {

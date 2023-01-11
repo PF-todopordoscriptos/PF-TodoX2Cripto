@@ -1,11 +1,8 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, getAllCoins } from "../../redux/actions";
+import { getAllCoins } from "../../redux/actions";
 import CoinTarget from "../CoinTarget/CoinTarget";
-import { NavLink } from "react-router-dom";
 
-import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 import style from "./Home.module.css";
 
@@ -15,16 +12,16 @@ import { Pagination, Stack, Typography } from "@mui/material";
 
 import Filter from "../Filter/Filter";
 
-import ProductItem from "../ProductItem/ProductItem";
-import {
-  ADD_TO_CART,
-  CLEAR_CART,
-  REMOVE_ALL_FROM_CART,
-  REMOVE_ONE_FROM_CART,
-} from "../../redux/actions/actionTypes";
+// import ProductItem from "../ProductItem/ProductItem";
+// import {
+//   ADD_TO_CART,
+//   CLEAR_CART,
+//   REMOVE_ALL_FROM_CART,
+//   REMOVE_ONE_FROM_CART,
+// } from "../../redux/actions/actionTypes";
 
 export default function Home() {
-  localStorage.getItem("store") === null && localStorage.setItem("store", "")
+  localStorage.getItem("store") === null && localStorage.setItem("store", "");
   const dispatch = useDispatch();
 
   useEffect(() => {

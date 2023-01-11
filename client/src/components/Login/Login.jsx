@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { useState } from "react";
 
 import style from "./Login.module.css";
@@ -12,7 +11,6 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
 } from "firebase/auth";
 
@@ -53,14 +51,7 @@ const Login = () => {
     showPassword: false,
     showRepeatPassword: false,
   });
-
-  const handleInput = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
-    });
-    console.log(input);
-  };
+  console.log(errorsSig, input, setErrorsSig, setInput);
 
   const handleChangeRegistered = (e) => {
     setRegistered({
@@ -77,59 +68,65 @@ const Login = () => {
     });
   };
 
-  const handleClickShowPassword = () => {
-    setInput({
-      ...input,
-      showPassword: !input.showPassword,
-    });
-  };
-
-  const handleClickShowRepeatPassword = () => {
-    setInput({
-      ...input,
-      showRepeatPassword: !input.showRepeatPassword,
-    });
-  };
-
   const handleClickShowRegisterPassword = () => {
     setRegistered({
       ...registered,
       showRegisterPassword: !registered.showRegisterPassword,
     });
   };
+  // const handleInput = (e) => {
+  //   setInput({
+  //     ...input,
+  //     [e.target.name]: e.target.value,
+  //   });
+  //   console.log(input);
+  // };
+  // const handleClickShowPassword = () => {
+  //   setInput({
+  //     ...input,
+  //     showPassword: !input.showPassword,
+  //   });
+  // };
 
-  const onSubmitedForm = async (e) => {
-    e.preventDefault();
-    try {
-      if (!input.email || !input.password) {
-        return alert("Complete correctamente el formulario antes de enviarlo");
-      }
-      if (input.password !== input.repeatPassword) {
-        return setErrorsSig("Keys must match");
-      }
-      await createUserWithEmailAndPassword(auth, input.email, input.password);
-      setInput({
-        email: "",
-        password: "",
-        repeatPassword: "",
-      });
-      console.log(input);
-      console.log(e);
-      history("/profile");
-    } catch (error) {
-      if (error.code === "auth/invalid-email") {
-        setErrorsSig("Invalid email.");
-      }
-      if (error.code === "auth/weak-password") {
-        setErrorsSig("Password should be at least 6 characters.");
-      }
-      if (error.code === "auth/email-already-in-use") {
-        setErrorsSig("Email already in use, Please log in.");
-      }
-      console.log(error.code);
-      console.log(errorsSig);
-    }
-  };
+  // const handleClickShowRepeatPassword = () => {
+  //   setInput({
+  //     ...input,
+  //     showRepeatPassword: !input.showRepeatPassword,
+  //   });
+  // };
+
+  // const onSubmitedForm = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     if (!input.email || !input.password) {
+  //       return alert("Complete correctamente el formulario antes de enviarlo");
+  //     }
+  //     if (input.password !== input.repeatPassword) {
+  //       return setErrorsSig("Keys must match");
+  //     }
+  //     await createUserWithEmailAndPassword(auth, input.email, input.password);
+  //     setInput({
+  //       email: "",
+  //       password: "",
+  //       repeatPassword: "",
+  //     });
+  //     console.log(input);
+  //     console.log(e);
+  //     history("/profile");
+  //   } catch (error) {
+  //     if (error.code === "auth/invalid-email") {
+  //       setErrorsSig("Invalid email.");
+  //     }
+  //     if (error.code === "auth/weak-password") {
+  //       setErrorsSig("Password should be at least 6 characters.");
+  //     }
+  //     if (error.code === "auth/email-already-in-use") {
+  //       setErrorsSig("Email already in use, Please log in.");
+  //     }
+  //     console.log(error.code);
+  //     console.log(errorsSig);
+  //   }
+  // };
 
   async function handleSingInGoogle() {
     const provider = new GoogleAuthProvider();
@@ -283,9 +280,9 @@ const Login = () => {
 
           <p>
             Did you forget your password?{" "}
-            <a onClick={changePasswordForm} className={style.forget}>
+            <p onClick={changePasswordForm} className={style.forget}>
               get it back.
-            </a>
+            </p>
           </p>
           {handleChangePassword ? (
             <div className={style.resetPa}>
