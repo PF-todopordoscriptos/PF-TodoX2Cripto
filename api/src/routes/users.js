@@ -14,7 +14,8 @@ const {
   getHistoric,
   addCoinsUserCart,
   finishTransactions,
-  getCoinsUserCart
+  getCoinsUserCart,
+  getWalletUser
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
@@ -48,6 +49,7 @@ router.get("/getTransactions", async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+
 router.post("/", async (req, res) => {
   const auth = getAuth(firebaseApp);
 
@@ -210,6 +212,16 @@ router.get("/transactionCart/:idUser", async (req, res) => {
   try {
     const { idUser} = req.params;
     let transaction =await getCoinsUserCart(idUser);
+    res.status(200).json(transaction);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+router.get("/transaction/:idUser", async (req, res) => {
+  try {
+    const { idUser} = req.params;
+    let transaction =await getWalletUser(idUser);
     res.status(200).json(transaction);
   } catch (e) {
     res.status(404).send(e.message);
