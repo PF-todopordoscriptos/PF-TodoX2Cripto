@@ -25,7 +25,6 @@ import "./ShoppingCart.css";
 
 import { Button } from "@mui/material";
 
-
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
   const dispatch = useDispatch();
@@ -106,34 +105,37 @@ const ShoppingCart = () => {
   // ]
 
   function readFromLocalStore() {
-    let qq = localStorage.getItem("store").split("}")
-    let array = []
-    qq.pop()
-    qq.forEach(e => array.push(JSON.parse(e.split("").concat("}").join(""))))
-    let ww = array.map(function(e) {return {"idCoin": e.idCoin , "quantity": e.quantity, "price": parseFloat(e.price)}})
-    return ww
+    let qq = localStorage.getItem("store").split("}");
+    let array = [];
+    qq.pop();
+    qq.forEach((e) => array.push(JSON.parse(e.split("").concat("}").join(""))));
+    let ww = array.map(function (e) {
+      return {
+        idCoin: e.idCoin,
+        quantity: e.quantity,
+        price: parseFloat(e.price),
+      };
+    });
+    return ww;
   }
 
-  console.log("LOCAL STORAGE", localStorage.getItem("store").length)
-  console.log("USER CART", userCart)
+  console.log("LOCAL STORAGE", localStorage.getItem("store").length);
+  console.log("USER CART", userCart);
 
-  return (
-    userInfo.id === undefined ?
-
+  return userInfo.id === undefined ? (
     <div className="cart-container">
       <h2 className="title-cart">Carrito de Compras</h2>
       <h3 className="title-products">Productos</h3>
-      <h3 className="title-carrito">Carrito</h3>
-      <article className="box">
-        <div>
+      <article>
+        <div className="box">
           {readFromLocalStore().length !== 0 ? (
             readFromLocalStore().map((i) => {
               return (
                 <div className="cart-box" key={i.id}>
-                  <label>{i.idCoin}</label>
-                  <label>{i.quantity}</label>
-                  USD
-                  <label>{i.price.toFixed(2)}</label>
+                  <h4>{i.idCoin.toUpperCase()}</h4>
+                  <p> Cantidad: {i.quantity}</p>
+
+                  <p>{i.price.toFixed(2)} USD</p>
                 </div>
               );
             })
@@ -143,31 +145,53 @@ const ShoppingCart = () => {
             </div>
           )}
         </div>
-        {
-          readFromLocalStore().length !== 0 ?
+        {readFromLocalStore().length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos
-              USD {(readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10).toFixed(2)}
+              Fee
+              <span>
+                {" "}
+                {(
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) / 10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <h3 className="title-carrito">
               Total
-              USD {(readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) + (readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10)).toFixed(2)}
+              <span>
+                {" "}
+                {(
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) +
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) /
+                    10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <Link to={"/signup"}>
               <button className="button-clear-cart">BUY CRIPTO</button>
             </Link>
           </div>
-          :
-          null
-        }
-        <button className="button-clear-cart" onClick={() => localStorage.setItem("store", "") + setReloader(!reloader)}>
+        ) : null}
+        <button
+          className="button-clear-cart"
+          onClick={() =>
+            localStorage.setItem("store", "") + setReloader(!reloader)
+          }
+        >
           LIMPIAR CARRITO
         </button>
       </article>
     </div>
-    :
-      <div className="cart-container">
+  ) : (
+    <div className="cart-container">
       <h2 className="title-cart">Carrito de Compras</h2>
       <h3 className="title-products">Productos</h3>
       {/* <article className="box">
@@ -195,16 +219,27 @@ const ShoppingCart = () => {
             </div>
           )}
         </div>
-        {
-          userCart.length !== 0 ?
+        {userCart.length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos
-              USD {(userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10).toFixed(2)}
+              Cargos USD
+              {(
+                userCart
+                  .map((e) => parseFloat(e.price))
+                  .reduce((pv, cv) => pv + cv, 0) / 10
+              ).toFixed(2)}
             </h3>
             <h3 className="title-carrito">
-              Total
-              USD {(userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) + (userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10)).toFixed(2)}
+              Total USD
+              {(
+                userCart
+                  .map((e) => parseFloat(e.price))
+                  .reduce((pv, cv) => pv + cv, 0) +
+                userCart
+                  .map((e) => parseFloat(e.price))
+                  .reduce((pv, cv) => pv + cv, 0) /
+                  10
+              ).toFixed(2)}
             </h3>
             <button
               className="button-clear-cart"
@@ -213,17 +248,14 @@ const ShoppingCart = () => {
                   .post("http://localhost:3001/users/payment", product)
                   .then(
                     (res) =>
-                      (window.location.href =
-                        res.data.response.body.init_point)
+                      (window.location.href = res.data.response.body.init_point)
                   );
               }}
             >
               BUY CRIPTO
             </button>
           </div>
-           :
-          null
-        }
+        ) : null}
         <button className="button-clear-cart" onClick={clearCart}>
           LIMPIAR CARRITO
         </button>
