@@ -1,8 +1,23 @@
 import React from 'react'
 
-const WalletUser = () => {
+const WalletUser = (props) => {
+
+  const findImg = () => {
+    let monedita = props.allCoins.find(c => props.idCoin === c.id)
+    console.log(monedita)
+    return monedita.image
+  }
+
+
+
+
+
   return (
-    <div>WalletUser</div>
+    <div>
+      <img src={findImg()} alt="coinImg"/>
+      <h2>{props.idCoin}</h2>
+      <h2>{props.quantity}</h2>
+    </div>
   )
 }
 
