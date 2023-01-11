@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCoins } from "../../redux/actions";
+import { getAllCoins, getCoinsFromDB } from "../../redux/actions";
 import CoinTarget from "../CoinTarget/CoinTarget";
 
 import SearchBar from "../SearchBar/SearchBar";
@@ -28,7 +28,12 @@ export default function Home() {
     dispatch(getAllCoins());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getCoinsFromDB());
+  }, [dispatch]);
+
   const allCoins = useSelector((state) => state.allCoins);
+  const coinsDb = useSelector((state) => state.coinsDb);
   console.log(allCoins);
   const cart = useSelector((state) => state.cart);
   console.log(cart);
@@ -40,7 +45,19 @@ export default function Home() {
 
   const lastCoin = currentPage * coinsPerPage;
   const firstCoin = lastCoin - coinsPerPage;
-  const currentCoins = allCoins.slice(firstCoin, lastCoin);
+
+  const coinsDb2 = coinsDb.filter((c) => c.disabled === false);
+
+  let allCoins2 = [];
+  for (var i = 0; i < allCoins.length; i++) {
+    for (var j = 0; j < coinsDb2.length; j++) {
+      if (allCoins[i].id === coinsDb2[j].id) {
+        allCoins2.push(allCoins[i]);
+      }
+    }
+  }
+  const currentCoins = allCoins2.slice(firstCoin, lastCoin);
+  console.log("coinsdb", coinsDb2);
 
   const paginado = (e, p) => {
     setCurrentPage(p);
