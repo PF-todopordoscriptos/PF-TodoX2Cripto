@@ -34,6 +34,7 @@ import {
   GET_ALL_TRANSACTIONS,
   GET_ALL_USERS,
   GET_WALLET,
+  GET_COINS_FROM_DB,
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -47,15 +48,16 @@ export const initialState = {
   reviews: [],
   userInfo: [],
   user: {},
-  userCart:[],
+  userCart: [],
   themeMode: "light",
   cart: [],
   comments: [],
-  allComments : [],
+  allComments: [],
   allWarnings: [],
   allTransactions: [],
   allUsers: [],
   userWallet: [],
+  coinsDb: [],
 };
 
 export function rootReducer(state = initialState, action) {
@@ -298,22 +300,22 @@ export function rootReducer(state = initialState, action) {
     case CLEAR_CART: {
       return initialState;
     }
-    case GET_ALL_WARNINGS:{
-      return{
+    case GET_ALL_WARNINGS: {
+      return {
         ...state,
-        allWarnings: action.payload
-      }
+        allWarnings: action.payload,
+      };
     }
     case CREATE_WARNING: {
       return {
         ...state,
       };
     }
-    case COIN_COMMENT:{
+    case COIN_COMMENT: {
       return {
         ...state,
         comments: action.payload,
-      }
+      };
     }
     case POST_COMMENT: {
       return {
@@ -321,10 +323,10 @@ export function rootReducer(state = initialState, action) {
       };
     }
     case GET_ALL_COMMENTS: {
-      return{
+      return {
         ...state,
-        allComments: action.payload
-      }
+        allComments: action.payload,
+      };
     }
     case CLEAR_ADMIN: {
       return {
@@ -340,32 +342,39 @@ export function rootReducer(state = initialState, action) {
     }
 
     case DELETE_COMMENT: {
-      return{
-        ...state
-      }
+      return {
+        ...state,
+      };
     }
 
     case GET_ALL_TRANSACTIONS: {
       return {
         ...state,
         allTransactions: action.payload,
-      }
+      };
     }
 
     case GET_ALL_USERS: {
       return {
         ...state,
         allUsers: action.payload,
-      }
+      };
     }
 
     case GET_WALLET: {
       return {
         ...state,
         userWallet: action.payload,
-      }
+      };
     }
-    
+
+    case GET_COINS_FROM_DB: {
+      return {
+        ...state,
+        coinsDb: action.payload,
+      };
+    }
+
     default:
       return state;
   }
