@@ -178,7 +178,7 @@ const ShoppingCart = () => {
               USD
             </h3>
             <Link to={"/signup"}>
-              <button className="button-clear-cart">BUY CRIPTO</button>
+              <button className="button-buy-crypto">BUY CRIPTO</button>
             </Link>
           </div>
         ) : null}
@@ -250,7 +250,7 @@ const ShoppingCart = () => {
               USD
             </h3>
             <button
-              className="button-clear-cart"
+              className="button-buy-crypto"
               onClick={() => {
                 axios
                   .post("http://localhost:3001/users/payment", product)
