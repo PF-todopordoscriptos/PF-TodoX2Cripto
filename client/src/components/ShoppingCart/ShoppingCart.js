@@ -18,10 +18,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
+
 // import { rootReducer, initialState } from "../../redux/reducer/index";
 // import CartItem from "../CartItem/CartItem";
 // import ProductItem from "../ProductItem/ProductItem";
 // import { Button } from "@mui/material";
+import { Button } from "@mui/material";
+
 
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -127,17 +130,16 @@ const ShoppingCart = () => {
     <div className="cart-container">
       <h2 className="title-cart">Carrito de Compras</h2>
       <h3 className="title-products">Productos</h3>
-      <h3 className="title-carrito">Carrito</h3>
-      <article className="box">
-        <div>
+      <article>
+        <div className="box">
           {readFromLocalStore().length !== 0 ? (
             readFromLocalStore().map((i) => {
               return (
                 <div className="cart-box" key={i.id}>
-                  <label>{i.idCoin}</label>
-                  <label>{i.quantity}</label>
-                  USD
-                  <label>{i.price.toFixed(2)}</label>
+                  <h4>{i.idCoin.toUpperCase()}</h4>
+                  <p> Cantidad: {i.quantity}</p>
+
+                  <p>{i.price.toFixed(2)} USD</p>
                 </div>
               );
             })
@@ -150,24 +152,32 @@ const ShoppingCart = () => {
         {readFromLocalStore().length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos USD{" "}
-              {(
-                readFromLocalStore()
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) / 10
-              ).toFixed(2)}
+              Fee
+              <span>
+                {" "}
+                {(
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) / 10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <h3 className="title-carrito">
-              Total USD{" "}
-              {(
-                readFromLocalStore()
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) +
-                readFromLocalStore()
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) /
-                  10
-              ).toFixed(2)}
+              Total
+              <span>
+                {" "}
+                {(
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) +
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) /
+                    10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <Link to={"/signup"}>
               <button className="button-clear-cart">BUY CRIPTO</button>
@@ -216,7 +226,8 @@ const ShoppingCart = () => {
         {userCart.length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos USD{" "}
+              Cargos USD
+
               {(
                 userCart
                   .map((e) => parseFloat(e.price))
@@ -224,7 +235,8 @@ const ShoppingCart = () => {
               ).toFixed(2)}
             </h3>
             <h3 className="title-carrito">
-              Total USD{" "}
+
+              Total USD
               {(
                 userCart
                   .map((e) => parseFloat(e.price))
