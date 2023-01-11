@@ -1,14 +1,12 @@
-/*eslint-disable*/
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCoins } from "../../redux/actions";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import TextField from "@mui/material/TextField";
-import { getUserInfo, addCartBack, getCoinDetail } from "../../redux/actions";
+import { getUserInfo, getCoinDetail } from "../../redux/actions";
 
 import style from "./Calculator.module.css";
 // import "./Calculator.css";
@@ -18,6 +16,7 @@ import Swal from "sweetalert2";
 const Calculator = ({ id }) => {
   const dispatch = useDispatch();
   const [coin, setCoin] = useState({});
+  console.log(coin);
   const [price, setPrice] = useState("");
   const userInfo = useSelector((state) => state.userInfo);
   const [user, setUser] = useState({

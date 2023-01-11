@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IMG from "../../Images/criptoLOGO.png";
@@ -11,12 +10,12 @@ import {
   FormGroup,
   FormControlLabel,
   Box,
-  Typography,
   Button,
-  Switch,
+  // Typography,
+  // Switch,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { clearAdmin, getUserInfo, setThemeMode } from "../../redux/actions";
+import { clearAdmin, setThemeMode } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {

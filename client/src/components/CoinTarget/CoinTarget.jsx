@@ -1,15 +1,11 @@
-/*eslint-disable*/
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, addFavorite, removeFavorite } from "../../redux/actions";
-import { NavLink } from "react-router-dom";
+import { addFavorite, removeFavorite } from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import IconButton from "@mui/material/IconButton";
-
-import Swal from "sweetalert2";
 
 import style from "./CoinTarget.module.css";
 
@@ -42,12 +38,12 @@ const CoinTarget = (props) => {
     dispatch(removeFavorite(props.id));
   };
 
-  function conditionalColour() {
-    if (props.price_change_percentage_24h > 0) {
-      return "green";
-    }
-    return "red";
-  }
+  // function conditionalColour() {
+  //   if (props.price_change_percentage_24h > 0) {
+  //     return "green";
+  //   }
+  //   return "red";
+  // }
 
   // const addToCart = (id) => {
   //   dispatch(addCart(id));
@@ -85,7 +81,7 @@ const CoinTarget = (props) => {
         )}
       </div>
 
-      <img src={props.image} className={style.imagen} />
+      <img src={props.image} className={style.imagen} alt="imagen1" />
 
       <h3 className={style.nameCripto}>{props.symbol.toUpperCase()}</h3>
 

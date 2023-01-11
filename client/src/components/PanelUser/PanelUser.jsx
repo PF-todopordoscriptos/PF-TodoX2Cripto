@@ -1,16 +1,13 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
-
-import PanelWallet from '../PanelWallet/PanelWallet';
-import Profile from '../Profile/Profile';
-import PanelTransactions from '../PanelTransactions/PanelTransactions';
-
-import style from "./PanelUser.module.css"
+import PanelWallet from "../PanelWallet/PanelWallet";
+import Profile from "../Profile/Profile";
+import PanelTransactions from "../PanelTransactions/PanelTransactions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,7 +38,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -53,29 +50,32 @@ export default function PanelUser() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-
-      <Box sx={{ borderBottom: 1, borderColor: 'lightpink' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary" indicatorColor="secondary">
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "lightpink" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          textColor="secondary"
+          indicatorColor="secondary"
+        >
           <Tab label="Wallet" {...a11yProps(0)} />
           <Tab label="Transactions" {...a11yProps(1)} />
           <Tab label="Profile" {...a11yProps(2)} />
- 
         </Tabs>
       </Box>
 
       <TabPanel value={value} index={0}>
-       <PanelWallet/>
+        <PanelWallet />
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-       <PanelTransactions />
+        <PanelTransactions />
       </TabPanel>
 
       <TabPanel value={value} index={2}>
         <Profile />
       </TabPanel>
-
     </Box>
   );
 }

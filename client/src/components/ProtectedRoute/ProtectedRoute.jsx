@@ -1,5 +1,4 @@
-/*eslint-disable*/
-import React, { useEffect, useState } from "react";
+import React from "react";
 // import {
 //     onAuthStateChanged,
 //   } from "firebase/auth";
@@ -7,8 +6,6 @@ import React, { useEffect, useState } from "react";
 // import Profile from "../Profile/Profile";
 // import FormLogin from "../FormLogin/FormLogin";
 import { Navigate, Outlet } from "react-router-dom";
-
-import style from "./ProtectedRoute.module.css";
 
 // import { useNavigate, Link } from "react-router-dom";
 

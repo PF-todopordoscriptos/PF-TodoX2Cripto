@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import { useAuth0 } from "@auth0/auth0-react"
@@ -6,8 +5,8 @@ import { useSelector } from "react-redux";
 import {
   getUserInfo,
   postUser,
-  postUserGoogle,
   updateUserInfo,
+  // postUserGoogle,
 } from "../../redux/actions/index.js";
 
 import style from "./Profile.module.css";
@@ -26,7 +25,6 @@ import { Button } from "@mui/material";
 import lapizNegro from "../../Images/lapizNegro.png";
 import lapizGris from "../../Images/lapizGris.png";
 
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -59,7 +57,7 @@ const Profile = () => {
           email: currentUser.email,
           //password: currentUser.password,
         });
-        console.log(currentUser)
+        console.log(currentUser);
         dispatch(postUser(currentUser));
       } else {
         console.log("SIGNED OUT");
