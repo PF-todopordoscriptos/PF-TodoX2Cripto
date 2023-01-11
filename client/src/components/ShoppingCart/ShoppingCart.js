@@ -1,16 +1,11 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ADD_TO_CART,
-  CLEAR_CART,
-  REMOVE_ALL_FROM_CART,
-  REMOVE_ONE_FROM_CART,
-  ADD_ONE_FROM_CART,
-} from "../../redux/actions/actionTypes";
-import { rootReducer, initialState } from "../../redux/reducer/index";
-import CartItem from "../CartItem/CartItem";
-import ProductItem from "../ProductItem/ProductItem";
+import // ADD_TO_CART,
+// REMOVE_ALL_FROM_CART,
+// REMOVE_ONE_FROM_CART,
+// ADD_ONE_FROM_CART,
+// CLEAR_CART,
+"../../redux/actions/actionTypes";
 import {
   getAllCoins,
   getUserInfo,
@@ -23,7 +18,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
+
+// import { rootReducer, initialState } from "../../redux/reducer/index";
+// import CartItem from "../CartItem/CartItem";
+// import ProductItem from "../ProductItem/ProductItem";
+// import { Button } from "@mui/material";
 import { Button } from "@mui/material";
+
 
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -45,37 +46,40 @@ const ShoppingCart = () => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(user.email));
+    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
+    // eslint-disable-next-line
   }, [userInfo]);
 
   useEffect(() => {
     dispatch(getAllCoins());
   }, [dispatch]);
 
-  const allCoins = useSelector((state) => state.allCoins);
-  const cartCoins = useSelector((state) => state.cart);
+  // const allCoins = useSelector((state) => state.allCoins);
+  // const cartCoins = useSelector((state) => state.cart);
 
-  const addToCart = (id) => {
-    dispatch({ type: ADD_TO_CART, payload: id });
-  };
-  const delFromCart = (id, all = false) => {
-    if (all) {
-      dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
-    } else {
-      dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
-    }
-  };
+  // const addToCart = (id) => {
+  //   dispatch({ type: ADD_TO_CART, payload: id });
+  // };
+  // const delFromCart = (id, all = false) => {
+  //   if (all) {
+  //     dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
+  //   } else {
+  //     dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
+  //   }
+  // };
 
-  const addOneFromCart = (id) => {
-    dispatch({ type: ADD_ONE_FROM_CART, payload: id });
-  };
+  // const addOneFromCart = (id) => {
+  //   dispatch({ type: ADD_ONE_FROM_CART, payload: id });
+  // };
 
   const clearCart = () => {
     dispatch(deleteCartUser(userInfo.id));

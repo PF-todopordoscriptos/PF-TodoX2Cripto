@@ -1,6 +1,5 @@
-/*eslint-disable*/
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { deleteComment, getAllComments } from "../../redux/actions";
 
 import Swal from "sweetalert2";
@@ -9,7 +8,7 @@ import style from "./CommentAdmin.module.css";
 
 const CommentAdmin = (props) => {
   const dispatch = useDispatch();
-  const allComments = useSelector((state) => state.allComments);
+  // const allComments = useSelector((state) => state.allComments);
 
   const deleteComm = () => {
     Swal.fire({
@@ -44,7 +43,7 @@ const CommentAdmin = (props) => {
     <div className={style.contTargets}>
       <div className={style.contComment}>
         <div className={style.contUser}>
-          <img src={props.img} className={style.imgComment} />
+          <img src={props.img} className={style.imgComment} alt="imagen2" />
           <h3 className={style.emailComment}>{props.email}</h3>
         </div>
 
@@ -59,7 +58,7 @@ const CommentAdmin = (props) => {
 
       <div className={style.contDataCoin}>
         <h3 className={style.coinComment}>{props.coin}</h3>
-        <img src={props.coinImg} className={style.imgComment} />
+        <img src={props.coinImg} className={style.imgComment} alt="imagen3" />
       </div>
 
       <div className={style.contButton}>

@@ -1,9 +1,7 @@
-/*eslint-disable*/
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import {
   createComment,
   createWarning,
@@ -12,7 +10,7 @@ import {
   getUserInfo,
 } from "../../redux/actions";
 import HistoryChart from "../Chart/Chart";
-import Comparative from "../Comparative/Comparative";
+
 import Rating from "@mui/material/Rating";
 import { HiArrowUturnLeft } from "react-icons/hi2";
 import alerta from "../../Images/alerta.png";
@@ -29,11 +27,8 @@ import Calculator from "../Calculator/Calculator";
 import { Button } from "@mui/material";
 import CommentTarget from "../CommentTarget/CommentTarget";
 
-import { useNavigate } from "react-router-dom";
-
 const Details = (props) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   // const [user, setUser] = useState(null);
 
   const [user, setUser] = useState({
@@ -53,6 +48,7 @@ const Details = (props) => {
         });
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   let { id } = useParams();
@@ -71,12 +67,14 @@ const Details = (props) => {
   useEffect(() => {
     dispatch(getCoinDetail(id));
     dispatch(getCoinComment(id));
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const coinComments = useSelector((state) => state.comments);
 
   useEffect(() => {
     dispatch(getCoinComment(id));
+    // eslint-disable-next-line
   }, [ayudin]);
 
   const coinDetails = useSelector((state) => state.coinDetails);
@@ -90,6 +88,7 @@ const Details = (props) => {
       email: user.email,
       // img: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
     });
+    // eslint-disable-next-line
   }, [user.email]);
 
   const handleInput = (e) => {
@@ -150,7 +149,7 @@ const Details = (props) => {
       return;
     }
     if (comment.text.length === 0 || comment.stars === 0) {
-      return alert("Fill in all the fields")
+      return alert("Fill in all the fields");
     }
     const Toast = Swal.mixin({
       toast: true,
@@ -212,7 +211,7 @@ const Details = (props) => {
         coin: id,
         text: text,
         coinImg: coinDetails.image,
-      }
+      };
       dispatch(createWarning(data));
       const Toast = Swal.mixin({
         toast: true,
