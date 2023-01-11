@@ -203,7 +203,6 @@ const ShoppingCart = () => {
           <ProductItem key={product.id} data={product} addToCart={addToCart} />
         ))}
       </article> */}
-      <h3 className="title-carrito">Carrito</h3>
       <article className="box">
         <div>
           {userCart.length !== 0 ? (
@@ -211,9 +210,8 @@ const ShoppingCart = () => {
               return (
                 <div className="cart-box" key={i.id}>
                   <label>{i.idCoin}</label>
-                  <label>{i.quantity}</label>
-                  USD
-                  <label>{i.price.toFixed(2)}</label>
+                  <label>Cantidad: {i.quantity}</label>
+                  <label>{i.price.toFixed(2)} USD</label>
                 </div>
               );
             })
@@ -226,26 +224,32 @@ const ShoppingCart = () => {
         {userCart.length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos USD
-
-              {(
-                userCart
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) / 10
-              ).toFixed(2)}
+              Fee
+              <span>
+                {" "}
+                {(
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) / 10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <h3 className="title-carrito">
-
-              Total USD
-              {(
-                userCart
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) +
-                userCart
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) /
-                  10
-              ).toFixed(2)}
+              Total
+              <span>
+                {" "}
+                {(
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) +
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) /
+                    10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <button
               className="button-clear-cart"

@@ -36,8 +36,8 @@ import {
   GET_WALLET,
 } from "./actionTypes";
 
-// const baseUrl = "http://localhost:3001";
-const baseUrl = "https://todox2cripto-backend.onrender.com";
+const baseUrl = "http://localhost:3001";
+// const baseUrl = "https://todox2cripto-backend.onrender.com";
 
 export function getTrendingCoins() {
   return async function (dispatch) {
@@ -337,7 +337,7 @@ export function deleteComment(id) {
   };
 }
 
-export function getAllTransactions(){
+export function getAllTransactions() {
   return async function (dispatch) {
     let json = await axios.get("http://localhost:3001/users/getTransactions");
     return dispatch({
@@ -347,7 +347,7 @@ export function getAllTransactions(){
   };
 }
 
-export function getAllUsers(){
+export function getAllUsers() {
   return async function (dispatch) {
     let json = await axios.get("http://localhost:3001/users/allUsers");
     return dispatch({
@@ -357,9 +357,11 @@ export function getAllUsers(){
   };
 }
 
-export function getWallet(idUser){
+export function getWallet(idUser) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/users/transaction/${idUser}`);
+    let json = await axios.get(
+      `http://localhost:3001/users/transaction/${idUser}`
+    );
     return dispatch({
       type: GET_WALLET,
       payload: json.data,
