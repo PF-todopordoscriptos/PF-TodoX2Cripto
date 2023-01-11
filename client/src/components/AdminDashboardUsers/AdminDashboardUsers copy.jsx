@@ -15,12 +15,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
@@ -33,21 +27,11 @@ const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_
 
 export default function AdminDashboardUsers() {
 
-  let [arrayForStaticRefresh2, setArrayForStaticRefresh2] = useState([]);
-
-  let [inputUsername, setInputUsername] = useState("");
-  let [inputId, setInputId] = useState("");
-  let [inputEmail, setInputEmail] = useState("");
-
-  let [inputAdmin, setInputAdmin] = useState("");
-
   let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
-  let [auxiliar, setAuxiliar] = useState([]);
-  let [rowsToShow, setRowsToShow] = useState([]);
 
-  let GetAllUsers = () => {
-      useEffect( () => {
+  let GetAllUsers =  () => {
+    useEffect(() => {
       axios.get('http://localhost:3001/users/allUsers')
       .then((response) => {
         let ww = []
@@ -63,7 +47,6 @@ export default function AdminDashboardUsers() {
           }})
         qq.forEach(e => ww.push(e))
         setRows(ww)
-        setRowsToShow(ww)
         console.log("DONE FETCH")
         onAuthStateChanged(auth, (currentUser) => {
           setCurrentAdmin({
@@ -240,7 +223,7 @@ export default function AdminDashboardUsers() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rowsToShow.map((n) => n.username);
+      const newSelected = rows.map((n) => n.username);
       setSelected(newSelected);
       return;
     }
@@ -282,7 +265,7 @@ export default function AdminDashboardUsers() {
   const isSelected = (username) => selected.indexOf(username) !== -1;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowsToShow.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   function passwordNotifier( user_email , user_name ) {
     emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , {
@@ -327,118 +310,15 @@ export default function AdminDashboardUsers() {
   }
 
   GetAllUsers(); // CALL FOR FIRST RENDER
-  //setRowsToShow(rows)
-  /* rows.filter(e => e.email.includes("juan")) */
-  console.log("ROWS TO SHOW", rowsToShow)
-  console.log("AUXILIAR", auxiliar)
-  console.log("INPUT USERNAME", inputUsername)
-  console.log("INPUT ADMIN", inputAdmin)
-  console.log("ARRAY 2", arrayForStaticRefresh2)
 
   return (
-
     <Box sx={{width: '100vw', marginLeft: "-2.5rem"}}>
-      <TextField
-        id="outlined-search"
-        label="Filter by Username"
-        type="search"
-        value={inputUsername}
-        onChange={(event) => setInputUsername(event.target.value) + setRowsToShow(rows.filter(e => e.username.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.username.includes(event.target.value))) }
-        onClick={inputUsername === "" ? () => setInputId("") + setInputEmail("") + setRowsToShow(rows) + setInputAdmin("") : null}
-      />
-       <TextField
-        id="outlined-search"
-        label="Filter by Id"
-        type="search"
-        value={inputId}
-        onChange={(event) => setInputId(event.target.value) + setRowsToShow(rows.filter(e => e.id.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.id.includes(event.target.value))) }
-        onClick={inputId === "" ? () => setInputUsername("") + setInputEmail("") + setRowsToShow(rows) + setInputAdmin("") : null}
-      />
-      <TextField
-        id="outlined-search"
-        label="Filter by Email"
-        type="search"
-        value={inputEmail}
-        onChange={(event) => setInputEmail(event.target.value) + setRowsToShow(rows.filter(e => e.email.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.email.includes(event.target.value))) }
-        onClick={inputEmail === "" ? () => setInputUsername("") + setInputId("") + setRowsToShow(rows) + setInputAdmin("") : null}
-      />
-      <Box>
-        <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
-          <InputLabel id="demo-simple-select-label">is Admin ?</InputLabel>
-          <Select
-            sx={{ width: '15vw' }}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={inputAdmin}
-            label="Age"
-            onChange={
-              (event) => setInputAdmin(event.target.value)+
-
-             axios.get('http://localhost:3001/users/allUsers')
-            .then((response) => {
-              let arrayForStaticRefresh = []
-              let ww = []
-              let qq = response.data.map(function(e) {
-                return {
-                  username: e.username,
-                  id: e.id,
-                  password: e.password,
-                  admin: e.admin,
-                  disabled: e.disabled,
-                  email: e.email,
-                  name: e.name
-                }})
-              qq.forEach(e => ww.push(e))
-              setRows(ww)
-              auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-              /* setArrayForStaticRefresh2(arrayForStaticRefresh) */
-              setRowsToShow(arrayForStaticRefresh)
-              console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-            })
-            }
-          >
-
-            <MenuItem value={true}>Is Admin</MenuItem>
-            <MenuItem value={false}>Is not Admin</MenuItem>
-          </Select>
-          {inputAdmin === "" ? null
-          :
-          <CloseSharpIcon
-          onClick={() =>
-            axios.get('http://localhost:3001/users/allUsers')
-            .then((response) => {
-              let arrayForStaticRefresh = []
-              let ww = []
-              let qq = response.data.map(function(e) {
-                return {
-                  username: e.username,
-                  id: e.id,
-                  password: e.password,
-                  admin: e.admin,
-                  disabled: e.disabled,
-                  email: e.email,
-                  name: e.name
-                }})
-              qq.forEach(e => ww.push(e))
-              setRows(ww)
-              auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-              /* setArrayForStaticRefresh2(arrayForStaticRefresh) */
-              setRowsToShow(arrayForStaticRefresh)
-              console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-            }).then(setInputAdmin("")).catch(e => console.log(e))
-          }
-          />
-          }
-        </FormControl>
-
-      </Box>
-
       <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh'}} align="center" >
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
-          <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={async function() {
-            await axios.get('http://localhost:3001/users/allUsers')
+          <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
+            axios.get('http://localhost:3001/users/allUsers')
             .then((response) => {
               let ww = []
               let qq = response.data.map(function(e) {
@@ -480,10 +360,10 @@ export default function AdminDashboardUsers() {
                   orderBy={orderBy}
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
-                  rowCount={rowsToShow.length}
+                  rowCount={rows.length}
                 />
                 <TableBody >
-                  {stableSort(rowsToShow, getComparator(order, orderBy))
+                  {stableSort(rows, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
                       const isItemSelected = isSelected(row.id);
@@ -517,8 +397,8 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* PASSWORD COLUMN */
                               color="primary"
                               checked={!!row.password}
-                              onClick={!!row.password ? () => changePassword(rowsToShow[rowsToShow.indexOf(row)].id).then(async function() {
-                                await axios.get('http://localhost:3001/users/allUsers')
+                              onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
+                                axios.get('http://localhost:3001/users/allUsers')
                                 .then((response) => {
                                   let ww = []
                                   let qq = response.data.map(function(e) {
@@ -543,10 +423,9 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* ADMIN COLUMN */
                               color="primary"
                               checked={row.admin}
-                              onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(async function() {
-                                await axios.get('http://localhost:3001/users/allUsers')
+                              onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(function() {
+                                axios.get('http://localhost:3001/users/allUsers')
                                 .then((response) => {
-                                  let arrayForStaticRefresh = []
                                   let ww = []
                                   let qq = response.data.map(function(e) {
                                     return {
@@ -560,9 +439,6 @@ export default function AdminDashboardUsers() {
                                     }})
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
-                                  rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-                                  setArrayForStaticRefresh2(arrayForStaticRefresh)
-                                  setRowsToShow(arrayForStaticRefresh)
                                   console.log("DONE FETCH")
                                   adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin)
                                   adminNotifier( row.email , row.name , !row.admin)
@@ -574,12 +450,11 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* DISABLED COLUMN */
                               color="primary"
                               checked={row.disabled}
-                              onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(async function() {
-                                await axios.get('http://localhost:3001/users/allUsers')
-                                .then(async (response) => {
-                                  let arrayForStaticRefresh = []
+                              onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
+                                axios.get('http://localhost:3001/users/allUsers')
+                                .then((response) => {
                                   let ww = []
-                                  let qq = await response.data.map(function(e) {
+                                  let qq = response.data.map(function(e) {
                                     return {
                                       username: e.username,
                                       id: e.id,
@@ -591,10 +466,6 @@ export default function AdminDashboardUsers() {
                                     }})
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
-                                  rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-                                  arrayForStaticRefresh = arrayForStaticRefresh2
-                                  setRows(arrayForStaticRefresh)
-                                  setRowsToShow(arrayForStaticRefresh)
                                   console.log("DONE FETCH")
                                   adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled)
                                   disabledNotifier( row.email , row.name , !!row.disabled)
@@ -616,7 +487,7 @@ export default function AdminDashboardUsers() {
             <TablePagination
               rowsPerPageOptions={[5, 10, 15]}
               component="div"
-              count={rowsToShow.length}
+              count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
