@@ -1,16 +1,11 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ADD_TO_CART,
-  CLEAR_CART,
-  REMOVE_ALL_FROM_CART,
-  REMOVE_ONE_FROM_CART,
-  ADD_ONE_FROM_CART,
-} from "../../redux/actions/actionTypes";
-import { rootReducer, initialState } from "../../redux/reducer/index";
-import CartItem from "../CartItem/CartItem";
-import ProductItem from "../ProductItem/ProductItem";
+import // ADD_TO_CART,
+// REMOVE_ALL_FROM_CART,
+// REMOVE_ONE_FROM_CART,
+// ADD_ONE_FROM_CART,
+// CLEAR_CART,
+"../../redux/actions/actionTypes";
 import {
   getAllCoins,
   getUserInfo,
@@ -23,8 +18,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
-import { Button } from "@mui/material";
-
+// import { rootReducer, initialState } from "../../redux/reducer/index";
+// import CartItem from "../CartItem/CartItem";
+// import ProductItem from "../ProductItem/ProductItem";
+// import { Button } from "@mui/material";
+//import { Button } from "@mui/material";
 
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -46,37 +44,40 @@ const ShoppingCart = () => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(user.email));
+    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
+    // eslint-disable-next-line
   }, [userInfo]);
 
   useEffect(() => {
     dispatch(getAllCoins());
   }, [dispatch]);
 
-  const allCoins = useSelector((state) => state.allCoins);
-  const cartCoins = useSelector((state) => state.cart);
+  // const allCoins = useSelector((state) => state.allCoins);
+  // const cartCoins = useSelector((state) => state.cart);
 
-  const addToCart = (id) => {
-    dispatch({ type: ADD_TO_CART, payload: id });
-  };
-  const delFromCart = (id, all = false) => {
-    if (all) {
-      dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
-    } else {
-      dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
-    }
-  };
+  // const addToCart = (id) => {
+  //   dispatch({ type: ADD_TO_CART, payload: id });
+  // };
+  // const delFromCart = (id, all = false) => {
+  //   if (all) {
+  //     dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
+  //   } else {
+  //     dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
+  //   }
+  // };
 
-  const addOneFromCart = (id) => {
-    dispatch({ type: ADD_ONE_FROM_CART, payload: id });
-  };
+  // const addOneFromCart = (id) => {
+  //   dispatch({ type: ADD_ONE_FROM_CART, payload: id });
+  // };
 
   const clearCart = () => {
     dispatch(deleteCartUser(userInfo.id));
@@ -106,34 +107,37 @@ const ShoppingCart = () => {
   // ]
 
   function readFromLocalStore() {
-    let qq = localStorage.getItem("store").split("}")
-    let array = []
-    qq.pop()
-    qq.forEach(e => array.push(JSON.parse(e.split("").concat("}").join(""))))
-    let ww = array.map(function(e) {return {"idCoin": e.idCoin , "quantity": e.quantity, "price": parseFloat(e.price)}})
-    return ww
+    let qq = localStorage.getItem("store").split("}");
+    let array = [];
+    qq.pop();
+    qq.forEach((e) => array.push(JSON.parse(e.split("").concat("}").join(""))));
+    let ww = array.map(function (e) {
+      return {
+        idCoin: e.idCoin,
+        quantity: e.quantity,
+        price: parseFloat(e.price),
+      };
+    });
+    return ww;
   }
 
-  console.log("LOCAL STORAGE", localStorage.getItem("store").length)
-  console.log("USER CART", userCart)
+  console.log("LOCAL STORAGE", localStorage.getItem("store").length);
+  console.log("USER CART", userCart);
 
-  return (
-    userInfo.id === undefined ?
-
+  return userInfo.id === undefined ? (
     <div className="cart-container">
       <h2 className="title-cart">Carrito de Compras</h2>
       <h3 className="title-products">Productos</h3>
-      <h3 className="title-carrito">Carrito</h3>
-      <article className="box">
-        <div>
+      <article>
+        <div className="box">
           {readFromLocalStore().length !== 0 ? (
             readFromLocalStore().map((i) => {
               return (
                 <div className="cart-box" key={i.id}>
-                  <label>{i.idCoin}</label>
-                  <label>{i.quantity}</label>
-                  USD
-                  <label>{i.price.toFixed(2)}</label>
+                  <h4>{i.idCoin.toUpperCase()}</h4>
+                  <p> Cantidad: {i.quantity}</p>
+
+                  <p>{i.price.toFixed(2)} USD</p>
                 </div>
               );
             })
@@ -143,31 +147,53 @@ const ShoppingCart = () => {
             </div>
           )}
         </div>
-        {
-          readFromLocalStore().length !== 0 ?
+        {readFromLocalStore().length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos
-              USD {(readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10).toFixed(2)}
+              Fee
+              <span>
+                {" "}
+                {(
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) / 10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <h3 className="title-carrito">
               Total
-              USD {(readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) + (readFromLocalStore().map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10)).toFixed(2)}
+              <span>
+                {" "}
+                {(
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) +
+                  readFromLocalStore()
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) /
+                    10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <Link to={"/signup"}>
-              <button className="button-clear-cart">BUY CRIPTO</button>
+              <button className="button-buy-crypto">BUY CRIPTO</button>
             </Link>
           </div>
-          :
-          null
-        }
-        <button className="button-clear-cart" onClick={() => localStorage.setItem("store", "") + setReloader(!reloader)}>
+        ) : null}
+        <button
+          className="button-clear-cart"
+          onClick={() =>
+            localStorage.setItem("store", "") + setReloader(!reloader)
+          }
+        >
           LIMPIAR CARRITO
         </button>
       </article>
     </div>
-    :
-      <div className="cart-container">
+  ) : (
+    <div className="cart-container">
       <h2 className="title-cart">Carrito de Compras</h2>
       <h3 className="title-products">Productos</h3>
       {/* <article className="box">
@@ -175,7 +201,6 @@ const ShoppingCart = () => {
           <ProductItem key={product.id} data={product} addToCart={addToCart} />
         ))}
       </article> */}
-      <h3 className="title-carrito">Carrito</h3>
       <article className="box">
         <div>
           {userCart.length !== 0 ? (
@@ -183,9 +208,8 @@ const ShoppingCart = () => {
               return (
                 <div className="cart-box" key={i.id}>
                   <label>{i.idCoin}</label>
-                  <label>{i.quantity}</label>
-                  USD
-                  <label>{i.price.toFixed(2)}</label>
+                  <label>Cantidad: {i.quantity}</label>
+                  <label>{i.price.toFixed(2)} USD</label>
                 </div>
               );
             })
@@ -195,35 +219,51 @@ const ShoppingCart = () => {
             </div>
           )}
         </div>
-        {
-          userCart.length !== 0 ?
+        {userCart.length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos
-              USD {(userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10).toFixed(2)}
+              Fee
+              <span>
+                {" "}
+                {(
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) / 10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <h3 className="title-carrito">
               Total
-              USD {(userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) + (userCart.map(e => parseFloat(e.price)).reduce((pv, cv) => pv + cv, 0) / 10)).toFixed(2)}
+              <span>
+                {" "}
+                {(
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) +
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) /
+                    10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <button
-              className="button-clear-cart"
+              className="button-buy-crypto"
               onClick={() => {
                 axios
                   .post("http://localhost:3001/users/payment", product)
                   .then(
                     (res) =>
-                      (window.location.href =
-                        res.data.response.body.init_point)
+                      (window.location.href = res.data.response.body.init_point)
                   );
               }}
             >
               BUY CRIPTO
             </button>
           </div>
-           :
-          null
-        }
+        ) : null}
         <button className="button-clear-cart" onClick={clearCart}>
           LIMPIAR CARRITO
         </button>

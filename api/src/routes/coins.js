@@ -11,7 +11,7 @@ const {
   getCoinsFromDB,
   modifyCoinDisabled,
   getCoinFromDBbyID,
-  getTrendingNews
+  getTrendingNews,
 } = require("../controllers/controllers.js");
 
 const router = Router();
@@ -26,28 +26,28 @@ router.get("/trending", async (req, res) => {
 });
 
 router.get("/trendingNews", async (req, res) => {
-    // const options = {
-    //   method: 'GET',
-    //   url: 'https://crypto-news11.p.rapidapi.com/cryptonews/bitcoin',
-    //   params: {max_articles: '10', last_n_hours: '48', top_n_keywords: '10'},
-    //   headers: {
-    //     'X-RapidAPI-Key': '9a68656baamsh1cfc3e752bd68d4p1bd547jsndc88570634fb',
-    //     'X-RapidAPI-Host': 'crypto-news11.p.rapidapi.com'
-    //   }
-    // };
-    
-    // axios.request(options).then(function (response) {
-    //   res.status(200).json(response.data.articles);
-    // }).catch(function (error) {
-    //   res.status(400).json(error);
-    // });
+  // const options = {
+  //   method: 'GET',
+  //   url: 'https://crypto-news11.p.rapidapi.com/cryptonews/bitcoin',
+  //   params: {max_articles: '10', last_n_hours: '48', top_n_keywords: '10'},
+  //   headers: {
+  //     'X-RapidAPI-Key': '9a68656baamsh1cfc3e752bd68d4p1bd547jsndc88570634fb',
+  //     'X-RapidAPI-Host': 'crypto-news11.p.rapidapi.com'
+  //   }
+  // };
 
-    try {
-      let trendingNews = await getTrendingNews();
-      res.status(200).json(trendingNews);
-    } catch (err) {
-      res.status(400).json(err.message);
-    }
+  // axios.request(options).then(function (response) {
+  //   res.status(200).json(response.data.articles);
+  // }).catch(function (error) {
+  //   res.status(400).json(error);
+  // });
+
+  try {
+    let trendingNews = await getTrendingNews();
+    res.status(200).json(trendingNews);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
 });
 
 router.get("/allcoins", async (req, res) => {
@@ -140,5 +140,13 @@ router.put("/modifyCoinDisabled", async (req, res) => {
     res.status(400).send(e.message);
   }
 });
+
+// router.get("/allCoinsDb", async (req, res) => {
+//   try {
+//     const findCoinInDb = await getCoinsFromDB(id);
+//   } catch (error) {
+//     res.status(400).send(error.message);
+//   }
+// });
 
 module.exports = router;

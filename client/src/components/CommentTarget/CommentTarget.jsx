@@ -1,5 +1,4 @@
-/*eslint-disable*/
-import React, { useState } from "react";
+import React from "react";
 
 import style from "./CommentTarget.module.css";
 
@@ -7,7 +6,7 @@ const CommentTarget = (props) => {
   return (
     <div className={style.contComment}>
       <div className={style.contUser}>
-        <img src={props.img} className={style.imgComment} />
+        <img src={props.img} className={style.imgComment} alt="imagen_coment" />
         <h3 className={style.emailComment}>{props.email}</h3>
       </div>
 
