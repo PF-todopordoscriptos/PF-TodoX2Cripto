@@ -23,10 +23,12 @@ export const ProtectedAdmin = ({ user, children, redirecTo = "/home" }) => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(userAdmin.email));
+    // eslint-disable-next-line
   }, [userAdmin.email]);
 
   if (userInfo.admin === false) {

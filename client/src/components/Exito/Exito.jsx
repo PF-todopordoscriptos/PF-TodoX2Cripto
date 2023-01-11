@@ -31,14 +31,17 @@ const Exito = () => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(user.email));
+    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
+    // eslint-disable-next-line
   }, [userInfo]);
 
   useEffect(() => {

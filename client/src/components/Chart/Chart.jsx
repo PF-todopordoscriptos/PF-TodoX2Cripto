@@ -38,6 +38,7 @@ const HistoryChart = (id, days) => {
 
   useEffect(() => {
     dispatch(getHistoryChart(id.id, 7));
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const options = { ...historyOptions };

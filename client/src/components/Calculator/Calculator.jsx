@@ -24,12 +24,14 @@ const Calculator = ({ id }) => {
   });
   useEffect(() => {
     dispatch(getUserInfo(user.email));
+    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     // dispatch(getAllCoins());
     dispatch(getCoinDetail(id));
     setCoin(id);
+    // eslint-disable-next-line
   }, [dispatch]);
 
   // const allCoins = useSelector((state) => state.allCoins);
@@ -44,6 +46,7 @@ const Calculator = ({ id }) => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   // const renderPriceCoin = () => {

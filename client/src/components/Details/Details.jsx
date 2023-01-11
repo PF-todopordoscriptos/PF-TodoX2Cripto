@@ -48,6 +48,7 @@ const Details = (props) => {
         });
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   let { id } = useParams();
@@ -66,12 +67,14 @@ const Details = (props) => {
   useEffect(() => {
     dispatch(getCoinDetail(id));
     dispatch(getCoinComment(id));
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const coinComments = useSelector((state) => state.comments);
 
   useEffect(() => {
     dispatch(getCoinComment(id));
+    // eslint-disable-next-line
   }, [ayudin]);
 
   const coinDetails = useSelector((state) => state.coinDetails);
@@ -85,6 +88,7 @@ const Details = (props) => {
       email: user.email,
       // img: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
     });
+    // eslint-disable-next-line
   }, [user.email]);
 
   const handleInput = (e) => {

@@ -66,6 +66,7 @@ const Profile = () => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   console.log(auth);
@@ -75,6 +76,7 @@ const Profile = () => {
   React.useEffect(() => {
     dispatch(getUserInfo(user.email));
     console.log("estado lleno");
+    // eslint-disable-next-line
   }, [user.email]);
 
   const [input, setInput] = useState({
@@ -99,6 +101,7 @@ const Profile = () => {
     });
     console.log("userinfo2");
     console.log(userInfo2);
+    // eslint-disable-next-line
   }, [dispatch, userInfo2]);
 
   const [loading, setLoading] = useState(false);
@@ -306,6 +309,7 @@ const Profile = () => {
           </div>
 
           <div className={style.divDinosaurio}>
+            {/* eslint-disable-next-line */}
             <marquee behavior="scroll" direction="left">
               <img
                 className={style.dinosaurio}
