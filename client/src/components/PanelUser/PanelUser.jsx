@@ -15,7 +15,7 @@ import style from "./PanelUser.module.css"
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCoins, getUserInfo } from '../../redux/actions';
+import { getAllCoins, getUserInfo, postUser } from '../../redux/actions';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 
@@ -58,17 +58,22 @@ export default function PanelUser() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const allCoins = useSelector((state) => state.allCoins);
-    const [user, setUser] = React.useState({
-      email: "",
-    });
+  const [user, setUser] = React.useState({
+    email: "",
+    uid: "",
+  });
 
     useEffect(() => {
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
           setUser({
-            ...user,
-            email: currentUser.email,
-          });
+          ...user,
+          email: currentUser.email,
+          uid: currentUser.uid,
+          //password: currentUser.password,
+        });
+        console.log(user);
+        dispatch(postUser(currentUser));
         }
       });
     }, [dispatch, userInfo]);

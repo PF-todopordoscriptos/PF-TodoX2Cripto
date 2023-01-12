@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import {
   getUserInfo,
-  postUser,
+  //postUser,
   updateUserInfo,
   // postUserGoogle,
 } from "../../redux/actions/index.js";
@@ -60,7 +60,7 @@ const Profile = () => {
           //password: currentUser.password,
         });
         console.log(user);
-        dispatch(postUser(currentUser));
+        //dispatch(postUser(currentUser));
       } else {
         console.log("SIGNED OUT");
         setUser({
