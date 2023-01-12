@@ -270,7 +270,7 @@ router.post("/payment", async (req, res) => {
         id: "4085428740137259",
       },
       back_urls: {
-        success: 'https://todox2cripto-backend.onrender.com"/exito',
+        success: "https://todox2cripto-frontend.onrender.com/exito",
         failure: "",
         pending: "",
       },
