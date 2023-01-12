@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const nodemailer = require('nodemailer');
 const {
   createUser,
   getAllUsers,
@@ -270,7 +271,8 @@ router.post("/payment", async (req, res) => {
         id: "4085428740137259",
       },
       back_urls: {
-        success: "https://todox2cripto-frontend.onrender.com/exito",
+        // success: "https://todox2cripto-frontend.onrender.com/exito",
+        success: "http://localhost:3000/exito",
         failure: "",
         pending: "",
       },
@@ -315,5 +317,35 @@ router.put("/:email", async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+
+router.post("/sendEmail/:email", async(req,res) => {
+  const {email} = req.params
+  var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    post: 587,
+    secure: false,
+    auth: {
+      user: "todox2criptos@gmail.com",
+      pass: "afapcrdmiuffnmme"
+    }
+  });
+
+  var mailOptions = {
+    from: "Remitente",
+    to: email,
+    subject: "La compra se ha realizado correctamente",
+    text: "Tu compra en Todo x 2 Cripto se realizo exitosamente, ve a tu perfil y consulta tus coins :)"
+  }
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if(error){
+      res.status(500).send(error.message)
+    } else {
+      console.log("Email enviado")
+      res.status(200).jsonp(req.body)
+    }
+  });
+})
+
 
 module.exports = router;

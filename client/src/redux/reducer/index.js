@@ -35,6 +35,7 @@ import {
   GET_ALL_USERS,
   GET_WALLET,
   GET_COINS_FROM_DB,
+  SEND_MAIL
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -372,6 +373,12 @@ export function rootReducer(state = initialState, action) {
       return {
         ...state,
         coinsDb: action.payload,
+      };
+    }
+
+    case SEND_MAIL: {
+      return{
+        ...state,
       };
     }
 

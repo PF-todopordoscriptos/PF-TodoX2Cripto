@@ -101,14 +101,18 @@ export default function PanelUser() {
 
       <Box sx={{ borderBottom: 1, borderColor: 'lightpink' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" textColor="secondary" indicatorColor="secondary">
-          <Tab label="Wallet" {...a11yProps(0)} />
-          <Tab label="Transactions" {...a11yProps(1)} />
-          <Tab label="Profile" {...a11yProps(2)} />
+          <Tab label="Profile" {...a11yProps(0)} />
+          <Tab label="Wallet" {...a11yProps(1)} />
+          <Tab label="Transactions" {...a11yProps(2)} />
  
         </Tabs>
       </Box>
 
       <TabPanel value={value} index={0}>
+        <Profile />
+      </TabPanel>
+      
+      <TabPanel value={value} index={1}>
         {
           userInfo && allCoins.length ?
           <PanelWallet
@@ -123,13 +127,10 @@ export default function PanelUser() {
         }
       </TabPanel>
 
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={2}>
        <PanelTransactions />
       </TabPanel>
 
-      <TabPanel value={value} index={2}>
-        <Profile />
-      </TabPanel>
 
     </Box>
   );
