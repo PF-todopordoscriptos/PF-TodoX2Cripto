@@ -74,6 +74,12 @@ export default function PanelUser() {
         });
         console.log(user);
         dispatch(postUser(currentUser));
+        } else {
+          console.log("SIGNED OUT");
+          setUser({
+            email: "",
+            uid: "",
+          });
         }
       });
     }, [dispatch, userInfo]);
