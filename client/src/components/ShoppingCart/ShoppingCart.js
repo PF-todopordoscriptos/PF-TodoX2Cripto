@@ -166,7 +166,7 @@ const ShoppingCart = () => {
             userCart.map((i) => {
               return (
                 <div className="cart-box" key={i.id}>
-                  <label>{i.idCoin}</label>
+                  <label>{i.idCoin.toUpperCase()}</label>
                   <label>Cantidad: {i.quantity}</label>
                   <label>{i.price.toFixed(2)} USD</label>
                 </div>
