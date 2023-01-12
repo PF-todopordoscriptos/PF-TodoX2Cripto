@@ -20,13 +20,11 @@ const {
 
 const { User } = require("../db");
 //const { uuid } = require('uuidv4');
-const { firebaseApp } = require("../firebase/firebaseConfig.js");
+const { getAuth } = require("firebase-admin/auth");
+const { firebaseApp } = require("../firebase/firebase.js");
+const { admin } = require("../firebase/firebase.js");
 const { Op } = require("sequelize");
-const {
-  createUserWithEmailAndPassword,
-  getAuth,
-  sendSignInLinkToEmail,
-} = require("firebase/auth");
+
 const mercadopago = require("mercadopago");
 const { preferences } = require("mercadopago");
 require("dotenv").config();
@@ -53,7 +51,8 @@ router.get("/getTransactions", async (req, res) => {
 router.post("/", async (req, res) => {
   const auth = getAuth(firebaseApp);
 
-  const { email, password } = req.body;
+  const { email, uid } = req.body;
+  console.log("email y uid", email, uid);
   let found = await User.findOne({ where: { email: email } });
   if (found) return res.status(400).send("User does not available");
   try {
@@ -65,6 +64,7 @@ router.post("/", async (req, res) => {
     const newUser = await User.create({
       //id: user.uid,
       email,
+      uid,
       //password: hashFunction(password),
     });
 
@@ -129,9 +129,15 @@ router.put("/modifyUserAdmin", async (req, res) => {
 
 router.put("/modifyUserDisabled", async (req, res) => {
   const { id, disabled } = req.body;
+  //const user = await getUserById(id);
   try {
     await modifyUserDisabled(id, disabled);
     const findUser = await getUserById(id);
+
+    getAuth().updateUser(findUser.uid, {
+      disabled: disabled,
+    });
+
     res.status(200).send(findUser);
   } catch (e) {
     res.status(400).send(e.message);

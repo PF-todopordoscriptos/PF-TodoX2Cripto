@@ -39,6 +39,7 @@ const Profile = () => {
 
   const [user, setUser] = useState({
     email: "",
+    uid: "",
     //password: ""
   });
 
@@ -55,9 +56,10 @@ const Profile = () => {
         setUser({
           ...user,
           email: currentUser.email,
+          uid: currentUser.uid,
           //password: currentUser.password,
         });
-        console.log(currentUser);
+        console.log(user);
         dispatch(postUser(currentUser));
       } else {
         console.log("SIGNED OUT");

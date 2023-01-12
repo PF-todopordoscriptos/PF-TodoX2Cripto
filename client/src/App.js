@@ -250,7 +250,7 @@ function App() {
               }
             />
 
-            <Route path={"/FAQ"} element={<Navbar />} />
+            {/* <Route path={"/FAQ"} element={<Navbar />} /> */}
             <Route
               path={"/developers"}
               element={
