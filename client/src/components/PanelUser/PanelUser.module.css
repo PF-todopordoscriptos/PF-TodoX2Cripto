@@ -6,3 +6,15 @@
     height: 5vh;
     width: 4vw;
   }
+
+  .imgLoading{
+    height: 300px;
+  }
+
+  .textLoading{
+    color: rgb(21, 114, 228);
+    font-weight: 900;
+    font-style: italic;
+    margin-top: 0px;
+    margin-bottom: 10rem;
+  }

@@ -15,7 +15,7 @@ import WalletUser from '../WalletUser/WalletUser';
 const PanelWallet = (props) => {
 
     const columns = [
-    { field: 'Icon', headerName: 'Icon', width: 70 },
+    { field: 'Icon', headerName: 'Icon', type: "image" ,width: 70, renderCell: (params) => <img src={params.value} className={style.imagenCoin}/> },
     { field: 'Name', headerName: 'Name', width: 100 },
     { field: 'Symbol', headerName: 'Symbol', width: 100 },
     { field: 'Quantity', headerName: 'Quantity', type: 'number', width: 180,},
@@ -24,6 +24,25 @@ const PanelWallet = (props) => {
     const dispatch = useDispatch();
     const walletUser = useSelector((state) => state.userWallet);
 
+    const miCarritoSinDuplicados = walletUser.reduce((acumulador, valorActual) => {
+      const elementoYaExiste = acumulador.find(elemento => elemento.idCoin === valorActual.idCoin);
+      if (elementoYaExiste) {
+        return acumulador.map((elemento) => {
+          if (elemento.idCoin === valorActual.idCoin) {
+            return {
+              ...elemento,
+              quantity: elemento.quantity + valorActual.quantity
+            }
+          }
+    
+          return elemento;
+        });
+      }
+        return [...acumulador, valorActual];
+    }, []);
+
+
+
     // console.log(props.allCoins)
 
     useEffect(() => {
@@ -31,15 +50,15 @@ const PanelWallet = (props) => {
         dispatch(getWallet(props.userInfo.id))
       }, [props.userInfo]);
 
+    const auxImg = (t) => {
+        const criptoTag = props.allCoins.find( c => c.id === t.idCoin)
+        return criptoTag.image
+    }
 
-      console.log(props.allCoins)
-      const findImg = () => {
-        console.log(walletUser)
-        let monedita = props.allCoins.find((c) => c.id === walletUser.find(w => c.id === w.idCoin))
-        console.log(monedita)
-        // return monedita.name
-      }
-
+    const auxSym = (t) => {
+      const criptoTag = props.allCoins.find( c => c.id === t.idCoin)
+      return criptoTag.symbol
+  }
 
       const generateRandom = () => {
         var length = 8,
@@ -51,9 +70,11 @@ const PanelWallet = (props) => {
         return retVal;
     }
 
-      const rows2 = walletUser.map((t) => (
-        {Icon: findImg(),
+      const rows2 = miCarritoSinDuplicados.map((t) => (
+        {
+          Icon: auxImg(t),
           Name:t.idCoin.charAt(0).toUpperCase() + t.idCoin.slice(1),
+          Symbol: auxSym(t).toUpperCase(),
           Quantity:t.quantity}
       ))
       console.log(rows2)

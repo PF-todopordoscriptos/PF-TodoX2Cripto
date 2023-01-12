@@ -11,7 +11,7 @@ import PanelWallet from '../PanelWallet/PanelWallet';
 import Profile from '../Profile/Profile';
 import PanelTransactions from '../PanelTransactions/PanelTransactions';
 
-// import style from "./PanelUser.module.css"
+import style from "./PanelUser.module.css"
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -106,7 +106,8 @@ export default function PanelUser() {
           />
           :
           <div>
-            <h1>Loading...</h1>
+            <img src={"https://cryptosaurs.one/wp-content/uploads/2021/10/cryptosaurs-1.gif"} className={style.imgLoading}/>
+            <h1 className={style.textLoading}>Loading...</h1>
           </div>
         }
       </TabPanel>
