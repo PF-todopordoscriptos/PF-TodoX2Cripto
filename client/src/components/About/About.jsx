@@ -21,6 +21,50 @@ const About = () => {
       </div>
       </div>
 
+
+
+      <div class={style.container}>
+        <div class={style.carousel}>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564725/js_hozpd1.png" className={style.img} alt="js" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564725/html_siseph.png" className={style.img} alt="html" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564725/css_irv80j.png" className={style.img} alt="css" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564725/nodejs_puzodm.png" className={style.img} alt="node" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564725/express_zov0lb.png" className={style.img} alt="express" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564726/react_qi7wcp.png" className={style.img} alt="react" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673564725/redux_v4tk92.png" className={style.img} alt="redux" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673565048/material-ui_mdoaxj.png" className={style.img} alt="material" />
+            </div>
+          <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673565070/Firebase_Logo_ll8ogs.png" className={style.img} alt="firebase" />
+            </div>
+            <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673566063/icon-256x256_emcbtf.png" className={style.img} alt="mp" />
+            </div>
+            <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673566401/azure-logo_bp6twl.png" className={style.img} alt="azure" />
+            </div>
+            <div class={style.carousel__face}>
+            <img src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673566666/render_kcbggy.png" className={style.img} alt="render" />
+            </div>
+        </div>
+      </div>
+
+
     </div>
   );
 };
