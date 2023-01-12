@@ -218,14 +218,14 @@ function App() {
                 </>
               }
             />
-            <Route
+            {/* <Route
               path="/FAQ"
               element={
                 <>
                   <Navbar /> <FAQ /> <Footer />{" "}
                 </>
               }
-            />
+            /> */}
             <Route path="/chart/:id" element={<Chart />} />
             <Route element={<ProtectedRoute user={user} />}>
               <Route
