@@ -24,6 +24,25 @@ const PanelWallet = (props) => {
     const dispatch = useDispatch();
     const walletUser = useSelector((state) => state.userWallet);
 
+    const miCarritoSinDuplicados = walletUser.reduce((acumulador, valorActual) => {
+      const elementoYaExiste = acumulador.find(elemento => elemento.idCoin === valorActual.idCoin);
+      if (elementoYaExiste) {
+        return acumulador.map((elemento) => {
+          if (elemento.idCoin === valorActual.idCoin) {
+            return {
+              ...elemento,
+              quantity: elemento.quantity + valorActual.quantity
+            }
+          }
+    
+          return elemento;
+        });
+      }
+        return [...acumulador, valorActual];
+    }, []);
+
+
+
     // console.log(props.allCoins)
 
     useEffect(() => {
@@ -51,7 +70,7 @@ const PanelWallet = (props) => {
         return retVal;
     }
 
-      const rows2 = walletUser.map((t) => (
+      const rows2 = miCarritoSinDuplicados.map((t) => (
         {Icon: findImg(),
           Name:t.idCoin.charAt(0).toUpperCase() + t.idCoin.slice(1),
           Quantity:t.quantity}
