@@ -153,6 +153,9 @@ const Login = () => {
       if (error.code === "auth/wrong-password") {
         setErrorsLog("Wrong password.");
       }
+      if (error.code === "auth/user-disabled") {
+        setErrorsLog("Your user has been disabled.");
+      }
       console.log(error.code);
     }
   };

@@ -11,11 +11,11 @@ import PanelWallet from '../PanelWallet/PanelWallet';
 import Profile from '../Profile/Profile';
 import PanelTransactions from '../PanelTransactions/PanelTransactions';
 
-// import style from "./PanelUser.module.css"
+import style from "./PanelUser.module.css"
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCoins, getUserInfo } from '../../redux/actions';
+import { getAllCoins, getUserInfo, postUser } from '../../redux/actions';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/firebaseConfig';
 
@@ -58,16 +58,27 @@ export default function PanelUser() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo);
   const allCoins = useSelector((state) => state.allCoins);
-    const [user, setUser] = React.useState({
-      email: "",
-    });
+  const [user, setUser] = React.useState({
+    email: "",
+    uid: "",
+  });
 
     useEffect(() => {
       onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
           setUser({
-            ...user,
-            email: currentUser.email,
+          ...user,
+          email: currentUser.email,
+          uid: currentUser.uid,
+          //password: currentUser.password,
+        });
+        console.log(user);
+        dispatch(postUser(currentUser));
+        } else {
+          console.log("SIGNED OUT");
+          setUser({
+            email: "",
+            uid: "",
           });
         }
       });
@@ -106,7 +117,8 @@ export default function PanelUser() {
           />
           :
           <div>
-            <h1>Loading...</h1>
+            <img src={"https://cryptosaurs.one/wp-content/uploads/2021/10/cryptosaurs-1.gif"} className={style.imgLoading}/>
+            <h1 className={style.textLoading}>Loading...</h1>
           </div>
         }
       </TabPanel>

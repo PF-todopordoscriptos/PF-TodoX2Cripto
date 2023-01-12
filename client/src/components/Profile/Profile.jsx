@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import {
   getUserInfo,
-  postUser,
+  //postUser,
   updateUserInfo,
   // postUserGoogle,
 } from "../../redux/actions/index.js";
@@ -39,6 +39,7 @@ const Profile = () => {
 
   const [user, setUser] = useState({
     email: "",
+    uid: "",
     //password: ""
   });
 
@@ -55,10 +56,11 @@ const Profile = () => {
         setUser({
           ...user,
           email: currentUser.email,
+          uid: currentUser.uid,
           //password: currentUser.password,
         });
-        console.log(currentUser);
-        dispatch(postUser(currentUser));
+        console.log(user);
+        //dispatch(postUser(currentUser));
       } else {
         console.log("SIGNED OUT");
         setUser({
