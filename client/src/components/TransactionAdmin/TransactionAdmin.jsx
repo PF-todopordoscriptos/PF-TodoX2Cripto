@@ -4,11 +4,11 @@ import style from "./TransactionAdmin.module.css"
 
 const TransactionAdmin = (props) => {
 
-const findImg = () => {
-  let monedita = props.allCoins.find(c => props.idCoin === c.id)
-  console.log(monedita)
-  return monedita.image
-}
+// const findImg = () => {
+//   let monedita = props.allCoins.find(c => props.idCoin === c.id)
+//   console.log(monedita)
+//   return monedita.image
+// }
 
 const findEmail = () => {
   let emailFind = props.allUsers.find(c => props.idUser === c.id)
@@ -16,12 +16,12 @@ const findEmail = () => {
   return emailFind.email
 }
 
-const findImageUser = () => {
-  let imgUser = props.allUsers.find(c => props.idUser === c.id)
-  console.log(imgUser)
-  return imgUser.img
-}
-
+// const findImageUser = () => {
+//   let imgUser = props.allUsers.find(c => props.idUser === c.id)
+//   console.log(imgUser)
+//   return imgUser.img
+// }
+console.log(props.allUsers)
 console.log(props.allCoins)
 
   return (
@@ -35,13 +35,13 @@ console.log(props.allCoins)
         <div className={style.abajo}>
 
         <div className={style.contUser}>
-        <img src={findImageUser()} className={style.imgUser} alt="imageU"/>
-        <h3 className={style.emailUser}>{findEmail()}</h3>
+        {/* <img src={findImageUser()} className={style.imgUser} alt="imageU"/> */}
+        <h3 className={style.emailUser}>UserId:  {props.idUser}</h3>
         </div>
 
         <div className={style.contCoin}>
-        <img src={findImg()} className={style.imgCoin} alt="imageCoin"/>
-        <h3 className={style.h3coin}>{props.idCoin}</h3>
+        {/* <img src={findImg()} className={style.imgCoin} alt="imageCoin"/> */}
+        <h3 className={style.h3coin}>CriptoId:  {props.idCoin}</h3>
         </div>
 
         <div className={style.contPrice}>

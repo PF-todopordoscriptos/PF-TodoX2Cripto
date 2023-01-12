@@ -22,7 +22,7 @@ const AdminDashboardTransactions = () => {
     <div>
         <div className={style.contTransactions}>
       {
-        allTransactions.length && allUsers.length && allCoins.length ? allTransactions.map((t) => (
+        allTransactions.length && allUsers.length && allCoins.length ? allTransactions?.map((t) => (
           <TransactionAdmin
             key={t.id}
             id={t.id}
