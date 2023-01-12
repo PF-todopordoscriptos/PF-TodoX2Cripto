@@ -43,10 +43,10 @@ export default function AdminDashboardUsers() {
 
   let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
-  let [auxiliar, setAuxiliar] = useState([]);
+  let [auxiliar, setAuxiliar] = useState([]); // TIENE ID's DEL PRIMER FILTRO (sea USERNAME, ID, o EMAIL)
   let [rowsToShow, setRowsToShow] = useState([]);
 
-  let GetAllUsers = () => {
+  let GetAllUsers = () => { // FIRST TO RENDER WHEN THE COMPONENT LOADS
       useEffect( () => {
       axios.get('http://localhost:3001/users/allUsers')
       .then((response) => {
@@ -55,6 +55,7 @@ export default function AdminDashboardUsers() {
           return {
             username: e.username,
             id: e.id,
+            uid: e.uid,
             password: e.password,
             admin: e.admin,
             disabled: e.disabled,
@@ -64,16 +65,38 @@ export default function AdminDashboardUsers() {
         qq.forEach(e => ww.push(e))
         setRows(ww)
         setRowsToShow(ww)
-        console.log("DONE FETCH")
+        console.log("FIRST TO RENDER WHEN THE COMPONENT LOADS")
         onAuthStateChanged(auth, (currentUser) => {
           setCurrentAdmin({
              id: ww.filter(e => e.email === currentUser.email)[0].id,
              email: currentUser.email
           })
         })
-      }).catch(e => console.log(e))
+      }
+      ).catch(e => console.log(e))
     }, []);
   }
+
+  function GetActualAllUsers() {
+    axios.get('http://localhost:3001/users/allUsers')
+    .then((response) => {
+      let ww = []
+      let qq = response.data.map(function(e) {
+        return {
+          username: e.username,
+          id: e.id,
+          uid: e.uid,
+          password: e.password,
+          admin: e.admin,
+          disabled: e.disabled,
+          email: e.email,
+          name: e.name
+        }})
+      qq.forEach(e => ww.push(e))
+      setRows(ww)
+      console.log("ACTUALIZACION GENERAL")
+    }).catch(e => console.log(e))
+}
 
   console.log("CURRENT ADMIN", currentAdmin)
 
@@ -151,6 +174,12 @@ export default function AdminDashboardUsers() {
       numeric: true,
       disablePadding: false,
       label: '      ID'
+    },
+    {
+      id: 'uid',
+      numeric: true,
+      disablePadding: false,
+      label: '      UID'
     },
     {
       id: 'email',
@@ -326,14 +355,15 @@ export default function AdminDashboardUsers() {
       });
   }
 
-  GetAllUsers(); // CALL FOR FIRST RENDER
+  GetAllUsers(); // FIRST TO RENDER WHEN THE COMPONENT LOADS
   //setRowsToShow(rows)
   /* rows.filter(e => e.email.includes("juan")) */
   console.log("ROWS TO SHOW", rowsToShow)
   console.log("AUXILIAR", auxiliar)
   console.log("INPUT USERNAME", inputUsername)
+  console.log("INPUT EMAIL", inputEmail)
   console.log("INPUT ADMIN", inputAdmin)
-  console.log("ARRAY 2", arrayForStaticRefresh2)
+  console.log("STATIC 2", arrayForStaticRefresh2)
 
   return (
 
@@ -344,23 +374,26 @@ export default function AdminDashboardUsers() {
         type="search"
         value={inputUsername}
         onChange={(event) => setInputUsername(event.target.value) + setRowsToShow(rows.filter(e => e.username.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.username.includes(event.target.value))) }
-        onClick={inputUsername === "" ? () => setInputId("") + setInputEmail("") + setRowsToShow(rows) + setInputAdmin("") : null}
+        onClick={inputUsername === "" ? () => setInputId("") + setInputEmail("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
        <TextField
         id="outlined-search"
         label="Filter by Id"
         type="search"
         value={inputId}
-        onChange={(event) => setInputId(event.target.value) + setRowsToShow(rows.filter(e => e.id.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.id.includes(event.target.value))) }
-        onClick={inputId === "" ? () => setInputUsername("") + setInputEmail("") + setRowsToShow(rows) + setInputAdmin("") : null}
+        onChange={(event) => setInputId(event.target.value) + GetActualAllUsers() + setRowsToShow(rows.filter(e => e.id.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.id.includes(event.target.value))) }
+        onClick={inputId === "" ? () => setInputUsername("") + setInputEmail("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
       <TextField
         id="outlined-search"
         label="Filter by Email"
         type="search"
         value={inputEmail}
+        /* onChange={(event) => setInputEmail(event.target.value) + setRowsToShow(rows.filter(e => e.email.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.email.includes(event.target.value))) } */
         onChange={(event) => setInputEmail(event.target.value) + setRowsToShow(rows.filter(e => e.email.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.email.includes(event.target.value))) }
-        onClick={inputEmail === "" ? () => setInputUsername("") + setInputId("") + setRowsToShow(rows) + setInputAdmin("") : null}
+
+
+        onClick={inputEmail === "" ? () => setInputUsername("") + setInputId("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
       <Box>
         <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
@@ -370,31 +403,35 @@ export default function AdminDashboardUsers() {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={inputAdmin}
-            label="Age"
-            onChange={
-              (event) => setInputAdmin(event.target.value)+
+            label="isAdmin"
+            onChange={(event) => // IS ADMIN SELECTED
+              
+              setInputAdmin(event.target.value)
+              + axios.get('http://localhost:3001/users/allUsers')
+              .then((response) => {
+                let ww = []
+                let qq = response.data.map(function(e) {
+                  return {
+                    username: e.username,
+                    id: e.id,
+                    password: e.password,
+                    admin: e.admin,
+                    disabled: e.disabled,
+                    email: e.email,
+                    name: e.name
+                  }})
+                qq.forEach(e => ww.push(e))
+                setRows(ww)
 
-             axios.get('http://localhost:3001/users/allUsers')
-            .then((response) => {
-              let arrayForStaticRefresh = []
-              let ww = []
-              let qq = response.data.map(function(e) {
-                return {
-                  username: e.username,
-                  id: e.id,
-                  password: e.password,
-                  admin: e.admin,
-                  disabled: e.disabled,
-                  email: e.email,
-                  name: e.name
-                }})
-              qq.forEach(e => ww.push(e))
-              setRows(ww)
-              auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-              /* setArrayForStaticRefresh2(arrayForStaticRefresh) */
-              setRowsToShow(arrayForStaticRefresh)
-              console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-            })
+                  /* if(inputUsername !== "" && inputId !== "" && inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww) */
+                  if(inputEmail !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === event.target.value))
+                  if(inputEmail !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+
+
+
+                console.log("DONE FETCH DEL ADMIN SELECT")
+              })
+
             }
           >
 
@@ -445,6 +482,7 @@ export default function AdminDashboardUsers() {
                 return {
                   username: e.username,
                   id: e.id,
+                  uid: e.uid,
                   password: e.password,
                   admin: e.admin,
                   disabled: e.disabled,
@@ -511,13 +549,16 @@ export default function AdminDashboardUsers() {
                             {row.id}
                           </TableCell>
                           <TableCell sx={{ width: '30vw' }} align="center">
+                            {row.uid}
+                          </TableCell>
+                          <TableCell sx={{ width: '30vw' }} align="center">
                             {row.email}
                           </TableCell>
                           <TableCell sx={{ width: '15vw' }} align="center">
                             <Checkbox /* PASSWORD COLUMN */
                               color="primary"
                               checked={!!row.password}
-                              onClick={!!row.password ? () => changePassword(rowsToShow[rowsToShow.indexOf(row)].id).then(async function() {
+                              onClick={!!row.password ? () => + changePassword(rowsToShow[rowsToShow.indexOf(row)].id).then(async function() {
                                 await axios.get('http://localhost:3001/users/allUsers')
                                 .then((response) => {
                                   let ww = []
@@ -525,6 +566,7 @@ export default function AdminDashboardUsers() {
                                     return {
                                       username: e.username,
                                       id: e.id,
+                                      uid: e.uid,
                                       password: e.password,
                                       admin: e.admin,
                                       disabled: e.disabled,
@@ -543,31 +585,99 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* ADMIN COLUMN */
                               color="primary"
                               checked={row.admin}
-                              onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(async function() {
-                                await axios.get('http://localhost:3001/users/allUsers')
-                                .then((response) => {
-                                  let arrayForStaticRefresh = []
-                                  let ww = []
-                                  let qq = response.data.map(function(e) {
-                                    return {
-                                      username: e.username,
-                                      id: e.id,
-                                      password: e.password,
-                                      admin: e.admin,
-                                      disabled: e.disabled,
-                                      email: e.email,
-                                      name: e.name
-                                    }})
-                                  qq.forEach(e => ww.push(e))
-                                  setRows(ww)
-                                  rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-                                  setArrayForStaticRefresh2(arrayForStaticRefresh)
-                                  setRowsToShow(arrayForStaticRefresh)
-                                  console.log("DONE FETCH")
-                                  adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin)
-                                  adminNotifier( row.email , row.name , !row.admin)
-                                }).catch(e => console.log(e))
-                              })}
+                              /* onClick={() => changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin)
+                                .then(() => GetActualAllUsers())
+                                .then(() => setRowsToShow(
+                                  inputEmail !== "" ? rows.filter(e => e.email.includes(inputEmail)) : rows
+                                   ))
+                                  } */
+                                  /* onClick={() => Promise.all([console.log(1)])
+                                    .then(console.log(2))
+                                    .then(console.log(3))
+                                      } */
+                                     /*  onClick={() => Promise.all([changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin)])
+                                        .then(GetActualAllUsers())
+                                        .then((resp) => console.log("QE HAY ACA", resp))
+                                          .then(console.log("HDPPP", rows))
+                                          } */
+
+                                  /* (inputEmail !== "" &&  inputAdmin !== "" ? setRowsToShow(rows.filter(e => e.email.includes(inputEmail)).filter(e => e.admin === inputAdmin)) : null)) */
+                                  /* onClick={inputEmail !== "" ? () => Promise.all([changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin) + console.log(1)]).then(console.log(2)) + setRowsToShow(rows.filter(e => e.email.includes(inputEmail))) + console.log(3) : null} */
+
+
+
+                                  /* rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0])) */ /* ID OF ROWS SHOWED IF FILTERED OR NOT */
+                                  /* setArrayForStaticRefresh2(arrayForStaticRefresh) */
+                                  /* setRowsToShow(arrayForStaticRefresh.filter(e => e.admin.includes(inputAdmin))) */
+                                  /* console.log("DONE FETCH") */
+                                  /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
+                                   /* + adminNotifier( row.email , row.name , !row.admin) */
+
+                                   /* onClick={() => changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin).then(async function() {
+                                    await axios.get('http://localhost:3001/users/allUsers')
+                                    .then(async (response) => {
+                                      let arrayForStaticRefresh = []
+                                      let ww = []
+                                      let qq = await response.data.map(function(e) {
+                                        return {
+                                          username: e.username,
+                                          id: e.id,
+                                          uid: e.uid,
+                                          password: e.password,
+                                          admin: e.admin,
+                                          disabled: e.disabled,
+                                          email: e.email,
+                                          name: e.name
+                                        }})
+                                      qq.forEach(e => ww.push(e))
+                                      setRows(ww)
+                                      (inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false) ? setRowsToShow(ww.filter(e => e.email.includes(inputEmail))) :
+                                      inputEmail !== "" &&  inputAdmin === "" ? setRowsToShow(ww.filter(e => e.email.includes(inputEmail))) : null) */
+
+                                      //setRowsToShow(ww)
+                                      /* rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
+                                      arrayForStaticRefresh = arrayForStaticRefresh2
+                                      setRows(arrayForStaticRefresh)
+                                      setRowsToShow(arrayForStaticRefresh)
+                                      console.log("DONE FETCH") */
+
+                                       /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
+                                   /* + adminNotifier( row.email , row.name , !row.admin) */
+                                    /* }).catch(e => console.log(e)) asdasd
+                                  })} */
+
+                                  /* onClick={() => (changeAdmin(rows[rowsToShow.indexOf(row)].id, rows[rowsToShow.indexOf(row)].admin)).then( async () => GetActualAllUsers() ).then(() => setRowsToShow(rows))} */
+                                  /* onClick={() => changeAdmin(row.id, row.admin) + GetActualAllUsers() + setRowsToShow(rows)} */
+                                  onClick={ () =>
+                                    (changeAdmin(row.id, row.admin))
+                                    .then(() => console.log("ADMINN", row.admin))
+                                    .then(() => axios.get('http://localhost:3001/users/allUsers')
+                                    .then((response) => {
+
+                                      let ww = []
+                                      let qq = response.data.map(function(e) {
+                                        return {
+                                          username: e.username,
+                                          id: e.id,
+                                          password: e.password,
+                                          admin: e.admin,
+                                          disabled: e.disabled,
+                                          email: e.email,
+                                          name: e.name
+                                        }})
+                                      qq.forEach(e => ww.push(e))
+                                      setRows(ww)
+
+                                        if(inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin))
+                                        if(inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+
+
+
+                                      console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+                                    }))
+                                  }
+
+
                             />
                           </TableCell>
                           <TableCell sx={{ width: '11vw' }} align="center">
@@ -583,6 +693,7 @@ export default function AdminDashboardUsers() {
                                     return {
                                       username: e.username,
                                       id: e.id,
+                                      uid: e.uid,
                                       password: e.password,
                                       admin: e.admin,
                                       disabled: e.disabled,
