@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { useState } from "react";
 
 import style from "./SignUp.module.css";
@@ -9,43 +8,39 @@ import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../firebase/firebaseConfig";
 import {
-  GoogleAuthProvider,
-  signInWithRedirect,
-  signInWithEmailAndPassword,
+  // GoogleAuthProvider,
+  // signInWithRedirect,
+  // signInWithEmailAndPassword,
+  // sendPasswordResetEmail,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import ojoAbierto from "../../Images/ojoabierto.png";
 import ojoCerrado from "../../Images/ojocerrado.png";
 //import logoGoogle from "../../Images/logoGoogle.png";
 
-import Swal from "sweetalert2";
-
 const SignUp = () => {
   const history = useNavigate();
 
   // const [contador, setContador] = useState(1);
   const [handleChangePassword, sethandleChangePassword] = useState(false);
+  console.log(handleChangePassword, sethandleChangePassword);
 
   const [registered, setRegistered] = useState({
     email: "",
     password: "",
     showRegisterPassword: false,
   });
+  console.log(registered, setRegistered);
 
   const [resetPassword, setResetPassword] = useState({
     email: "",
   });
-
+  console.log(resetPassword, setResetPassword);
   const [errorsLog, setErrorsLog] = useState();
   const [errorsSig, setErrorsSig] = useState();
   const [errorsPass, setErrorsPass] = useState();
-  console.log(errorsLog, errorsSig, errorsPass);
-
-  const changePasswordForm = () => {
-    sethandleChangePassword(!handleChangePassword);
-  };
+  console.log(errorsLog, errorsSig, errorsPass, setErrorsPass, setErrorsLog);
 
   const [input, setInput] = useState({
     email: "",
@@ -63,21 +58,6 @@ const SignUp = () => {
     console.log(input);
   };
 
-  const handleChangeRegistered = (e) => {
-    setRegistered({
-      ...registered,
-      [e.target.name]: e.target.value,
-    });
-    console.log(registered);
-  };
-
-  const handleResetPassword = (e) => {
-    setResetPassword({
-      ...resetPassword,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleClickShowPassword = () => {
     setInput({
       ...input,
@@ -89,13 +69,6 @@ const SignUp = () => {
     setInput({
       ...input,
       showRepeatPassword: !input.showRepeatPassword,
-    });
-  };
-
-  const handleClickShowRegisterPassword = () => {
-    setRegistered({
-      ...registered,
-      showRegisterPassword: !registered.showRegisterPassword,
     });
   };
 
@@ -132,66 +105,89 @@ const SignUp = () => {
     }
   };
 
-  async function handleSingInGoogle() {
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
-    console.log("auth " + auth);
-    history("/profile");
-  }
+  // const changePasswordForm = () => {
+  //   sethandleChangePassword(!handleChangePassword);
+  // };
+  // const handleChangeRegistered = (e) => {
+  //   setRegistered({
+  //     ...registered,
+  //     [e.target.name]: e.target.value,
+  //   });
+  //   console.log(registered);
+  // };
 
-  const handleLogin = async () => {
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        registered.email,
-        registered.password
-      );
-      history("/profile");
-    } catch (error) {
-      if (error.code === "auth/invalid-email") {
-        setErrorsLog("Invalid email.");
-      }
-      if (error.code === "auth/user-not-found") {
-        setErrorsLog("Not register yet.");
-      }
-      if (error.code === "auth/wrong-password") {
-        setErrorsLog("Wrong password.");
-      }
-      console.log(error.code);
-    }
-  };
+  // const handleResetPassword = (e) => {
+  //   setResetPassword({
+  //     ...resetPassword,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  // const handleClickShowRegisterPassword = () => {
+  //   setRegistered({
+  //     ...registered,
+  //     showRegisterPassword: !registered.showRegisterPassword,
+  //   });
+  // };
+  // async function handleSingInGoogle() {
+  //   const provider = new GoogleAuthProvider();
+  //   signInWithRedirect(auth, provider);
+  //   console.log("auth " + auth);
+  //   history("/profile");
+  // }
 
-  const onHandleReset = async () => {
-    try {
-      await sendPasswordResetEmail(auth, resetPassword.email);
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-      Toast.fire({
-        icon: "success",
-        iconColor: "#8EFF60",
-        title: `Email sent successfully ㅤ(Check spam box).`,
-        color: "white",
-        background: "#BE66FE",
-      });
-      setResetPassword({
-        email: "",
-      });
-      setErrorsPass("");
-      console.log(resetPassword);
-    } catch (error) {
-      if (error.code === "auth/invalid-email") {
-        setErrorsPass("Invalid email.");
-      }
-      if (error.code === "auth/user-not-found") {
-        setErrorsPass("Not register yet.");
-      }
-    }
-  };
+  // const handleLogin = async () => {
+  //   try {
+  //     await signInWithEmailAndPassword(
+  //       auth,
+  //       registered.email,
+  //       registered.password
+  //     );
+  //     history("/profile");
+  //   } catch (error) {
+  //     if (error.code === "auth/invalid-email") {
+  //       setErrorsLog("Invalid email.");
+  //     }
+  //     if (error.code === "auth/user-not-found") {
+  //       setErrorsLog("Not register yet.");
+  //     }
+  //     if (error.code === "auth/wrong-password") {
+  //       setErrorsLog("Wrong password.");
+  //     }
+  //     console.log(error.code);
+  //   }
+  // };
+
+  // const onHandleReset = async () => {
+  //   try {
+  //     await sendPasswordResetEmail(auth, resetPassword.email);
+  //     const Toast = Swal.mixin({
+  //       toast: true,
+  //       position: "top-end",
+  //       showConfirmButton: false,
+  //       timer: 2000,
+  //       timerProgressBar: true,
+  //     });
+  //     Toast.fire({
+  //       icon: "success",
+  //       iconColor: "#8EFF60",
+  //       title: `Email sent successfully ㅤ(Check spam box).`,
+  //       color: "white",
+  //       background: "#BE66FE",
+  //     });
+  //     setResetPassword({
+  //       email: "",
+  //     });
+  //     setErrorsPass("");
+  //     console.log(resetPassword);
+  //   } catch (error) {
+  //     if (error.code === "auth/invalid-email") {
+  //       setErrorsPass("Invalid email.");
+  //     }
+  //     if (error.code === "auth/user-not-found") {
+  //       setErrorsPass("Not register yet.");
+  //     }
+  //   }
+  // };
 
   return (
     <div className="main-formlogin">

@@ -1,16 +1,11 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  ADD_TO_CART,
-  CLEAR_CART,
-  REMOVE_ALL_FROM_CART,
-  REMOVE_ONE_FROM_CART,
-  ADD_ONE_FROM_CART,
-} from "../../redux/actions/actionTypes";
-import { rootReducer, initialState } from "../../redux/reducer/index";
-import CartItem from "../CartItem/CartItem";
-import ProductItem from "../ProductItem/ProductItem";
+import // ADD_TO_CART,
+// REMOVE_ALL_FROM_CART,
+// REMOVE_ONE_FROM_CART,
+// ADD_ONE_FROM_CART,
+// CLEAR_CART,
+"../../redux/actions/actionTypes";
 import {
   getAllCoins,
   getUserInfo,
@@ -23,7 +18,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
-import { Button } from "@mui/material";
+// import { rootReducer, initialState } from "../../redux/reducer/index";
+// import CartItem from "../CartItem/CartItem";
+// import ProductItem from "../ProductItem/ProductItem";
+// import { Button } from "@mui/material";
+//import { Button } from "@mui/material";
 
 const ShoppingCart = () => {
   // const [state, dispatch] = useReducer(rootReducer, initialState);
@@ -45,37 +44,40 @@ const ShoppingCart = () => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(user.email));
+    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
+    // eslint-disable-next-line
   }, [userInfo]);
 
   useEffect(() => {
     dispatch(getAllCoins());
   }, [dispatch]);
 
-  const allCoins = useSelector((state) => state.allCoins);
-  const cartCoins = useSelector((state) => state.cart);
+  // const allCoins = useSelector((state) => state.allCoins);
+  // const cartCoins = useSelector((state) => state.cart);
 
-  const addToCart = (id) => {
-    dispatch({ type: ADD_TO_CART, payload: id });
-  };
-  const delFromCart = (id, all = false) => {
-    if (all) {
-      dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
-    } else {
-      dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
-    }
-  };
+  // const addToCart = (id) => {
+  //   dispatch({ type: ADD_TO_CART, payload: id });
+  // };
+  // const delFromCart = (id, all = false) => {
+  //   if (all) {
+  //     dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
+  //   } else {
+  //     dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
+  //   }
+  // };
 
-  const addOneFromCart = (id) => {
-    dispatch({ type: ADD_ONE_FROM_CART, payload: id });
-  };
+  // const addOneFromCart = (id) => {
+  //   dispatch({ type: ADD_ONE_FROM_CART, payload: id });
+  // };
 
   const clearCart = () => {
     dispatch(deleteCartUser(userInfo.id));
@@ -176,7 +178,7 @@ const ShoppingCart = () => {
               USD
             </h3>
             <Link to={"/signup"}>
-              <button className="button-clear-cart">BUY CRIPTO</button>
+              <button className="button-buy-crypto">BUY CRIPTO</button>
             </Link>
           </div>
         ) : null}
@@ -199,7 +201,6 @@ const ShoppingCart = () => {
           <ProductItem key={product.id} data={product} addToCart={addToCart} />
         ))}
       </article> */}
-      <h3 className="title-carrito">Carrito</h3>
       <article className="box">
         <div>
           {userCart.length !== 0 ? (
@@ -207,9 +208,8 @@ const ShoppingCart = () => {
               return (
                 <div className="cart-box" key={i.id}>
                   <label>{i.idCoin}</label>
-                  <label>{i.quantity}</label>
-                  USD
-                  <label>{i.price.toFixed(2)}</label>
+                  <label>Cantidad: {i.quantity}</label>
+                  <label>{i.price.toFixed(2)} USD</label>
                 </div>
               );
             })
@@ -222,27 +222,35 @@ const ShoppingCart = () => {
         {userCart.length !== 0 ? (
           <div>
             <h3 className="title-carrito">
-              Cargos USD
-              {(
-                userCart
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) / 10
-              ).toFixed(2)}
+              Fee
+              <span>
+                {" "}
+                {(
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) / 10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <h3 className="title-carrito">
-              Total USD
-              {(
-                userCart
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) +
-                userCart
-                  .map((e) => parseFloat(e.price))
-                  .reduce((pv, cv) => pv + cv, 0) /
-                  10
-              ).toFixed(2)}
+              Total
+              <span>
+                {" "}
+                {(
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) +
+                  userCart
+                    .map((e) => parseFloat(e.price))
+                    .reduce((pv, cv) => pv + cv, 0) /
+                    10
+                ).toFixed(2)}{" "}
+              </span>
+              USD
             </h3>
             <button
-              className="button-clear-cart"
+              className="button-buy-crypto"
               onClick={() => {
                 axios
                   .post("http://localhost:3001/users/payment", product)

@@ -34,9 +34,10 @@ import {
   // ADD_TO_CART_BACK,
   // DELETE_COMMENT,
   GET_WALLET,
+  GET_COINS_FROM_DB,
 } from "./actionTypes";
 
-// const baseUrl = "http://localhost:3001";
+//const baseUrl = "http://localhost:3001";
 const baseUrl = "https://todox2cripto-backend.onrender.com";
 
 export function getTrendingCoins() {
@@ -337,9 +338,9 @@ export function deleteComment(id) {
   };
 }
 
-export function getAllTransactions(){
+export function getAllTransactions() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/users/getTransactions");
+    let json = await axios.get(`${baseUrl}/users/getTransactions`);
     return dispatch({
       type: GET_ALL_TRANSACTIONS,
       payload: json.data,
@@ -347,9 +348,9 @@ export function getAllTransactions(){
   };
 }
 
-export function getAllUsers(){
+export function getAllUsers() {
   return async function (dispatch) {
-    let json = await axios.get("http://localhost:3001/users/allUsers");
+    let json = await axios.get(`${baseUrl}/users/allUsers`);
     return dispatch({
       type: GET_ALL_USERS,
       payload: json.data,
@@ -357,11 +358,21 @@ export function getAllUsers(){
   };
 }
 
-export function getWallet(idUser){
+export function getWallet(idUser) {
   return async function (dispatch) {
-    let json = await axios.get(`http://localhost:3001/users/transaction/${idUser}`);
+    let json = await axios.get(`${baseUrl}/users/transaction/${idUser}`);
     return dispatch({
       type: GET_WALLET,
+      payload: json.data,
+    });
+  };
+}
+
+export function getCoinsFromDB() {
+  return async function (dispatch) {
+    let json = await axios.get(`${baseUrl}/coins/getCoinsFromDB`);
+    return dispatch({
+      type: GET_COINS_FROM_DB,
       payload: json.data,
     });
   };

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -10,7 +11,13 @@ import PanelWallet from '../PanelWallet/PanelWallet';
 import Profile from '../Profile/Profile';
 import PanelTransactions from '../PanelTransactions/PanelTransactions';
 
-import style from "./PanelUser.module.css"
+// import style from "./PanelUser.module.css"
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCoins, getUserInfo } from '../../redux/actions';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase/firebaseConfig';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,6 +55,32 @@ function a11yProps(index) {
 export default function PanelUser() {
   const [value, setValue] = React.useState(0);
 
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userInfo);
+  const allCoins = useSelector((state) => state.allCoins);
+    const [user, setUser] = React.useState({
+      email: "",
+    });
+
+    useEffect(() => {
+      onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          setUser({
+            ...user,
+            email: currentUser.email,
+          });
+        }
+      });
+    }, [dispatch, userInfo]);
+
+    useEffect(() => {
+      dispatch( getUserInfo(user.email));
+   }, [user.email]);
+
+   useEffect(() => {
+    dispatch(getAllCoins());
+  }, [dispatch]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -65,7 +98,17 @@ export default function PanelUser() {
       </Box>
 
       <TabPanel value={value} index={0}>
-       <PanelWallet/>
+        {
+          userInfo && allCoins.length ?
+          <PanelWallet
+          userInfo={userInfo}
+          allCoins={allCoins}
+          />
+          :
+          <div>
+            <h1>Loading...</h1>
+          </div>
+        }
       </TabPanel>
 
       <TabPanel value={value} index={1}>

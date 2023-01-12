@@ -1,11 +1,8 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart, getAllCoins } from "../../redux/actions";
+import { getAllCoins, getCoinsFromDB } from "../../redux/actions";
 import CoinTarget from "../CoinTarget/CoinTarget";
-import { NavLink } from "react-router-dom";
 
-import Grid from "@mui/system/Unstable_Grid";
 import SearchBar from "../SearchBar/SearchBar";
 import style from "./Home.module.css";
 
@@ -15,23 +12,28 @@ import { Pagination, Stack, Typography } from "@mui/material";
 
 import Filter from "../Filter/Filter";
 
-import ProductItem from "../ProductItem/ProductItem";
-import {
-  ADD_TO_CART,
-  CLEAR_CART,
-  REMOVE_ALL_FROM_CART,
-  REMOVE_ONE_FROM_CART,
-} from "../../redux/actions/actionTypes";
+// import ProductItem from "../ProductItem/ProductItem";
+// import {
+//   ADD_TO_CART,
+//   CLEAR_CART,
+//   REMOVE_ALL_FROM_CART,
+//   REMOVE_ONE_FROM_CART,
+// } from "../../redux/actions/actionTypes";
 
 export default function Home() {
-  localStorage.getItem("store") === null && localStorage.setItem("store", "")
+  localStorage.getItem("store") === null && localStorage.setItem("store", "");
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCoins());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getCoinsFromDB());
+  }, [dispatch]);
+
   const allCoins = useSelector((state) => state.allCoins);
+  const coinsDb = useSelector((state) => state.coinsDb);
   console.log(allCoins);
   const cart = useSelector((state) => state.cart);
   console.log(cart);
@@ -43,7 +45,19 @@ export default function Home() {
 
   const lastCoin = currentPage * coinsPerPage;
   const firstCoin = lastCoin - coinsPerPage;
-  const currentCoins = allCoins.slice(firstCoin, lastCoin);
+
+  const coinsDb2 = coinsDb.filter((c) => c.disabled === false);
+
+  let allCoins2 = [];
+  for (var i = 0; i < allCoins.length; i++) {
+    for (var j = 0; j < coinsDb2.length; j++) {
+      if (allCoins[i].id === coinsDb2[j].id) {
+        allCoins2.push(allCoins[i]);
+      }
+    }
+  }
+  const currentCoins = allCoins2.slice(firstCoin, lastCoin);
+  console.log("coinsdb", coinsDb2);
 
   const paginado = (e, p) => {
     setCurrentPage(p);

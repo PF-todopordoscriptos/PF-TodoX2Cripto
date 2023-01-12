@@ -1,5 +1,4 @@
-/*eslint-disable*/
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllWarnings } from "../../redux/actions";

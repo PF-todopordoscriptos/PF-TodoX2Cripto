@@ -1,11 +1,10 @@
-/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import {
-  addCartBack,
-  addTransaction,
-  addTransactionCart,
+  // addCartBack,
+  // addTransaction,
+  // addTransactionCart,
   deleteCartUser,
   getCartUser,
   getUserInfo,
@@ -32,14 +31,17 @@ const Exito = () => {
         });
       }
     });
+    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(user.email));
+    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
+    // eslint-disable-next-line
   }, [userInfo]);
 
   useEffect(() => {
