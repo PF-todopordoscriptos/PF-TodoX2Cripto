@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Paper,
+  Checkbox,
+  FormControlLabel,
+  Switch,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel
+} from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
-import TextField from '@mui/material/TextField';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
@@ -65,7 +65,7 @@ export default function AdminDashboardUsers() {
         qq.forEach(e => ww.push(e))
         setRows(ww)
         setRowsToShow(ww)
-        console.log("FIRST TO RENDER WHEN THE COMPONENT LOADS")
+        /* console.log("FIRST TO RENDER WHEN THE COMPONENT LOADS") */
         onAuthStateChanged(auth, (currentUser) => {
           setCurrentAdmin({
              id: ww.filter(e => e.email === currentUser.email)[0].id,
@@ -94,11 +94,11 @@ export default function AdminDashboardUsers() {
         }})
       qq.forEach(e => ww.push(e))
       setRows(ww)
-      console.log("ACTUALIZACION GENERAL")
+      /* console.log("ACTUALIZACION GENERAL") */
     }).catch(e => console.log(e))
 }
 
-  console.log("CURRENT ADMIN", currentAdmin)
+  /* console.log("CURRENT ADMIN", currentAdmin) */
 
   const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
     await axios.post('http://localhost:3001/users/adminChanges', {
@@ -317,7 +317,7 @@ export default function AdminDashboardUsers() {
     emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , {
       user_email: user_email,
       user_name: user_name,
-      crypto_team: "The CripTornado Team",
+      crypto_team: "The Todo x 2 Cripto Team",
       message: 'Hello dear user, your password has been reset.. Please login and set a new password !'
     } , REACT_APP_EMAILJS_PUBLIC_KEY )
       .then((response) => {
@@ -331,7 +331,7 @@ export default function AdminDashboardUsers() {
     emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
       user_email: user_email,
       user_name: user_name,
-      crypto_team: "The CripTornado Team",
+      crypto_team: "The Todo x 2 Cripto Team",
       message: adm ? 'Hello ! We are grateful to notify you that you are admin now !' : 'Hello.. We notify you that you are not admin anymore..'
     } , REACT_APP_EMAILJS_PUBLIC_KEY )
       .then((response) => {
@@ -345,7 +345,7 @@ export default function AdminDashboardUsers() {
     emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
       user_email: user_email,
       user_name: user_name,
-      crypto_team: "The CripTornado Team",
+      crypto_team: "The Todo x 2 Cripto Team",
       message: dis ? 'Hello ! We notify you that you are able to use our services again !' : 'Hello. We notify you that your account has been disabled for suspicious activity.'
     } , REACT_APP_EMAILJS_PUBLIC_KEY )
       .then((response) => {
@@ -356,19 +356,19 @@ export default function AdminDashboardUsers() {
   }
 
   GetAllUsers(); // FIRST TO RENDER WHEN THE COMPONENT LOADS
-  //setRowsToShow(rows)
-  /* rows.filter(e => e.email.includes("juan")) */
+
+/* 
   console.log("ROWS TO SHOW", rowsToShow)
   console.log("AUXILIAR", auxiliar)
   console.log("INPUT USERNAME", inputUsername)
   console.log("INPUT EMAIL", inputEmail)
   console.log("INPUT ADMIN", inputAdmin)
-  console.log("STATIC 2", arrayForStaticRefresh2)
+  console.log("STATIC 2", arrayForStaticRefresh2) */
 
   return (
 
-    <Box sx={{width: '100vw', marginLeft: "-2.5rem"}}>
-      <TextField
+    <Box sx={{width: '100vw', marginLeft: "-2.5rem" , marginTop: '-2vh'}}>
+      <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
         label="Filter by Username"
         type="search"
@@ -376,7 +376,7 @@ export default function AdminDashboardUsers() {
         onChange={(event) => setInputUsername(event.target.value) + setRowsToShow(rows.filter(e => e.username.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.username.includes(event.target.value))) }
         onClick={inputUsername === "" ? () => setInputId("") + setInputEmail("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
-       <TextField
+       <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
         label="Filter by Id"
         type="search"
@@ -384,18 +384,17 @@ export default function AdminDashboardUsers() {
         onChange={(event) => setInputId(event.target.value) + GetActualAllUsers() + setRowsToShow(rows.filter(e => e.id.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.id.includes(event.target.value))) }
         onClick={inputId === "" ? () => setInputUsername("") + setInputEmail("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
-      <TextField
+      <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
         label="Filter by Email"
         type="search"
         value={inputEmail}
-        /* onChange={(event) => setInputEmail(event.target.value) + setRowsToShow(rows.filter(e => e.email.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.email.includes(event.target.value))) } */
         onChange={(event) => setInputEmail(event.target.value) + setRowsToShow(rows.filter(e => e.email.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.email.includes(event.target.value))) }
 
 
         onClick={inputEmail === "" ? () => setInputUsername("") + setInputId("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
-      <Box>
+      <Box sx={{ marginTop: '1.5vh', marginBottom: '1.5vh' }} >
         <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
           <InputLabel id="demo-simple-select-label">is Admin ?</InputLabel>
           <Select
@@ -405,7 +404,7 @@ export default function AdminDashboardUsers() {
             value={inputAdmin}
             label="isAdmin"
             onChange={(event) => // IS ADMIN SELECTED
-              
+
               setInputAdmin(event.target.value)
               + axios.get('http://localhost:3001/users/allUsers')
               .then((response) => {
@@ -423,13 +422,18 @@ export default function AdminDashboardUsers() {
                 qq.forEach(e => ww.push(e))
                 setRows(ww)
 
-                  /* if(inputUsername !== "" && inputId !== "" && inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww) */
-                  if(inputEmail !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === event.target.value))
-                  if(inputEmail !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+                if(inputUsername !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === event.target.value))
+                if(inputUsername !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername)))
+
+                if(inputId !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === event.target.value))
+                if(inputId !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.id.includes(inputId)))
+
+                if(inputEmail !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === event.target.value))
+                if(inputEmail !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
 
 
 
-                console.log("DONE FETCH DEL ADMIN SELECT")
+                /* console.log("DONE FETCH DEL ADMIN SELECT") */
               })
 
             }
@@ -441,6 +445,7 @@ export default function AdminDashboardUsers() {
           {inputAdmin === "" ? null
           :
           <CloseSharpIcon
+          sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
           onClick={() =>
             axios.get('http://localhost:3001/users/allUsers')
             .then((response) => {
@@ -459,9 +464,8 @@ export default function AdminDashboardUsers() {
               qq.forEach(e => ww.push(e))
               setRows(ww)
               auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-              /* setArrayForStaticRefresh2(arrayForStaticRefresh) */
               setRowsToShow(arrayForStaticRefresh)
-              console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+              /* console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH") */
             }).then(setInputAdmin("")).catch(e => console.log(e))
           }
           />
@@ -470,39 +474,11 @@ export default function AdminDashboardUsers() {
 
       </Box>
 
-      <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '5vh'}} align="center" >
+      <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '1vh'}} align="center" >
       </Box>
-      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
-        <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
-          <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={async function() {
-            await axios.get('http://localhost:3001/users/allUsers')
-            .then((response) => {
-              let ww = []
-              let qq = response.data.map(function(e) {
-                return {
-                  username: e.username,
-                  id: e.id,
-                  uid: e.uid,
-                  password: e.password,
-                  admin: e.admin,
-                  disabled: e.disabled,
-                  email: e.email,
-                  name: e.name
-                }})
-              qq.forEach(e => ww.push(e))
-              setRows(ww)
-              console.log("DONE FETCH")
-            }).catch(e => console.log(e))
-          }}/>
-          <Box sx={{ fontSize: 'large' , color: "white" , padding: '0vw 0.3vw 0vw', cursor: "pointer"}} >
-            REFRESH
-          </Box>
-        </Box>
-        <Box sx={{ fontSize: 'large' , color: "white" }}>
-          ADMIN DASHBOARD  -  USERS
-        </Box>
-        <Box  sx={{  width: '8vw' }}  >
-        </Box>
+      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '3vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
+        
+        
       </Box>
       <Box sx={{ width: '100vw' , backgroundColor: deepPurple[800] }} >
         <Paper sx={{ width: '100vw', mb: 2 }} >
@@ -575,7 +551,7 @@ export default function AdminDashboardUsers() {
                                     }})
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
-                                  console.log("DONE FETCH")
+                                  /* console.log("DONE FETCH") */
                                   passwordNotifier( row.email , row.name )
                                 }).catch(e => console.log(e))
                               }) : null}
@@ -585,72 +561,13 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* ADMIN COLUMN */
                               color="primary"
                               checked={row.admin}
-                              /* onClick={() => changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin)
-                                .then(() => GetActualAllUsers())
-                                .then(() => setRowsToShow(
-                                  inputEmail !== "" ? rows.filter(e => e.email.includes(inputEmail)) : rows
-                                   ))
-                                  } */
-                                  /* onClick={() => Promise.all([console.log(1)])
-                                    .then(console.log(2))
-                                    .then(console.log(3))
-                                      } */
-                                     /*  onClick={() => Promise.all([changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin)])
-                                        .then(GetActualAllUsers())
-                                        .then((resp) => console.log("QE HAY ACA", resp))
-                                          .then(console.log("HDPPP", rows))
-                                          } */
 
-                                  /* (inputEmail !== "" &&  inputAdmin !== "" ? setRowsToShow(rows.filter(e => e.email.includes(inputEmail)).filter(e => e.admin === inputAdmin)) : null)) */
-                                  /* onClick={inputEmail !== "" ? () => Promise.all([changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin) + console.log(1)]).then(console.log(2)) + setRowsToShow(rows.filter(e => e.email.includes(inputEmail))) + console.log(3) : null} */
-
-
-
-                                  /* rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0])) */ /* ID OF ROWS SHOWED IF FILTERED OR NOT */
-                                  /* setArrayForStaticRefresh2(arrayForStaticRefresh) */
-                                  /* setRowsToShow(arrayForStaticRefresh.filter(e => e.admin.includes(inputAdmin))) */
-                                  /* console.log("DONE FETCH") */
                                   /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
                                    /* + adminNotifier( row.email , row.name , !row.admin) */
 
-                                   /* onClick={() => changeAdmin(rowsToShow[rowsToShow.indexOf(row)].id, rowsToShow[rowsToShow.indexOf(row)].admin).then(async function() {
-                                    await axios.get('http://localhost:3001/users/allUsers')
-                                    .then(async (response) => {
-                                      let arrayForStaticRefresh = []
-                                      let ww = []
-                                      let qq = await response.data.map(function(e) {
-                                        return {
-                                          username: e.username,
-                                          id: e.id,
-                                          uid: e.uid,
-                                          password: e.password,
-                                          admin: e.admin,
-                                          disabled: e.disabled,
-                                          email: e.email,
-                                          name: e.name
-                                        }})
-                                      qq.forEach(e => ww.push(e))
-                                      setRows(ww)
-                                      (inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false) ? setRowsToShow(ww.filter(e => e.email.includes(inputEmail))) :
-                                      inputEmail !== "" &&  inputAdmin === "" ? setRowsToShow(ww.filter(e => e.email.includes(inputEmail))) : null) */
-
-                                      //setRowsToShow(ww)
-                                      /* rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-                                      arrayForStaticRefresh = arrayForStaticRefresh2
-                                      setRows(arrayForStaticRefresh)
-                                      setRowsToShow(arrayForStaticRefresh)
-                                      console.log("DONE FETCH") */
-
-                                       /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
-                                   /* + adminNotifier( row.email , row.name , !row.admin) */
-                                    /* }).catch(e => console.log(e)) asdasd
-                                  })} */
-
-                                  /* onClick={() => (changeAdmin(rows[rowsToShow.indexOf(row)].id, rows[rowsToShow.indexOf(row)].admin)).then( async () => GetActualAllUsers() ).then(() => setRowsToShow(rows))} */
-                                  /* onClick={() => changeAdmin(row.id, row.admin) + GetActualAllUsers() + setRowsToShow(rows)} */
                                   onClick={ () =>
                                     (changeAdmin(row.id, row.admin))
-                                    .then(() => console.log("ADMINN", row.admin))
+                                    /* .then(() => console.log("ADMINN", row.admin)) */
                                     .then(() => axios.get('http://localhost:3001/users/allUsers')
                                     .then((response) => {
 
@@ -667,13 +584,20 @@ export default function AdminDashboardUsers() {
                                         }})
                                       qq.forEach(e => ww.push(e))
                                       setRows(ww)
+                                      if(inputUsername === "" &&  inputId === "" &&  inputEmail === "" && inputAdmin === "") setRowsToShow(ww)
 
-                                        if(inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin))
-                                        if(inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+                                      if(inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin ===  inputAdmin))
+                                      if(inputUsername !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername)))
+
+                                      if(inputId !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin ===  inputAdmin))
+                                      if(inputId !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.id.includes(inputId)))
+
+                                      if(inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin))
+                                      if(inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
 
 
 
-                                      console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+                                      /* console.log("DONE FETCH DEL CHECKBOX ADMIN") */
                                     }))
                                   }
 
@@ -706,7 +630,7 @@ export default function AdminDashboardUsers() {
                                   arrayForStaticRefresh = arrayForStaticRefresh2
                                   setRows(arrayForStaticRefresh)
                                   setRowsToShow(arrayForStaticRefresh)
-                                  console.log("DONE FETCH")
+                                 /*  console.log("DONE FETCH") */
                                   adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled)
                                   disabledNotifier( row.email , row.name , !!row.disabled)
                                 }).catch(e => console.log(e))
@@ -735,17 +659,7 @@ export default function AdminDashboardUsers() {
             />
         </Paper>
       </Box>
-      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '7vh' , backgroundColor: deepPurple[100] }} >
-        <Box>
-          <strong>PASSWORD:     </strong><Checkbox color="primary" checked={true}/>=  User have password     <Checkbox color="primary" checked={false}/>=  User do not have password
-        </Box>
-        <Box>
-          <strong>ADMIN:     </strong><Checkbox color="primary" checked={true}/>=  User is admin     <Checkbox color="primary" checked={false}/>=  User is not admin
-        </Box>
-        <Box>
-          <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  User is disabled     <Checkbox color="primary" checked={false}/>=  User is not disabled
-        </Box>
-      </Box>
+      
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '9vh' , backgroundColor: deepPurple[800]}}>
         <Box sx={{ color: "white" }}>
           <FormControlLabel
@@ -757,7 +671,7 @@ export default function AdminDashboardUsers() {
           Warning ! Every change you made will automatically impact in database & send an email to user !
         </Box>
         <Box sx={{ color: "white" }} >
-          ©  2022  CripTornado
+          ©  2022  Todo x 2 Cripto
         </Box>
       </Box>
     </Box>
