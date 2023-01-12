@@ -15,7 +15,7 @@ const {
   addCoinsUserCart,
   finishTransactions,
   getCoinsUserCart,
-  getWalletUser,
+  getWalletUser
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
@@ -30,7 +30,7 @@ const {
 const mercadopago = require("mercadopago");
 const { preferences } = require("mercadopago");
 require("dotenv").config();
-mercadopago.configure({ access_token: process.env.MERCADOPAGO_KEY });
+mercadopago.configure({ access_token: process.env.MERCADOPAGO_KEY})
 
 const router = Router();
 
@@ -158,6 +158,8 @@ router.get("/allAdminChanges", async (req, res) => {
   }
 });
 
+
+
 router.post("/adminChanges", async (req, res) => {
   const {
     idAdmin,
@@ -208,8 +210,8 @@ router.post("/addTransactionCart", async (req, res) => {
 
 router.get("/transactionCart/:idUser", async (req, res) => {
   try {
-    const { idUser } = req.params;
-    let transaction = await getCoinsUserCart(idUser);
+    const { idUser} = req.params;
+    let transaction =await getCoinsUserCart(idUser);
     res.status(200).json(transaction);
   } catch (e) {
     res.status(404).send(e.message);
@@ -218,63 +220,58 @@ router.get("/transactionCart/:idUser", async (req, res) => {
 
 router.get("/transaction/:idUser", async (req, res) => {
   try {
-    const { idUser } = req.params;
-    let transaction = await getWalletUser(idUser);
+    const { idUser} = req.params;
+    let transaction =await getWalletUser(idUser);
     res.status(200).json(transaction);
   } catch (e) {
     res.status(404).send(e.message);
   }
 });
 
-router.delete("/finishTransactions/:idUser", async (req, res) => {
-  try {
+router.delete("/finishTransactions/:idUser", async(req, res) =>{
+  try{
     const { idUser } = req.params;
-    let validation = finishTransactions(idUser);
-    res.status(200).json(validation);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-});
+    let validation= finishTransactions(idUser)
+        res.status(200).json(validation);
+      } catch (err) {
+        res.status(400).json(err.message);
+      }
+    });
+
 
 router.post("/payment", async (req, res) => {
   const product = req.body;
   try {
-    let qq = [];
+    let qq = []
     function pusher() {
       product.map((e) => {
         qq.push({
           id: product.indexOf(e),
-          title:
-            product[product.indexOf(e)].amount +
-            " " +
-            product[product.indexOf(e)].title,
+          title: product[product.indexOf(e)].amount + " " + product[product.indexOf(e)].title,
           quantity: 1,
-          unit_price:
-            parseFloat(product[product.indexOf(e)].price) / 10 +
-            parseFloat(product[product.indexOf(e)].price),
-          currency_id: "ARS",
-        });
-      });
+          unit_price: (parseFloat(product[product.indexOf(e)].price) / 10) + parseFloat(product[product.indexOf(e)].price),
+          currency_id: 'ARS',
+        })
+       })
     }
-    pusher();
+    pusher()
     let preference = {
       items: qq,
       payer: {
         type: "customer",
-        id: "4085428740137259",
+        id: "4085428740137259"
       },
       back_urls: {
-        success: "https://todox2cripto-frontend.onrender.com/exito",
-        failure: "",
-        pending: "",
+        success: 'http://localhost:3000/exito',
+        failure: '',
+        pending: ''
       },
-      auto_return: "approved",
-      binary_mode: true,
-    };
-    mercadopago.preferences
-      .create(preference)
-      .then((response) => res.status(200).send({ response }))
-      .catch((e) => res.status(404).send.apply(e.message));
+      auto_return: 'approved',
+      binary_mode: true
+    }
+    mercadopago.preferences.create(preference)
+    .then((response) => res.status(200).send({response}))
+    .catch((e) => res.status(404).send.apply(e.message))
   } catch (e) {
     res.status(404).send(e.message);
   }
@@ -309,5 +306,7 @@ router.put("/:email", async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+
+
 
 module.exports = router;
