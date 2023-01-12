@@ -45,6 +45,7 @@ import Box from "@mui/material/Box";
 import Exito from "../src/components/Exito/Exito";
 import Developers from "./components/Developers/Developers";
 import About from "./components/About/About";
+import NewFAQ from "./components/NewFAQ/NewFAQ";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -226,6 +227,14 @@ function App() {
                 </>
               }
             /> */}
+            <Route
+              path="/FAQ"
+              element={
+                <>
+                  <Navbar /> <NewFAQ /> <Footer />{" "}
+                </>
+              }
+            />
             <Route path="/chart/:id" element={<Chart />} />
             <Route element={<ProtectedRoute user={user} />}>
               <Route
