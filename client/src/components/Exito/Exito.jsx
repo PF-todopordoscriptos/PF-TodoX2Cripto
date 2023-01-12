@@ -8,6 +8,7 @@ import {
   deleteCartUser,
   getCartUser,
   getUserInfo,
+  sendMail,
 } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -43,6 +44,13 @@ const Exito = () => {
     dispatch(getCartUser(userInfo.id));
     // eslint-disable-next-line
   }, [userInfo]);
+  
+  useEffect(() => {
+    console.log(user.email)
+    console.log("aca se mandaria")
+    dispatch(sendMail(user.email));
+    // eslint-disable-next-line
+  }, [user.email]);
 
   useEffect(() => {
     dispatch(function addToTransaction() {
