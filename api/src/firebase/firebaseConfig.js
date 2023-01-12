@@ -11,12 +11,12 @@ const firebaseConfig = {
   projectId: "todox2cripto",
   storageBucket: "todox2cripto.appspot.com",
   messagingSenderId: "211613892756",
-  appId: "1:211613892756:web:0056094c3ac93a53113481"
+  appId: "1:211613892756:web:0056094c3ac93a53113481",
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
 module.exports = {
-    auth : getAuth(firebaseApp)
-}
+  auth: getAuth(firebaseApp),
+};

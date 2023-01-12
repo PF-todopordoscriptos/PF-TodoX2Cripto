@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
+    uid: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -28,21 +32,22 @@ module.exports = (sequelize) => {
     nationality: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: '',
+      defaultValue: "",
     },
     name: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: '',
+      defaultValue: "",
     },
     lastname: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: '',
+      defaultValue: "",
     },
     img: {
       type: DataTypes.STRING,
-      defaultValue: "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
+      defaultValue:
+        "https://res.cloudinary.com/dpb5vf1q1/image/upload/v1672942978/dinox_pic_mkcd4k.png",
     },
     admin: {
       type: DataTypes.BOOLEAN,
