@@ -6,9 +6,5 @@
     "react-moment": "^1.1.2",
     "react-router-dom": "^6.4.4",
     "sweetalert2": "^11.6.15"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
-    "eslint": "^8.31.0"
   }
 }
