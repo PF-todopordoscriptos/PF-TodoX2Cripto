@@ -55,7 +55,7 @@ const Footer = () => {
               </Typography>
             </Stack>
             <Stack>
-              <Link
+              {/* <Link
                 //className="footer-right-section-FAQ"
                 sx={{
                   ":hover": { color: "footer.:hover.textWhiteBlack" },
@@ -65,7 +65,7 @@ const Footer = () => {
                 underline="none"
               >
                 FAQ
-              </Link>
+              </Link> */}
               <Link
                 //className="footer-right-section-FAQ"
                 sx={{
