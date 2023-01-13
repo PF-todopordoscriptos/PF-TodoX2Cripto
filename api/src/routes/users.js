@@ -271,8 +271,8 @@ router.post("/payment", async (req, res) => {
         id: "4085428740137259",
       },
       back_urls: {
-        // success: "https://todox2cripto-frontend.onrender.com/exito",
-        success: "http://localhost:3000/exito",
+        success: "https://todox2cripto-frontend.onrender.com/exito",
+        //success: "http://localhost:3000/exito",
         failure: "",
         pending: "",
       },

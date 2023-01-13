@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-// const backendUrl = "http://localhost:3001"
+//const backendUrl = "http://localhost:3001"
 const backendUrl = "https://todox2cripto-backend.onrender.com"
 
 const Profile = () => {
