@@ -135,9 +135,9 @@ router.put("/modifyUserDisabled", async (req, res) => {
     await modifyUserDisabled(id, disabled);
     const findUser = await getUserById(id);
 
-    getAuth().updateUser(findUser.uid, {
-      disabled: disabled,
-    });
+    // getAuth().updateUser(findUser.uid, {
+    //   disabled: disabled,
+    // });
 
     res.status(200).send(findUser);
   } catch (e) {
