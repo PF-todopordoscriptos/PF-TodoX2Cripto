@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import {
+  clearDetail,
   createComment,
   createWarning,
   getCoinComment,
@@ -63,6 +64,10 @@ const Details = (props) => {
     coinImg: "",
     stars: 0,
   });
+
+  const clearDetalle = () => {
+    dispatch(clearDetail())
+  }
 
   useEffect(() => {
     dispatch(getCoinDetail(id));
@@ -226,7 +231,7 @@ const Details = (props) => {
 
   return (
     <div className={style.Todo}>
-      <div className={style.contArrow}>
+      <div className={style.contArrow} onClick={clearDetalle}>
         <NavLink to="/home">
           <HiArrowUturnLeft className={style.arrow} />
         </NavLink>

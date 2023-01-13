@@ -35,7 +35,8 @@ import {
   // DELETE_COMMENT,
   GET_WALLET,
   GET_COINS_FROM_DB,
-  SEND_MAIL
+  SEND_MAIL,
+  CLEAR_DETAIL
 } from "./actionTypes";
 
 //const baseUrl = "http://localhost:3001";
@@ -385,4 +386,11 @@ export function sendMail(email) {
     let json = await axios.post(`${baseUrl}/users/sendEmail/${email}`);
     return json;
   };
+}
+
+export function clearDetail(payload){
+  return{
+      type: CLEAR_DETAIL,
+      payload: payload
+  }
 }
