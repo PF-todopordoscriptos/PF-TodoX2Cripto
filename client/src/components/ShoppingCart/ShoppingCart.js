@@ -18,6 +18,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
 
 const ShoppingCart = () => {
 
