@@ -17,14 +17,16 @@ import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import { cyan } from '@mui/material/colors';
 import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
 
 export default function AdminDashboardChanges() {
-
+  
   let [rows, setRows] = useState([]);
 
   let GetAllChanges =  () => {
     useEffect(() => {
-      axios.get('http://localhost:3001/users/allAdminChanges')
+      axios.get(`${backendUrl}/users/allAdminChanges`)
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
@@ -230,7 +232,7 @@ export default function AdminDashboardChanges() {
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
           <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
-            axios.get('http://localhost:3001/users/allAdminChanges')
+            axios.get(`${backendUrl}/users/allAdminChanges`)
             .then((response) => {
               let ww = []
               let qq = response.data.map(function(e) {

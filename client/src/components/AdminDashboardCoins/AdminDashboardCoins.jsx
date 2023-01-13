@@ -22,6 +22,8 @@ import axios from 'axios';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
 
 export default function AdminDashboardCoins() {
 
@@ -30,7 +32,7 @@ export default function AdminDashboardCoins() {
 
   let GetAllCoins =  () => {
     useEffect(() => {
-      axios.get('http://localhost:3001/coins/getCoinsFromDB')
+      axios.get(`${backendUrl}/coins/getCoinsFromDB`)
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
@@ -44,7 +46,7 @@ export default function AdminDashboardCoins() {
         console.log("DONE FETCH")
       })
       .then(
-        axios.get('http://localhost:3001/users/allUsers')
+        axios.get(`${backendUrl}/users/allUsers`)
         .then((response) => {
           let ww = []
           let qq = response.data.map(function(e) {
@@ -72,7 +74,7 @@ export default function AdminDashboardCoins() {
   console.log("TEST", currentAdmin)
 
   const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
-    await axios.post('http://localhost:3001/users/adminChanges', {
+    await axios.post(`${backendUrl}/users/adminChanges`, {
       idAdmin: idAdmin,
       emailAdmin: emailAdmin,
       idUser: idUser,
@@ -85,7 +87,7 @@ export default function AdminDashboardCoins() {
   }
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/coins/modifyCoinDisabled', {
+    await axios.put(`${backendUrl}/coins/modifyCoinDisabled`, {
       id: id,
       disabled: !dis
     })
@@ -269,7 +271,7 @@ export default function AdminDashboardCoins() {
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box  sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '17vw'  }}>
           <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
-            axios.post('http://localhost:3001/coins/postCoinsAPItoDB')
+            axios.post(`${backendUrl}/coins/postCoinsAPItoDB`)
             .then((response) => {
               let ww = []
               let qq = response.data.map(function(e) {
@@ -339,7 +341,7 @@ export default function AdminDashboardCoins() {
                           color="primary"
                           checked={row.disabled}
                           onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
-                            axios.get('http://localhost:3001/coins/getCoinsFromDB')
+                            axios.get(`${backendUrl}/coins/getCoinsFromDB`)
                             .then((response) => {
                               let ww = []
                               let qq = response.data.map(function(e) {

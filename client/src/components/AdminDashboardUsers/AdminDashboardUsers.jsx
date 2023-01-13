@@ -30,6 +30,9 @@ import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
 
 const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
+
 
 export default function AdminDashboardUsers() {
 
@@ -46,9 +49,10 @@ export default function AdminDashboardUsers() {
   let [auxiliar, setAuxiliar] = useState([]); // TIENE ID's DEL PRIMER FILTRO (sea USERNAME, ID, o EMAIL)
   let [rowsToShow, setRowsToShow] = useState([]);
 
-  let GetAllUsers = () => { // FIRST TO RENDER WHEN THE COMPONENT LOADS
-      useEffect( () => {
-      axios.get('http://localhost:3001/users/allUsers')
+
+  let GetAllUsers =  () => {
+    useEffect(() => {
+      axios.get(`${backendUrl}/users/allUsers`)
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
@@ -101,7 +105,7 @@ export default function AdminDashboardUsers() {
   /* console.log("CURRENT ADMIN", currentAdmin) */
 
   const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
-    await axios.post('http://localhost:3001/users/adminChanges', {
+    await axios.post(`${backendUrl}/users/adminChanges`, {
       idAdmin: idAdmin,
       emailAdmin: emailAdmin,
       idUser: idUser,
@@ -114,21 +118,21 @@ export default function AdminDashboardUsers() {
   }
 
   const changeAdmin = async (id, adm) => {
-    await axios.put('http://localhost:3001/users/modifyUserAdmin', {
+    await axios.put(`${backendUrl}/users/modifyUserAdmin`, {
       id: id,
       admin: !adm
     })
   }
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/users/modifyUserDisabled', {
+    await axios.put(`${backendUrl}/users/modifyUserDisabled`, {
       id: id,
       disabled: !dis
     })
   }
 
   const changePassword = async (id, pass) => {
-    await axios.put('http://localhost:3001/users/modifyUserPassword', {
+    await axios.put(`${backendUrl}/users/modifyUserPassword`, {
       id: id,
       password: pass ? pass : ""
     })
@@ -366,7 +370,6 @@ export default function AdminDashboardUsers() {
   console.log("STATIC 2", arrayForStaticRefresh2) */
 
   return (
-
     <Box sx={{width: '100vw', marginLeft: "-2.5rem" , marginTop: '-2vh'}}>
       <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
@@ -406,7 +409,7 @@ export default function AdminDashboardUsers() {
             onChange={(event) => // IS ADMIN SELECTED
 
               setInputAdmin(event.target.value)
-              + axios.get('http://localhost:3001/users/allUsers')
+              + axios.get(`${backendUrl}/users/allUsers`)
               .then((response) => {
                 let ww = []
                 let qq = response.data.map(function(e) {
@@ -447,7 +450,7 @@ export default function AdminDashboardUsers() {
           <CloseSharpIcon
           sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
           onClick={() =>
-            axios.get('http://localhost:3001/users/allUsers')
+            axios.get(`${backendUrl}/users/allUsers`)
             .then((response) => {
               let arrayForStaticRefresh = []
               let ww = []
@@ -534,8 +537,8 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* PASSWORD COLUMN */
                               color="primary"
                               checked={!!row.password}
-                              onClick={!!row.password ? () => + changePassword(rowsToShow[rowsToShow.indexOf(row)].id).then(async function() {
-                                await axios.get('http://localhost:3001/users/allUsers')
+                              onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
+                                axios.get(`${backendUrl}/users/allUsers`)
                                 .then((response) => {
                                   let ww = []
                                   let qq = response.data.map(function(e) {
@@ -561,14 +564,12 @@ export default function AdminDashboardUsers() {
                             <Checkbox /* ADMIN COLUMN */
                               color="primary"
                               checked={row.admin}
-
                                   /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
                                    /* + adminNotifier( row.email , row.name , !row.admin) */
-
                                   onClick={ () =>
                                     (changeAdmin(row.id, row.admin))
                                     /* .then(() => console.log("ADMINN", row.admin)) */
-                                    .then(() => axios.get('http://localhost:3001/users/allUsers')
+                                    axios.get(`${backendUrl}/users/allUsers`)
                                     .then((response) => {
 
                                       let ww = []
@@ -600,8 +601,6 @@ export default function AdminDashboardUsers() {
                                       /* console.log("DONE FETCH DEL CHECKBOX ADMIN") */
                                     }))
                                   }
-
-
                             />
                           </TableCell>
                           <TableCell sx={{ width: '11vw' }} align="center">
@@ -609,7 +608,7 @@ export default function AdminDashboardUsers() {
                               color="primary"
                               checked={row.disabled}
                               onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(async function() {
-                                await axios.get('http://localhost:3001/users/allUsers')
+                                axios.get(`${backendUrl}/users/allUsers`)
                                 .then(async (response) => {
                                   let arrayForStaticRefresh = []
                                   let ww = []

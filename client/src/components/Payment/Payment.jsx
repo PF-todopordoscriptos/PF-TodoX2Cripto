@@ -3,7 +3,11 @@ import axios from 'axios';
 import { Box , TableRow , TableCell , Button , Checkbox } from '@mui/material';
 import { grey , yellow } from '@mui/material/colors';
 
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
+
 export default function Payment() {
+  
 
   let [first, setFirst] = useState(false);
   let [second, setSecond] = useState(false);
@@ -91,7 +95,7 @@ export default function Payment() {
         disabled={!!first && !!second ? false : true}
         sx={{ backgroundColor: yellow[500] , color: grey[900] , width: '12vw'}}
         onClick={() => {
-          axios.post('http://localhost:3001/users/payment', product)
+          axios.post(`${backendUrl}/users/payment`, product)
           .then((res) => window.location.href = res.data.response.body.init_point)
       }}
       >
