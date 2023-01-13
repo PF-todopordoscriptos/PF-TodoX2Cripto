@@ -41,6 +41,7 @@
   border-radius: 8px;
   margin-top: 10px;
   cursor: pointer;
+  margin-bottom: 18px;
 }
 .button-clear-cart:hover {
   font-weight: 700;

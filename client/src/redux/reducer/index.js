@@ -35,7 +35,8 @@ import {
   GET_ALL_USERS,
   GET_WALLET,
   GET_COINS_FROM_DB,
-  SEND_MAIL
+  SEND_MAIL,
+  CLEAR_DETAIL
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -381,6 +382,13 @@ export function rootReducer(state = initialState, action) {
         ...state,
       };
     }
+    case CLEAR_DETAIL: {
+      return{
+        ...state,
+        coinDetails: {}
+      }
+    }
+
 
     default:
       return state;
