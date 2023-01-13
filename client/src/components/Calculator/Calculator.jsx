@@ -13,6 +13,9 @@ import style from "./Calculator.module.css";
 
 import Swal from "sweetalert2";
 
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
+
 const Calculator = ({ id }) => {
   const dispatch = useDispatch();
   const [coin, setCoin] = useState({});
@@ -133,7 +136,7 @@ const Calculator = ({ id }) => {
               ? () => saveToLocalStore() + addItem()
               : () => {
                   addItem();
-                  axios.post(`http://localhost:3001/users/addTransactionCart`, {
+                  axios.post(`${backendUrl}/users/addTransactionCart`, {
                     idUser,
                     idCoin,
                     quantity,
