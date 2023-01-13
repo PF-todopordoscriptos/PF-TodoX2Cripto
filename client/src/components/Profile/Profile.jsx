@@ -22,6 +22,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 
 const Profile = () => {
+  const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
   //const {user, isAuthenticated, logout} = useAuth0();
 
   // const history = useHistory();
@@ -164,7 +165,7 @@ const Profile = () => {
     });
 
     ww.map((e) => {
-      axios.post(`http://localhost:3001/users/addTransactionCart`, {
+      axios.post(`${backendUrl}/users/addTransactionCart`, {
         idUser: userInfo.id,
         idCoin: e.idCoin,
         quantity: e.quantity,

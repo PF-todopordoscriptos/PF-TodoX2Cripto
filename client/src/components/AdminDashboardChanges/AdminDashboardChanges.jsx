@@ -19,7 +19,9 @@ import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 
 export default function AdminDashboardChanges() {
-  const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
+  //const backendUrl = "http://localhost:3001"
+  const backendUrl = "https://todox2cripto-backend.onrender.com"
+  
   let [rows, setRows] = useState([]);
 
   let GetAllChanges =  () => {

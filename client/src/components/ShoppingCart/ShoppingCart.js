@@ -19,6 +19,8 @@ import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
 const ShoppingCart = () => {
+  const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
+
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.userInfo);
@@ -212,7 +214,7 @@ const ShoppingCart = () => {
               className="button-buy-crypto"
               onClick={() => {
                 axios
-                  .post("http://localhost:3001/users/payment", product)
+                  .post(`${backendUrl}/users/payment`, product)
                   .then(
                     (res) =>
                       (window.location.href = res.data.response.body.init_point)
