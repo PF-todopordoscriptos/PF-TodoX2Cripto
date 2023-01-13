@@ -29,7 +29,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
 
+<<<<<<< HEAD
 const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
+=======
+const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
+
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
 
 export default function AdminDashboardUsers() {
 
@@ -47,9 +54,10 @@ export default function AdminDashboardUsers() {
   let [auxiliar, setAuxiliar] = useState([]); // TIENE ID's DEL PRIMER FILTRO (sea USERNAME, ID, o EMAIL)
   let [rowsToShow, setRowsToShow] = useState([]);
 
-  let GetAllUsers = () => { // FIRST TO RENDER WHEN THE COMPONENT LOADS
-      useEffect( () => {
-      axios.get('http://localhost:3001/users/allUsers')
+
+  let GetAllUsers =  () => {
+    useEffect(() => {
+      axios.get(`${backendUrl}/users/allUsers`)
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
@@ -102,7 +110,7 @@ export default function AdminDashboardUsers() {
   /* console.log("CURRENT ADMIN", currentAdmin) */
 
   const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
-    await axios.post('http://localhost:3001/users/adminChanges', {
+    await axios.post(`${backendUrl}/users/adminChanges`, {
       idAdmin: idAdmin,
       emailAdmin: emailAdmin,
       idUser: idUser,
@@ -115,19 +123,28 @@ export default function AdminDashboardUsers() {
   }
 
   const changeAdmin = async (id, adm) => {
-    await axios.put('http://localhost:3001/users/modifyUserAdmin', {
+    await axios.put(`${backendUrl}/users/modifyUserAdmin`, {
       id: id,
       admin: !adm
     })
   }
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/users/modifyUserDisabled', {
+    await axios.put(`${backendUrl}/users/modifyUserDisabled`, {
       id: id,
       disabled: !dis
     })
   }
 
+<<<<<<< HEAD
+=======
+  const changePassword = async (id, pass) => {
+    await axios.put(`${backendUrl}/users/modifyUserPassword`, {
+      id: id,
+      password: pass ? pass : ""
+    })
+  }
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -337,7 +354,6 @@ export default function AdminDashboardUsers() {
   console.log("INPUT DISABLED", inputDisabled)
 
   return (
-
     <Box sx={{width: '100vw', marginLeft: "-2.5rem" , marginTop: '-2vh'}}>
       <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
@@ -375,6 +391,7 @@ export default function AdminDashboardUsers() {
               label="isAdmin"
               onChange={(event) => // IS ADMIN SELECTED
 
+<<<<<<< HEAD
                 setInputAdmin(event.target.value)
                 + axios.get('http://localhost:3001/users/allUsers')
                 .then((response) => {
@@ -420,6 +437,10 @@ export default function AdminDashboardUsers() {
             sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
             onClick={() => // CRUZ DEL IS ADMIN SELECTED BUTTON
               axios.get('http://localhost:3001/users/allUsers')
+=======
+              setInputAdmin(event.target.value)
+              + axios.get(`${backendUrl}/users/allUsers`)
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
               .then((response) => {
                 let arrayForStaticRefresh = []
                 let ww = []
@@ -453,7 +474,42 @@ export default function AdminDashboardUsers() {
             }
           </FormControl>
 
+<<<<<<< HEAD
         </Box>
+=======
+            <MenuItem value={true}>Is Admin</MenuItem>
+            <MenuItem value={false}>Is not Admin</MenuItem>
+          </Select>
+          {inputAdmin === "" ? null
+          :
+          <CloseSharpIcon
+          sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
+          onClick={() =>
+            axios.get(`${backendUrl}/users/allUsers`)
+            .then((response) => {
+              let arrayForStaticRefresh = []
+              let ww = []
+              let qq = response.data.map(function(e) {
+                return {
+                  username: e.username,
+                  id: e.id,
+                  password: e.password,
+                  admin: e.admin,
+                  disabled: e.disabled,
+                  email: e.email,
+                  name: e.name
+                }})
+              qq.forEach(e => ww.push(e))
+              setRows(ww)
+              auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
+              setRowsToShow(arrayForStaticRefresh)
+              /* console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH") */
+            }).then(setInputAdmin("")).catch(e => console.log(e))
+          }
+          />
+          }
+        </FormControl>
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
 
         <Box sx={{ marginTop: '1.5vh', marginBottom: '1.5vh' }}  >
           <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
@@ -608,6 +664,7 @@ export default function AdminDashboardUsers() {
                           <TableCell sx={{ width: '11vw' }} align="center">
                             <Checkbox /* ADMIN COLUMN */
                               color="primary"
+<<<<<<< HEAD
                               checked={row.admin}
 
                                   /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
@@ -677,6 +734,11 @@ export default function AdminDashboardUsers() {
                                 
                                 /* .then(() => console.log("ADMINN", row.admin)) */
                                 .then(async () => await axios.get('http://localhost:3001/users/allUsers')
+=======
+                              checked={!!row.password}
+                              onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
+                                axios.get(`${backendUrl}/users/allUsers`)
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
                                 .then((response) => {
 
                                   let ww = []
@@ -693,6 +755,7 @@ export default function AdminDashboardUsers() {
                                     }})
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
+<<<<<<< HEAD
 
                                   if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
                                   if (inputId !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
@@ -701,6 +764,25 @@ export default function AdminDashboardUsers() {
                                   if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) && inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin)) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
                                   if (inputId !== ""  &&  (inputAdmin === true || inputAdmin === false)  && inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin )) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
                                   if (inputEmail !== ""  &&  (inputAdmin === true || inputAdmin === false) && inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin)) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
+=======
+                                  /* console.log("DONE FETCH") */
+                                  passwordNotifier( row.email , row.name )
+                                }).catch(e => console.log(e))
+                              }) : null}
+                            />
+                          </TableCell>
+                          <TableCell sx={{ width: '11vw' }} align="center">
+                            <Checkbox /* ADMIN COLUMN */
+                              color="primary"
+                              checked={row.admin}
+                                  /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
+                                   /* + adminNotifier( row.email , row.name , !row.admin) */
+                                  onClick={ () =>
+                                    (changeAdmin(row.id, row.admin))
+                                    /* .then(() => console.log("ADMINN", row.admin)) */
+                                    axios.get(`${backendUrl}/users/allUsers`)
+                                    .then((response) => {
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
 
                                   if (inputUsername !== "" &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
                                   if (inputId !== ""   &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId)  && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
@@ -716,6 +798,47 @@ export default function AdminDashboardUsers() {
                                 }).then(() => disabledNotifier( row.email , row.name , !!row.disabled)))
                               }
 
+<<<<<<< HEAD
+=======
+
+
+                                      /* console.log("DONE FETCH DEL CHECKBOX ADMIN") */
+                                    }))
+                                  }
+                            />
+                          </TableCell>
+                          <TableCell sx={{ width: '11vw' }} align="center">
+                            <Checkbox /* DISABLED COLUMN */
+                              color="primary"
+                              checked={row.disabled}
+                              onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(async function() {
+                                axios.get(`${backendUrl}/users/allUsers`)
+                                .then(async (response) => {
+                                  let arrayForStaticRefresh = []
+                                  let ww = []
+                                  let qq = await response.data.map(function(e) {
+                                    return {
+                                      username: e.username,
+                                      id: e.id,
+                                      uid: e.uid,
+                                      password: e.password,
+                                      admin: e.admin,
+                                      disabled: e.disabled,
+                                      email: e.email,
+                                      name: e.name
+                                    }})
+                                  qq.forEach(e => ww.push(e))
+                                  setRows(ww)
+                                  rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
+                                  arrayForStaticRefresh = arrayForStaticRefresh2
+                                  setRows(arrayForStaticRefresh)
+                                  setRowsToShow(arrayForStaticRefresh)
+                                 /*  console.log("DONE FETCH") */
+                                  adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled)
+                                  disabledNotifier( row.email , row.name , !!row.disabled)
+                                }).catch(e => console.log(e))
+                              })}
+>>>>>>> ad049a8d911ac3bbb2efc14d28d81e7f88eda466
                             />
                           </TableCell>
                         </TableRow>

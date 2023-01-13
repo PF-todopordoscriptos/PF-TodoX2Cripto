@@ -18,7 +18,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
+
 const ShoppingCart = () => {
+
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.userInfo);
@@ -212,7 +216,7 @@ const ShoppingCart = () => {
               className="button-buy-crypto"
               onClick={() => {
                 axios
-                  .post("http://localhost:3001/users/payment", product)
+                  .post(`${backendUrl}/users/payment`, product)
                   .then(
                     (res) =>
                       (window.location.href = res.data.response.body.init_point)
