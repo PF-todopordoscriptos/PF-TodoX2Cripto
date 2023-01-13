@@ -256,9 +256,7 @@ export default function AdminDashboardChanges() {
             REFRESH
           </Box>
         </Box>
-        <Box sx={{ fontSize: 'large' , color: "white" }}>
-          ADMIN DASHBOARD  -  CHANGES
-        </Box>
+        
         <Box  sx={{  width: '8vw' }}  >
         </Box>
       </Box>
@@ -342,9 +340,7 @@ export default function AdminDashboardChanges() {
         </Paper>
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '7vh' , backgroundColor: deepPurple[100] }} >
-        <Box>
-          <strong>TARGET:     </strong>Email or Coin Name
-        </Box>
+        
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '9vh' , backgroundColor: deepPurple[800]}}>
         <Box sx={{ color: "white" }}>
@@ -357,7 +353,7 @@ export default function AdminDashboardChanges() {
           This is a Read-Only Admin Changes Log !
         </Box>
         <Box sx={{ color: "white" }} >
-          ©  2022  CripTornado
+          ©  2022  Todo x 2 Cripto
         </Box>
       </Box>
     </Box>
