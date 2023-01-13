@@ -6,8 +6,8 @@ const serviceAccount = require("/etc/secrets/GOOGLE_APPLICATION_CREDENTIALS");
 
 
 const firebaseConfig = {
-  //credential: applicationDefault(),
-  credential: admin.credential.cert(serviceAccount),
+  credential: applicationDefault(),
+  //credential: admin.credential.cert(serviceAccount),
 };
 const firebaseApp = initializeApp(firebaseConfig);
 
