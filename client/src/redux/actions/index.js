@@ -38,8 +38,8 @@ import {
   SEND_MAIL
 } from "./actionTypes";
 
-const baseUrl = "http://localhost:3001";
-//const baseUrl = "https://todox2cripto-backend.onrender.com";
+//const baseUrl = "http://localhost:3001";
+const baseUrl = "https://todox2cripto-backend.onrender.com";
 
 
 export function getTrendingCoins() {
