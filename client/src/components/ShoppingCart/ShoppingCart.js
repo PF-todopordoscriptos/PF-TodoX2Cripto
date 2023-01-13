@@ -17,7 +17,7 @@ import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
-const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
+
 
 const ShoppingCart = () => {
 
