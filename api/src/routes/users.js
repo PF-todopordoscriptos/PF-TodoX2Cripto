@@ -50,7 +50,7 @@ router.get("/getTransactions", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const auth = getAuth(firebaseApp);
+  
 
   const { email, uid } = req.body;
 
