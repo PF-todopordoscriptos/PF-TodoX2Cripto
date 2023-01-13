@@ -15,6 +15,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import style from "./Exito.module.css";
 
+// const backendUrl = "http://localhost:3001"
+const backendUrl = "https://todox2cripto-backend.onrender.com"
+
 const Exito = () => {
   const dispatch = useDispatch();
   const userCart = useSelector((state) => state.userCart);
@@ -55,7 +58,7 @@ const Exito = () => {
   useEffect(() => {
     dispatch(function addToTransaction() {
       userCart.forEach(async (e) => {
-        await axios.post(`http://localhost:3001/users/addTransaction`, {
+        await axios.post(`${backendUrl}/users/addTransaction`, {
           idUser: e.idUser,
           idCoin: e.idCoin,
           quantity: e.quantity,
