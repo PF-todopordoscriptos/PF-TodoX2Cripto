@@ -46,6 +46,7 @@ import Exito from "../src/components/Exito/Exito";
 import Developers from "./components/Developers/Developers";
 import About from "./components/About/About";
 import NewFAQ from "./components/NewFAQ/NewFAQ";
+import NavbarProfile from "./components/NavbarProfile/NavbarProfile";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -57,8 +58,6 @@ function App() {
       }
     });
   }, []);
-
-  console.log(user);
 
   const getDesignTokens = (PaletteMode) => ({
     palette: {
@@ -219,14 +218,7 @@ function App() {
                 </>
               }
             />
-            {/* <Route
-              path="/FAQ"
-              element={
-                <>
-                  <Navbar /> <FAQ /> <Footer />{" "}
-                </>
-              }
-            /> */}
+
             <Route
               path="/FAQ"
               element={
@@ -242,7 +234,7 @@ function App() {
                 element={
                   <>
                     {" "}
-                    <Navbar /> <PanelUser /> <Footer />{" "}
+                    <NavbarProfile /> <PanelUser /> <Footer />{" "}
                   </>
                 }
               />

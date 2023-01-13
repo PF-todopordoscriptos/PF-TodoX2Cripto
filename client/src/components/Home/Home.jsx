@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCoins, getCoinsFromDB } from "../../redux/actions";
@@ -34,11 +35,10 @@ export default function Home() {
 
   const allCoins = useSelector((state) => state.allCoins);
   const coinsDb = useSelector((state) => state.coinsDb);
-  console.log(allCoins);
+
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
+
   const [order, setOrder] = useState(" ");
-  console.log(order);
 
   const [currentPage, setCurrentPage] = useState(1);
   const coinsPerPage = 10;
@@ -57,7 +57,6 @@ export default function Home() {
     }
   }
   const currentCoins = allCoins2.slice(firstCoin, lastCoin);
-  console.log("coinsdb", coinsDb2);
 
   const paginado = (e, p) => {
     setCurrentPage(p);

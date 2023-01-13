@@ -1,155 +1,153 @@
-
-
-    .divAll{
-        /* background: #ADA996;
+.divAll {
+  /* background: #ADA996;
         background: -webkit-linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996);
         background: linear-gradient(to right, #EAEAEA, #DBDBDB, #F2F2F2, #ADA996); */
-        display: flex;
-        justify-content: center;
-        padding: 2rem;
-    }
-
-    .contDivs{
-        display: flex;
-        /* justify-content: space-evenly; */
-        flex-direction: column;
-        height: 45rem;
-        width: 120vh;
-        overflow: hidden;
-        border-radius: 30px; 
-        box-shadow: rgba(0, 0, 0, 0.9) 1px 2px 4px;
-        /* background-color: transparent; */
-        /* box-shadow: 0px 0px 53px -20px rgb(2, 2, 2); */
-        transition: all ease-in-out 0.4s; 
-    }
-
-    .divsInputs{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-    .parteUno{
-        display: flex;
-        flex-direction: column;
-        margin-top: 3rem;
-    }
-
-    .parteDos{
-        display: flex;
-        flex-direction: column;
-        margin-top: 5rem;
-    }
-
-    .contFoto{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-    .contLapiz{
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 1rem;
-    }
-
-    .lapiz{
-        width: 3rem;
-        cursor: pointer;
-        border: 3px solid #813ed888;
-        border-radius: 3rem;
-        /* border-image: linear-gradient(10deg, red, lime, blue) 1; */
-    }
-    .lapiz::after {
-        width: 3rem;
-        cursor: pointer;
-        /* border: 3px solid; */
-        border-radius: 3rem;
-        border-image: linear-gradient(10deg, red, lime, blue) 1;
-    }
-
-    .fotoPerfil{
-        height: 6rem;
-        width: 6rem;
-        margin-left: 0.3rem;
-    }
-
-    .butImage{
-        margin-left: 1rem;
-        margin-top: 2rem;
-        background-color: #a06aeb55;
-    }
-
-    .contNation{
-        margin-top: 1.5rem;
-        margin-left: -0.3rem;
-    }
-
-    .contButton{
-        display: flex;
-        justify-content: center;
-        margin-top: 5rem;
-    }
-
-    .butChanges{ 
-        display: inline-block;
-        outline: none;
-        cursor: pointer;
-        font-weight: 500;
-        border-radius: 3px;
-        padding: 0 15px;
-        border-radius: 4px;
-        color: #ffffff;
-        background: #7a20cfd3;
-        line-height: 1.15;
-        font-size: 14px;
-        height: 36px;
-        word-spacing: 0px;
-        letter-spacing: .0892857143em;
-        text-decoration: none;
-        text-transform: uppercase;
-        min-width: 64px;
-        border: 1px solid #6200ee;
-        text-align: center;
-        transition: 280ms cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: bold;
-    }
-
-    .butChanges:hover{
-        background: #c68df5;
-    }
-
-    .butChangesDis{
-        display: inline-block;
-        outline: none;
-        /* cursor: pointer; */
-        font-weight: 500;
-        border-radius: 3px;
-        padding: 0 15px;
-        border-radius: 4px;
-        color: #ffffff;
-        background: #5d6d5dd3;
-        line-height: 1.15;
-        font-size: 14px;
-        height: 36px;
-        word-spacing: 0px;
-        letter-spacing: .0892857143em;
-        text-decoration: none;
-        text-transform: uppercase;
-        min-width: 64px;
-        border: 1px solid #6200ee;
-        text-align: center;
-        transition: 280ms cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: bold;
-    }
-
-.divDinosaurio{
-    display: flex;
-    /* justify-content: flex-end; */
-    margin-top: 1rem;
-    /* margin-right: 3rem; */
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.dinosaurio{
-    width: 5rem;
+.contDivs {
+  display: flex;
+  /* justify-content: space-evenly; */
+  flex-direction: column;
+  height: 45rem;
+  width: 120vh;
+  overflow: hidden;
+  border-radius: 30px;
+  box-shadow: rgba(0, 0, 0, 0.9) 1px 2px 4px;
+  /* background-color: transparent; */
+  /* box-shadow: 0px 0px 53px -20px rgb(2, 2, 2); */
+  transition: all ease-in-out 0.4s;
+}
+
+.divsInputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.parteUno {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+.parteDos {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.contFoto {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.contLapiz {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.lapiz {
+  width: 3rem;
+  cursor: pointer;
+  border: 3px solid #813ed888;
+  border-radius: 3rem;
+  /* border-image: linear-gradient(10deg, red, lime, blue) 1; */
+}
+.lapiz::after {
+  width: 3rem;
+  cursor: pointer;
+  /* border: 3px solid; */
+  border-radius: 3rem;
+  border-image: linear-gradient(10deg, red, lime, blue) 1;
+}
+
+.fotoPerfil {
+  height: 6rem;
+  width: 6rem;
+  margin-left: 0.3rem;
+}
+
+.butImage {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  background-color: #a06aeb55;
+}
+
+.contNation {
+  margin-top: 1.5rem;
+  margin-left: -0.3rem;
+}
+
+.contButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.butChanges {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: 3px;
+
+  border-radius: 4px;
+  color: #ffffff;
+  background: #7a20cfd3;
+  line-height: 1.15;
+  font-size: 14px;
+  height: 36px;
+  word-spacing: 0px;
+  letter-spacing: 0.0892857143em;
+  text-decoration: none;
+  text-transform: uppercase;
+  min-width: 64px;
+  border: 1px solid #6200ee;
+  text-align: center;
+  transition: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: bold;
+}
+
+.butChanges:hover {
+  background: #c68df5;
+}
+
+.butChangesDis {
+  display: inline-block;
+  outline: none;
+  /* cursor: pointer; */
+  font-weight: 500;
+  border-radius: 3px;
+  padding: 0 15px;
+  border-radius: 4px;
+  color: #ffffff;
+  background: #5d6d5dd3;
+  line-height: 1.15;
+  font-size: 14px;
+  height: 36px;
+  word-spacing: 0px;
+  letter-spacing: 0.0892857143em;
+  text-decoration: none;
+  text-transform: uppercase;
+  min-width: 64px;
+  border: 1px solid #6200ee;
+  text-align: center;
+  transition: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: bold;
+}
+
+.divDinosaurio {
+  display: flex;
+  /* justify-content: flex-end; */
+  margin-top: 1rem;
+  /* margin-right: 3rem; */
+}
+
+.dinosaurio {
+  width: 5rem;
 }

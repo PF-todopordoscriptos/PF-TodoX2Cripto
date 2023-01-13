@@ -81,8 +81,7 @@ const Details = (props) => {
 
   React.useEffect(() => {
     dispatch(getUserInfo(user.email));
-    console.log(userInfo);
-    console.log("estado lleno");
+
     setComment({
       ...comment,
       email: user.email,
@@ -108,7 +107,6 @@ const Details = (props) => {
       ...comment,
       [e.target.name]: e.target.value,
     });
-    console.log(comment);
   };
 
   const setData = () => {
@@ -130,9 +128,6 @@ const Details = (props) => {
       return;
     }
   };
-
-  console.log(userInfo);
-  console.log(coinDetails);
 
   const postComment = (e) => {
     e.preventDefault();
@@ -165,7 +160,7 @@ const Details = (props) => {
       color: "white",
       background: "#FFDA33",
     });
-    console.log(comment);
+
     setComment({
       ...comment,
       text: "",
@@ -174,7 +169,6 @@ const Details = (props) => {
     dispatch(createComment(comment));
     setAyudin(!ayudin);
     // dispatch(getCoinComment(id));
-    console.log("comentario");
   };
 
   const alertaa = async () => {
