@@ -4,8 +4,7 @@ import style from "./TrendingNew.module.css";
 
 const TrendingNew = (props) => {
   // let pais = props.country[0].charAt(0).toLowerCase()
-  console.log(props);
-  console.log(typeof props);
+
   return (
     <div className={style.trendingContainer}>
       <div className={style.header}>

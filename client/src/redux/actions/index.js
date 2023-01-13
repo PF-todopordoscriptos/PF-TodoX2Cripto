@@ -35,10 +35,12 @@ import {
   // DELETE_COMMENT,
   GET_WALLET,
   GET_COINS_FROM_DB,
+  SEND_MAIL
 } from "./actionTypes";
 
-//const baseUrl = "http://localhost:3001";
-const baseUrl = "https://todox2cripto-backend.onrender.com";
+const baseUrl = "http://localhost:3001";
+//const baseUrl = "https://todox2cripto-backend.onrender.com";
+
 
 export function getTrendingCoins() {
   return async function (dispatch) {
@@ -375,5 +377,12 @@ export function getCoinsFromDB() {
       type: GET_COINS_FROM_DB,
       payload: json.data,
     });
+  };
+}
+
+export function sendMail(email) {
+  return async function () {
+    let json = await axios.post(`${baseUrl}/users/sendEmail/${email}`);
+    return json;
   };
 }

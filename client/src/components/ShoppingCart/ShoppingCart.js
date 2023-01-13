@@ -18,14 +18,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import "./ShoppingCart.css";
 
-// import { rootReducer, initialState } from "../../redux/reducer/index";
-// import CartItem from "../CartItem/CartItem";
-// import ProductItem from "../ProductItem/ProductItem";
-// import { Button } from "@mui/material";
-//import { Button } from "@mui/material";
-
 const ShoppingCart = () => {
-  // const [state, dispatch] = useReducer(rootReducer, initialState);
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.userInfo);
@@ -44,40 +37,19 @@ const ShoppingCart = () => {
         });
       }
     });
-    // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
   useEffect(() => {
     dispatch(getUserInfo(user.email));
-    // eslint-disable-next-line
   }, [user.email]);
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
-    // eslint-disable-next-line
   }, [userInfo]);
 
   useEffect(() => {
     dispatch(getAllCoins());
   }, [dispatch]);
-
-  // const allCoins = useSelector((state) => state.allCoins);
-  // const cartCoins = useSelector((state) => state.cart);
-
-  // const addToCart = (id) => {
-  //   dispatch({ type: ADD_TO_CART, payload: id });
-  // };
-  // const delFromCart = (id, all = false) => {
-  //   if (all) {
-  //     dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
-  //   } else {
-  //     dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
-  //   }
-  // };
-
-  // const addOneFromCart = (id) => {
-  //   dispatch({ type: ADD_ONE_FROM_CART, payload: id });
-  // };
 
   const clearCart = () => {
     dispatch(deleteCartUser(userInfo.id));
@@ -97,14 +69,6 @@ const ShoppingCart = () => {
   productPayment();
 
   console.log(product);
-
-  // let product = [
-  //   {
-  //     title,
-  //     amount, // seria quantity
-  //     price,
-  //   },
-  // ]
 
   function readFromLocalStore() {
     let qq = localStorage.getItem("store").split("}");
@@ -196,18 +160,13 @@ const ShoppingCart = () => {
     <div className="cart-container">
       <h2 className="title-cart">Carrito de Compras</h2>
       <h3 className="title-products">Productos</h3>
-      {/* <article className="box">
-        {cartCoins.map((product) => (
-          <ProductItem key={product.id} data={product} addToCart={addToCart} />
-        ))}
-      </article> */}
-      <article className="box">
-        <div>
+      <article>
+        <div className="box">
           {userCart.length !== 0 ? (
             userCart.map((i) => {
               return (
                 <div className="cart-box" key={i.id}>
-                  <label>{i.idCoin}</label>
+                  <label>{i.idCoin.toUpperCase()}</label>
                   <label>Cantidad: {i.quantity}</label>
                   <label>{i.price.toFixed(2)} USD</label>
                 </div>
@@ -257,6 +216,9 @@ const ShoppingCart = () => {
                   .then(
                     (res) =>
                       (window.location.href = res.data.response.body.init_point)
+                  )
+                  .then(
+                    localStorage.setItem("store", "") + setReloader(!reloader)
                   );
               }}
             >
@@ -267,15 +229,6 @@ const ShoppingCart = () => {
         <button className="button-clear-cart" onClick={clearCart}>
           LIMPIAR CARRITO
         </button>
-        {/*
-        {cartCoins.map((item, id) => (
-          <CartItem
-            key={id}
-            data={item}
-            delFromCart={delFromCart}
-            addOneFromCart={addOneFromCart}
-          />
-        ))} */}
       </article>
     </div>
   );

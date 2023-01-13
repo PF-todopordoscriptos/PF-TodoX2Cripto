@@ -34,7 +34,6 @@ const Calculator = ({ id }) => {
     // eslint-disable-next-line
   }, [dispatch]);
 
-  // const allCoins = useSelector((state) => state.allCoins);
   const coinDetails = useSelector((state) => state.coinDetails);
 
   useEffect(() => {
@@ -48,20 +47,6 @@ const Calculator = ({ id }) => {
     });
     // eslint-disable-next-line
   }, [dispatch, userInfo]);
-
-  // const renderPriceCoin = () => {
-  //   let result;
-  //   let coinSelected = allCoins.find(() => `${id}` === coin);
-  //   Object.keys(coin).length === 0
-  //     ? (result = "Select one coin to start comparation")
-  //     : (result = coinSelected.current_price);
-  //   return result;
-  // };
-
-  // const handleSelectedCoins = (e) => {
-  //   e.preventDefault();
-  //   setCoin(e.target.value);
-  // };
 
   function handleInput(e) {
     e.preventDefault();
@@ -93,11 +78,6 @@ const Calculator = ({ id }) => {
       background: "#E6112B",
     });
   };
-
-  // const addToCartBack =(price, id)=>{
-  // console.log(idUser, idCoin, price, quantity)
-  // dispatch(addCartBack(idUser, idCoin, quantity))
-  // }
 
   function saveToLocalStore() {
     let fromStore = localStorage.getItem("store");

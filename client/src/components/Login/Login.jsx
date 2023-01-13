@@ -37,28 +37,18 @@ const Login = () => {
   });
 
   const [errorsLog, setErrorsLog] = useState();
-  const [errorsSig, setErrorsSig] = useState();
+
   const [errorsPass, setErrorsPass] = useState();
 
   const changePasswordForm = () => {
     sethandleChangePassword(!handleChangePassword);
   };
 
-  const [input, setInput] = useState({
-    email: "",
-    password: "",
-    repeatPassword: "",
-    showPassword: false,
-    showRepeatPassword: false,
-  });
-  console.log(errorsSig, input, setErrorsSig, setInput);
-
   const handleChangeRegistered = (e) => {
     setRegistered({
       ...registered,
       [e.target.name]: e.target.value,
     });
-    console.log(registered);
   };
 
   const handleResetPassword = (e) => {
@@ -74,64 +64,11 @@ const Login = () => {
       showRegisterPassword: !registered.showRegisterPassword,
     });
   };
-  // const handleInput = (e) => {
-  //   setInput({
-  //     ...input,
-  //     [e.target.name]: e.target.value,
-  //   });
-  //   console.log(input);
-  // };
-  // const handleClickShowPassword = () => {
-  //   setInput({
-  //     ...input,
-  //     showPassword: !input.showPassword,
-  //   });
-  // };
-
-  // const handleClickShowRepeatPassword = () => {
-  //   setInput({
-  //     ...input,
-  //     showRepeatPassword: !input.showRepeatPassword,
-  //   });
-  // };
-
-  // const onSubmitedForm = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     if (!input.email || !input.password) {
-  //       return alert("Complete correctamente el formulario antes de enviarlo");
-  //     }
-  //     if (input.password !== input.repeatPassword) {
-  //       return setErrorsSig("Keys must match");
-  //     }
-  //     await createUserWithEmailAndPassword(auth, input.email, input.password);
-  //     setInput({
-  //       email: "",
-  //       password: "",
-  //       repeatPassword: "",
-  //     });
-  //     console.log(input);
-  //     console.log(e);
-  //     history("/profile");
-  //   } catch (error) {
-  //     if (error.code === "auth/invalid-email") {
-  //       setErrorsSig("Invalid email.");
-  //     }
-  //     if (error.code === "auth/weak-password") {
-  //       setErrorsSig("Password should be at least 6 characters.");
-  //     }
-  //     if (error.code === "auth/email-already-in-use") {
-  //       setErrorsSig("Email already in use, Please log in.");
-  //     }
-  //     console.log(error.code);
-  //     console.log(errorsSig);
-  //   }
-  // };
 
   async function handleSingInGoogle() {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
-    console.log("auth " + auth);
+
     history("/profile");
   }
 
@@ -153,7 +90,9 @@ const Login = () => {
       if (error.code === "auth/wrong-password") {
         setErrorsLog("Wrong password.");
       }
-      console.log(error.code);
+      if (error.code === "auth/user-disabled") {
+        setErrorsLog("Your user has been disabled.");
+      }
     }
   };
 
@@ -178,7 +117,6 @@ const Login = () => {
         email: "",
       });
       setErrorsPass("");
-      console.log(resetPassword);
     } catch (error) {
       if (error.code === "auth/invalid-email") {
         setErrorsPass("Invalid email.");
@@ -188,19 +126,6 @@ const Login = () => {
       }
     }
   };
-
-  //   const setEmailNickname = () => {
-  //     let emailAUTH0 = user.email
-  //     let nicknameAUTH0 = user.nickname
-  //     console.log(emailAUTH0, nicknameAUTH0)
-  //     console.log(input.email)
-  //     setContador(contador+1)
-  //     setInput({
-  //         ...input,
-  //         [input.email] : emailAUTH0,
-  //         [input.nickname] : nicknameAUTH0,
-  //     })
-  //   }
 
   return (
     <div className="main-formlogin">
@@ -280,9 +205,9 @@ const Login = () => {
 
           <p>
             Did you forget your password?{" "}
-            <p onClick={changePasswordForm} className={style.forget}>
+            <label onClick={changePasswordForm} className={style.forget}>
               get it back.
-            </p>
+            </label>
           </p>
           {handleChangePassword ? (
             <div className={style.resetPa}>

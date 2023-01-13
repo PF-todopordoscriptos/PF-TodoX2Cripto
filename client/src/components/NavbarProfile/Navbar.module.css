@@ -1,0 +1,89 @@
+.nav{
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  background-color: #5d3c85;
+}
+
+.contLogo{
+  margin-top: 0.5vh;
+  margin-left: 20vh;
+}
+
+.contSwitch{
+  margin-left: -105vh;
+}
+
+.contButsExtras{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.admin{
+  height: 2.5rem;
+  width: 2.5rem;
+  border: aliceblue 0.3rem solid;
+  /* padding: 0.5rem; */
+  background-color: aliceblue;
+  border-radius: 3rem;
+}
+
+.carrito{
+  height: 2.5rem;
+  width: 2.5rem;
+  border: aliceblue 0.3rem solid;
+  /* padding: 0.5rem; */
+  background-color: aliceblue;
+  border-radius: 3rem;
+  margin-left: 1rem;
+}
+
+.logo{
+  height: 100px;
+  width: 100px;
+}
+
+.butonsAuth{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-left: 50vw; */
+}
+
+.flexBoton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
+}
+
+.boton {
+  margin-left: 50vh;
+  background: #7b27a5;
+  border: none;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 12px 14px;
+  text-align: center;
+  user-select: none;
+}
+
+.boton:hover,
+.boton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #a142ff;
+}
+
+.boton:active {
+  opacity: .5;
+}

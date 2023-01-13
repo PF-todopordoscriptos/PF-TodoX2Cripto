@@ -1,24 +1,16 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { useAuth0 } from "@auth0/auth0-react"
 
-import {
-  getUserInfo,
-  postUser,
-  updateUserInfo,
-  // postUserGoogle,
-} from "../../redux/actions/index.js";
+import { getUserInfo, updateUserInfo } from "../../redux/actions/index.js";
 
 import style from "./Profile.module.css";
 import TextField from "@mui/material/TextField";
 import SelectNat from "../SelectNat/SelectNat";
 
-import {
-  // signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
-// import { useHistory } from "react-router-dom"
+
 import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 
@@ -27,6 +19,7 @@ import lapizGris from "../../Images/lapizGris.png";
 
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Profile = () => {
   //const {user, isAuthenticated, logout} = useAuth0();
@@ -39,6 +32,7 @@ const Profile = () => {
 
   const [user, setUser] = useState({
     email: "",
+    uid: "",
     //password: ""
   });
 
@@ -55,12 +49,12 @@ const Profile = () => {
         setUser({
           ...user,
           email: currentUser.email,
+          uid: currentUser.uid,
           //password: currentUser.password,
         });
-        console.log(currentUser);
-        dispatch(postUser(currentUser));
+
+        //dispatch(postUser(currentUser));
       } else {
-        console.log("SIGNED OUT");
         setUser({
           email: "",
         });
@@ -69,13 +63,9 @@ const Profile = () => {
     // eslint-disable-next-line
   }, [dispatch, userInfo]);
 
-  console.log(auth);
-  console.log(user);
-  console.log(userInfo);
-
   React.useEffect(() => {
     dispatch(getUserInfo(user.email));
-    console.log("estado lleno");
+
     // eslint-disable-next-line
   }, [user.email]);
 
@@ -99,8 +89,7 @@ const Profile = () => {
       nationality: userInfo.nationality,
       img: userInfo.img,
     });
-    console.log("userinfo2");
-    console.log(userInfo2);
+
     // eslint-disable-next-line
   }, [dispatch, userInfo2]);
 
@@ -113,9 +102,7 @@ const Profile = () => {
     data.append("file", files[0]);
     data.append("upload_preset", "cripto");
     setLoading(true);
-    console.log(loading);
-    console.log(data);
-    console.log("hola");
+
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dpb5vf1q1/image/upload",
       {
@@ -124,13 +111,12 @@ const Profile = () => {
       }
     );
     const file = await res.json();
-    console.log(res);
-    // setImage(file.secure_url)
+
     setInput({
       ...input,
       [e.target.name]: file.secure_url,
     });
-    console.log(file.secure_url);
+
     setLoading(false);
   };
 
@@ -139,10 +125,7 @@ const Profile = () => {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   };
-
-  console.log(input);
 
   const saveChanges = async (e) => {
     // e.preventDefault()
@@ -165,6 +148,33 @@ const Profile = () => {
     setEdit(!edit);
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    let qq = localStorage.getItem("store").split("}");
+    let array = [];
+    qq.pop();
+    qq.forEach((e) => array.push(JSON.parse(e.split("").concat("}").join(""))));
+    let ww = array.map(function (e) {
+      return {
+        idCoin: e.idCoin,
+        quantity: e.quantity,
+        price: parseFloat(e.price),
+      };
+    });
+
+    ww.map((e) => {
+      axios.post(`http://localhost:3001/users/addTransactionCart`, {
+        idUser: userInfo.id,
+        idCoin: e.idCoin,
+        quantity: e.quantity,
+        price: e.price,
+      });
+    });
+
+    // localStorage.setItem("store", "");
+  };
+
   return (
     <div className={style.divAll}>
       <form>
@@ -172,7 +182,6 @@ const Profile = () => {
           <div className={style.divsInputs}>
             <div className={style.parteUno}>
               <div className={style.contFoto}>
-                {/* <img src={input.img} alt="foto de perfil" className={style.fotoPerfil}/> */}
                 <img
                   src={
                     input.img
@@ -276,11 +285,6 @@ const Profile = () => {
                 )}
               </div>
 
-              {/* <TextField value={input.telephone} onChange={handleInput} id="filled-6" name="telephone" label="Telephone" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null} />
-              
-              <TextField value={input.dni} onChange={handleInput} type="number" id="filled-7" name="dni" label="DNI" variant="standard" color="info" sx={{ marginTop: "2rem", width: "20rem" }} disabled={edit ? true : null}
-              /> */}
-
               <div className={style.contNation}>
                 <SelectNat
                   value={input.nationality}
@@ -292,24 +296,33 @@ const Profile = () => {
           </div>
 
           <div className={style.contButton}>
-            {/* {
-            input.username !== "" && input.name !== "" && input.lastname !== "" && input.nationality !== "" ? 
-            <button className={style.butChanges} onClick={saveChanges}>
-              Save changes
-            </button>
-            :
-            <button className={style.butChangesDis} onClick={saveChanges} disabled>
-             Rellenar todos los campos
-           </button>
-            } */}
-
             <button className={style.butChanges} onClick={saveChanges}>
               Save changes
             </button>
           </div>
+          <div className={style.contButton}>
+            <button
+              className={style.butChanges}
+              onClick={(e) => {
+                handleClick(e);
+                navigate("/cart");
+              }}
+            >
+              Carrito
+            </button>
+          </div>
+          <div className={style.contButton}>
+            <button
+              className={style.butChanges}
+              onClick={(e) => {
+                navigate("/home");
+              }}
+            >
+              Home
+            </button>
+          </div>
 
           <div className={style.divDinosaurio}>
-            {/* eslint-disable-next-line */}
             <marquee behavior="scroll" direction="left">
               <img
                 className={style.dinosaurio}

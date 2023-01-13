@@ -34,12 +34,12 @@ console.log(props.allCoins)
         <div className={style.abajo}>
 
         <div className={style.contUser}>
-        <img src={findImageUser()} className={style.imgUser} alt="imageU"/>
+        {/* <img src={findImageUser()} className={style.imgUser} alt="imageU"/> */}
         <h3 className={style.emailUser}>{findEmail()}</h3>
         </div>
 
         <div className={style.contCoin}>
-        <img src={findImg()} className={style.imgCoin} alt="imageCoin"/>
+        {/* <img src={findImg()} className={style.imgCoin} alt="imageCoin"/> */}
         <h3 className={style.h3coin}>{props.idCoin}</h3>
         </div>
 
