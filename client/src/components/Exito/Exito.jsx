@@ -99,9 +99,12 @@ const Exito = () => {
     <div className={style.contExito}>
       <h1 className={style.textCompra}>Compra realizada con exito!</h1>
       <img
-        src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673311496/giphy_rsmxuw.gif"
+        /* src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673311496/giphy_rsmxuw.gif" /
+        src="https://freight.cargo.site/t/original/i/55008a8778d0e8a1bef075e7a1e501587d83b9b3fb0051835de835b7fd10a7be/Dino_Horse.gif"
         alt="gif dino"
-        className={style.dino}
+        / className={style.dino} */
+        className={style.dinoHorse}
+        alt="imagenExito"
       />
       <button onClick={clearCart} className={style.butCompra}>
         <Link to="/home" className={style.link}>
