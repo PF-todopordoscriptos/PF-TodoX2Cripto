@@ -287,9 +287,6 @@ export default function AdminDashboardCoins() {
             GET COINS FROM API TO DB
           </Box>
         </Box>
-        <Box sx={{ fontSize: 'large' , color: "white" }}>
-          ADMIN DASHBOARD  -  COINS
-        </Box>
         <Box  sx={{  width: '8vw' }}  >
         </Box>
       </Box>
@@ -384,12 +381,7 @@ export default function AdminDashboardCoins() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Paper>
-      <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '7vh' , backgroundColor: deepPurple[100] }} >
-        <Box>
-          <strong>DISABLED:     </strong><Checkbox color="primary" checked={true}/>=  Coin is disabled     <Checkbox color="primary" checked={false}/>=  Coin is not disabled
-        </Box>
-      </Box>
+      </Paper>      
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '9vh' , backgroundColor: deepPurple[800]}}>
         <Box sx={{ color: "white" }}>
           <FormControlLabel
@@ -401,7 +393,7 @@ export default function AdminDashboardCoins() {
           Warning ! Every change you made will automatically impact in database !
         </Box>
         <Box sx={{ color: "white" }}>
-          ©  2022  CripTornado
+          ©  2022  Todo x 2 Cripto
         </Box>
       </Box>
     </Box>
