@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearAdmin, setThemeMode } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const NavbarProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -89,13 +89,13 @@ const Navbar = () => {
               />
             </Link>
           ) : null}
-          <Link to="/cart">
+          {/* <Link to="/cart">
             <img
               src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673118030/carrito_dydtjj.png"
               alt="cart"
               className={style.carrito}
             />
-          </Link>
+          </Link> */}
         </div>
 
         {user ? (
@@ -179,4 +179,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarProfile;

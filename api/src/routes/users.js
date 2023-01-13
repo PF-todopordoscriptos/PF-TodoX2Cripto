@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const {
   createUser,
   getAllUsers,
@@ -20,7 +20,7 @@ const {
 } = require("../controllers/controllers.js");
 
 const { User } = require("../db");
-//const { uuid } = require('uuidv4');
+
 const { getAuth } = require("firebase-admin/auth");
 const { firebaseApp } = require("../firebase/firebase.js");
 const { admin } = require("../firebase/firebase.js");
@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
   const auth = getAuth(firebaseApp);
 
   const { email, uid } = req.body;
-  console.log("email y uid", email, uid);
+
   let found = await User.findOne({ where: { email: email } });
   if (found) return res.status(400).send("User does not available");
   try {
@@ -74,10 +74,10 @@ router.post("/", async (req, res) => {
       handleCodeInApp: true,
     };
 
-    sendSignInLinkToEmail(auth, email, actionCodeSettings);
+    //sendSignInLinkToEmail(auth, email, actionCodeSettings);
     res.status(200).json({ msg: "User create!" });
   } catch (e) {
-    res.status(400).json(console.log(e));
+    res.status(400).json(e.message);
   }
 });
 
@@ -318,34 +318,33 @@ router.put("/:email", async (req, res) => {
   }
 });
 
-router.post("/sendEmail/:email", async(req,res) => {
-  const {email} = req.params
+router.post("/sendEmail/:email", async (req, res) => {
+  const { email } = req.params;
   var transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: "smtp.gmail.com",
     post: 587,
     secure: false,
     auth: {
       user: "todox2criptos@gmail.com",
-      pass: "afapcrdmiuffnmme"
-    }
+      pass: "afapcrdmiuffnmme",
+    },
   });
 
   var mailOptions = {
     from: "Remitente",
     to: email,
     subject: "La compra se ha realizado correctamente",
-    text: "Tu compra en Todo x 2 Cripto se realizo exitosamente, ve a tu perfil y consulta tus coins :)"
-  }
+    text: "Tu compra en Todo x 2 Cripto se realizo exitosamente, ve a tu perfil y consulta tus coins :)",
+  };
 
   transporter.sendMail(mailOptions, (error, info) => {
-    if(error){
-      res.status(500).send(error.message)
+    if (error) {
+      res.status(500).send(error.message);
     } else {
-      console.log("Email enviado")
-      res.status(200).jsonp(req.body)
+      console.log("Email enviado");
+      res.status(200).jsonp(req.body);
     }
   });
-})
-
+});
 
 module.exports = router;
