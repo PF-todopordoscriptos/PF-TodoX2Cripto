@@ -19,12 +19,12 @@ import { deepPurple } from '@mui/material/colors';
 import axios from 'axios';
 
 export default function AdminDashboardChanges() {
-
+  const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
   let [rows, setRows] = useState([]);
 
   let GetAllChanges =  () => {
     useEffect(() => {
-      axios.get('http://localhost:3001/users/allAdminChanges')
+      axios.get(`${backendUrl}/users/allAdminChanges`)
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
@@ -230,7 +230,7 @@ export default function AdminDashboardChanges() {
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
           <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
-            axios.get('http://localhost:3001/users/allAdminChanges')
+            axios.get(`${backendUrl}/users/allAdminChanges`)
             .then((response) => {
               let ww = []
               let qq = response.data.map(function(e) {

@@ -26,13 +26,14 @@ require("dotenv").config();
 const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
 
 export default function AdminDashboardUsers() {
+  const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
 
   let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
 
   let GetAllUsers =  () => {
     useEffect(() => {
-      axios.get('http://localhost:3001/users/allUsers')
+      axios.get(`${backendUrl}/users/allUsers`)
       .then((response) => {
         let ww = []
         let qq = response.data.map(function(e) {
@@ -61,7 +62,7 @@ export default function AdminDashboardUsers() {
   console.log("CURRENT ADMIN", currentAdmin)
 
   const adminChanges = async (idAdmin, emailAdmin, idUser, emailUser, idCoin, nameCoin,  dataModified, newValue) => {
-    await axios.post('http://localhost:3001/users/adminChanges', {
+    await axios.post(`${backendUrl}/users/adminChanges`, {
       idAdmin: idAdmin,
       emailAdmin: emailAdmin,
       idUser: idUser,
@@ -74,21 +75,21 @@ export default function AdminDashboardUsers() {
   }
 
   const changeAdmin = async (id, adm) => {
-    await axios.put('http://localhost:3001/users/modifyUserAdmin', {
+    await axios.put(`${backendUrl}/users/modifyUserAdmin`, {
       id: id,
       admin: !adm
     })
   }
 
   const changeDisabled = async (id, dis) => {
-    await axios.put('http://localhost:3001/users/modifyUserDisabled', {
+    await axios.put(`${backendUrl}/users/modifyUserDisabled`, {
       id: id,
       disabled: !dis
     })
   }
 
   const changePassword = async (id, pass) => {
-    await axios.put('http://localhost:3001/users/modifyUserPassword', {
+    await axios.put(`${backendUrl}/users/modifyUserPassword`, {
       id: id,
       password: pass ? pass : ""
     })
@@ -318,7 +319,7 @@ export default function AdminDashboardUsers() {
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '10vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
         <Box sx={{ display: 'flex' , flexDirection: 'row' , alignItems: 'center' , color: cyan[200] , width: '8vw'  }}>
           <RefreshSharpIcon  fontSize="large" sx={{cursor: "pointer"}} onClick={function() {
-            axios.get('http://localhost:3001/users/allUsers')
+            axios.get(`${backendUrl}/users/allUsers`)
             .then((response) => {
               let ww = []
               let qq = response.data.map(function(e) {
@@ -398,7 +399,7 @@ export default function AdminDashboardUsers() {
                               color="primary"
                               checked={!!row.password}
                               onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
-                                axios.get('http://localhost:3001/users/allUsers')
+                                axios.get(`${backendUrl}/users/allUsers`)
                                 .then((response) => {
                                   let ww = []
                                   let qq = response.data.map(function(e) {
@@ -424,7 +425,7 @@ export default function AdminDashboardUsers() {
                               color="primary"
                               checked={row.admin}
                               onClick={() => changeAdmin(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].admin).then(function() {
-                                axios.get('http://localhost:3001/users/allUsers')
+                                axios.get(`${backendUrl}/users/allUsers`)
                                 .then((response) => {
                                   let ww = []
                                   let qq = response.data.map(function(e) {
@@ -451,7 +452,7 @@ export default function AdminDashboardUsers() {
                               color="primary"
                               checked={row.disabled}
                               onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(function() {
-                                axios.get('http://localhost:3001/users/allUsers')
+                                axios.get(`${backendUrl}/users/allUsers`)
                                 .then((response) => {
                                   let ww = []
                                   let qq = response.data.map(function(e) {
