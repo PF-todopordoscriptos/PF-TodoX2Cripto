@@ -216,6 +216,9 @@ const ShoppingCart = () => {
                   .then(
                     (res) =>
                       (window.location.href = res.data.response.body.init_point)
+                  )
+                  .then(
+                    localStorage.setItem("store", "") + setReloader(!reloader)
                   );
               }}
             >
