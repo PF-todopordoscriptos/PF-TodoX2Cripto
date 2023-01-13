@@ -29,10 +29,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
 
-const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
+const { REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , REACT_APP_EMAILJS_PUBLIC_KEY } = process.env;
 // const backendUrl = "http://localhost:3001"
 const backendUrl = "https://todox2cripto-backend.onrender.com"
-
 
 export default function AdminDashboardUsers() {
 
@@ -43,15 +42,15 @@ export default function AdminDashboardUsers() {
   let [inputEmail, setInputEmail] = useState("");
 
   let [inputAdmin, setInputAdmin] = useState("");
+  let [inputDisabled, setInputDisabled] = useState("");
 
   let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
   let [auxiliar, setAuxiliar] = useState([]); // TIENE ID's DEL PRIMER FILTRO (sea USERNAME, ID, o EMAIL)
   let [rowsToShow, setRowsToShow] = useState([]);
 
-
-  let GetAllUsers =  () => {
-    useEffect(() => {
+  let GetAllUsers = () => { // FIRST TO RENDER WHEN THE COMPONENT LOADS
+      useEffect( () => {
       axios.get(`${backendUrl}/users/allUsers`)
       .then((response) => {
         let ww = []
@@ -82,7 +81,7 @@ export default function AdminDashboardUsers() {
   }
 
   function GetActualAllUsers() {
-    axios.get('http://localhost:3001/users/allUsers')
+    axios.get(`${backendUrl}/users/allUsers`)
     .then((response) => {
       let ww = []
       let qq = response.data.map(function(e) {
@@ -118,7 +117,7 @@ export default function AdminDashboardUsers() {
   }
 
   const changeAdmin = async (id, adm) => {
-    await axios.put(`${backendUrl}/users/modifyUserAdmin`, {
+      await axios.put(`${backendUrl}/users/modifyUserAdmin`, {
       id: id,
       admin: !adm
     })
@@ -131,12 +130,6 @@ export default function AdminDashboardUsers() {
     })
   }
 
-  const changePassword = async (id, pass) => {
-    await axios.put(`${backendUrl}/users/modifyUserPassword`, {
-      id: id,
-      password: pass ? pass : ""
-    })
-  }
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -177,25 +170,19 @@ export default function AdminDashboardUsers() {
       id: 'id',
       numeric: true,
       disablePadding: false,
-      label: '      ID'
+      label: '      ID (DATABASE)'
     },
     {
       id: 'uid',
       numeric: true,
       disablePadding: false,
-      label: '      UID'
+      label: '      UID (FIREBASE)'
     },
     {
       id: 'email',
       numeric: true,
       disablePadding: false,
       label: '      EMAIL'
-    },
-    {
-      id: 'password',
-      numeric: true,
-      disablePadding: false,
-      label: '      PASSWORD'
     },
     {
       id: 'admin',
@@ -317,19 +304,6 @@ export default function AdminDashboardUsers() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rowsToShow.length) : 0;
 
-  function passwordNotifier( user_email , user_name ) {
-    emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_PASSWORD , {
-      user_email: user_email,
-      user_name: user_name,
-      crypto_team: "The Todo x 2 Cripto Team",
-      message: 'Hello dear user, your password has been reset.. Please login and set a new password !'
-    } , REACT_APP_EMAILJS_PUBLIC_KEY )
-      .then((response) => {
-          console.log('SUCCESS!', response.status, response.text);
-      }, (err) => {
-          console.log('FAILED...', err);
-      });
-  }
 
   function adminNotifier( user_email , user_name , adm ) {
     emailjs.send( REACT_APP_EMAILJS_SERVICE , REACT_APP_EMAILJS_TEMPLATE_ADMIN_OR_DISABLED , {
@@ -361,15 +335,11 @@ export default function AdminDashboardUsers() {
 
   GetAllUsers(); // FIRST TO RENDER WHEN THE COMPONENT LOADS
 
-/* 
-  console.log("ROWS TO SHOW", rowsToShow)
-  console.log("AUXILIAR", auxiliar)
-  console.log("INPUT USERNAME", inputUsername)
-  console.log("INPUT EMAIL", inputEmail)
   console.log("INPUT ADMIN", inputAdmin)
-  console.log("STATIC 2", arrayForStaticRefresh2) */
+  console.log("INPUT DISABLED", inputDisabled)
 
   return (
+
     <Box sx={{width: '100vw', marginLeft: "-2.5rem" , marginTop: '-2vh'}}>
       <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
@@ -377,7 +347,7 @@ export default function AdminDashboardUsers() {
         type="search"
         value={inputUsername}
         onChange={(event) => setInputUsername(event.target.value) + setRowsToShow(rows.filter(e => e.username.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.username.includes(event.target.value))) }
-        onClick={inputUsername === "" ? () => setInputId("") + setInputEmail("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
+        onClick={inputUsername === "" ? () => setInputId("") + setInputEmail("") + setInputAdmin("") + setInputDisabled("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
        <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
@@ -385,7 +355,7 @@ export default function AdminDashboardUsers() {
         type="search"
         value={inputId}
         onChange={(event) => setInputId(event.target.value) + GetActualAllUsers() + setRowsToShow(rows.filter(e => e.id.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.id.includes(event.target.value))) }
-        onClick={inputId === "" ? () => setInputUsername("") + setInputEmail("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
+        onClick={inputId === "" ? () => setInputUsername("") + setInputEmail("") + setInputAdmin("") + setInputDisabled("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
       <TextField sx={{ marginLeft: "0.7vw" , marginRight: "0.7vw"}}
         id="outlined-search"
@@ -393,24 +363,67 @@ export default function AdminDashboardUsers() {
         type="search"
         value={inputEmail}
         onChange={(event) => setInputEmail(event.target.value) + setRowsToShow(rows.filter(e => e.email.includes(event.target.value))) + setAuxiliar(rows.filter(e => e.email.includes(event.target.value))) }
-
-
-        onClick={inputEmail === "" ? () => setInputUsername("") + setInputId("") + setInputAdmin("") + GetActualAllUsers() + setRowsToShow(rows) : null}
+        onClick={inputEmail === "" ? () => setInputUsername("") + setInputId("") + setInputAdmin("") + setInputDisabled("") + GetActualAllUsers() + setRowsToShow(rows) : null}
       />
-      <Box sx={{ marginTop: '1.5vh', marginBottom: '1.5vh' }} >
-        <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
-          <InputLabel id="demo-simple-select-label">is Admin ?</InputLabel>
-          <Select
-            sx={{ width: '15vw' }}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={inputAdmin}
-            label="isAdmin"
-            onChange={(event) => // IS ADMIN SELECTED
+      <Box sx={{ display: 'flex', flexDirection: 'row' , justifyContent: 'center' }}>
+        <Box sx={{ marginTop: '1.5vh', marginBottom: '1.5vh' , marginRight: '3vh'}} >
+          <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
+            <InputLabel id="demo-simple-select-label">is Admin ?</InputLabel>
+            <Select
+              sx={{ width: '10vw' }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={inputAdmin}
+              label="isAdmin"
+              onChange={(event) => // IS ADMIN SELECTED
 
-              setInputAdmin(event.target.value)
-              + axios.get(`${backendUrl}/users/allUsers`)
+                setInputAdmin(event.target.value)
+                + axios.get(`${backendUrl}/users/allUsers`)
+                .then((response) => {
+                  let ww = []
+                  let qq = response.data.map(function(e) {
+                    return {
+                      username: e.username,
+                      id: e.id,
+                      password: e.password,
+                      admin: e.admin,
+                      disabled: e.disabled,
+                      email: e.email,
+                      name: e.name
+                    }})
+                  qq.forEach(e => ww.push(e))
+                  setRows(ww)
+
+                  if (inputUsername !== "" &&  (event.target.value === true || event.target.value === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === event.target.value && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+                  if (inputId !== "" &&  (event.target.value === true || event.target.value === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === event.target.value && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+                  if (inputEmail !== "" &&  (event.target.value === true || event.target.value === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === event.target.value && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+
+
+                  if (inputUsername !== "" &&  (event.target.value === true || event.target.value === false) &&  inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === event.target.value )) // DOBLE CONDICION TRUE
+                  if (inputId !== "" &&  (event.target.value === true || event.target.value === false) &&  inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === event.target.value )) // DOBLE CONDICION TRUE
+                  if (inputEmail !== "" &&  (event.target.value === true || event.target.value === false) &&  inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === event.target.value )) // DOBLE CONDICION TRUE
+
+
+
+
+
+                  console.log("CONSOLE LOG DEL DEL ADMIN SELECT (OPTIONS)")
+                })
+
+              }
+            >
+
+              <MenuItem value={true}>Is Admin</MenuItem>
+              <MenuItem value={false}>Is not Admin</MenuItem>
+            </Select>
+            {inputAdmin === "" ? null
+            :
+            <CloseSharpIcon
+            sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
+            onClick={() => // CRUZ DEL IS ADMIN SELECTED BUTTON
+              axios.get(`${backendUrl}/users/allUsers`)
               .then((response) => {
+                let arrayForStaticRefresh = []
                 let ww = []
                 let qq = response.data.map(function(e) {
                   return {
@@ -424,64 +437,125 @@ export default function AdminDashboardUsers() {
                   }})
                 qq.forEach(e => ww.push(e))
                 setRows(ww)
+                auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
 
-                if(inputUsername !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === event.target.value))
-                if(inputUsername !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername)))
+                if(inputUsername !== "" &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.disabled ===  inputDisabled))
+                if(inputUsername !== "" &&  inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername)))
 
-                if(inputId !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === event.target.value))
-                if(inputId !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.id.includes(inputId)))
+                if(inputId !== "" &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.disabled === inputDisabled))
+                if(inputId !== "" &&  inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId)))
 
-                if(inputEmail !== "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === event.target.value))
-                if(inputEmail !== "" &&  event.target.value === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+                if(inputEmail !== "" &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.disabled === inputDisabled))
+                if(inputEmail !== "" &&  inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
 
-
-
-                /* console.log("DONE FETCH DEL ADMIN SELECT") */
-              })
-
+                console.log("CONSOLE LOG DEL LA X DEL ADMIN")
+              }).then(setInputAdmin("")).catch(e => console.log(e))
             }
-          >
+            />
+            }
+          </FormControl>
 
-            <MenuItem value={true}>Is Admin</MenuItem>
-            <MenuItem value={false}>Is not Admin</MenuItem>
-          </Select>
-          {inputAdmin === "" ? null
-          :
-          <CloseSharpIcon
-          sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
-          onClick={() =>
-            axios.get(`${backendUrl}/users/allUsers`)
-            .then((response) => {
-              let arrayForStaticRefresh = []
-              let ww = []
-              let qq = response.data.map(function(e) {
-                return {
-                  username: e.username,
-                  id: e.id,
-                  password: e.password,
-                  admin: e.admin,
-                  disabled: e.disabled,
-                  email: e.email,
-                  name: e.name
-                }})
-              qq.forEach(e => ww.push(e))
-              setRows(ww)
-              auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-              setRowsToShow(arrayForStaticRefresh)
-              /* console.log("DONE FETCHHHHHHHHHHHHHHHHHHHHHHHHHHHHH") */
-            }).then(setInputAdmin("")).catch(e => console.log(e))
-          }
-          />
-          }
-        </FormControl>
+        </Box>
 
+        <Box sx={{ marginTop: '1.5vh', marginBottom: '1.5vh' }}  >
+          <FormControl disabled={(inputUsername === "" && inputId === "" && inputEmail === "") ? true : false}>
+            <InputLabel id="demo-simple-select-labell">is Disabled ?</InputLabel>
+            <Select
+              sx={{ width: '10vw' }}
+              labelId="demo-simple-select-labell"
+              id="demo-simple-selectt"
+              value={inputDisabled}
+              label="isDisabled"
+
+              onChange={(event) => // IS DISABLED SELECTED
+
+                setInputDisabled(event.target.value)
+                + axios.get(`${backendUrl}/users/allUsers`)
+                .then((response) => {
+                  let ww = []
+                  let qq = response.data.map(function(e) {
+                    return {
+                      username: e.username,
+                      id: e.id,
+                      password: e.password,
+                      admin: e.admin,
+                      disabled: e.disabled,
+                      email: e.email,
+                      name: e.name
+                    }})
+                  qq.forEach(e => ww.push(e))
+                  setRows(ww)
+
+                  if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin && e.disabled === event.target.value )) // TRIPLE CONDICION TRUE
+                  if (inputId !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin && e.disabled === event.target.value )) // TRIPLE CONDICION TRUE
+                  if (inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin && e.disabled === event.target.value )) // TRIPLE CONDICION TRUE
+
+                  if (inputUsername !== "" &&  inputAdmin === "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.disabled === event.target.value )) // DOBLE CONDICION TRUE
+                  if (inputId !== "" &&  inputAdmin === "" &&  (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.disabled === event.target.value )) // DOBLE CONDICION TRUE
+                  if (inputEmail !== "" &&  inputAdmin === "" && (event.target.value === true || event.target.value === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.disabled === event.target.value )) // DOBLE CONDICION TRUE
+
+
+
+
+
+                  console.log("CONSOLE LOG DEL DISABLED SELECT (OPTIONS)")
+                })
+
+              }
+            >
+
+              <MenuItem value={true}>Is Disabled</MenuItem>
+              <MenuItem value={false}>Is not Disabled</MenuItem>
+            </Select>
+            {inputDisabled === "" ? null
+            :
+            <CloseSharpIcon
+            sx={{ position: 'absolute', width: '3vw', height: '3vh' , marginTop: '1.5vh'}}
+
+
+            onClick={() =>  // CRUZ DEL DISABLED BUTTON
+              axios.get(`${backendUrl}/users/allUsers`)
+              .then((response) => {
+                let arrayForStaticRefresh = []
+                let ww = []
+                let qq = response.data.map(function(e) {
+                  return {
+                    username: e.username,
+                    id: e.id,
+                    password: e.password,
+                    admin: e.admin,
+                    disabled: e.disabled,
+                    email: e.email,
+                    name: e.name
+                  }})
+                qq.forEach(e => ww.push(e))
+                setRows(ww)
+                auxiliar.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
+
+                if(inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin ===  inputAdmin))
+                if(inputUsername !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername)))
+
+                if(inputId !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin ===  inputAdmin))
+                if(inputId !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.id.includes(inputId)))
+
+                if(inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin))
+                if(inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+
+
+                console.log("CONSOLE LOG DE LA X DE DISABLED")
+              }).then(setInputDisabled("") + console.log("BBB")).catch(e => console.log(e))
+            }
+            />
+            }
+          </FormControl>
+
+        </Box>
       </Box>
-
       <Box sx={{ borderBottom: 0 , width: '100vw' , fontSize: 'large', backgroundColor: deepPurple[200] , height: '1vh'}} align="center" >
       </Box>
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center' , height: '3vh' , backgroundColor: deepPurple[800] , padding: '0vw 1vw 0vw'}} >
-        
-        
+
+
       </Box>
       <Box sx={{ width: '100vw' , backgroundColor: deepPurple[800] }} >
         <Paper sx={{ width: '100vw', mb: 2 }} >
@@ -533,13 +607,80 @@ export default function AdminDashboardUsers() {
                           <TableCell sx={{ width: '30vw' }} align="center">
                             {row.email}
                           </TableCell>
-                          <TableCell sx={{ width: '15vw' }} align="center">
-                            <Checkbox /* PASSWORD COLUMN */
+                          <TableCell sx={{ width: '11vw' }} align="center">
+                            <Checkbox /* ADMIN COLUMN */
                               color="primary"
-                              checked={!!row.password}
-                              onClick={!!row.password ? () => changePassword(rows[rows.indexOf(row)].id).then(function() {
-                                axios.get(`${backendUrl}/users/allUsers`)
+                              checked={row.admin}
+
+                                  /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
+                                   /* + adminNotifier( row.email , row.name , !row.admin) */
+
+                                  onClick={ () =>
+                                    (changeAdmin(row.id, row.admin)  )
+                                    .then(() => adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin))
+                                    
+                                    /* .then(() => console.log("ADMINN", row.admin)) */
+                                    .then(async () => await axios.get(`${backendUrl}/users/allUsers`)
+                                    .then((response) => {
+
+                                      let ww = []
+                                      let qq = response.data.map(function(e) {
+                                        return {
+                                          username: e.username,
+                                          id: e.id,
+                                          uid: e.uid,
+                                          password: e.password,
+                                          admin: e.admin,
+                                          disabled: e.disabled,
+                                          email: e.email,
+                                          name: e.name
+                                        }})
+                                      qq.forEach(e => ww.push(e))
+                                      setRows(ww)
+
+
+                                  if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+                                  if (inputId !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+                                  if (inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+
+                                  if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) && inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin)) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
+                                  if (inputId !== ""  &&  (inputAdmin === true || inputAdmin === false)  && inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin )) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
+                                  if (inputEmail !== ""  &&  (inputAdmin === true || inputAdmin === false) && inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin)) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
+
+                                  if (inputUsername !== "" &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
+                                  if (inputId !== ""   &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId)  && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
+                                  if (inputEmail !== ""   &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
+
+                                  if (inputUsername !== "" &&  inputAdmin === "" && inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername))) // UNA CONDICION TRUE(CON ADMIN Y DISABLED EN "")
+                                  if (inputId !== "" &&  inputAdmin === "" && inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId))) // UNA CONDICION TRUE(CON ADMIN Y DISABLED EN "")
+                                  if (inputEmail !== "" &&  inputAdmin === "" && inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail))) // UNA CONDICION TRUE(CON ADMIN Y DISABLED EN "")
+
+                                  if (inputUsername === "" && inputId === "" && inputEmail === "" && inputAdmin === "" && inputDisabled === "") setRowsToShow(ww) // TRES CONDICIONES EN ""
+
+                                      console.log("CONSOLE LOG DEL ADMIN COLUMN SELECT")
+                                    }).then(() => adminNotifier( row.email , row.name , !row.admin)))
+                                  }
+
+
+                            />
+                          </TableCell>
+                          <TableCell sx={{ width: '11vw' }} align="center">
+                            <Checkbox /* DISABLED COLUMN */
+                              color="primary"
+                              checked={row.disabled}
+
+                              /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled)
+                                  disabledNotifier( row.email , row.name , !!row.disabled) */
+
+                              onClick={ () =>
+                                (changeDisabled(row.id, row.disabled) /* +  disabledNotifier( row.email , row.name , !!row.disabled) */ )
+                                .then(() => adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled) )
+                                
+                                
+                                /* .then(() => console.log("ADMINN", row.admin)) */
+                                .then(async () => await axios.get(`${backendUrl}/users/allUsers`)
                                 .then((response) => {
+
                                   let ww = []
                                   let qq = response.data.map(function(e) {
                                     return {
@@ -554,86 +695,29 @@ export default function AdminDashboardUsers() {
                                     }})
                                   qq.forEach(e => ww.push(e))
                                   setRows(ww)
-                                  /* console.log("DONE FETCH") */
-                                  passwordNotifier( row.email , row.name )
-                                }).catch(e => console.log(e))
-                              }) : null}
-                            />
-                          </TableCell>
-                          <TableCell sx={{ width: '11vw' }} align="center">
-                            <Checkbox /* ADMIN COLUMN */
-                              color="primary"
-                              checked={row.admin}
-                                  /* adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER ADMIN", !row.admin) */
-                                   /* + adminNotifier( row.email , row.name , !row.admin) */
-                                  onClick={ () =>
-                                    (changeAdmin(row.id, row.admin))
-                                    /* .then(() => console.log("ADMINN", row.admin)) */
-                                    axios.get(`${backendUrl}/users/allUsers`)
-                                    .then((response) => {
 
-                                      let ww = []
-                                      let qq = response.data.map(function(e) {
-                                        return {
-                                          username: e.username,
-                                          id: e.id,
-                                          password: e.password,
-                                          admin: e.admin,
-                                          disabled: e.disabled,
-                                          email: e.email,
-                                          name: e.name
-                                        }})
-                                      qq.forEach(e => ww.push(e))
-                                      setRows(ww)
-                                      if(inputUsername === "" &&  inputId === "" &&  inputEmail === "" && inputAdmin === "") setRowsToShow(ww)
+                                  if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+                                  if (inputId !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
+                                  if (inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false) &&  (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin && e.disabled === inputDisabled )) // TRIPLE CONDICION TRUE
 
-                                      if(inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin ===  inputAdmin))
-                                      if(inputUsername !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername)))
+                                  if (inputUsername !== "" &&  (inputAdmin === true || inputAdmin === false) && inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.admin === inputAdmin)) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
+                                  if (inputId !== ""  &&  (inputAdmin === true || inputAdmin === false)  && inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin === inputAdmin )) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
+                                  if (inputEmail !== ""  &&  (inputAdmin === true || inputAdmin === false) && inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin)) // DOBLE CONDICION TRUE (CON ADMIN EN TRUE/FALSE)
 
-                                      if(inputId !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId) && e.admin ===  inputAdmin))
-                                      if(inputId !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.id.includes(inputId)))
+                                  if (inputUsername !== "" &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.username.includes(inputUsername) && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
+                                  if (inputId !== ""   &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.id.includes(inputId)  && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
+                                  if (inputEmail !== ""   &&  inputAdmin === "" && (inputDisabled === true || inputDisabled === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.disabled === inputDisabled)) // DOBLE CONDICION TRUE (CON DISABLED EN TRUE/FALSE)
 
-                                      if(inputEmail !== "" &&  (inputAdmin === true || inputAdmin === false)) setRowsToShow(ww.filter(e => e.email.includes(inputEmail) && e.admin === inputAdmin))
-                                      if(inputEmail !== "" &&  inputAdmin === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)))
+                                  if (inputUsername !== "" &&  inputAdmin === "" && inputDisabled === "") setRowsToShow(ww.filter(e => e.username.includes(inputUsername))) // UNA CONDICION TRUE(CON ADMIN Y DISABLED EN "")
+                                  if (inputId !== "" &&  inputAdmin === "" && inputDisabled === "") setRowsToShow(ww.filter(e => e.id.includes(inputId))) // UNA CONDICION TRUE(CON ADMIN Y DISABLED EN "")
+                                  if (inputEmail !== "" &&  inputAdmin === "" && inputDisabled === "") setRowsToShow(ww.filter(e => e.email.includes(inputEmail)), console.log(inputEmail)) // UNA CONDICION TRUE(CON ADMIN Y DISABLED EN "")
 
+                                  if (inputUsername === "" && inputId === "" && inputEmail === "" && inputAdmin === "" && inputDisabled === "") setRowsToShow(ww) // TRES CONDICIONES EN ""
 
+                                  console.log("CONSOLE LOG DEL DISABLED COLUMN")
+                                }).then(() => disabledNotifier( row.email , row.name , !!row.disabled)))
+                              }
 
-                                      /* console.log("DONE FETCH DEL CHECKBOX ADMIN") */
-                                    }))
-                                  }
-                            />
-                          </TableCell>
-                          <TableCell sx={{ width: '11vw' }} align="center">
-                            <Checkbox /* DISABLED COLUMN */
-                              color="primary"
-                              checked={row.disabled}
-                              onClick={() => changeDisabled(rows[rows.indexOf(row)].id, rows[rows.indexOf(row)].disabled).then(async function() {
-                                axios.get(`${backendUrl}/users/allUsers`)
-                                .then(async (response) => {
-                                  let arrayForStaticRefresh = []
-                                  let ww = []
-                                  let qq = await response.data.map(function(e) {
-                                    return {
-                                      username: e.username,
-                                      id: e.id,
-                                      uid: e.uid,
-                                      password: e.password,
-                                      admin: e.admin,
-                                      disabled: e.disabled,
-                                      email: e.email,
-                                      name: e.name
-                                    }})
-                                  qq.forEach(e => ww.push(e))
-                                  setRows(ww)
-                                  rowsToShow.forEach(el => arrayForStaticRefresh.push((ww.filter(e => el.id === e.id))[0]))
-                                  arrayForStaticRefresh = arrayForStaticRefresh2
-                                  setRows(arrayForStaticRefresh)
-                                  setRowsToShow(arrayForStaticRefresh)
-                                 /*  console.log("DONE FETCH") */
-                                  adminChanges(currentAdmin.id, currentAdmin.email, row.id, row.email, null, null, "USER DISABLED", !row.disabled)
-                                  disabledNotifier( row.email , row.name , !!row.disabled)
-                                }).catch(e => console.log(e))
-                              })}
                             />
                           </TableCell>
                         </TableRow>
@@ -658,7 +742,7 @@ export default function AdminDashboardUsers() {
             />
         </Paper>
       </Box>
-      
+
       <Box sx={{ display: 'flex' , flexDirection: 'row' , justifyContent: 'space-around' , alignItems: 'center' , height: '9vh' , backgroundColor: deepPurple[800]}}>
         <Box sx={{ color: "white" }}>
           <FormControlLabel
