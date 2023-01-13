@@ -22,10 +22,11 @@ import axios from 'axios';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 require("dotenv").config();
+const backendUrl = process.env.URL_BACKEND_DEPLOY || "http://localhost:3001"
 
 export default function AdminDashboardCoins() {
-  //const backendUrl = "http://localhost:3001"
-  const backendUrl = "https://todox2cripto-backend.onrender.com"
+  // const backendUrl = "http://localhost:3001"
+  // const backendUrl = "https://todox2cripto-backend.onrender.com"
 
   let [currentAdmin, setCurrentAdmin] = useState({});
   let [rows, setRows] = useState([]);
