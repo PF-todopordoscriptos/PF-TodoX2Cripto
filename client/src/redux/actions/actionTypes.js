@@ -34,4 +34,5 @@ export const GET_ALL_TRANSACTIONS = "GET_ALL_TRANSACTIONS";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_WALLET = "GET_WALLET";
 export const GET_COINS_FROM_DB = "GET_COINS_FROM_DB";
-export const SEND_MAIL = "SEND_MAIL"
+export const SEND_MAIL = "SEND_MAIL";
+export const DELETE_COIN_CART= "DELETE_COIN_CART";

@@ -382,6 +382,12 @@ export function rootReducer(state = initialState, action) {
       };
     }
 
+    case DELETE_COIN_CART: {
+      return{
+        ...state,
+      };
+    }
+
     default:
       return state;
   }

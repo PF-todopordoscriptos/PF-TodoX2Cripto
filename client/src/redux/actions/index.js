@@ -26,7 +26,7 @@ import {
   GET_ALL_COMMENTS,
   GET_USER_CART,
   CLEAR_CART,
-  DELETE_COMMENT,
+  // DELETE_COMMENT,
   GET_ALL_TRANSACTIONS,
   GET_ALL_USERS,
   // CREATE_WARNING,
@@ -35,7 +35,8 @@ import {
   // DELETE_COMMENT,
   GET_WALLET,
   GET_COINS_FROM_DB,
-  SEND_MAIL
+  // SEND_MAIL,
+  // DELETE_COIN_CART,
 } from "./actionTypes";
 
 const baseUrl = "http://localhost:3001";
@@ -386,3 +387,13 @@ export function sendMail(email) {
     return json;
   };
 }
+
+export function deleteCoinCart(id){
+  return async function () {
+    try {
+      return await axios.delete(`${baseUrl}/users/deleteCoinCart/${id}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+};

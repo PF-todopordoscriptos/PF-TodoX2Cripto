@@ -11,6 +11,7 @@ import {
   getUserInfo,
   getCartUser,
   deleteCartUser,
+  deleteCoinCart,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -27,6 +28,9 @@ const ShoppingCart = () => {
   const [user, setUser] = useState({
     email: "",
   });
+
+  const[ayudin, setAyudin] = useState(true)
+
   console.log(userCart);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -45,7 +49,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     dispatch(getCartUser(userInfo.id));
-  }, [userInfo]);
+  }, [userInfo, ayudin]);
 
   useEffect(() => {
     dispatch(getAllCoins());
@@ -83,6 +87,11 @@ const ShoppingCart = () => {
       };
     });
     return ww;
+  }
+
+  const removeCoin = (id) =>{
+    dispatch(deleteCoinCart(id))
+    setAyudin(!ayudin)
   }
 
   console.log("LOCAL STORAGE", localStorage.getItem("store").length);
@@ -169,6 +178,7 @@ const ShoppingCart = () => {
                   <label>{i.idCoin.toUpperCase()}</label>
                   <label>Cantidad: {i.quantity}</label>
                   <label>{i.price.toFixed(2)} USD</label>
+                  <button type="button" onClick={() => removeCoin(i.id)} className="button-eliminar">X</button>
                 </div>
               );
             })
