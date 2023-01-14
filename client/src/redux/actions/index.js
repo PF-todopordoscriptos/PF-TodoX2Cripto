@@ -26,7 +26,7 @@ import {
   GET_ALL_COMMENTS,
   GET_USER_CART,
   CLEAR_CART,
-  DELETE_COMMENT,
+  // DELETE_COMMENT,
   GET_ALL_TRANSACTIONS,
   GET_ALL_USERS,
   // CREATE_WARNING,
@@ -35,12 +35,12 @@ import {
   // DELETE_COMMENT,
   GET_WALLET,
   GET_COINS_FROM_DB,
-  SEND_MAIL,
-  CLEAR_DETAIL
+  // SEND_MAIL,
+  // DELETE_COIN_CART
 } from "./actionTypes";
 
-//const baseUrl = "http://localhost:3001";
-const baseUrl = "https://todox2cripto-backend.onrender.com";
+const baseUrl = "http://localhost:3001";
+// const baseUrl = "https://todox2cripto-backend.onrender.com";
 
 
 export function getTrendingCoins() {
@@ -388,9 +388,14 @@ export function sendMail(email) {
   };
 }
 
-export function clearDetail(payload){
-  return{
-      type: CLEAR_DETAIL,
-      payload: payload
-  }
-}
+export function deleteCoinCart(id){
+  return async function () {
+    try {
+      return await axios.delete(`${baseUrl}/users/deleteCoinCart/${id}`);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+};
+
+//hola chicos

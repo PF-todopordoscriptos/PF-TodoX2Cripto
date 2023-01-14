@@ -36,7 +36,8 @@ import {
   GET_WALLET,
   GET_COINS_FROM_DB,
   SEND_MAIL,
-  CLEAR_DETAIL
+  CLEAR_DETAIL,
+  DELETE_COIN_CART,
 } from "../actions/actionTypes";
 
 export const initialState = {
@@ -387,6 +388,12 @@ export function rootReducer(state = initialState, action) {
         ...state,
         coinDetails: {}
       }
+    }
+
+    case DELETE_COIN_CART: {
+      return{
+        ...state,
+      };
     }
 
 

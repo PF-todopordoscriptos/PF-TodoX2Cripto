@@ -19,7 +19,7 @@ const {
   getWalletUser,
 } = require("../controllers/controllers.js");
 
-const { User } = require("../db");
+const { User,Cart } = require("../db");
 
 const { getAuth } = require("firebase-admin/auth");
 const { firebaseApp } = require("../firebase/firebase.js");
@@ -212,6 +212,18 @@ router.post("/addTransactionCart", async (req, res) => {
     res.status(404).send(e.message);
   }
 });
+
+router.delete("/deleteCoinCart/:id", async (req,res) => {
+  try{
+    const { id } = req.params;
+    const resp2 = await Cart.destroy({
+      where: {id}
+    })
+    res.status(200).send(`${resp2} coins removes`)
+}catch(e){
+    res.status(404).send(e.message)
+}
+})
 
 router.get("/transactionCart/:idUser", async (req, res) => {
   try {

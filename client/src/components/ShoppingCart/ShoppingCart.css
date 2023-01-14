@@ -89,3 +89,13 @@
 .carrito-vacio {
   font-size: 30px;
 }
+
+.button-eliminar{
+  width: 2rem;
+  background-color: rgb(250, 73, 73);
+  border-radius: 0.5rem;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
