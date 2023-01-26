@@ -359,7 +359,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Facundo Monllor"
-              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307271/1668525992950_ae2slm.jpg"
+              src="https://res.cloudinary.com/dkbp6rk0s/image/upload/v1674618892/facu-cv-cuadrado_snikmf.jpg"
               sx={{
                 mt: -10,
                 width: 150,
@@ -421,7 +421,7 @@ const Developers = () => {
           >
             <Avatar
               alt="Ramiro Monllor"
-              src="https://res.cloudinary.com/dpb5vf1q1/image/upload/v1673307183/1658597397093_ndy0m0.jpg"
+              src="https://res.cloudinary.com/dkbp6rk0s/image/upload/v1674618887/rami-cv-cuadrado_opdomq.jpg"
               sx={{
                 mt: -10,
                 width: 150,
